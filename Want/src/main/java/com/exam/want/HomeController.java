@@ -1,5 +1,6 @@
 package com.exam.want;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -13,9 +14,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import com.oreilly.servlet.MultipartRequest;
 
 import com.exam.config.SqlMapperInter;
-//import com.exam.model1.BoardDAO;
+import com.exam.model1.UserTO;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+import com.exam.model1.UserDAO;
 //import com.exam.model1.BoardListTO;
 //import com.exam.model1.CommentDAO;
 
@@ -25,12 +29,12 @@ import com.exam.config.SqlMapperInter;
 @Controller
 public class HomeController {
 	
-//	@Autowired
-//	private BoardDAO dao;
+	@Autowired
+	private UserDAO dao;
 //	@Autowired
 //	private CommentDAO cdao;
-//	private String uploadPath = "C:\\KICKIC\\kic-workspace\\Want\\src\\main\\webapp\\upload";
-//	
+	private String uploadPath = "C:\\Users\\wjdgu\\Desktop\\코딩\\1. [메인프로젝트]\\02. 기획\\Want\\src\\main\\webapp\\upload";
+
 //	@Autowired
 //	private SqlMapperInter sqlMapperInter;
 	
@@ -56,6 +60,42 @@ public class HomeController {
 	@RequestMapping(value = "/signupForm.do")
 	public String signupForm(Model model) {
 		return "signupForm";
+	}
+	
+	// signup_ok
+	@RequestMapping(value = "/signup_ok.do")
+	public String signup_ok(HttpServletRequest request, Model model) {
+		
+		int maxFileSize = 1024 * 1024 * 6;
+	       String encType = "utf-8";
+	       
+	       MultipartRequest multi = null;
+	      
+	       try {
+	         multi = new MultipartRequest(request, uploadPath, maxFileSize, encType, new DefaultFileRenamePolicy());
+	         
+	         
+	         UserTO to = new UserTO();
+	         to.setId(multi.getParameter("id"));
+	         to.setPwd(multi.getParameter("pwd"));
+	         to.setName(multi.getParameter("name"));
+	         to.setBirth(multi.getParameter("birth"));
+	         to.setMail(multi.getParameter("mail"));
+	         to.setPhone(multi.getParameter("phone"));
+	         to.setNick(multi.getParameter("nick"));
+	         to.setProfile(multi.getParameter("profile"));
+	         to.setGreet(multi.getParameter("greet"));
+
+	         
+	         int flag = dao.signup_ok(to);
+	         
+	         model.addAttribute("flag", flag);
+	      } catch (IOException e) {
+	         // TODO Auto-generated catch block
+	         e.printStackTrace();
+	      }
+	       
+		return "signup_ok";
 	}
 	
 	
