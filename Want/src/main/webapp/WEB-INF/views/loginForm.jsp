@@ -25,7 +25,7 @@
 	<br /><br /><br /><br />
 
 <div class="login-form">
-    <form action="#" method="post" class="form-horizontal">
+    <form action="loginForm_ok.do" method="post" class="form-horizontal">
       	<div class="row">
         	<div class="col-8 offset-4">
 				<h2>로그인</h2>

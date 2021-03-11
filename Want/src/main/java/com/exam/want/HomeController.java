@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,9 +18,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.oreilly.servlet.MultipartRequest;
 
 import com.exam.config.SqlMapperInter;
+
 import com.exam.model1.UserTO;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import com.exam.model1.UserDAO;
+
+
 //import com.exam.model1.BoardListTO;
 //import com.exam.model1.CommentDAO;
 
@@ -30,7 +34,11 @@ import com.exam.model1.UserDAO;
 public class HomeController {
 	
 	@Autowired
-	private UserDAO dao;
+	private UserDAO userDao;
+	
+//	@Autowired
+//	private BoardDAO dao;
+
 //	@Autowired
 //	private CommentDAO cdao;
 	private String uploadPath = "C:\\Users\\wjdgu\\Desktop\\코딩\\1. [메인프로젝트]\\02. 기획\\Want\\src\\main\\webapp\\upload";
@@ -50,10 +58,44 @@ public class HomeController {
 //		return "board_list1";
 //	}
 	
-	// 로그인
+	// 로그인폼
 	@RequestMapping(value = "/loginForm.do")
-	public String loginForm(Model model) {
+	public String loginForm( Model model ) {
 		return "loginForm";
+	}
+	
+	//로그인ok폼
+	@RequestMapping(value = "/loginForm_ok.do" )
+	public String loginForm_ok( HttpServletRequest request, HttpServletResponse response ) {
+		
+		int flag = 2;
+		UserTO userTo = new UserTO();
+		
+		String id = request.getParameter( "id" );
+		String pwd = request.getParameter( "password" );
+		userTo.setId(id);
+		userTo.setPwd(pwd);
+		
+		int result_lookup = userDao.loginLookup( userTo );
+		if( result_lookup == 1 ) {	//회원있음
+
+			int result_ok = userDao.loginOk( userTo );
+			if( result_ok == 1 ) {	//비번맞음
+				flag = 0;
+			} else if( result_ok == 0 ) {	//비번틀림
+				flag = 1;
+			} else {	//기타오류
+				flag = 3;
+			}
+			
+		} else if ( result_lookup == 0 ) {	//회원없음
+			flag = 2;
+		} else {	//기타오류
+			flag = 3;
+		}
+		request.setAttribute( "flag", flag );
+		
+		return "loginForm_ok";
 	}
 	
 	// 회원가입
@@ -87,7 +129,7 @@ public class HomeController {
 	         to.setGreet(multi.getParameter("greet"));
 
 	         
-	         int flag = dao.signup_ok(to);
+	         int flag = userDao.signup_ok(to);
 	         
 	         model.addAttribute("flag", flag);
 	      } catch (IOException e) {

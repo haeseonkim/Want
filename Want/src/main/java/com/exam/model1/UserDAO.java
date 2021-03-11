@@ -18,9 +18,23 @@ public class UserDAO {
 
 	@Autowired
 	private SqlSession sqlSession;
+	
+	////login
+	//회원있는지 여부 확인
+	public Integer loginLookup( UserTO userTo ) {
+		int result = sqlSession.selectOne( "login_lookup", userTo );
+		return result;
+	}
+	
+	//회원 비번 맞는지 확인
+	public Integer loginOk( UserTO userTo ) {
+		int result = sqlSession.selectOne( "login_ok", userTo );
+		return result;
+	}
 
 	// writer - dao 통과 안해도됨
-	public void boardWrite() {
+	public void boardWrite( UserTO userTo ) {
+		
 	}
 
 	// writer_ok - flag 값있어야함

@@ -14,6 +14,7 @@ public interface SqlMapperInter {
 	
 	public abstract void login(UserTO to);
 	public abstract int login_ok(UserTO to);
+	public abstract int login_lookup(UserTO to);
 	
 //	public abstract ArrayList<BoardTO> list();
 //	public abstract void write(BoardTO to);
