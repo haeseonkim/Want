@@ -8,9 +8,19 @@
 	</insert>
 
 	<!-- login -->
-	<select id="login" resultType="com.exam.model1.UserTO">  login(to)
-		select id from user 
-		where id=#{id} and password=#{password} 
+	<!-- 회원있는지 여부확인 -->
+	<select id="login_lookup" parameterType="com.exam.model1.UserTO" 
+		resultType="Int">
+		select count( id )
+		from user 
+		where id like #{ id };
+	</select>
+	
+	<select id="login_ok" parameterType="com.exam.model1.UserTO" 
+		resultType="Int">  
+		select count(*)
+		from user 
+		where id like #{id} and pwd like #{pwd} 
 	</select>
 	
 </mapper>
