@@ -2,17 +2,46 @@
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
+<%
+	if( request.getAttribute( "flag" ) != null && !request.getAttribute( "flag" ).equals( "" ) ) {
+		int flag = (Integer)request.getAttribute( "flag" );
+		
+		out.println( " <script type='text/javascript'> " );
+		if( flag == 0 ) {	//로그인성공
+			out.println( " alert('로그인에 성공했습니다.'); " );
+			out.println( " location.href='./lanTrip_list.do'" );
+		} else if( flag == 1 ) {	//비번틀림
+			out.println( " alert('비밀번호가 틀립니다.'); " );
+			out.println( " location.href='./loginForm.do' " );
+		} else if( flag == 2 ) {	//회원정보없음
+			out.println( " alert('회원정보가 없습니다. 회원가입해주세요.'); " );
+			out.println( " location.href='./loginForm.do' " );
+		} else {					//기타 에러났을 때 또는 맨처음 시작
+			out.println( " location.href='./loginForm.do' " );
+		}
+		out.println( " </script> " );
+	}
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Want 로그인</title>
 	
 <jsp:include page="./include/index.jsp"></jsp:include>
 
 <!-- CSS File -->
 <link href="./resources/css/loginForm.css" rel="stylesheet"/>
 <link href="./resources/css/navbar.css" rel="stylesheet">
+
+<script type="text/javascript">
+	window.onload = function() {
+		document.getElementById('login_submit').onclick = function() {
+			document.login_frm.submit();
+		}
+	}
+</script>
 
 </head>
 <body>
@@ -25,7 +54,8 @@
 	<br /><br /><br /><br />
 
 <div class="login-form">
-    <form action="loginForm_ok.do" method="post" class="form-horizontal">
+    <form method="post" class="form-horizontal" name="login_frm">
+    	<input type="hidden" name="login_ok" value="1"/>  <!-- form넘어갈때 얘도 같이넘어가서 회원정보비교함   -->
       	<div class="row">
         	<div class="col-8 offset-4">
 				<h2>로그인</h2>
@@ -45,8 +75,7 @@
             </div>        	
         </div>
 		<div class="form-group row">
-			
-			<button type="submit" class="btn btn-primary btn-lg">로그인</button>
+			<button type="submit" id="login_submit" class="btn btn-primary btn-lg">로그인</button>
 		</div>		
 		
 		<div class="form-group row">
