@@ -72,4 +72,5 @@ public class UserTO {
    public void setGreet(String greet) {
       this.greet = greet;
    }
+
 }

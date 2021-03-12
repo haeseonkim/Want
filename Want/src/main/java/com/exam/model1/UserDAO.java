@@ -135,4 +135,17 @@ public class UserDAO {
 
 		return flag;
 	}
+	
+	// 정현수 수정
+	// signup_ok - flag 값있어야함
+	public int signup_ok(UserTO to) {
+		int flag = 1;
+
+		int result = sqlSession.insert("signup_ok", to);
+		if (result == 1) {
+			flag = 0;
+		}
+		return flag;
+	}
+	// 정현수 수정 끝
 }
