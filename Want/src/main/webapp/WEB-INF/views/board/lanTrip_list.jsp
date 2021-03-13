@@ -94,7 +94,7 @@
 	<section id="card">
 		<div class="card-container">
 			<div class="row">
-				<div class="col">
+				<div class="col-sm">
 					<div class="card" style="width: 30rem;">
   						<video src="https://codingyaar.com/wp-content/uploads/video-in-bootstrap-card.mp4" controls></video>
   						<div class="card-body">
@@ -104,7 +104,7 @@
   						</div>
 					</div>
 				</div>
-				<div class="col">
+				<div class="col-sm">
 					<div class="card" style="width: 30rem;">
   						<video src="https://codingyaar.com/wp-content/uploads/video-in-bootstrap-card.mp4" controls></video>
   						<div class="card-body">
@@ -114,7 +114,7 @@
   						</div>
 					</div>
 				</div>
-				<div class="col">
+				<div class="col-sm">
 					<div class="card" style="width: 30rem;">
   						<video src="https://codingyaar.com/wp-content/uploads/video-in-bootstrap-card.mp4" controls></video>
   						<div class="card-body">
@@ -124,7 +124,7 @@
   						</div>
 					</div>
 				</div>
-				<div class="col">
+				<div class="col-sm">
 					<div class="card" style="width: 30rem;">
   						<video src="https://codingyaar.com/wp-content/uploads/video-in-bootstrap-card.mp4" controls></video>
   						<div class="card-body">
@@ -134,7 +134,7 @@
   						</div>
 					</div>
 				</div>
-				<div class="col">
+				<div class="col-sm">
 					<div class="card" style="width: 30rem;">
   						<video src="https://codingyaar.com/wp-content/uploads/video-in-bootstrap-card.mp4" controls></video>
   						<div class="card-body">
