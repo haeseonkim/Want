@@ -21,25 +21,29 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-<!-- 캐러셀 스타일 -->
 <style type="text/css">
 
-.carousel{
-   		display : block;
-   		margin-left : auto;
-   		margin-right : auto;
-   		margin-top : auto;
-   		
-   		width: 40%;
-   }
-   
-   .carousel-inner img {
-   		width: 100%;
-   		height: auto;
-   }
-   
-</style>
+.carousel-container {
+	padding: 15px;
+	margin-top : 100px;
+}
+.carousel {
+   	display : block;
+   	margin-left : auto;
+   	margin-right : auto;
+   	margin-top : auto;   		
+   	width: 40%;
+}
+.carousel-inner img {
+   	width: 100%;
+   	height: auto;
+}
 
+.card-container {
+	padding: 30px;
+	margin-top : 10px;
+}
+</style>
 </head>
 <body>
 	<!-- 메뉴바 
@@ -49,53 +53,204 @@
 	</jsp:include>
 	
 	<br /><br /><br />
-
-	<div class="container">
-		<div id="myCarousel" class="carousel slide" data-ride="carousel">
-			<!-- Indicators -->
-			<ol class="carousel-indicators">
-				<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-				<li data-target="#myCarousel" data-slide-to="1"></li>
-				<li data-target="#myCarousel" data-slide-to="2"></li>
-			</ol>
-
-			<!-- Wrapper for slides -->
-			<div class="carousel-inner">
-
-				<div class="item active">
-					<img src="./upload/lanTrip/img1.jpg" alt="Paris" class="img-responsive">
-					<div class="carousel-caption">
-						<h3>Paris</h3>						
+	<section id=carousel>
+		<div class="carousel-container">
+			<div id="myCarousel" class="carousel slide" data-ride="carousel">				
+				<!-- Wrapper for slides -->
+				<div class="carousel-inner">
+					<div class="item active">
+						<img src="./upload/lanTrip/img1.jpg" alt="Paris" class="img-responsive">
+						<div class="carousel-caption">
+							<h3>Paris</h3>						
+						</div>
+					</div>
+					<div class="item">
+						<img src="./upload/lanTrip/img3.jpg" alt="Positano" class="img-responsive">
+						<div class="carousel-caption">
+							<h3>Positano</h3>
+						</div>
+					</div>
+					<div class="item">
+						<img src="./upload/lanTrip/img4.jpg" alt="London" class="img-responsive">
+						<div class="carousel-caption">
+							<h3>London</h3>
+						</div>
 					</div>
 				</div>
-
-				<div class="item">
-					<img src="./upload/lanTrip/img3.jpg" alt="Positano" class="img-responsive">
-					<div class="carousel-caption">
-						<h3>Positano</h3>
-					</div>
-				</div>
-
-				<div class="item">
-					<img src="./upload/lanTrip/img4.jpg" alt="London" class="img-responsive">
-					<div class="carousel-caption">
-						<h3>London</h3>
-					</div>
-				</div>
-
+				<!-- Left and right controls -->
+				<a class="left carousel-control" href="#myCarousel" data-slide="prev">
+					<span class="glyphicon glyphicon-chevron-left"></span> 
+					<span class="sr-only">Previous</span>
+				</a> 
+				<a class="right carousel-control" href="#myCarousel" data-slide="next"> 
+					<span class="glyphicon glyphicon-chevron-right"></span> 
+					<span class="sr-only">Next</span>
+				</a>
 			</div>
-
-			<!-- Left and right controls -->
-			<a class="left carousel-control" href="#myCarousel" data-slide="prev">
-				<span class="glyphicon glyphicon-chevron-left"></span> <span
-				class="sr-only">Previous</span>
-			</a> <a class="right carousel-control" href="#myCarousel"
-				data-slide="next"> <span
-				class="glyphicon glyphicon-chevron-right"></span> <span
-				class="sr-only">Next</span>
-			</a>
 		</div>
-	</div>
-
+	</section>
+	
+	<%-- card --%>
+	<section id="card">
+		<div class="card-container">
+			<div class="row">
+				<div class="col">
+					<div class="card" style="width: 30rem;">
+  						<video src="https://codingyaar.com/wp-content/uploads/video-in-bootstrap-card.mp4" controls></video>
+  						<div class="card-body">
+    						<h5 class="card-title">Card title</h5>
+    						<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    						<a href="#" class="btn btn-primary">Go somewhere</a>
+  						</div>
+					</div>
+				</div>
+				<div class="col">
+					<div class="card" style="width: 30rem;">
+  						<video src="https://codingyaar.com/wp-content/uploads/video-in-bootstrap-card.mp4" controls></video>
+  						<div class="card-body">
+    						<h5 class="card-title">Card title</h5>
+    						<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    						<a href="#" class="btn btn-primary">Go somewhere</a>
+  						</div>
+					</div>
+				</div>
+				<div class="col">
+					<div class="card" style="width: 30rem;">
+  						<video src="https://codingyaar.com/wp-content/uploads/video-in-bootstrap-card.mp4" controls></video>
+  						<div class="card-body">
+    						<h5 class="card-title">Card title</h5>
+    						<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    						<a href="#" class="btn btn-primary">Go somewhere</a>
+  						</div>
+					</div>
+				</div>
+				<div class="col">
+					<div class="card" style="width: 30rem;">
+  						<video src="https://codingyaar.com/wp-content/uploads/video-in-bootstrap-card.mp4" controls></video>
+  						<div class="card-body">
+    						<h5 class="card-title">Card title</h5>
+    						<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    						<a href="#" class="btn btn-primary">Go somewhere</a>
+  						</div>
+					</div>
+				</div>
+				<div class="col">
+					<div class="card" style="width: 30rem;">
+  						<video src="https://codingyaar.com/wp-content/uploads/video-in-bootstrap-card.mp4" controls></video>
+  						<div class="card-body">
+    						<h5 class="card-title">Card title</h5>
+    						<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    						<a href="#" class="btn btn-primary">Go somewhere</a>
+  						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row mt-5">
+				<div class="col">
+					<div class="card" style="width: 30rem;">
+  						<video src="https://codingyaar.com/wp-content/uploads/video-in-bootstrap-card.mp4" controls></video>
+  						<div class="card-body">
+    						<h5 class="card-title">Card title</h5>
+    						<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    						<a href="#" class="btn btn-primary">Go somewhere</a>
+  						</div>
+					</div>
+				</div>
+				<div class="col">
+					<div class="card" style="width: 30rem;">
+  						<video src="https://codingyaar.com/wp-content/uploads/video-in-bootstrap-card.mp4" controls></video>
+  						<div class="card-body">
+    						<h5 class="card-title">Card title</h5>
+    						<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    						<a href="#" class="btn btn-primary">Go somewhere</a>
+  						</div>
+					</div>
+				</div>
+				<div class="col">
+					<div class="card" style="width: 30rem;">
+  						<video src="https://codingyaar.com/wp-content/uploads/video-in-bootstrap-card.mp4" controls></video>
+  						<div class="card-body">
+    						<h5 class="card-title">Card title</h5>
+    						<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    						<a href="#" class="btn btn-primary">Go somewhere</a>
+  						</div>
+					</div>
+				</div>
+				<div class="col">
+					<div class="card" style="width: 30rem;">
+  						<video src="https://codingyaar.com/wp-content/uploads/video-in-bootstrap-card.mp4" controls></video>
+  						<div class="card-body">
+    						<h5 class="card-title">Card title</h5>
+    						<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    						<a href="#" class="btn btn-primary">Go somewhere</a>
+  						</div>
+					</div>
+				</div>
+				<div class="col">
+					<div class="card" style="width: 30rem;">
+  						<video src="https://codingyaar.com/wp-content/uploads/video-in-bootstrap-card.mp4" controls></video>
+  						<div class="card-body">
+    						<h5 class="card-title">Card title</h5>
+    						<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    						<a href="#" class="btn btn-primary">Go somewhere</a>
+  						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row mt-5">
+				<div class="col">
+					<div class="card" style="width: 30rem;">
+  						<video src="https://codingyaar.com/wp-content/uploads/video-in-bootstrap-card.mp4" controls></video>
+  						<div class="card-body">
+    						<h5 class="card-title">Card title</h5>
+    						<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    						<a href="#" class="btn btn-primary">Go somewhere</a>
+  						</div>
+					</div>
+				</div>
+				<div class="col">
+					<div class="card" style="width: 30rem;">
+  						<video src="https://codingyaar.com/wp-content/uploads/video-in-bootstrap-card.mp4" controls></video>
+  						<div class="card-body">
+    						<h5 class="card-title">Card title</h5>
+    						<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    						<a href="#" class="btn btn-primary">Go somewhere</a>
+  						</div>
+					</div>
+				</div>
+				<div class="col">
+					<div class="card" style="width: 30rem;">
+  						<video src="https://codingyaar.com/wp-content/uploads/video-in-bootstrap-card.mp4" controls></video>
+  						<div class="card-body">
+    						<h5 class="card-title">Card title</h5>
+    						<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    						<a href="#" class="btn btn-primary">Go somewhere</a>
+  						</div>
+					</div>
+				</div>
+				<div class="col">
+					<div class="card" style="width: 30rem;">
+  						<video src="https://codingyaar.com/wp-content/uploads/video-in-bootstrap-card.mp4" controls></video>
+  						<div class="card-body">
+    						<h5 class="card-title">Card title</h5>
+    						<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    						<a href="#" class="btn btn-primary">Go somewhere</a>
+  						</div>
+					</div>
+				</div>
+				<div class="col">
+					<div class="card" style="width: 30rem;">
+  						<video src="https://codingyaar.com/wp-content/uploads/video-in-bootstrap-card.mp4" controls></video>
+  						<div class="card-body">
+   		 					<h5 class="card-title">Card title</h5>
+  		  					<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+   		 					<a href="#" class="btn btn-primary">Go somewhere</a>
+  						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	
 </body>
 </html>
