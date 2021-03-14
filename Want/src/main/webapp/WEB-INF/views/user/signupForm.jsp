@@ -10,7 +10,7 @@
 <title>Want 회원가입</title>
 <!-- 정현수 수정 끝 -->
 	
-<jsp:include page="./include/index.jsp"></jsp:include>
+<jsp:include page="../include/index.jsp"></jsp:include>
 
 <!-- CSS File -->
 <link href="./resources/css/signupForm.css" rel="stylesheet"/>
@@ -23,6 +23,26 @@ window.onload = function() {
           alert('동의를 하셔야 합니다.');
           return false;
        }
+       if(document.sfrm.info.checked == false) {
+           alert('동의를 하셔야 합니다.');
+           return false;
+        }
+       if(document.sfrm.info.checked == false) {
+           alert('동의를 하셔야 합니다.');
+           return false;
+        }
+       if(document.sfrm.info.checked == false) {
+           alert('동의를 하셔야 합니다.');
+           return false;
+        }
+       if(document.sfrm.info.checked == false) {
+           alert('동의를 하셔야 합니다.');
+           return false;
+        }
+       if(document.sfrm.info.checked == false) {
+           alert('동의를 하셔야 합니다.');
+           return false;
+        }
        document.sfrm.submit();
     };
  };
@@ -32,7 +52,7 @@ window.onload = function() {
 <body>
 	<!-- 메뉴바 
 		 현재페이지 뭔지 param.thisPage에 넣어서 navbar.jsp에  던짐 -->
-	<jsp:include page="./include/navbar.jsp">
+	<jsp:include page="../include/navbar.jsp">
 		<jsp:param value="signupForm" name="thisPage" />
 	</jsp:include>
 	
@@ -70,13 +90,13 @@ window.onload = function() {
 			<label class="col-form-label col-4">이름</label>
 			<div class="col-8">
                 <input type="text" class="form-control" name="name" required="required">
-            </div>        	
+            </div>    	
         </div>
         
         <div class="form-group row">
 			<label class="col-form-label col-4">생년월일</label>
 			<div class="col-8">
-                <input type="text" class="form-control" name="birth" place-holder="YYMMDD" required="required">
+                <input type="text" class="form-control" name="birth" placeholder="YYMMDD" required="required">
             </div>        	
         </div>
         
@@ -87,9 +107,9 @@ window.onload = function() {
             </div>        	
         </div>
         <div class="form-group row">
-			<label class="col-form-label col-4">전화번호</label>
+			<label class="col-form-label col-4" >전화번호</label>
 			<div class="col-8">
-                <input type="email" class="form-control" name="phone" required="required">
+                <input type="email" class="form-control" name="phone" required="required"  placeholder="010-0000-0000">
             </div>        	
         </div>
         <div class="form-group row">

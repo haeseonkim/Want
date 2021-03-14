@@ -14,15 +14,24 @@
 <link href="./resources/css/picture_list.css" rel="stylesheet">
 <link href="./resources/css/navbar.css" rel="stylesheet">
 
+<style>
+
+
+
+</style>
+
 </head>
 <body>
+
 	<!-- 메뉴바 
 		 현재페이지 뭔지 param.thisPage에 넣어서 navbar.jsp에  던짐 -->
 	<jsp:include page="../include/navbar.jsp">
-		<jsp:param value="accom_list" name="thisPage" />
+		<jsp:param value="picture_list" name="thisPage" />
 	</jsp:include>
 	
 	<br /><br /><br />
 	picture_list.jsp
+	<button>등록하기</button>
+
 </body>
 </html>
