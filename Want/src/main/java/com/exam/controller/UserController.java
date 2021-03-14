@@ -9,13 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+
 import com.oreilly.servlet.MultipartRequest;
 
 import com.exam.config.SqlMapperInter;
@@ -54,40 +52,58 @@ public class UserController {
 		int flag = 2;
 		UserTO userTo = new UserTO();
 		
-		String id = request.getParameter( "id" );
-		String pwd = request.getParameter( "password" );
-		userTo.setId(id);
-		userTo.setPwd(pwd);
+		String id = "";
+		String pwd = "";
+		String kakaoid = "";
 		
-		int result_lookup = userDao.loginLookup( userTo );
-		if( result_lookup == 1 ) {	//회원있음
+		if(request.getParameter("kakaoemail").equals("")) {
+			id = request.getParameter( "id" );
+			pwd = request.getParameter( "password" );
+			userTo.setId(id);
+			userTo.setPwd(pwd);
+			
+			int result_lookup = userDao.loginLookup( userTo );
+			if( result_lookup == 1 ) {	//회원있음
 
-			int result_ok = userDao.loginOk( userTo );
-			if( result_ok == 1 ) {	//비번맞음
-				flag = 0;
-			} else if( result_ok == 0 ) {	//비번틀림
-				flag = 1;
+				int result_ok = userDao.loginOk( userTo );
+				if( result_ok == 1 ) {	//비번맞음
+					flag = 0;
+				} else if( result_ok == 0 ) {	//비번틀림
+					flag = 1;
+				} else {	//기타오류
+					flag = 3;
+				}
+				
+			} else if ( result_lookup == 0 ) {	//회원없음
+				flag = 2;
 			} else {	//기타오류
 				flag = 3;
 			}
+			request.setAttribute( "flag", flag );
+			request.getSession().setAttribute("id", id);
+		}else {
+			kakaoid = request.getParameter("kakaoemail");
 			
-		} else if ( result_lookup == 0 ) {	//회원없음
-			flag = 2;
-		} else {	//기타오류
-			flag = 3;
+			// 로그인 성공 flag
+			flag = 0;
+			
+			request.setAttribute( "flag", flag );
+			
+			// kakaoemail을 kakaoid에 set
+			request.getSession().setAttribute("kakaoid", kakaoid);
 		}
-		request.setAttribute( "flag", flag );
-		request.getSession().setAttribute("id", id);
+		
 		
 		return "user/loginForm_ok";
 	}
+	
 	
 	// 로그아웃
 	@RequestMapping(value = "/logout.do")
 	public String logout(HttpSession session) {
 		
 		session.invalidate(); 
-		return "logout_ok";
+		return "user/logout_ok";
 	}
 	
 	// 회원가입

@@ -45,7 +45,7 @@ public class ProfileController {
 	// 내 프로필
 	@RequestMapping(value = "/profile.do")
 	public String profile(Model model) {
-		return "list/profile";
+		return "profile/profile";
 	}
 	
 

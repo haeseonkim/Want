@@ -45,7 +45,7 @@ public class FavoriteController {
 	// 즐겨찾기한 게시물 목록
 	@RequestMapping(value = "/favorite_list.do")
 	public String favorite_list(Model model) {
-		return "list/favorite_list";
+		return "favorite/favorite_list";
 	}
 	
 }

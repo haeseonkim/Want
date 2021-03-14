@@ -45,7 +45,7 @@ public class MyController {
 	// 내가올린 게시물 목록
 	@RequestMapping(value = "/my_list.do")
 	public String my_list(Model model) {
-		return "list/my_list";
+		return "my/my_list";
 	}
 
 }

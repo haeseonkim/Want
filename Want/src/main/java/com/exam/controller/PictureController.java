@@ -43,7 +43,7 @@ public class PictureController {
 	// 사진자랑 목록
 	@RequestMapping(value = "/picture_list.do")
 	public String picture_list(Model model) {
-		return "list/picture_list";
+		return "picture/picture_list";
 	}
 
 }

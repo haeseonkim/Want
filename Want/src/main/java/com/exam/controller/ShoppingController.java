@@ -50,7 +50,7 @@ public class ShoppingController {
 	// 쇼핑정보 올리기
 	@RequestMapping(value = "/shopping_write.do")
 	public String shopping_write(Model model) {
-		return "write/shopping_write";
+		return "shopping/shopping_write";
 	}
 	
 }

@@ -45,7 +45,7 @@ public class FollowController {
 	// 팔로우/팔로워 목록
 	@RequestMapping(value = "/follow_list.do")
 	public String follow_list(Model model) {
-		return "list/follow_list";
+		return "follow/follow_list";
 	}
 
 

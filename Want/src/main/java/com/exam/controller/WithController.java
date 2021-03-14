@@ -44,7 +44,7 @@ public class WithController {
 	// 동행 구해요 목록
 	@RequestMapping(value = "/with_list.do")
 	public String with_list(Model model) {
-		return "list/with_list";
+		return "with/with_list";
 	}
 
 }
