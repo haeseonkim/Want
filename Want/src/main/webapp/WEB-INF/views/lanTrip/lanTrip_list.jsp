@@ -14,32 +14,6 @@
 <link href="./resources/css/lanTrip_list.css" rel="stylesheet">
 <link href="./resources/css/navbar.css" rel="stylesheet">
 
-<!-- 캐러셀 -->
-
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
-<!-- 캐러셀 스타일 -->
-<style type="text/css">
-
-.carousel{
-   		display : block;
-   		margin-left : auto;
-   		margin-right : auto;
-   		margin-top : auto;
-   		
-   		width: 40%;
-   }
-   
-   .carousel-inner img {
-   		width: 100%;
-   		height: auto;
-   }
-   
-</style>
-
 </head>
 <body>
 	<!-- 메뉴바 
@@ -51,12 +25,12 @@
 	<br /><br /><br />
 
 	<div class="container">
-		<div id="myCarousel" class="carousel slide" data-ride="carousel">
+		<div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
 			<!-- Indicators -->
 			<ol class="carousel-indicators">
-				<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-				<li data-target="#myCarousel" data-slide-to="1"></li>
-				<li data-target="#myCarousel" data-slide-to="2"></li>
+				<li data-bs-target="#myCarousel" data-bs-slide-to="0" class="active"></li>
+				<li data-bs-target="#myCarousel" data-bs-slide-to="1"></li>
+				<li data-bs-target="#myCarousel" data-bs-slide-to="2"></li>
 			</ol>
 
 			<!-- Wrapper for slides -->

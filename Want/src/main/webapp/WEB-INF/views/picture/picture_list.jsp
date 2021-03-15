@@ -14,12 +14,6 @@
 <link href="./resources/css/picture_list.css" rel="stylesheet">
 <link href="./resources/css/navbar.css" rel="stylesheet">
 
-<style>
-
-
-
-</style>
-
 </head>
 <body>
 
@@ -30,7 +24,7 @@
 	</jsp:include>
 	
 	<br /><br /><br />
-	picture_list.jsp
+
 	<button>등록하기</button>
 
 </body>
