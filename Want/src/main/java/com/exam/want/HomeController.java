@@ -149,6 +149,12 @@ public class HomeController {
 		return "board/lanTrip_list";
 	}
 	
+	// 랜선여행 보기
+	@RequestMapping(value = "/lanTrip_view.do")
+	public String lanTrip_view(Model model) {
+		return "board/lanTrip_view";
+	}
+	
 	// 랜선여행 신청 목록
 	@RequestMapping(value = "/lanTrip_apply_list.do")
 	public String lanTrip_apply_list(Model model) {
