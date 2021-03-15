@@ -20,7 +20,9 @@
 	<!-- 메뉴바 
 		 현재페이지 뭔지 param.thisPage에 넣어서 navbar.jsp에  던짐 -->
 	<jsp:include page="../include/navbar.jsp">
+
 		<jsp:param value="profile" name="thisPage" />
+
 	</jsp:include>
 	
 	<br /><br /><br />
