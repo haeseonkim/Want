@@ -1,9 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
+
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
-
 
 <!DOCTYPE html>
 <html>
@@ -16,6 +15,7 @@
 <!-- CSS File -->
 <link href="./resources/css/lanTrip_list.css" rel="stylesheet">
 <link href="./resources/css/navbar.css" rel="stylesheet">
+
 
 <!-- 캐러셀 -->
 
@@ -47,6 +47,7 @@
 	margin-top : 10px;
 }
 </style>
+
 </head>
 <body>
 	<!-- 메뉴바 
@@ -56,6 +57,7 @@
 	</jsp:include>
 	
 	<br /><br /><br />
+
 	<section id=carousel>
 		<div class="carousel-container">
 			<div id="myCarousel" class="carousel slide" data-ride="carousel">				
@@ -256,5 +258,6 @@
 	</section>
 	
 	
+
 </body>
 </html>
