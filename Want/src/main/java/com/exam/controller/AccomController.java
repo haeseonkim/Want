@@ -37,7 +37,7 @@ public class AccomController {
 
 		int maxFileSize = 1024 * 1024 * 6;
 		String encType = "utf-8";
-		String uploadPath = "C:\\Users\\bboyr\\OneDrive\\바탕 화면\\이것저것\\kic프로젝트\\최종프로젝트\\git\\Want\\Want\\src\\main\\webapp\\upload\\accom";
+		String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\accom";
 		MultipartRequest multi = null;
 
 		try {

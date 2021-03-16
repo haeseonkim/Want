@@ -28,7 +28,7 @@ public class UserController {
 	private UserDAO userDao;
 
 	// 각자 맞는 upload 폴더 경로로 변경
-	//private String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload";
+	private String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload";
 
 	// ---------------------- 로그인 관련 ----------------------
 	@RequestMapping(value = "/loginForm.do")
@@ -87,7 +87,7 @@ public class UserController {
 	public String kakaoLogin(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		
 		String id = request.getParameter("kakaoemail");
-		
+		System.out.println("kakaoid");
 		request.setAttribute("flag", 0);
 		session.setAttribute("id", id);
 		
@@ -115,7 +115,7 @@ public class UserController {
 
 		int maxFileSize = 1024 * 1024 * 6;
 		String encType = "utf-8";
-		String uploadPath = "C:\\Users\\bboyr\\OneDrive\\바탕 화면\\이것저것\\kic프로젝트\\최종프로젝트\\git\\Want\\Want\\src\\main\\webapp\\upload\\profile";
+		String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\profile";
 
 		MultipartRequest multi = null;
 
