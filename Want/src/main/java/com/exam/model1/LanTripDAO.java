@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.sql.DataSource;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -15,7 +17,7 @@ import com.exam.model1.LanTripTO;
 
 @Repository
 public class LanTripDAO {
-
+	
 	@Autowired
 	private SqlSession sqlSession;
 

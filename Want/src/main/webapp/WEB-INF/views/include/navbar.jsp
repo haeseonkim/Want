@@ -9,7 +9,7 @@
       <h1 class="logo me-auto"><a href="./lanTrip_list.do">Want</a></h1>
       <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
-      <nav id="navbar" class="navbar order-last order-lg-0">
+      <nav id="navbar1" class="navbar1 order-last order-lg-0">
         <ul>
           <li class="dropdown"><a href="./lanTrip_list.do"><span>랜선여행</span> <i class="bi bi-chevron-down"></i></a>
           	<ul>
@@ -53,7 +53,7 @@
 			</c:when>
 			<%-- 로그인 상태일 때 --%>
 			<c:otherwise>
-				<span class="navbar-text"> 
+				<span class="navbar1-text"> 
 				<a class="btn btn-warning btn-sm" href="./logout.do">로그아웃</a>
 				</span>
 			</c:otherwise>
