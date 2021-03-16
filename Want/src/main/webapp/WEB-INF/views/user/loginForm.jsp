@@ -124,7 +124,7 @@
     <form action="./loginForm_ok.do" method="post" name="lfrm" hidden>
     	<input type="text" name="kakaoemail" id="kakaoemail" value="" />
     </form>
-	<div class="text-center">비밀번호가 기억나지 않습니까? <a href="#">비밀번호 찾기</a></div>
+	<div class="text-center">비밀번호가 기억나지 않습니까? <a href="./pwFindForm.do">비밀번호 찾기</a></div>
 	<div class="text-center">아직 회원이 아니십니까? <a href="./signupForm.do">회원가입</a></div>
 </div>
 
