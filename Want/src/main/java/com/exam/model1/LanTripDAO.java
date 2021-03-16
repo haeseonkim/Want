@@ -37,43 +37,34 @@ public class LanTripDAO {
 	}
 
 	// list
-	public LanTripListTO boardList(LanTripListTO listTO) {
-
-		int cpage = listTO.getCpage();
-		int recordPerPage = listTO.getRecordPerPage();
-		int blockPerPage = listTO.getBlockPerPage();
-
-		ArrayList<LanTripTO> lists = (ArrayList)sqlSession.selectList("list");
-
-		listTO.setTotalRecord(lists.size());
-		listTO.setTotalPage(((listTO.getTotalRecord() - 1) / recordPerPage) + 1);
-
-		int skip = (cpage - 1) * recordPerPage;
-		
-		ArrayList<LanTripTO> boardLists = new ArrayList();
-		
-		int cnt = 0;
-		for (int i = skip; i < lists.size(); i++) {
-			if(cnt == recordPerPage) {
-				break;
-			}
-			if (lists.get(i) != null) {
-				LanTripTO to = lists.get(i);
-				boardLists.add(to);
-			}
-			cnt++;
-		}
-
-		listTO.setBoardList(boardLists);
-
-		listTO.setStartBlock(((cpage - 1) / blockPerPage) * blockPerPage + 1);
-		listTO.setEndBlock(((cpage - 1) / blockPerPage) * blockPerPage + blockPerPage);
-		if (listTO.getEndBlock() >= listTO.getTotalPage()) {
-			listTO.setEndBlock(listTO.getTotalPage());
-		}
-
-		return listTO;
-	}
+	
+	 public LanTripListTO lanTripList(LanTripListTO listTO) {
+	  
+	 int cpage = listTO.getCpage(); int recordPerPage = listTO.getRecordPerPage();
+	 int blockPerPage = listTO.getBlockPerPage();
+	 
+	 ArrayList<LanTripTO> lists = (ArrayList)sqlSession.selectList("lanTripList");
+	 
+	 listTO.setTotalRecord(lists.size());
+	 listTO.setTotalPage(((listTO.getTotalRecord() - 1) / recordPerPage) + 1);
+	
+	 int skip = (cpage - 1) * recordPerPage;
+	  
+	 ArrayList<LanTripTO> boardLists = new ArrayList();
+	 
+	 int cnt = 0; for (int i = skip; i < lists.size(); i++) { if(cnt ==
+	 recordPerPage) { break; } if (lists.get(i) != null) { LanTripTO to =
+	 lists.get(i); boardLists.add(to); } cnt++; }
+	  
+	 listTO.setBoardList(boardLists);
+	  
+	 listTO.setStartBlock(((cpage - 1) / blockPerPage) * blockPerPage + 1);
+	 listTO.setEndBlock(((cpage - 1) / blockPerPage) * blockPerPage +
+	 blockPerPage); if (listTO.getEndBlock() >= listTO.getTotalPage()) {
+	 listTO.setEndBlock(listTO.getTotalPage()); }
+	 
+	 return listTO; }
+	 
 
 	// view
 	public LanTripTO boardView(LanTripTO to) {

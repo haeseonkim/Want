@@ -63,6 +63,12 @@
 		where id = #{id} and mail = #{mail}
 	</select>
 	
+	<!--Lantriplist -->
+	<select id="lanTripList" resultType="com.exam.model1.lanTripTO">
+		select no, subject, writer, date_format(wdate, '%Y-%m-%d') wdate, hit, location, video, reply
+		from l_board
+	</select> 
+	
 	<!-- LanTripApplyList -->
 	<select id="LanTripApplyList" resultType="com.exam.model1.LanTripApplyTO"> <!-- 파라메터가 없으므로 parameter Type 필요 없음 -->
 		select no, subject, writer, wdate, hit
