@@ -82,14 +82,17 @@ public class UserController {
 	}
 	
 	
-	// ---------------------- 소셜 로그인 ----------------------
+	// ---------------------- 카카오 로그인 ----------------------
 	@RequestMapping(value = "/loginForm_ok.do")
 	public String kakaoLogin(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		
-		String id = request.getParameter("kakaoemail");
+		String kakaoid = request.getParameter("kakaoemail");
+		
+		System.out.println(kakaoid);
 		
 		request.setAttribute("flag", 0);
-		session.setAttribute("id", id);
+		
+		session.setAttribute("kakaoid", kakaoid);
 		
 		return "user/loginForm_ok";
 	}
@@ -115,7 +118,7 @@ public class UserController {
 
 		int maxFileSize = 1024 * 1024 * 6;
 		String encType = "utf-8";
-		String uploadPath = "C:\\Users\\bboyr\\OneDrive\\바탕 화면\\이것저것\\kic프로젝트\\최종프로젝트\\git\\Want\\Want\\src\\main\\webapp\\upload\\profile";
+		String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\profile";
 
 		MultipartRequest multi = null;
 
