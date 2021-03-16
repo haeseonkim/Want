@@ -1,0 +1,13 @@
+@charset "UTF-8";
+
+body{
+	font_family :'Song Myung', sans-serif;
+}
+
+#totalRecord{
+	color: orange;
+}
+
+#subject{
+	text-align:center;
+}

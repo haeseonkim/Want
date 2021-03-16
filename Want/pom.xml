@@ -32,6 +32,14 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-context-support -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>5.3.4</version>
+		</dependency>
+		
 				
 		<!-- AspectJ -->
 		<dependency>
@@ -150,6 +158,14 @@
 		    <groupId>servlets.com</groupId>
 		    <artifactId>cos</artifactId>
 		    <version>05Nov2002</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/javax.mail/mail -->
+		<!-- 현수 추가 mailsender -->
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4</version>
 		</dependency>
 		   
 	</dependencies>

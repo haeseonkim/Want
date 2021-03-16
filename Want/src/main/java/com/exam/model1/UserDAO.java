@@ -32,6 +32,19 @@ public class UserDAO {
 		return result;
 	}
 
+	////pwFInd
+	//회원있는지 여부 확인
+	public Integer pwFindLookup( UserTO userTo ) {
+		int result = sqlSession.selectOne( "pwFind_lookup", userTo );
+		return result;
+	}
+	
+	//회원 메일 맞는지 확인
+	public Integer pwFindOk( UserTO userTo ) {
+		int result = sqlSession.selectOne( "pwFind_ok", userTo );
+		return result;
+	}
+
 	// writer - dao 통과 안해도됨
 	public void boardWrite( UserTO userTo ) {
 		

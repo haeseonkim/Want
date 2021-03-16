@@ -15,12 +15,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+
 import com.oreilly.servlet.MultipartRequest;
 
 import com.exam.config.SqlMapperInter;
 
 import com.exam.model1.UserTO;
+import com.exam.model1.pwFindDAO;
+import com.exam.model1.pwFindTO;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+import com.exam.model1.LanTripApplyDAO;
+import com.exam.model1.LanTripApplyListTO;
+import com.exam.model1.LanTripApplyTO;
+import com.exam.model1.LanTripDAO;
 import com.exam.model1.UserDAO;
 
 
@@ -98,6 +106,69 @@ public class HomeController {
 		return "loginForm_ok";
 	}
 	
+	// pwFindForm
+	@RequestMapping(value = "/pwFindForm.do")
+	public String pwFindForm( Model model ) {
+		return "pwFindForm";
+	}
+	
+	//pwFindForm_ok
+	@RequestMapping(value = "/pwFindForm_ok.do" )
+	public String pwFindForm_ok( HttpServletRequest request, HttpServletResponse response ) {
+		
+		int flag = 2;
+		UserTO userTo = new UserTO();
+		/*
+		 * pwFindTO pwFindTo = new pwFindTO();
+		 * 
+		 * ModelAndView mav;
+		 */
+		String id = request.getParameter( "id" );
+		String mail = request.getParameter( "mail" );
+		String pwd = request.getParameter( "pwd" );
+		String name = request.getParameter( "name" );
+		
+		userTo.setId(id);
+		userTo.setMail(mail);
+		userTo.setPwd(pwd);
+		userTo.setName(name);
+		
+		int result_lookup = userDao.pwFindLookup( userTo );
+		if( result_lookup == 1 ) {	//회원있음
+
+			int result_ok = userDao.pwFindOk( userTo );
+			if( result_ok == 1 ) {	//메일맞음
+				flag = 0;
+				/*
+				 * 
+				 * System.out.println(pwd);
+				 * 
+				 * if(pwd!=null) { pwFindTo.setContent("비밀번호는 "+pwd+"입니다.");
+				 * pwFindTo.setMail(mail); pwFindTo.setSubject(id+"님의 비밀번호 찾기 메일입니다.");
+				 * //pwFindDAO.SendEmail(mail); mav = new
+				 * ModelAndView("redirect:/loginForm.do");
+				 * 
+				 * } else { mav = new ModelAndView("redirect:/loginForm.do");
+				 * 
+				 * }
+				 */
+			} else if( result_ok == 0 ) {	//메일틀림
+				flag = 1;
+			} else {	//기타오류
+				flag = 3;
+			}
+			
+		} else if ( result_lookup == 0 ) {	//회원없음
+			flag = 2;
+		} else {	//기타오류
+			flag = 3;
+		}
+		request.setAttribute( "flag", flag );
+		
+		return "pwFindForm_ok";
+	}
+	
+	
 	// 회원가입
 	@RequestMapping(value = "/signupForm.do")
 	public String signupForm(Model model) {
@@ -150,10 +221,22 @@ public class HomeController {
 	}
 	
 	// 랜선여행 신청 목록
+	@Autowired
+	private LanTripApplyDAO dao;
+	
 	@RequestMapping(value = "/lanTrip_apply_list.do")
-	public String lanTrip_apply_list(Model model) {
-		return "board/lanTrip_apply_list";
-	}
+	
+	   public String list(HttpServletRequest request, Model model) {
+	      
+	      LanTripApplyListTO listTO = new LanTripApplyListTO();
+	      listTO.setCpage( Integer.parseInt( request.getParameter( "cpage" ) == null || request.getParameter( "cpage" ).equals( "" ) ? "1" : request.getParameter( "cpage" ) ) );
+	      listTO = dao.boardList(listTO);
+	      
+	      model.addAttribute( "listTO", listTO );
+	      
+	      return "board/lanTrip_apply_list";
+	   }
+
 	
 	// 사진자랑 목록
 	@RequestMapping(value = "/picture_list.do")
@@ -235,6 +318,6 @@ public class HomeController {
 	// 랜선여행 신청 올리기
 	@RequestMapping(value = "/lanTrip_apply_write.do")
 	public String lanTrip_apply_write(Model model) {
-		return "write/lanTrip_apply_write";
+		return "lanTrip_apply/lanTrip_apply_write";
 	}
 }

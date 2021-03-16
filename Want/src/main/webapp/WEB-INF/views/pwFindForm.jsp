@@ -25,41 +25,35 @@
 	<br /><br /><br /><br />
 
 <div class="login-form">
-    <form action="loginForm_ok.do" method="post" class="form-horizontal">
+    <form action="pwFindForm_ok.do" method="post" class="form-horizontal">
       	<div class="row">
-        	<div class="col-8 offset-4">
-				<h2>로그인</h2>
+        	<div align="center">
+				<h2>비밀번호 찾기</h2>
+				<%-- <form action="${pageContext.request.contextPath)/mail/mailSending}" method="post">
+				</form> --%>
 			</div>	
       	</div>			
         <div class="form-group row">
 			<label class="col-form-label col-4">아이디</label>
 			<div class="col-8">
-                <input type="text" class="form-control" name="id" placeholder="ID 입력..." required="required">
+                <input type="text" class="form-control" name="id" placeholder="아이디를 입력하세요." required="required">
             </div>        	
         </div>
 
 		<div class="form-group row">
-			<label class="col-form-label col-4">비밀번호</label>
+			<label class="col-form-label col-4">이메일</label>
 			<div class="col-8">
-                <input type="password" class="form-control" name="password" placeholder="Password 입력..." required="required">
+                <input type="text" class="form-control" name="mail" placeholder="메일을 입력하세요." required="required">
             </div>        	
         </div>
 		<div class="form-group row">
 			
-			<button type="submit" class="btn btn-primary btn-lg">로그인</button>
+			<button type="submit" class="btn btn-primary btn-lg">비밀번호 찾기</button>
 		</div>		
-		
-		<div class="form-group row">
-			<div class="or-seperator"><b>or</b></div>
-		</div>
-		
-		<div class="form-group row">
-			<button type="submit" class="kakaobtn btn-primary btn-lg">카카오톡으로 로그인</button>
-		</div>	
-		     
+
     </form>
-	<div class="text-center">비밀번호가 기억나지 않습니까? <a href="./pwFindForm.do">비밀번호 찾기</a></div>
-	<div class="text-center">아직 회원이 아니십니까? <a href="./signupForm.do">회원가입</a></div>
+
 </div>
 </body>
 </html>
+		
