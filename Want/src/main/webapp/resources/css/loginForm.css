@@ -19,6 +19,13 @@ body {
 	min-width: 140px;
 }
 
+.kakaobtn{
+	text-align: center;
+}
+
+.loginbtn{
+	padding:0px 80px;
+}
 
 .login-form {
 	width: 500px;

@@ -36,7 +36,7 @@ public class UserController {
 			throws Exception {
 		if (request.getParameter("login_ok") == null) {
 			return "user/loginForm";
-		} else if (request.getParameter("login_ok").equals("1")) {
+		} else if (request.getParameter("login_ok").equals("1") && request.getParameter("kakaoemail").equals("")) {
 
 			int flag = 2;
 			String key = "secret Key";
@@ -72,30 +72,42 @@ public class UserController {
 				flag = 3;
 			}
 			request.setAttribute("flag", flag);
-			request.setAttribute("id", userTo.getId());
+			
+			// id를 세션에 저장
+			session.setAttribute("id", userTo.getId());
 			
 
 			return "user/loginForm";
 		} else {
+			String kakaoid = request.getParameter("kakaoemail");
+			
+			System.out.println(kakaoid);
+			
+			request.setAttribute("flag", 0);
+			
+			// kakaoid를 세션에 저장
+			session.setAttribute("kakaoid", kakaoid);
+			
 			return "user/loginForm";
 		}
 	}
 	
 	
 	// ---------------------- 카카오 로그인 ----------------------
-	@RequestMapping(value = "/loginForm_ok.do")
-	public String kakaoLogin(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
-		
-		String kakaoid = request.getParameter("kakaoemail");
-		
-		System.out.println(kakaoid);
-		
-		request.setAttribute("flag", 0);
-		
-		session.setAttribute("kakaoid", kakaoid);
-		
-		return "user/loginForm_ok";
-	}
+//	@RequestMapping(value = "/kakaologin.do")
+//	public String kakaoLogin(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+//		
+//		String kakaoid = request.getParameter("kakaoemail");
+//		
+//		System.out.println(kakaoid);
+//		
+//		request.setAttribute("flag", 0);
+//		
+//		// kakaoid를 세션에 저장
+//		session.setAttribute("kakaoid", kakaoid);
+//		
+//		return "user/loginForm";
+//	}
 	
 	
 	// ---------------------- 로그아웃 ----------------------

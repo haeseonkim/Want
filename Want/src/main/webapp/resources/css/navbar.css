@@ -1,5 +1,8 @@
 @charset "UTF-8";
 
+.container > h1 > a{
+	font-family: "Open Sans", sans-serif;
+}
 
 h1, li, span, a{
 	
