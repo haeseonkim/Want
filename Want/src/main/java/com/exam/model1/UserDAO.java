@@ -31,7 +31,7 @@ public class UserDAO {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	// ------------------- 로그인관련 ----------------------
+
 	//회원있는지 여부 확인
 	public Integer loginLookup( UserTO userTo ) {
 		int result = sqlSession.selectOne( "login_lookup", userTo );
@@ -43,6 +43,7 @@ public class UserDAO {
 		int result = sqlSession.selectOne( "login_ok", userTo );
 		return result;
 	}
+
 	
 	//회원 비밀번호 디코딩해서 비번비교하기
 	public String loginDecry( UserTO userTo ) {

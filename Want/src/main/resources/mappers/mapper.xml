@@ -33,11 +33,40 @@
 	</select>
 	
 	<select id="login_decry" parameterType="com.exam.model1.UserTO"
+    resultType="com.exam.model1.UserTO">
+	  select pwd
+	  from user
+	  where id like #{id}
+   </select>
+	
+		<!-- 회원있는지 여부확인 -->
+	<select id="pwFind_lookup" parameterType="com.exam.model1.UserTO" 
+		resultType="Int">
+		select count( id )
+		from user 
+		where id like #{ id };
+	</select>
+		<!-- 메일 일치 여부 확인 -->
+	<select id="pwFind_ok" parameterType="com.exam.model1.UserTO" 
+		resultType="Int">  
+		select count(*)
+		from user 
+		where id = #{id} and mail = #{mail} 
+	</select>
+	
+	<!-- 전송을 위한 비밀번호 조회 -->
+	<select id="pwdFind_update" parameterType="com.exam.model1.UserTO"
 		resultType="com.exam.model1.UserTO">
 		select pwd
 		from user
-		where id like #{id}
+		where id = #{id} and mail = #{mail}
 	</select>
+	
+	<!-- LanTripApplyList -->
+	<select id="LanTripApplyList" resultType="com.exam.model1.LanTripApplyTO"> <!-- 파라메터가 없으므로 parameter Type 필요 없음 -->
+		select no, subject, writer, wdate, hit
+		from la_board
+
 	
 	<!--ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ여행지정보 관련ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ-->
 	<!--ㅡㅡㅡㅡㅡㅡ 쇼핑관련 ㅡㅡㅡㅡㅡㅡ-->
@@ -73,5 +102,5 @@
 	</select>
 	
 	
-	
 </mapper>
+

@@ -3,6 +3,7 @@ package com.exam.config;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.exam.model1.LanTripApplyTO;
 import com.exam.model1.ShoppingTO;
 import com.exam.model1.UserTO;
 
@@ -19,6 +20,15 @@ public interface SqlMapperInter {
 	public abstract int login_decry(UserTO to);
 	
 	public abstract int shop_write_ok(ShoppingTO to);
+	
+	public abstract int login_decry(UserTO to);
+	
+	public abstract void pwFind(UserTO to);
+	public abstract int pwFind_ok(UserTO to);
+	public abstract int pwFind_lookup(UserTO to);
+	
+	public abstract ArrayList<LanTripApplyTO> LanTripApplyList();
+	
 	
 //	public abstract ArrayList<BoardTO> list();
 //	public abstract void write(BoardTO to);

@@ -29,7 +29,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Want 로그인</title>
-
 <jsp:include page="../include/index.jsp"></jsp:include>
 
 <!-- CSS File -->

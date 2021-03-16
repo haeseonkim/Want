@@ -2,7 +2,8 @@ package com.exam.model1;
 
 import java.util.ArrayList;
 
-public class LanTripListTO {
+public class LanTripApplyListTO {
+	
 	
 	private int cpage;
 	private int recordPerPage;
@@ -12,9 +13,9 @@ public class LanTripListTO {
 	private int startBlock;
 	private int endBlock;
 	
-	private ArrayList<LanTripTO> boardLists;
+	private ArrayList<LanTripApplyTO> boardLists;
 	
-	public LanTripListTO() {
+	public LanTripApplyListTO() {
 		this.cpage = 1;
 		this.recordPerPage = 10;
 		this.blockPerPage = 3;
@@ -78,13 +79,15 @@ public class LanTripListTO {
 		this.endBlock = endBlock;
 	}
 
-	public ArrayList<LanTripTO> getBoardLists() {
+	public ArrayList<LanTripApplyTO> getBoardLists() {
 		return boardLists;
 	}
 
-	public void setBoardList(ArrayList<LanTripTO> boardLists) {
+	public void setBoardList(ArrayList<LanTripApplyTO> boardLists) {
 		this.boardLists = boardLists;
 	}
+
+	
 
 	
 	

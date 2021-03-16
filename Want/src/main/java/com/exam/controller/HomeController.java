@@ -10,10 +10,9 @@ import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import javax.servlet.http.HttpSession;
 
-
+import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -29,8 +29,20 @@ import com.oreilly.servlet.MultipartRequest;
 
 import com.exam.config.SqlMapperInter;
 
-import com.exam.model1.UserTO;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+
+// 유저
+import com.exam.model1.UserTO;
+import com.exam.model1.pwFindDAO;
+import com.exam.model1.pwFindTO;
+
+// 랜선여행 신청
+import com.exam.model1.LanTripApplyDAO;
+import com.exam.model1.LanTripApplyListTO;
+import com.exam.model1.LanTripApplyTO;
+import com.exam.model1.LanTripDAO;
+
+// 숙소, 쇼핑
 import com.exam.model1.AccomDAO;
 import com.exam.model1.AccomListTO;
 import com.exam.model1.AccomTO;
@@ -41,17 +53,13 @@ import com.exam.model1.ShoppingTO;
 import com.exam.model1.UserDAO;
 
 
-//import com.exam.model1.BoardListTO;
-//import com.exam.model1.CommentDAO;
 
-/**
- * Handles requests for the application home page.
- */
 @Controller
 public class HomeController {
 	
 	@Autowired
 	private UserDAO userDao;
+
 	@Autowired
 	private ShoppingDAO shopDao;
 	@Autowired
@@ -205,10 +213,22 @@ public class HomeController {
 	}
 	
 	// 랜선여행 신청 목록
+	@Autowired
+	private LanTripApplyDAO dao;
+	
 	@RequestMapping(value = "/lanTrip_apply_list.do")
-	public String lanTrip_apply_list(Model model) {
-		return "lanTrip_appl/lanTrip_apply_list";
-	}
+	
+	   public String list(HttpServletRequest request, Model model) {
+	      
+	      LanTripApplyListTO listTO = new LanTripApplyListTO();
+	      listTO.setCpage( Integer.parseInt( request.getParameter( "cpage" ) == null || request.getParameter( "cpage" ).equals( "" ) ? "1" : request.getParameter( "cpage" ) ) );
+	      listTO = dao.boardList(listTO);
+	      
+	      model.addAttribute( "listTO", listTO );
+	      
+	      return "lanTrip_apply/lanTrip_apply_list";
+	   }
+
 	
 	// 사진자랑 목록
 	@RequestMapping(value = "/picture_list.do")
@@ -409,6 +429,6 @@ public class HomeController {
 	// 랜선여행 신청 올리기
 	@RequestMapping(value = "/lanTrip_apply_write.do")
 	public String lanTrip_apply_write(Model model) {
-		return "write/lanTrip_apply_write";
+		return "lanTrip_apply/lanTrip_apply_write";
 	}
 }
