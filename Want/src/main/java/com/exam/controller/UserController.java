@@ -97,6 +97,7 @@ public class UserController {
 		return "user/loginForm_ok";
 	}
 	
+	
 	// ---------------------- 로그아웃 ----------------------
 	@RequestMapping(value = "/logout.do")
 	public String logout_ok(HttpSession session, Model model) {
