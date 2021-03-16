@@ -137,13 +137,13 @@ public class HomeController {
 		}
 		request.setAttribute( "flag", flag );
 		
-		return "loginForm_ok";
+		return "user/loginForm_ok";
 	}
 	
 	// pwFindForm
 	@RequestMapping(value = "/pwFindForm.do")
 	public String pwFindForm( Model model ) {
-		return "pwFindForm";
+		return "user/pwFindForm";
 	}
 	
 	//pwFindForm_ok
@@ -199,14 +199,14 @@ public class HomeController {
 		}
 		request.setAttribute( "flag", flag );
 		
-		return "pwFindForm_ok";
+		return "user/pwFindForm_ok";
 	}
 	
 	
 	// 회원가입
 	@RequestMapping(value = "/signupForm.do")
 	public String signupForm(Model model) {
-		return "signupForm";
+		return "user/signupForm";
 	}
 	
 	// signup_ok
@@ -242,7 +242,7 @@ public class HomeController {
 	         e.printStackTrace();
 	      }
 	       
-		return "signup_ok";
+		return "user/signup_ok";
 	}
 	
 	
@@ -251,7 +251,7 @@ public class HomeController {
 	// 랜선여행 목록
 	@RequestMapping(value = "/lanTrip_list.do")
 	public String lanTrip_list(Model model) {
-		return "board/lanTrip_list";
+		return "lanTrip/lanTrip_list";
 	}
 	
 	// 랜선여행 신청 목록
@@ -268,56 +268,56 @@ public class HomeController {
 	      
 	      model.addAttribute( "listTO", listTO );
 	      
-	      return "board/lanTrip_apply_list";
+	      return "lanTrip_apply/lanTrip_apply_list";
 	   }
 
 	
 	// 사진자랑 목록
 	@RequestMapping(value = "/picture_list.do")
 	public String picture_list(Model model) {
-		return "board/picture_list";
+		return "picture/picture_list";
 	}
 	
 	// 쇼핑 정보 목록
 	@RequestMapping(value = "/shopping_list.do")
 	public String shopping_list(Model model) {
-		return "board/shopping_list";
+		return "shopping/shopping_list";
 	}
 	
 	// 숙소 정보 목록
 	@RequestMapping(value = "/accom_list.do")
 	public String accom_list(Model model) {
-		return "board/accom_list";
+		return "accom/accom_list";
 	}
 	
 	// 동행 구해요 목록
 	@RequestMapping(value = "/with_list.do")
 	public String with_list(Model model) {
-		return "board/with_list";
+		return "with/with_list";
 	}
 	
 	// 즐겨찾기한 게시물 목록
 	@RequestMapping(value = "/favorite_list.do")
 	public String favorite_list(Model model) {
-		return "board/favorite_list";
+		return "favorite/favorite_list";
 	}
 	
 	// 팔로우/팔로워 목록
 	@RequestMapping(value = "/follow_list.do")
 	public String follow_list(Model model) {
-		return "board/follow_list";
+		return "follow/follow_list";
 	}
 	
 	// 내가올린 게시물 목록
 	@RequestMapping(value = "/my_list.do")
 	public String my_list(Model model) {
-		return "board/my_list";
+		return "my/my_list";
 	}
 	
 	// 내 프로필
 	@RequestMapping(value = "/profile.do")
 	public String profile(Model model) {
-		return "board/profile";
+		return "profile/profile";
 	}
 	
 	// about us
@@ -334,19 +334,19 @@ public class HomeController {
 	// 숙소 정보 올리기
 	@RequestMapping(value = "/accom_write.do")
 	public String accom_write(Model model) {
-		return "write/accom_write";
+		return "accom/accom_write";
 	}
 	
 	// 쇼핑정보 올리기
 	@RequestMapping(value = "/shopping_write.do")
 	public String shopping_write(Model model) {
-		return "write/shopping_write";
+		return "shopping/shopping_write";
 	}
 	
 	// 랜선여행 올리기
 	@RequestMapping(value = "/lanTrip_write.do")
 	public String lanTrip_write(Model model) {
-		return "write/lanTrip_write";
+		return "lanTrip/lanTrip_write";
 	}
 	
 	// 랜선여행 신청 올리기
