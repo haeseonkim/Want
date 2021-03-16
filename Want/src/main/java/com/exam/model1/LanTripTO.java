@@ -1,39 +1,21 @@
 package com.exam.model1;
 
 public class LanTripTO {
-	private String seq;
+	private int no;
 	private String subject;
-	private String writer;
-	private String mail;
-	private String password;
 	private String content;
-	private String filename;
-	private long filesize;
-	private String longitude;
-	private String latitude;
-	private int cmt;
-	private String hit;
-	private String wip;
+	private String writer;
 	private String wdate;
-	private int wgap;
+	private int hit;
+	private String location;
+	private String video;
+	private int reply;
 	
-	public int getWgap() {
-		return wgap;
+	public int getNo() {
+		return no;
 	}
-	public void setWgap(int wgap) {
-		this.wgap = wgap;
-	}
-	public String getWip() {
-		return wip;
-	}
-	public void setWip(String wip) {
-		this.wip = wip;
-	}
-	public String getSeq() {
-		return seq;
-	}
-	public void setSeq(String seq) {
-		this.seq = seq;
+	public void setNo(int no) {
+		this.no = no;
 	}
 	public String getSubject() {
 		return subject;
@@ -41,35 +23,17 @@ public class LanTripTO {
 	public void setSubject(String subject) {
 		this.subject = subject;
 	}
-	public String getWriter() {
-		return writer;
-	}
-	public void setWriter(String writer) {
-		this.writer = writer;
-	}
-	public String getMail() {
-		return mail;
-	}
-	public void setMail(String mail) {
-		this.mail = mail;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
 	public String getContent() {
 		return content;
 	}
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public String getHit() {
-		return hit;
+	public String getWriter() {
+		return writer;
 	}
-	public void setHit(String hit) {
-		this.hit = hit;
+	public void setWriter(String writer) {
+		this.writer = writer;
 	}
 	public String getWdate() {
 		return wdate;
@@ -77,36 +41,29 @@ public class LanTripTO {
 	public void setWdate(String wdate) {
 		this.wdate = wdate;
 	}
-	
-	public String getFilename() {
-		return filename;
+	public int getHit() {
+		return hit;
 	}
-	public void setFilename(String filename) {
-		this.filename = filename;
+	public void setHit(int hit) {
+		this.hit = hit;
 	}
-	public long getFilesize() {
-		return filesize;
+	public String getLocation() {
+		return location;
 	}
-	public void setFilesize(long filesize2) {
-		this.filesize = filesize2;
+	public void setLocation(String location) {
+		this.location = location;
 	}
-	public String getLongitude() {
-		return longitude;
+	public String getVideo() {
+		return video;
 	}
-	public void setLongitude(String longitude) {
-		this.longitude = longitude;
+	public void setVideo(String video) {
+		this.video = video;
 	}
-	public String getLatitude() {
-		return latitude;
+	public int getReply() {
+		return reply;
 	}
-	public void setLatitude(String latitude) {
-		this.latitude = latitude;
-	}
-	public int getCmt() {
-		return cmt;
-	}
-	public void setCmt(int cmt) {
-		this.cmt = cmt;
+	public void setReply(int reply) {
+		this.reply = reply;
 	}
 	
 	

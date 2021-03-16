@@ -276,6 +276,7 @@ function agree() {
 	$( '#dialog' ).dialog( 'open' );
 }
 
+
 </script>
 </head>
 <body>

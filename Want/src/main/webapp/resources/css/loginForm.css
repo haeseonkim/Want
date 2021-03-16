@@ -16,7 +16,10 @@ body {
 }
 .form-control, .btn {        
 	border-radius: 3px;
+	min-width: 140px;
 }
+
+
 .login-form {
 	width: 500px;
 	margin: 0 auto;
@@ -42,7 +45,6 @@ body {
 	margin-bottom: 20px;
 }
 
-
 .login-form label {
 	font-weight: normal;
 	font-size: 14px;
@@ -58,17 +60,8 @@ body {
 	background: #5cd3b4;
 	border: none;
 	margin-top: 20px;
-	min-width: 140px;
-}
-
-.login-form .kakaobtn {        
-	font-size: 16px;
-	font-weight: bold;
-	background: #fff703;
-	border: none;
-	margin-top: 0px;
-	min-width: 140px;
-	color: #474503;
+	min-width: 300px;
+	padding: 10px;
 }
 
 .or-seperator {

@@ -1,6 +1,8 @@
 package com.exam.controller;
 
+
 import java.io.File;
+
 import java.io.IOException;
 import java.text.DateFormat;
 import java.util.Date;
@@ -8,7 +10,9 @@ import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import javax.servlet.http.HttpSession;
+
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +21,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
 import org.springframework.web.bind.annotation.ResponseBody;
+
 
 import com.oreilly.servlet.MultipartRequest;
 
@@ -31,6 +37,7 @@ import com.exam.model1.AccomTO;
 import com.exam.model1.ShoppingDAO;
 import com.exam.model1.ShoppingListTO;
 import com.exam.model1.ShoppingTO;
+
 import com.exam.model1.UserDAO;
 
 
@@ -115,11 +122,13 @@ public class HomeController {
 		int maxFileSize = 1024 * 1024 * 6;
 	       String encType = "utf-8";
 	       String uploadPath = "C:\\Users\\bboyr\\OneDrive\\바탕 화면\\이것저것\\kic프로젝트\\최종프로젝트\\git\\Want\\Want\\src\\main\\webapp\\upload\\profile";
+
 	       MultipartRequest multi = null;
 	      
 	       try {
 	         multi = new MultipartRequest(request, uploadPath, maxFileSize, encType, new DefaultFileRenamePolicy());
 	         
+
 	         String key = "secret Key";
 	         
 	         UserTO to = new UserTO();
@@ -129,11 +138,13 @@ public class HomeController {
 	         String encryPwd = userDao.encrytAES( multi.getParameter("pwd"), key);
 	         to.setPwd( encryPwd );	         
 	         
+
 	         to.setName(multi.getParameter("name"));
 	         to.setBirth(multi.getParameter("birth"));
 	         to.setMail(multi.getParameter("mail"));
 	         to.setPhone(multi.getParameter("phone"));
 	         to.setNick(multi.getParameter("nick"));
+
 	         to.setProfile( multi.getFilesystemName( "profile" ) );
 	         File file = multi.getFile( "profile" );
 	         if( multi.getParameter("greet").equals( "" ) ) {
@@ -141,6 +152,7 @@ public class HomeController {
 	         } else {
 	        	 to.setGreet(multi.getParameter("greet")); 
 	         }
+
 	         
 	         int flag = userDao.signup_ok(to);
 	         
@@ -387,10 +399,6 @@ public class HomeController {
 	
 	
 	
-	
-	// -------------------- 게시물 올리기 -----------------
-	
-
 	
 	// 랜선여행 올리기
 	@RequestMapping(value = "/lanTrip_write.do")

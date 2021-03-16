@@ -7,7 +7,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Want </title>
-	
 <jsp:include page="../include/index.jsp"></jsp:include>
 	
 <!-- CSS File -->

@@ -29,19 +29,46 @@
 <head>
 <meta charset="UTF-8">
 <title>Want 로그인</title>
-	
+
 <jsp:include page="../include/index.jsp"></jsp:include>
 
 <!-- CSS File -->
-<link href="./resources/css/loginForm.css" rel="stylesheet"/>
+<link href="./resources/css/loginForm.css" rel="stylesheet" />
 <link href="./resources/css/navbar.css" rel="stylesheet">
 
-<script type="text/javascript">
+
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+
+<script>
+	//d2d78fe4b3e00dbdb6af02d56f8c765a
+	window.Kakao.init("d2d78fe4b3e00dbdb6af02d56f8c765a");
+	
 	window.onload = function() {
 		document.getElementById('login_submit').onclick = function() {
 			document.login_frm.submit();
 		}
 	}
+	
+	function kakaoLogin(){
+		window.Kakao.Auth.login({
+			scope:'profile,account_email,birthday',
+			success: function(authObj){
+				//console.log(authObj);
+				window.Kakao.API.request({
+					url: '/v2/user/me',
+					success: res => {
+						const email = res.kakao_account.email;
+						console.log(email);
+						$('#kakaoemail').val(email);
+						document.lfrm.submit();
+					}
+				});
+				
+			}
+		});
+	}
+
+	
 </script>
 
 </head>
@@ -83,13 +110,19 @@
 			<div class="or-seperator"><b>or</b></div>
 		</div>
 		
-		<div class="form-group row">
-			<button type="submit" class="kakaobtn btn-primary btn-lg">카카오톡으로 로그인</button>
-		</div>	
+			<div class="form-group row" id="kakaologin">
+				<div class="col-8 offset-2">
+				<input type="hidden" name="kakaoemail" id="kakaoemail" value="" />
+					<a href="javascript:kakaoLogin();"> <img
+						src="./resources/img/kakao_login_medium_wide.png" />
+					</a>
+				</div>
+			</div>
 		     
     </form>
 	<div class="text-center">비밀번호가 기억나지 않습니까? <a href="#">비밀번호 찾기</a></div>
 	<div class="text-center">아직 회원이 아니십니까? <a href="./signupForm.do">회원가입</a></div>
 </div>
+
 </body>
 </html>
