@@ -1,0 +1,56 @@
+@charset "UTF-8";
+
+body {
+	color: #999;
+	background: #f3f3f3;
+	font-family: 'Roboto', sans-serif;
+}
+.select-form {
+	width: 500px;
+	margin: 0 auto;
+	padding: 30px 0;
+}
+.select-form h2 {
+	color: #333;
+	margin: 0 0 30px 0;
+	display: inline-block;
+	padding: 0 20px 10px 20px;
+	border-bottom: 3px solid #5cd3b4;
+}
+.s_div{
+	width: 1000px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+#div1 {
+	width: 400px;
+	height: 350px;
+	margin-right:20px;
+	border-radius: 2em;
+	background: url("../img/shopping.png");
+}
+#div2 {
+	width: 400px;
+	height: 350px;
+	margin-right:20px;
+	border-radius: 2em;
+	background: url("../img/accomodation.png");
+}
+.select-form .btn {        
+	font-size: 25px;
+	position: relative;
+	color: #000000;
+	font-weight: bold;
+	border: none;
+	width: 400px;
+	height: 350px;
+	border-radius: 1em;
+	min-width: 140px;
+	background-color: rgba( 255, 255, 255, 0.4 );
+	padding: 0px;
+}
+.select-form .btn:hover, .select-form .btn:focus {
+	background-color: rgba( 255, 255, 255, 0 );
+	outline: none !important;
+}

@@ -5,8 +5,17 @@
 
 	<!-- signup -->
 	<insert id="signup_ok" parameterType="com.exam.model1.UserTO">
-		insert into user values( #{id}, #{pwd}, #{name}, #{birth}, #{mail}, #{phone}, #{nick}, now(), ifnull( #{profile}, profile ), ifnull( #{greet}, greet ) )  
+		insert into user 
+		values( #{id}, #{pwd}, #{name}, #{birth}, #{mail}, #{phone}, #{nick}, now(), ifnull( #{profile}, profile ), ifnull( #{greet}, greet ) )  
 	</insert>
+	
+	<select id="nick_lookup" parameterType="com.exam.model1.UserTO" 
+		resultType="Int">
+		select count( nick )
+		from user 
+		where nick like #{ nick };
+	</select>
+	
 
 	<!-- 회원있는지 여부확인 -->
 	<select id="login_lookup" parameterType="com.exam.model1.UserTO" 
@@ -22,5 +31,47 @@
 		from user 
 		where id like #{id} and pwd like #{pwd} 
 	</select>
+	
+	<select id="login_decry" parameterType="com.exam.model1.UserTO"
+		resultType="com.exam.model1.UserTO">
+		select pwd
+		from user
+		where id like #{id}
+	</select>
+	
+	<!--ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ여행지정보 관련ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ-->
+	<!--ㅡㅡㅡㅡㅡㅡ 쇼핑관련 ㅡㅡㅡㅡㅡㅡ-->
+	<!-- 쇼핑 write_ok -->
+	<insert id="shop_write_ok" parameterType="com.exam.model1.ShoppingTO">
+		insert into s_board 
+		values(0, #{ subject }, #{ content }, #{ writer }, now(), 0, #{ location }, #{ picture }, 0 )
+	</insert>
+	
+	<!-- 쇼핑 list -->
+	<select id="shopList" parameterType="com.exam.model1.ShoppingTO" resultType="com.exam.model1.ShoppingTO">
+		select no, subject, writer, date_format(wdate, '%Y-%m-%d') wdate, 
+				hit, datediff(now(), wdate) wgap, ifnull(picture, '') picture, reply
+		from s_board
+		where location like #{ location }
+		order by no desc
+	</select>
+	
+	<!--ㅡㅡㅡㅡㅡㅡ 숙소관련 ㅡㅡㅡㅡㅡㅡ-->
+	<!-- 숙소 write_ok -->
+	<insert id="accom_write_ok" parameterType="com.exam.model1.AccomTO">
+		insert into a_board 
+		values(0, #{ subject }, #{ content }, #{ writer }, now(), 0, #{ location }, #{ picture }, 0 )
+	</insert>
+	
+	<!-- 숙소 list -->
+	<select id="accomList" parameterType="com.exam.model1.AccomTO" resultType="com.exam.model1.AccomTO">
+		select no, subject, writer, date_format(wdate, '%Y-%m-%d') wdate, 
+				hit, datediff(now(), wdate) wgap, ifnull(picture, '') picture, reply
+		from a_board
+		where location like #{ location }
+		order by no desc
+	</select>
+	
+	
 	
 </mapper>
