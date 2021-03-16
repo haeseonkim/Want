@@ -17,6 +17,8 @@ public interface SqlMapperInter {
 	public abstract int login_ok(UserTO to);
 	public abstract int login_lookup(UserTO to);
 	
+	public abstract int login_decry(UserTO to);
+	
 	public abstract void pwFind(UserTO to);
 	public abstract int pwFind_ok(UserTO to);
 	public abstract int pwFind_lookup(UserTO to);

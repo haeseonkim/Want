@@ -23,6 +23,13 @@
 		where id like #{id} and pwd like #{pwd} 
 	</select>
 	
+	<select id="login_decry" parameterType="com.exam.model1.UserTO"
+      resultType="com.exam.model1.UserTO">
+	select pwd
+	from user
+	where id like #{id}
+   </select>
+	
 		<!-- 회원있는지 여부확인 -->
 	<select id="pwFind_lookup" parameterType="com.exam.model1.UserTO" 
 		resultType="Int">

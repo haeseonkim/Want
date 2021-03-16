@@ -7,7 +7,9 @@ import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,27 +53,59 @@ public class HomeController {
 //	private CommentDAO cdao;
 	private String uploadPath = "C:\\Users\\wjdgu\\Desktop\\코딩\\1. [메인프로젝트]\\02. 기획\\Want\\src\\main\\webapp\\upload";
 
-//	@Autowired
-//	private SqlMapperInter sqlMapperInter;
-	
-//	@RequestMapping(value = "/list.do")
-//	public String list(HttpServletRequest request, Model model) {
-//		
-//		BoardListTO listTO = new BoardListTO();
-//		listTO.setCpage( Integer.parseInt( request.getParameter( "cpage" ) == null || request.getParameter( "cpage" ).equals( "" ) ? "1" : request.getParameter( "cpage" ) ) );
-//		listTO = dao.boardList(listTO);
-//		
-//		model.addAttribute( "listTO", listTO );
-//		
-//		return "board_list1";
-//	}
-	
-	// 로그인폼
-	@RequestMapping(value = "/loginForm.do")
-	public String loginForm( Model model ) {
-		return "loginForm";
-	}
-	
+
+
+	// ---------------------- 로그인 관련 ----------------------
+
+	   @RequestMapping(value = "/loginForm.do")
+	   public String loginForm( HttpServletRequest request, HttpServletResponse response, HttpSession session ) throws Exception {
+	      if( request.getParameter( "login_ok" ) == null ) {
+	         return "user/loginForm";
+	      } else if( request.getParameter( "login_ok" ).equals("1") ) {
+	         
+	         int flag = 2;
+	         String key = "secret Key";
+	         
+	         UserTO userTo = new UserTO();
+	         
+	         String id = request.getParameter( "id" );
+	         String pwd = request.getParameter( "password" );
+	         
+	         userTo.setId(id);
+	         
+	         String realPwd = userDao.loginDecry(userTo);
+	         String decryPwd = userDao.decryptAES( realPwd, key );
+	         
+	         int result_lookup = userDao.loginLookup( userTo );
+	         if( result_lookup == 1 ) {   //회원있음
+
+	            if( pwd.equals( decryPwd ) ) {   // 사용자가 적은 pwd와 DB에 저장된 암호화된 비번 복호화해서 비교
+	               userTo.setPwd(realPwd);
+	               int result_ok = userDao.loginOk( userTo );
+	               
+	               if( result_ok == 1 ) {   //비번맞음
+	                  flag = 0;
+	               } else if( result_ok == 0 ) {   //비번틀림
+	                  flag = 1;
+	               } else {   //기타오류
+	                  flag = 3;
+	               }
+	            }
+	         } else if ( result_lookup == 0 ) {   //회원없음
+	            flag = 2;
+	         } else {   //기타오류
+	            flag = 3;
+	         }
+	         request.setAttribute( "flag", flag );
+	         request.setAttribute( "id", userTo.getId() );
+	         
+	         return "user/loginForm";
+	      } else {
+	         return "user/loginForm";
+	      }
+	   }
+	   
+
 	//로그인ok폼
 	@RequestMapping(value = "/loginForm_ok.do" )
 	public String loginForm_ok( HttpServletRequest request, HttpServletResponse response ) {

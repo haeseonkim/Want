@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 	
-<jsp:include page="./include/index.jsp"></jsp:include>
+<jsp:include page="../include/index.jsp"></jsp:include>
 
 <!-- CSS File -->
 <link href="./resources/css/loginForm.css" rel="stylesheet"/>
@@ -18,7 +18,7 @@
 <body>
 	<!-- 메뉴바 
 		 현재페이지 뭔지 param.thisPage에 넣어서 navbar.jsp에  던짐 -->
-	<jsp:include page="./include/navbar.jsp">
+	<jsp:include page="../include/navbar.jsp">
 		<jsp:param value="loginForm" name="thisPage" />
 	</jsp:include>
 	

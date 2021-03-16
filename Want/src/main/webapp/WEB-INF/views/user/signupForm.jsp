@@ -10,7 +10,7 @@
 <title>Want 회원가입</title>
 <!-- 정현수 수정 끝 -->
 	
-<jsp:include page="./include/index.jsp"></jsp:include>
+<jsp:include page="../include/index.jsp"></jsp:include>
 
 <!-- CSS File -->
 <link href="./resources/css/signupForm.css" rel="stylesheet"/>
@@ -32,7 +32,7 @@ window.onload = function() {
 <body>
 	<!-- 메뉴바 
 		 현재페이지 뭔지 param.thisPage에 넣어서 navbar.jsp에  던짐 -->
-	<jsp:include page="./include/navbar.jsp">
+	<jsp:include page="../include/navbar.jsp">
 		<jsp:param value="signupForm" name="thisPage" />
 	</jsp:include>
 	
