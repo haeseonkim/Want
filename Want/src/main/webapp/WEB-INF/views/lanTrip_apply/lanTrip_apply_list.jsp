@@ -48,7 +48,7 @@ int endBlock = listTO.getEndBlock();
 <html>
 <head>
 <meta charset="UTF-8">
-<title>랜선여행 신청하기</title>
+<title>Want 랜선여행신청</title>
 	
 <jsp:include page="../include/index.jsp"></jsp:include>
 	

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.exam.model1.LanTripApplyTO;
+import com.exam.model1.ShoppingTO;
 import com.exam.model1.UserTO;
 
 public interface SqlMapperInter {
@@ -16,6 +17,9 @@ public interface SqlMapperInter {
 	public abstract void login(UserTO to);
 	public abstract int login_ok(UserTO to);
 	public abstract int login_lookup(UserTO to);
+	public abstract int login_decry(UserTO to);
+	
+	public abstract int shop_write_ok(ShoppingTO to);
 	
 	public abstract int login_decry(UserTO to);
 	
