@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.exam.model1.LanTripApplyTO;
+import com.exam.model1.LanTripTO;
 import com.exam.model1.ShoppingTO;
 import com.exam.model1.UserTO;
 
@@ -27,6 +28,8 @@ public interface SqlMapperInter {
 	public abstract int pwFind_lookup(UserTO to);
 	
 	public abstract ArrayList<LanTripApplyTO> LanTripApplyList();
+	
+//	public abstract ArrayList<LanTripTO> lanTripList();
 	
 	
 //	public abstract ArrayList<BoardTO> list();
