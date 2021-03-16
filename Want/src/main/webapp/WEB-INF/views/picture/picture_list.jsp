@@ -26,7 +26,7 @@
 	
 	<br /><br /><br />
 
-	<button>등록하기</button>
+	<button onclick="location.href='./picture_write.do'">등록하기</button>
 
 </body>
 </html>
