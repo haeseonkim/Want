@@ -5,16 +5,21 @@ body {
 	background: #f3f3f3;
 	font-family: 'Roboto', sans-serif;
 }
-
 .signuptitle{
 	margin-left: 30%
 }
-
+#using_id {
+	font-size: 16px;
+	font-weight: bold;
+	background: #5cd3b4;
+	border: none;
+	min-width: 140px;
+}
 .form-control {
 	border-color: #eee;
 	min-height: 41px;
 	box-shadow: none !important;
-	margin-bottom: 10px
+	margin-top: 10px;
 }
 
 .form-control:focus {

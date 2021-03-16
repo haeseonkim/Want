@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Want 동행구해요</title>
 	
 <jsp:include page="../include/index.jsp"></jsp:include>
 	

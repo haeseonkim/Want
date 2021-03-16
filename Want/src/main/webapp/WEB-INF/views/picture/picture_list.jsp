@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Want 사진자랑하기</title>
 	
 <jsp:include page="../include/index.jsp"></jsp:include>
 	

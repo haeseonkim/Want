@@ -3,6 +3,7 @@ package com.exam.model1;
 import java.util.ArrayList;
 
 public class LanTripListTO {
+	
 	private int cpage;
 	private int recordPerPage;
 	private int blockPerPage;
