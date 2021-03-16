@@ -185,5 +185,13 @@ public class UserController {
 
 		return result;
 	}
-
+	
+	// 비밀번호찾기
+	@RequestMapping(value = "/pwFindForm.do")
+	public String pwFindForm(HttpServletRequest request, HttpServletResponse response ) {
+			
+			return "user/pwFindForm";
+	}
+	
+	
 }
