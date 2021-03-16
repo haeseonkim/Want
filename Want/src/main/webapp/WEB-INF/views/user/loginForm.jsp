@@ -8,6 +8,7 @@
 		
 		out.println( " <script type='text/javascript'> " );
 		if( flag == 0 ) {	//로그인성공
+			session.setAttribute( "id", request.getAttribute( "id" ) );
 			out.println( " alert('로그인에 성공했습니다.'); " );
 			out.println( " location.href='./lanTrip_list.do'" );
 		} else if( flag == 1 ) {	//비번틀림
@@ -29,7 +30,7 @@
 <meta charset="UTF-8">
 <title>Want 로그인</title>
 	
-<jsp:include page="./include/index.jsp"></jsp:include>
+<jsp:include page="../include/index.jsp"></jsp:include>
 
 <!-- CSS File -->
 <link href="./resources/css/loginForm.css" rel="stylesheet"/>
@@ -47,7 +48,7 @@
 <body>
 	<!-- 메뉴바 
 		 현재페이지 뭔지 param.thisPage에 넣어서 navbar.jsp에  던짐 -->
-	<jsp:include page="./include/navbar.jsp">
+	<jsp:include page="../include/navbar.jsp">
 		<jsp:param value="loginForm" name="thisPage" />
 	</jsp:include>
 	
