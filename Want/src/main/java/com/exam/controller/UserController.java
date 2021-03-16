@@ -82,14 +82,17 @@ public class UserController {
 	}
 	
 	
-	// ---------------------- 소셜 로그인 ----------------------
+	// ---------------------- 카카오 로그인 ----------------------
 	@RequestMapping(value = "/loginForm_ok.do")
 	public String kakaoLogin(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		
-		String id = request.getParameter("kakaoemail");
-		System.out.println("kakaoid");
+		String kakaoid = request.getParameter("kakaoemail");
+		
+		System.out.println(kakaoid);
+		
 		request.setAttribute("flag", 0);
-		session.setAttribute("id", id);
+		
+		session.setAttribute("kakaoid", kakaoid);
 		
 		return "user/loginForm_ok";
 	}
