@@ -42,5 +42,11 @@ public class LanTripController {
 	public String lanTrip_write(Model model) {
 		return "lanTrip/lanTrip_write";
 	}
+	
+	// 랜선여행 게시물 view
+	@RequestMapping(value = "/lanTrip_view.do")
+	public String lanTrip_view(Model model) {
+		return "lanTrip/lanTrip_view";
+	}
 
 }

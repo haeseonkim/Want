@@ -68,10 +68,9 @@
 
 
 	<!-- ================  랜선여행 하기  ================= -->
-	<!-- LanTripList -->
+	<!--Lantriplist -->
 	<select id="lanTripList" resultType="com.exam.model1.LanTripTO">
-		select no, subject, writer, date_format(wdate, '%Y-%m-%d') wdate, hit,
-		location, video, reply
+		select no, subject, writer, date_format(wdate, '%Y-%m-%d') wdate, hit, location, video, reply
 		from l_board
 	</select>
 

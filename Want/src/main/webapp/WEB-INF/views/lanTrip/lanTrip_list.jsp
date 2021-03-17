@@ -59,6 +59,7 @@ for (LanTripTO to : boardLists) {
 <link href="./resources/css/navbar.css" rel="stylesheet">
 
 
+
 </head>
 <body>
 	<!-- 메뉴바 
