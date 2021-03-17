@@ -5,110 +5,136 @@
 
 	<!-- signup -->
 	<insert id="signup_ok" parameterType="com.exam.model1.UserTO">
-		insert into user 
-		values( #{id}, #{pwd}, #{name}, #{birth}, #{mail}, #{phone}, #{nick}, now(), ifnull( #{profile}, profile ), ifnull( #{greet}, greet ) )  
+		insert into user
+		values( #{id}, #{pwd}, #{name}, #{birth}, #{mail}, #{phone}, #{nick}, now(),
+		ifnull( #{profile}, profile ), ifnull( #{greet}, greet ) )
 	</insert>
-	
-	<select id="nick_lookup" parameterType="com.exam.model1.UserTO" 
+
+	<select id="nick_lookup" parameterType="com.exam.model1.UserTO"
 		resultType="Int">
 		select count( nick )
-		from user 
+		from user
 		where nick like #{ nick };
 	</select>
-	
+
 
 	<!-- 회원있는지 여부확인 -->
-	<select id="login_lookup" parameterType="com.exam.model1.UserTO" 
+	<select id="login_lookup" parameterType="com.exam.model1.UserTO"
 		resultType="Int">
 		select count( id )
-		from user 
+		from user
 		where id like #{ id };
 	</select>
-	
-	<select id="login_ok" parameterType="com.exam.model1.UserTO" 
-		resultType="Int">  
+
+	<select id="login_ok" parameterType="com.exam.model1.UserTO"
+		resultType="Int">
 		select count(*)
-		from user 
-		where id like #{id} and pwd like #{pwd} 
+		from user
+		where id like #{id} and pwd like #{pwd}
 	</select>
-	
+
 	<select id="login_decry" parameterType="com.exam.model1.UserTO"
-    resultType="com.exam.model1.UserTO">
-	  select pwd
-	  from user
-	  where id like #{id}
-   </select>
-	
-		<!-- 회원있는지 여부확인 -->
-	<select id="pwFind_lookup" parameterType="com.exam.model1.UserTO" 
-		resultType="Int">
+		resultType="com.exam.model1.UserTO">
+		select pwd
+		from user
+		where id like #{id}
+	</select>
+
+	<!-- 회원있는지 여부확인 -->
+	<select id="pwFind_lookup"
+		parameterType="com.exam.model1.UserTO" resultType="Int">
 		select count( id )
-		from user 
+		from user
 		where id like #{ id };
 	</select>
-	
-		<!-- 메일 일치 여부 확인 -->
-	<select id="pwFind_ok" parameterType="com.exam.model1.UserTO" 
-		resultType="Int">  
+
+	<!-- 메일 일치 여부 확인 -->
+	<select id="pwFind_ok" parameterType="com.exam.model1.UserTO"
+		resultType="Int">
 		select count(*)
-		from user 
-		where id = #{id} and mail = #{mail} 
+		from user
+		where id = #{id} and mail = #{mail}
 	</select>
-	
+
 	<!-- 전송을 위한 비밀번호 조회 -->
-	<select id="pwdFind_update" parameterType="com.exam.model1.UserTO"
+	<select id="pwdFind_update"
+		parameterType="com.exam.model1.UserTO"
 		resultType="com.exam.model1.UserTO">
 		select pwd
 		from user
 		where id = #{id} and mail = #{mail}
 	</select>
-	
-	<!--Lantriplist -->
-	<select id="lanTripList" resultType="com.exam.model1.lanTripTO">
-		select no, subject, writer, date_format(wdate, '%Y-%m-%d') wdate, hit, location, video, reply
+
+
+
+	<!-- ================  랜선여행 하기  ================= -->
+	<!-- LanTripList -->
+	<select id="lanTripList" resultType="com.exam.model1.LanTripTO">
+		select no, subject, writer, date_format(wdate, '%Y-%m-%d') wdate, hit,
+		location, video, reply
 		from l_board
-	</select> 
-	
+	</select>
+
+	<!-- ================  랜선여행 신청하기  =================  -->
 	<!-- LanTripApplyList -->
-	<select id="LanTripApplyList" resultType="com.exam.model1.LanTripApplyTO"> <!-- 파라메터가 없으므로 parameter Type 필요 없음 -->
+	<select id="LanTripApplyList"
+		resultType="com.exam.model1.LanTripApplyTO"> <!-- 파라메터가 없으므로 parameter Type 필요 없음 -->
 		select no, subject, writer, wdate, hit
 		from la_board
 	</select>
 
-	
-	<!--ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ여행지정보 관련ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ-->
-	<!--ㅡㅡㅡㅡㅡㅡ 쇼핑관련 ㅡㅡㅡㅡㅡㅡ-->
+
+	<!--  =================  사진자랑하기   =================  -->
+	<insert id="picture_write_ok" parameterType="com.exam.model1.PictureTO">
+		insert into p_board
+		values(0, #{ subject }, #{ content }, #{ writer }, now(), 0, #{ location }, #{ media }, 0 )
+	</insert>
+
+
+
+
+	<!--ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ여행지정보 관련ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+	<!--ㅡㅡㅡㅡㅡㅡ 쇼핑관련 ㅡㅡㅡㅡㅡㅡ -->
 	<!-- 쇼핑 write_ok -->
-	<insert id="shop_write_ok" parameterType="com.exam.model1.ShoppingTO">
-		insert into s_board 
+	<insert id="shop_write_ok"
+		parameterType="com.exam.model1.ShoppingTO">
+		insert into s_board
 		values(0, #{ subject }, #{ content }, #{ writer }, now(), 0, #{ location }, #{ picture }, 0 )
 	</insert>
-	
+
 	<!-- 쇼핑 list -->
-	<select id="shopList" parameterType="com.exam.model1.ShoppingTO" resultType="com.exam.model1.ShoppingTO">
-		select no, subject, writer, date_format(wdate, '%Y-%m-%d') wdate, 
-				hit, datediff(now(), wdate) wgap, ifnull(picture, '') picture, reply
-		from s_board
+	<select id="shopList" parameterType="com.exam.model1.ShoppingTO"
+		resultType="com.exam.model1.ShoppingTO">
+		select no, subject, writer, date_format(wdate, '%Y-%m-%d')
+		wdate,
+		hit, datediff(now(), wdate) wgap, ifnull(picture, '') picture, reply
+		from
+		s_board
 		where location like #{ location }
 		order by no desc
 	</select>
-	
-	<!--ㅡㅡㅡㅡㅡㅡ 숙소관련 ㅡㅡㅡㅡㅡㅡ-->
+
+	<!--ㅡㅡㅡㅡㅡㅡ 숙소관련 ㅡㅡㅡㅡㅡㅡ -->
 	<!-- 숙소 write_ok -->
-	<insert id="accom_write_ok" parameterType="com.exam.model1.AccomTO">
-		insert into a_board 
-		values(0, #{ subject }, #{ content }, #{ writer }, now(), 0, #{ location }, #{ picture }, 0 )
+	<insert id="accom_write_ok"
+		parameterType="com.exam.model1.AccomTO">
+		insert into a_board
+		values(0, #{ subject }, #{ content }, #{ writer }, now(), 0, #{ location }, #{
+		picture }, 0 )
 	</insert>
-	
+
 	<!-- 숙소 list -->
-	<select id="accomList" parameterType="com.exam.model1.AccomTO" resultType="com.exam.model1.AccomTO">
-		select no, subject, writer, date_format(wdate, '%Y-%m-%d') wdate, 
-				hit, datediff(now(), wdate) wgap, ifnull(picture, '') picture, reply
-		from a_board
+	<select id="accomList" parameterType="com.exam.model1.AccomTO"
+		resultType="com.exam.model1.AccomTO">
+		select no, subject, writer, date_format(wdate, '%Y-%m-%d')
+		wdate,
+		hit, datediff(now(), wdate) wgap, ifnull(picture, '') picture, reply
+		from
+		a_board
 		where location like #{ location }
 		order by no desc
 	</select>
-	
-	
+
+
 </mapper>
 

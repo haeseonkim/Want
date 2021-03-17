@@ -24,10 +24,10 @@ public class PictureDAO {
 	}
 
 	// writer_ok - flag 값 있어야함
-	public int boardWriteOk(PictureTO to) {
+	public int pictureWriteOk(PictureTO to) {
 		int flag = 1;
 
-		int result = sqlSession.insert("write_ok", to);
+		int result = sqlSession.insert("picture_write_ok", to);
 		if (result == 1) {
 			flag = 0;
 		}

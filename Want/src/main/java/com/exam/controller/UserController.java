@@ -15,11 +15,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.oreilly.servlet.MultipartRequest;
 
-
 import com.exam.model1.UserTO;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import com.exam.model1.UserDAO;
-
 
 @Controller
 public class UserController {
@@ -35,8 +33,7 @@ public class UserController {
 	public String loginForm(HttpServletRequest request, HttpServletResponse response, HttpSession session)
 			throws Exception {
 		if (request.getParameter("login_ok") == null) {
-			return "user/loginForm";
-		} else if (request.getParameter("login_ok").equals("1") && request.getParameter("kakaoemail").equals("")) {
+		} else if (request.getParameter("login_ok").equals("1") && request.getParameter("kakaoemail") == null) {
 
 			int flag = 2;
 			String key = "secret Key";
@@ -72,27 +69,49 @@ public class UserController {
 				flag = 3;
 			}
 			request.setAttribute("flag", flag);
-			
+
 			// id를 세션에 저장
 			session.setAttribute("id", userTo.getId());
-			
 
-			return "user/loginForm";
-		} else {
+		} else if (request.getParameter("login_ok").equals("1") && request.getParameter("kakaoemail") != null) {
+
 			String kakaoid = request.getParameter("kakaoemail");
-			
-			System.out.println(kakaoid);
-			
-			request.setAttribute("flag", 0);
-			
+
+			UserTO userTo = new UserTO();
+
+			userTo.setId(kakaoid);
+
+			int result_lookup = userDao.loginLookup(userTo);
+
+			if (result_lookup == 0) { // 회원이 아닌경우 (카카오 계정으로 처음 방문한 경우)
+
+				userTo.setPwd("kakaopwd");
+				userTo.setName(request.getParameter("kakaoname"));
+				userTo.setBirth(request.getParameter("kakaobirth"));
+				userTo.setMail(request.getParameter("kakaoemail"));
+				userTo.setPhone("번호를 수정해주세요");
+				userTo.setNick(null);
+
+				userTo.setProfile(null);
+				userTo.setGreet(null);
+
+				System.out.println(userTo.getName());
+				int flag = userDao.signup_ok(userTo);
+
+				request.setAttribute("flag", flag);
+
+			} else {	// 이미 카카오로 로그인한 적이 있을 때 (최초 1회 로그인때 회원가입된 상태)
+				request.setAttribute("flag", 0);
+			}
+
 			// kakaoid를 세션에 저장
 			session.setAttribute("kakaoid", kakaoid);
-			
-			return "user/loginForm";
+
 		}
+
+		return "user/loginForm";
 	}
-	
-	
+
 	// ---------------------- 카카오 로그인 ----------------------
 //	@RequestMapping(value = "/kakaologin.do")
 //	public String kakaoLogin(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
@@ -108,16 +127,13 @@ public class UserController {
 //		
 //		return "user/loginForm";
 //	}
-	
-	
+
 	// ---------------------- 로그아웃 ----------------------
 	@RequestMapping(value = "/logout.do")
 	public String logout_ok(HttpSession session, Model model) {
 		session.invalidate();
 		return "user/logout_ok";
 	}
-
-	
 
 	// ---------------------- 회원가입관련 ----------------------
 	@RequestMapping(value = "/signupForm.do")
@@ -201,13 +217,12 @@ public class UserController {
 
 		return result;
 	}
-	
+
 	// 비밀번호찾기
 	@RequestMapping(value = "/pwFindForm.do")
-	public String pwFindForm(HttpServletRequest request, HttpServletResponse response ) {
-			
-			return "user/pwFindForm";
+	public String pwFindForm(HttpServletRequest request, HttpServletResponse response) {
+
+		return "user/pwFindForm";
 	}
-	
-	
+
 }

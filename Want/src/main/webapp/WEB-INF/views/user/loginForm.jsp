@@ -57,9 +57,17 @@
 					url: '/v2/user/me',
 					success: res => {
 						const email = res.kakao_account.email;
+						const name = res.properties.nickname;
+						const birth = res.kakao_account.birthday;
+						
 						console.log(email);
+						console.log(name);
+						console.log(birth);
+						
 						$('#kakaoemail').val(email);
-						document.lfrm.submit();
+						$('#kakaoname').val(name);
+						$('#kakaobirth').val(birth);
+						document.login_frm.submit();
 					}
 				});
 				
@@ -111,7 +119,9 @@
 		
 			<div class="form-group row" id="kakaologin">
 				<div class="kakaobtn">
-					<input type="hidden" name="kakaoemail" id="kakaoemail" value="" />
+					<input type="hidden" name="kakaoemail" id="kakaoemail" />
+					<input type="hidden" name="kakaoname" id="kakaoname" />
+					<input type="hidden" name="kakaobirth" id="kakaobirth" />
 					<a href="javascript:kakaoLogin();"> 
 						<img src="./resources/img/kakao_login_medium_wide.png" />
 					</a>

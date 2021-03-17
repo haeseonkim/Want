@@ -43,7 +43,7 @@
 					href="./aboutUs.do">About us</a></li>
 
 				<%-- 로그인 상태 일때만 '마이페이지'가 보인다. --%>
-				<c:if test="${!empty sessionScope.id }">
+				<c:if test="${!empty sessionScope.id or !empty sessionScope.kakaoid}">
 					<li class="dropdown"><a href="./my_list.do"><span>마이페이지</span>
 							<i class="bi bi-chevron-down"></i></a>
 						<ul>
