@@ -8,10 +8,6 @@
 		
 		out.println( " <script type='text/javascript'> " );
 		if( flag == 0 ) {	//로그인성공
-			
-			// 세션에 저장
-			session.setAttribute( "id", request.getAttribute( "id" ) );
-			
 			out.println( " alert('로그인에 성공했습니다.'); " );
 			out.println( " location.href='./lanTrip_list.do'" );
 		} else if( flag == 1 ) {	//비번틀림
@@ -42,14 +38,15 @@
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 
 <script>
-	//d2d78fe4b3e00dbdb6af02d56f8c765a
-	window.Kakao.init("d2d78fe4b3e00dbdb6af02d56f8c765a");
 	
 	window.onload = function() {
 		document.getElementById('login_submit').onclick = function() {
 			document.login_frm.submit();
 		}
 	}
+	
+	//d2d78fe4b3e00dbdb6af02d56f8c765a
+	window.Kakao.init("d2d78fe4b3e00dbdb6af02d56f8c765a");
 	
 	function kakaoLogin(){
 		window.Kakao.Auth.login({
@@ -60,15 +57,23 @@
 					url: '/v2/user/me',
 					success: res => {
 						const email = res.kakao_account.email;
+						const name = res.properties.nickname;
+						const birth = res.kakao_account.birthday;
+						
 						console.log(email);
+						console.log(name);
+						console.log(birth);
+						
 						$('#kakaoemail').val(email);
-						document.lfrm.submit();
+						$('#kakaoname').val(name);
+						$('#kakaobirth').val(birth);
+						document.login_frm.submit();
 					}
 				});
 				
 			}
 		});
-	};
+	}
 
 	
 </script>
@@ -104,7 +109,7 @@
                 <input type="password" class="form-control" name="password" placeholder="Password 입력..." required="required">
             </div>        	
         </div>
-		<div class="form-group row">
+		<div class="form-group row loginbtn">
 			<button type="submit" id="login_submit" class="btn btn-primary btn-lg">로그인</button>
 		</div>		
 		
@@ -113,17 +118,24 @@
 		</div>
 		
 			<div class="form-group row" id="kakaologin">
-				<div class="col-8 offset-2">
-					<a href="javascript:kakaoLogin();"> <img
-						src="./resources/img/kakao_login_medium_wide.png" />
+				<div class="kakaobtn">
+					<input type="hidden" name="kakaoemail" id="kakaoemail" />
+					<input type="hidden" name="kakaoname" id="kakaoname" />
+					<input type="hidden" name="kakaobirth" id="kakaobirth" />
+					<a href="javascript:kakaoLogin();"> 
+						<img src="./resources/img/kakao_login_medium_wide.png" />
 					</a>
 				</div>
 			</div>
 		     
     </form>
-    <form action="./loginForm_ok.do" method="post" name="lfrm" hidden>
+    
+    <%-- kakaoemail을 넘기기 위한 숨겨진 form --%>
+     <%--
+    <form action="./kakaologin.do" method="post" name="lfrm" hidden>
     	<input type="text" name="kakaoemail" id="kakaoemail" value="" />
     </form>
+    --%>
 	<div class="text-center">비밀번호가 기억나지 않습니까? <a href="./pwFindForm.do">비밀번호 찾기</a></div>
 	<div class="text-center">아직 회원이 아니십니까? <a href="./signupForm.do">회원가입</a></div>
 </div>

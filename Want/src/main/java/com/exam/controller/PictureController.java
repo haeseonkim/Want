@@ -3,6 +3,7 @@ package com.exam.controller;
 import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -44,7 +45,7 @@ public class PictureController {
 	
 	// 사진자랑 글쓰기 ok
 	@RequestMapping(value = "/picture_write_ok.do")
-	public String write_ok(HttpServletRequest request, Model model) {
+	public String write_ok(HttpServletRequest request) {
 		
 	    int maxFileSize = 2048 * 2048 * 6;
 	    String encType = "utf-8";
@@ -56,36 +57,21 @@ public class PictureController {
 			
 			PictureTO to = new PictureTO();
 			to.setSubject(multi.getParameter("subject"));
+			to.setLocation(multi.getParameter("location"));
 			to.setWriter(multi.getParameter("writer"));
+			to.setContent(multi.getParameter("content"));
+			to.setMedia(multi.getFilesystemName("media"));
+	
+			int flag = pictureDao.pictureWriteOk(to);
 			
-			// 필수 입력 항목이 아닌 경우
-//			to.setMail("");
-//			
-//			to.setPassword(multi.getParameter("password"));
-//			to.setContent(multi.getParameter("content"));
-//			
-//			to.setFilename(multi.getFilesystemName("upload"));
-//			long filesize = 0;
-//			File file = multi.getFile("upload");
-//			if(file != null) {
-//				filesize = file.length();
-//			}
-//			to.setFilesize(filesize);
-//			
-//			to.setLongitude(multi.getParameter("longitude"));
-//			to.setLatitude(multi.getParameter("latitude"));
-//			
-//			to.setWip(request.getRemoteAddr());
-//			
-			int flag = pictureDao.boardWriteOk(to);
+			request.setAttribute("flag", flag);
 			
-			model.addAttribute("flag", flag);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		return "board_write1_ok";
+		return "picture/picture_write_ok";
 	}
 
 }

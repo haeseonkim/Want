@@ -29,7 +29,7 @@ public interface SqlMapperInter {
 	
 	public abstract ArrayList<LanTripApplyTO> LanTripApplyList();
 	
-//	public abstract ArrayList<LanTripTO> lanTripList();
+	public abstract ArrayList<LanTripTO> lanTripList();
 	
 	
 //	public abstract ArrayList<BoardTO> list();

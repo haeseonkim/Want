@@ -10,7 +10,16 @@ public class PictureTO {
 	private String location;
 	private String media;
 	private int reply;
+	private String k_writer;
 	
+	
+	
+	public String getK_writer() {
+		return k_writer;
+	}
+	public void setK_writer(String k_writer) {
+		this.k_writer = k_writer;
+	}
 	public int getNo() {
 		return no;
 	}
