@@ -17,7 +17,7 @@
 <!-- Google Fonts -->
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Song+Myung&display=swap" rel="stylesheet">	
-<!-- <link rel="stylesheet" type="text/css" href="resources/css/board_write.css">
+<!-- 
 <script type="text/javascript">
 	window.onload = function(){
 		document.getElementById( 'submit1' ).onclick = function(){

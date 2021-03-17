@@ -4,3 +4,22 @@
 body {
 	font_family: 'Song Myung', sans-serif;
 }
+
+.carousel-container {
+   padding: 15px;
+   margin-top : 60px;
+}
+.carousel {
+      display : block;
+      margin-left : auto;
+      margin-right : auto;
+      margin-top : auto;         
+      width: 40%;
+}
+.carousel-inner img {
+      width: 100%;
+      height: auto;
+}
+.card-container {
+   padding: 30px;
+}
