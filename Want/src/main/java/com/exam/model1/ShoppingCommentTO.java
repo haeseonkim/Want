@@ -1,36 +1,29 @@
 package com.exam.model1;
 
-public class CommentTO {
-	private String seq;
-	private String pseq;
+public class ShoppingCommentTO {
+	private String no;
+	private String bno;
 	private String writer;
-	private String password;
 	private String content;
 	private String wdate;
 	
-	public String getSeq() {
-		return seq;
+	public String getNo() {
+		return no;
 	}
-	public void setSeq(String seq) {
-		this.seq = seq;
+	public void setNo(String no) {
+		this.no = no;
 	}
-	public String getPseq() {
-		return pseq;
+	public String getBno() {
+		return bno;
 	}
-	public void setPseq(String pseq) {
-		this.pseq = pseq;
+	public void setBno(String bno) {
+		this.bno = bno;
 	}
 	public String getWriter() {
 		return writer;
 	}
 	public void setWriter(String writer) {
 		this.writer = writer;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
 	}
 	public String getContent() {
 		return content;
@@ -44,5 +37,4 @@ public class CommentTO {
 	public void setWdate(String wdate) {
 		this.wdate = wdate;
 	}
-	
 }

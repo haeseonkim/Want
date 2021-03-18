@@ -6,13 +6,20 @@ public class ShoppingTO {
 	private String content;
 	private String writer;
 	private String wdate;
-	private int hit;
+	private String hit;
 	private String location;
 	private String picture;
-	private int reply;
+	private String reply;
 	private int wgap;
+	private String heart;
 	
 	
+	public String getHeart() {
+		return heart;
+	}
+	public void setHeart(String heart) {
+		this.heart = heart;
+	}
 	public int getWgap() {
 		return wgap;
 	}
@@ -49,10 +56,10 @@ public class ShoppingTO {
 	public void setWdate(String wdate) {
 		this.wdate = wdate;
 	}
-	public int getHit() {
+	public String getHit() {
 		return hit;
 	}
-	public void setHit(int hit) {
+	public void setHit(String hit) {
 		this.hit = hit;
 	}
 	public String getLocation() {
@@ -67,10 +74,10 @@ public class ShoppingTO {
 	public void setPicture(String picture) {
 		this.picture = picture;
 	}
-	public int getReply() {
+	public String getReply() {
 		return reply;
 	}
-	public void setReply(int reply) {
+	public void setReply(String reply) {
 		this.reply = reply;
 	}
 }

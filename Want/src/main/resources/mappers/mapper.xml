@@ -112,45 +112,112 @@
 	<!--ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ여행지정보 관련ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
 	<!--ㅡㅡㅡㅡㅡㅡ 쇼핑관련 ㅡㅡㅡㅡㅡㅡ -->
 	<!-- 쇼핑 write_ok -->
-	<insert id="shop_write_ok"
-		parameterType="com.exam.model1.ShoppingTO">
+	<insert id="shop_write_ok" parameterType="com.exam.model1.ShoppingTO">
 		insert into s_board
-		values(0, #{ subject }, #{ content }, #{ writer }, now(), 0, #{ location }, #{ picture }, 0 )
+		values(0, #{ subject }, #{ content }, #{ writer }, now(), 0, #{ location }, #{ picture }, 0, 0 )
 	</insert>
 
 	<!-- 쇼핑 list -->
 	<select id="shopList" parameterType="com.exam.model1.ShoppingTO"
 		resultType="com.exam.model1.ShoppingTO">
-		select no, subject, writer, date_format(wdate, '%Y-%m-%d')
-		wdate,
-		hit, datediff(now(), wdate) wgap, ifnull(picture, '') picture, reply
-		from
-		s_board
+		select no, subject, content, writer, date_format(wdate, '%Y-%m-%d') wdate, hit, datediff(now(), wdate) wgap, ifnull(picture, '') picture, reply, heart
+		from s_board
 		where location like #{ location }
 		order by no desc
 	</select>
+
+	<!-- 쇼핑 view -->
+	<select id="shopView" parameterType="com.exam.model1.ShoppingTO" 
+			resultType="com.exam.model1.ShoppingTO">
+		select no, subject, content, writer, wdate, hit, location, picture, reply, heart
+		from s_board
+		where no = #{no}
+	</select>
+	
+	<!-- 쇼핑 view hit 올리기 -->
+	<update id="shopViewHit" parameterType="com.exam.model1.ShoppingTO">
+		update s_board
+		set hit = hit + 1 
+		where no = #{no}
+	</update>
+	
+	<!-- 쇼핑 view reply 수 불러오기 -->
+	<update id="shopViewReply" parameterType="com.exam.model1.ShoppingTO">
+		update s_board
+		set reply = ( select count(*) 
+				from s_reply
+				where bno = #{no} )
+		where no = #{no}
+	</update>
+
+	<!-- 쇼핑 comment list -->
+	<select id="shopListComment" parameterType="com.exam.model1.ShoppingCommentTO"
+		resultType="com.exam.model1.ShoppingCommentTO">
+		select no, bno, writer, content, wdate
+		from s_reply
+		where bno = #{bno}
+	</select>
+	
+	<!-- 쇼핑 comment write ok -->
+	<insert id="shopViewCommentOk" parameterType="com.exam.model1.ShoppingCommentTO">
+		insert into s_reply
+		values( 0, #{bno}, #{writer}, #{content}, now() )
+	</insert>
 
 	<!--ㅡㅡㅡㅡㅡㅡ 숙소관련 ㅡㅡㅡㅡㅡㅡ -->
 	<!-- 숙소 write_ok -->
 	<insert id="accom_write_ok"
 		parameterType="com.exam.model1.AccomTO">
 		insert into a_board
-		values(0, #{ subject }, #{ content }, #{ writer }, now(), 0, #{ location }, #{
-		picture }, 0 )
+		values(0, #{ subject }, #{ content }, #{ writer }, now(), 0, #{ location }, #{ picture }, 0, 0 )
 	</insert>
 
 	<!-- 숙소 list -->
 	<select id="accomList" parameterType="com.exam.model1.AccomTO"
 		resultType="com.exam.model1.AccomTO">
-		select no, subject, writer, date_format(wdate, '%Y-%m-%d')
-		wdate,
-		hit, datediff(now(), wdate) wgap, ifnull(picture, '') picture, reply
-		from
-		a_board
+		select no, subject, writer, date_format(wdate, '%Y-%m-%d') wdate, hit, datediff(now(), wdate) wgap, ifnull(picture, '') picture, reply, heart
+		from a_board
 		where location like #{ location }
 		order by no desc
 	</select>
 
+	<!-- 숙소 view -->
+	<select id="accomView" parameterType="com.exam.model1.AccomTO" 
+			resultType="com.exam.model1.AccomTO">
+		select no, subject, content, writer, wdate, hit, location, picture, reply, heart
+		from a_board
+		where no = #{no}
+	</select>
+	
+	<!-- 숙소 view hit 올리기 -->
+	<update id="accomViewHit" parameterType="com.exam.model1.AccomTO">
+		update a_board
+		set hit = hit + 1 
+		where no = #{no}
+	</update>
+	
+	<!-- 숙소 view reply 수 불러오기 -->
+	<update id="accomViewReply" parameterType="com.exam.model1.AccomTO">
+		update a_board
+		set reply = ( select count(*) 
+				from a_reply
+				where bno = #{no} )
+		where no = #{no}
+	</update>
+	
+	<!-- 숙소 comment list -->
+	<select id="accomListComment" parameterType="com.exam.model1.AccomCommentTO"
+		resultType="com.exam.model1.AccomCommentTO">
+		select no, bno, writer, content, wdate
+		from a_reply
+		where bno = #{bno}
+	</select>
+	
+	<!-- 숙소 comment write ok -->
+	<insert id="accomViewCommentOk" parameterType="com.exam.model1.AccomCommentTO">
+		insert into a_reply
+		values(0, #{bno}, #{writer}, #{content}, now() )
+	</insert>
 
 </mapper>
 

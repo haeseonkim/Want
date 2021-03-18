@@ -25,11 +25,12 @@ public class ShoppingDAO {
 	
 	//쇼핑 list
 	public ShoppingListTO shopList(ShoppingListTO listTO) {
+
 		ArrayList<ShoppingTO> totalLists = (ArrayList)sqlSession.selectList( "shopList", listTO );
 		
 		// 페이지를 위한 기본 요소
 		int cpage = listTO.getCpage();
-		int recordPerPage = listTO.getRecordPerPage(); // 한페이지에 보이는 글의 개수 5개
+		int recordPerPage = listTO.getRecordPerPage(); // 한페이지에 보이는 글의 개수 10개
 		int BlockPerPage = listTO.getBlockPerPage(); // 한 화면에 보일 페이지의 수 3개
 
 		// 총 글의 개수 얻기
@@ -52,6 +53,7 @@ public class ShoppingDAO {
 				to.setHit( totalLists.get(skip+i).getHit() );
 				to.setWgap( totalLists.get(skip+i).getWgap() );
 				to.setReply( totalLists.get(skip+i).getReply() );
+				to.setHeart( totalLists.get(skip+i).getHeart() );
 				
 				lists.add(to);
 				
@@ -68,4 +70,15 @@ public class ShoppingDAO {
 
 		return listTO;
 	}
+	
+	//쇼핑 view
+	public ShoppingTO shopView( ShoppingTO to ) {
+		
+		sqlSession.update( "shopViewHit", to );
+		sqlSession.update( "shopViewReply",to );
+		to = sqlSession.selectOne( "shopView", to );
+		
+		return to;
+	}
+	
 }

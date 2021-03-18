@@ -2,6 +2,7 @@ package com.exam.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,7 +22,6 @@ import com.exam.model1.UserDAO;
 
 @Controller
 public class UserController {
-
 
 	@Autowired
 	private UserDAO userDao;
@@ -83,10 +83,10 @@ public class UserController {
          }
          request.setAttribute("flag", flag);
 
-
          // id를 세션에 저장
          session.setAttribute("id", userTo.getId());
          
+
 
 		} else if (request.getParameter("login_ok").equals("1") && !request.getParameter("kakaoemail").equals("")) {
 
@@ -119,6 +119,7 @@ public class UserController {
 
             System.out.println(userTo.getName());
             int flag = userDao.signup_ok(userTo);
+
 				
             request.setAttribute("flag", flag);
 				
@@ -151,9 +152,16 @@ public class UserController {
 
    // ---------------------- 로그아웃 ----------------------
    @RequestMapping(value = "/logout.do")
-   public String logout_ok(HttpSession session, Model model) {
-      session.invalidate();
-      return "user/logout_ok";
+   public String logout_ok(HttpSession session, HttpServletRequest request, Model model) {
+	  try {
+		request.setCharacterEncoding("utf-8");
+	} catch (UnsupportedEncodingException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	  session.invalidate();
+	  return "user/logout_ok";
+
    }
 
    // ---------------------- 회원가입관련 ----------------------
@@ -168,11 +176,13 @@ public class UserController {
 
       int maxFileSize = 1024 * 1024 * 6;
       String encType = "utf-8";
-      String uploadPath = "/Users/hyukjun/git/Want/Want/src/main/webapp/upload/profile";
+      String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\profile";
 
       MultipartRequest multi = null;
 
       try {
+    	  request.setCharacterEncoding("utf-8");
+
          multi = new MultipartRequest(request, uploadPath, maxFileSize, encType, new DefaultFileRenamePolicy());
 
          String key = "secret Key";
@@ -213,6 +223,13 @@ public class UserController {
    @ResponseBody
    @RequestMapping(value = "/usingId_chk.do", produces = "text/plain")
    public String idCheck(HttpServletRequest request, HttpServletResponse response) {
+	   try {
+		request.setCharacterEncoding("utf-8");
+	} catch (UnsupportedEncodingException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	   
 
       String user_id = request.getParameter("user_id");
       UserTO userTo = new UserTO();
@@ -228,6 +245,12 @@ public class UserController {
    @ResponseBody
    @RequestMapping(value = "/usingNick_chk.do", produces = "text/plain")
    public String nickCheck(HttpServletRequest request, HttpServletResponse response) {
+	   try {
+		request.setCharacterEncoding("utf-8");
+	} catch (UnsupportedEncodingException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
 
       String user_nick = request.getParameter("user_nick");
       UserTO userTo = new UserTO();
@@ -242,6 +265,12 @@ public class UserController {
    // 비밀번호찾기
    @RequestMapping(value = "/pwFindForm.do")
    public String pwFindForm(HttpServletRequest request, HttpServletResponse response) {
+	   try {
+		request.setCharacterEncoding("utf-8");
+	} catch (UnsupportedEncodingException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
 
       return "user/pwFindForm";
    }
