@@ -29,8 +29,6 @@
       	<div class="row">
         	<div align="center">
 				<h2>비밀번호 찾기</h2>
-				<%-- <form action="${pageContext.request.contextPath)/mail/mailSending}" method="post">
-				</form> --%>
 			</div>	
       	</div>			
         <div class="form-group row">
@@ -48,7 +46,7 @@
         </div>
 		<div class="form-group row">
 			
-			<button type="submit" class="btn btn-primary btn-lg">비밀번호 찾기</button>
+			<button type="submit" id="pwFind_btn"class="btn btn-primary btn-lg">비밀번호 찾기</button>
 		</div>		
 
     </form>

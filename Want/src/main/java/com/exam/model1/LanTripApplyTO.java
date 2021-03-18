@@ -14,7 +14,7 @@ public class LanTripApplyTO {
 	private String location;
 	private String picture;
 	private String reply;
-	private int wgap;
+	
 	
 	public String getNo() {
 		return no;
@@ -70,11 +70,6 @@ public class LanTripApplyTO {
 	public void setReply(String reply) {
 		this.reply = reply;
 	}
-	public int getWgap() {
-		return wgap;
-	}
-	public void setWgap(int wgap) {
-		this.wgap = wgap;
-	}
+
 	
 }
