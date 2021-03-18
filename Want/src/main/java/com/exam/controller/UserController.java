@@ -24,6 +24,7 @@ public class UserController {
 
 	@Autowired
 	private UserDAO userDao;
+	
 
 	// 각자 맞는 upload 폴더 경로로 변경
 	private String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload";
@@ -32,9 +33,19 @@ public class UserController {
 	@RequestMapping(value = "/loginForm.do")
 	public String loginForm(HttpServletRequest request, HttpServletResponse response, HttpSession session)
 			throws Exception {
+		
+		request.setCharacterEncoding("utf-8");
+		
 		if (request.getParameter("login_ok") == null) {
-		} else if (request.getParameter("login_ok").equals("1") && request.getParameter("kakaoemail") == null) {
+			
+		} else if (request.getParameter("login_ok").equals("1") && !request.getParameter("id").equals("")) {
 
+			// =================  일반 로그인 =================
+			System.out.println("일반로그인");
+			System.out.println(request.getParameter("id"));
+			System.out.println(request.getParameter("kakaoemail"));
+			
+			
 			int flag = 2;
 			String key = "secret Key";
 
@@ -72,9 +83,17 @@ public class UserController {
 
 			// id를 세션에 저장
 			session.setAttribute("id", userTo.getId());
+			
 
-		} else if (request.getParameter("login_ok").equals("1") && request.getParameter("kakaoemail") != null) {
+		} else if (request.getParameter("login_ok").equals("1") && !request.getParameter("kakaoemail").equals("")) {
 
+			// ==================== 카카오 로그인 ========================
+			System.out.println("카카오로그인");
+			System.out.println(request.getParameter("id"));
+			System.out.println(request.getParameter("kakaoemail"));
+			System.out.println(request.getParameter("kakaoname"));
+			System.out.println(request.getParameter("kakaobirth"));
+			
 			String kakaoid = request.getParameter("kakaoemail");
 
 			UserTO userTo = new UserTO();
@@ -99,11 +118,11 @@ public class UserController {
 				int flag = userDao.signup_ok(userTo);
 
 				request.setAttribute("flag", flag);
+				
 
 			} else {	// 이미 카카오로 로그인한 적이 있을 때 (최초 1회 로그인때 회원가입된 상태)
 				request.setAttribute("flag", 0);
 			}
-
 			// kakaoid를 세션에 저장
 			session.setAttribute("kakaoid", kakaoid);
 
