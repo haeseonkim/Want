@@ -95,19 +95,33 @@
 	<!-- LanTripApplyList -->
 	<select id="LanTripApplyList"
 		resultType="com.exam.model1.LanTripApplyTO"> <!-- 파라메터가 없으므로 parameter Type 필요 없음 -->
-		select no, subject, writer, wdate, hit
+		select no, subject, writer, date_format(wdate, '%Y-%m-%d') wdate, hit, reply
 		from la_board
 	</select>
 
+	<!-- LanTripApplyWriteOk -->
+	<insert id="lanTrip_apply_write_ok" parameterType="com.exam.model1.LanTripApplyTO">
+		insert into la_board
+		values(0, #{ subject }, #{ content }, #{ writer }, now(), 0, #{ location }, #{ picture }, 0 )
+	</insert>
+
+	<!-- LanTripApplyView -->
+	<select id="lanTrip_apply_view" parameterType="com.exam.model1.LanTripApplyTO" resultType="com.exam.model1.LanTripApplyTO">
+		select no, subject, content, writer, date_format(wdate, '%Y-%m-%d') wdate, hit, location, picture, reply
+		from la_board
+		where no = #{no}
+	</select>
+	
+<!-- 	<update id="lanTrip_apply_view_hit" parameterType="com.exam.model1.LanTripApplyTO">
+		update 
+	</update>
+ -->
 
 	<!--  =================  사진자랑하기   =================  -->
 	<insert id="picture_write_ok" parameterType="com.exam.model1.PictureTO">
 		insert into p_board
 		values(0, #{ subject }, #{ content }, #{ writer }, now(), 0, #{ location }, #{ media }, 0 )
 	</insert>
-
-
-
 
 	<!--ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ여행지정보 관련ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
 	<!--ㅡㅡㅡㅡㅡㅡ 쇼핑관련 ㅡㅡㅡㅡㅡㅡ -->

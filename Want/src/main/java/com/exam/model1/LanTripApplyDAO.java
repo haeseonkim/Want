@@ -20,14 +20,14 @@ public class LanTripApplyDAO {
 	private SqlSession sqlSession;
 
 	// writer - dao 통과 안해도됨
-	public void boardWrite() {
+	public void lanTripApplyWrite() {
 	}
 
 	// writer_ok - flag 값있어야함
-	public int boardWriteOk(LanTripTO to) {
+	public int lanTripApplyWriteOk(LanTripApplyTO to) {
 		int flag = 1;
 
-		int result = sqlSession.insert("write_ok", to);
+		int result = sqlSession.insert("lanTrip_apply_write_ok", to);
 		if (result == 1) {
 			flag = 0;
 		}
@@ -75,9 +75,9 @@ public class LanTripApplyDAO {
 	   }
 	   
 	// view
-	public LanTripTO boardView(LanTripTO to) {
-		sqlSession.update("view_hit", to);
-		to = sqlSession.selectOne("view", to);
+	public LanTripApplyTO lanTrip_apply_View(LanTripApplyTO to) {
+		//sqlSession.update("lanTrip_apply_view_hit", to);
+		to = sqlSession.selectOne("lanTrip_apply_view", to);
 
 		return to;
 	}

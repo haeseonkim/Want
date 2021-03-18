@@ -23,6 +23,7 @@ import com.exam.model1.UserDAO;
 @Controller
 public class UserController {
 
+
 	@Autowired
 	private UserDAO userDao;
 	
@@ -223,6 +224,7 @@ public class UserController {
    @ResponseBody
    @RequestMapping(value = "/usingId_chk.do", produces = "text/plain")
    public String idCheck(HttpServletRequest request, HttpServletResponse response) {
+
 	   try {
 		request.setCharacterEncoding("utf-8");
 	} catch (UnsupportedEncodingException e) {

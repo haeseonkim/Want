@@ -1,25 +1,5 @@
 @charset "UTF-8";
 
-body{
-	font_family :'Song Myung', sans-serif;
-}
-
-#totalRecord{
-	color: orange;
-}
-
-#subject{
-	text-align:center;
-}
-
-table{
-	width:100%;
-}
-@charset "UTF-8";
-
-#no, #writer, #wdate, #hit {
-	text-align:center;
-}
 /* ==========================================================================
    #FONT
    ========================================================================== */
@@ -207,7 +187,6 @@ body {
 	font-family: "Open Sans", "Arial", "Helvetica Neue", sans-serif;
 	font-weight: 400;
 	font-size: 14px;
-	line-height: 2.4;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -367,8 +346,8 @@ h6 {
    ========================================================================== */
 .btn {
 	display: inline-block;
-	line-height: 30px;	/* 수정 */
-	padding: 0 20px;	/* 수정 */
+	line-height: 50px;
+	padding: 0 30px;
 	-webkit-transition: all 0.4s ease;
 	-o-transition: all 0.4s ease;
 	-moz-transition: all 0.4s ease;
@@ -388,9 +367,9 @@ h6 {
 }
 
 .btn--radius-2 {
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	border-radius: 3px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
 }
 
 .btn--pill {
@@ -698,9 +677,6 @@ textarea {
 	-moz-border-radius-bottomright: 3px;
 	border-bottom-right-radius: 3px;
 	padding: 50px 55px;
-}
-
-div.card-footer{
 	text-align: right;
 }
 

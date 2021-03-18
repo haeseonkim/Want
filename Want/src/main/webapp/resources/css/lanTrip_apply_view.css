@@ -4,21 +4,12 @@ body{
 	font_family :'Song Myung', sans-serif;
 }
 
-#totalRecord{
-	color: orange;
-}
 
-#subject{
-	text-align:center;
-}
-
-table{
-	width:100%;
-}
 @charset "UTF-8";
 
-#no, #writer, #wdate, #hit {
-	text-align:center;
+
+#board_content {
+	background-color: white;
 }
 /* ==========================================================================
    #FONT
@@ -129,6 +120,13 @@ table{
 	}
 }
 
+#comment{
+	border:solid;
+	border-width:1px;
+	border-radius:.5rem;
+	border-color: grey;
+	width:100%;
+}
 /* ==========================================================================
    #BOX-SIZING
    ========================================================================== */
@@ -175,10 +173,6 @@ li>ol, li>ul {
 /**
  * Remove default table spacing.
  */
-table {
-	border-collapse: collapse;
-	border-spacing: 0;
-}
 
 /**
  * 1. Reset Chrome and Firefox behaviour which sets a `min-width: min-content;`
@@ -237,6 +231,24 @@ h5 {
 h6 {
 	font-size: 13px;
 }
+
+#location{
+	color:green;
+}
+
+#no{
+	width:10%;
+}
+
+#wdate{
+	width:20%;
+	text-align:right;
+}
+
+#hit{
+	width:10%;
+}
+
 
 /* ==========================================================================
    #BACKGROUND
@@ -377,7 +389,7 @@ h6 {
 	font-size: 15px;
 	text-transform: capitalize;
 	font-weight: 700;
-	color: #fff;
+	color:#fff;
 	font-family: inherit;
 }
 
@@ -385,6 +397,7 @@ h6 {
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
 	border-radius: 3px;
+	background-color:aqua;
 }
 
 .btn--radius-2 {
@@ -431,6 +444,24 @@ h6 {
 .btn--red:hover {
 	background: #eb3746;
 }
+
+#btn_write {
+	text-align:right;
+	width:86%;
+}
+
+#btn_list {
+	text-align:center;
+	background-color:#e6e6e6;
+	width:80px;
+	border-radius:.25rem;
+}
+
+#btn_buttons{
+	text-align:right;
+	width:80px;
+}
+
 
 /* ==========================================================================
    #DATE PICKER
@@ -562,6 +593,9 @@ textarea {
 	-ms-transform: translateY(-3px);
 	-o-transform: translateY(-3px);
 	transform: translateY(-3px);
+}
+.form-control{
+	border-color:white;
 }
 
 .textarea--style-6 {
@@ -708,4 +742,10 @@ div.card-footer{
 	.card-6 .card-footer {
 		padding: 50px 30px;
 	}
+}
+
+.picture {
+	display : block;
+   	text-align: center;   	
+   	margin-top : 50px;   		
 }

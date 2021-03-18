@@ -31,6 +31,8 @@ public interface SqlMapperInter {
 	public abstract int pwFind_lookup(UserTO to);
 	
 	public abstract ArrayList<LanTripApplyTO> LanTripApplyList();
+	public abstract int lanTrip_apply_write_ok(LanTripApplyTO to);
+	public abstract void LanTrip_apply_View(LanTripApplyTO to);
 	
 	public abstract ArrayList<LanTripTO> lanTripList();
 	
