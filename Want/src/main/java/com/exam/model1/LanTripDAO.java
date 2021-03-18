@@ -29,7 +29,7 @@ public class LanTripDAO {
 	public int boardWriteOk(LanTripTO to) {
 		int flag = 1;
 
-		int result = sqlSession.insert("write_ok", to);
+		int result = sqlSession.insert("lanTrip_write_ok", to);
 		if (result == 1) {
 			flag = 0;
 		}
