@@ -41,7 +41,7 @@ public class PictureDAO {
 		int recordPerPage = listTO.getRecordPerPage();
 		int blockPerPage = listTO.getBlockPerPage();
 
-		ArrayList<PictureTO> lists = (ArrayList)sqlSession.selectList("list");
+		ArrayList<PictureTO> lists = (ArrayList)sqlSession.selectList("picture_list");
 
 		listTO.setTotalRecord(lists.size());
 		listTO.setTotalPage(((listTO.getTotalRecord() - 1) / recordPerPage) + 1);

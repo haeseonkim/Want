@@ -128,7 +128,7 @@ for (LanTripTO to : boardLists) {
 				<div class="col-3">
 					<div class="card">
 						<video
-							src="https://codingyaar.com/wp-content/uploads/video-in-bootstrap-card.mp4"
+							src="https://youtu.be/IzzjXeYX_c0"
 							controls></video>
 						<div class="card-body">
 							<h3 class="card-title">정현수</h3>

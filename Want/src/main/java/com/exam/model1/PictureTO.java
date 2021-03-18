@@ -1,29 +1,21 @@
 package com.exam.model1;
 
 public class PictureTO {
-	private int no;
+	private String no;
 	private String subject;
 	private String content;
 	private String writer;
 	private String wdate;
-	private int hit;
+	private String hit;
 	private String location;
 	private String media;
-	private int reply;
-	private String k_writer;
+	private String reply;
+	private String heart;
 	
-	
-	
-	public String getK_writer() {
-		return k_writer;
-	}
-	public void setK_writer(String k_writer) {
-		this.k_writer = k_writer;
-	}
-	public int getNo() {
+	public String getNo() {
 		return no;
 	}
-	public void setNo(int no) {
+	public void setNo(String no) {
 		this.no = no;
 	}
 	public String getSubject() {
@@ -50,10 +42,10 @@ public class PictureTO {
 	public void setWdate(String wdate) {
 		this.wdate = wdate;
 	}
-	public int getHit() {
+	public String getHit() {
 		return hit;
 	}
-	public void setHit(int hit) {
+	public void setHit(String hit) {
 		this.hit = hit;
 	}
 	public String getLocation() {
@@ -68,11 +60,18 @@ public class PictureTO {
 	public void setMedia(String media) {
 		this.media = media;
 	}
-	public int getReply() {
+	public String getReply() {
 		return reply;
 	}
-	public void setReply(int reply) {
+	public void setReply(String reply) {
 		this.reply = reply;
 	}
+	public String getHeart() {
+		return heart;
+	}
+	public void setHeart(String heart) {
+		this.heart = heart;
+	}
 	
+
 }

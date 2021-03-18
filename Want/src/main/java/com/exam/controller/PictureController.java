@@ -17,6 +17,7 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import com.exam.model1.PictureTO;
 import com.exam.model1.PictureDAO;
+import com.exam.model1.PictureListTO;
 
 /**
  * Handles requests for the application home page.
@@ -33,10 +34,17 @@ public class PictureController {
 
 	// 사진자랑 목록
 	@RequestMapping(value = "/picture_list.do")
-	public String picture_list(Model model) {
+	public String picture_list(HttpServletRequest request) {
+		
+		PictureListTO listTO = new PictureListTO();
+		listTO.setCpage( Integer.parseInt( request.getParameter( "cpage" ) == null || request.getParameter( "cpage" ).equals( "" ) ? "1" : request.getParameter( "cpage" ) ) );
+		listTO = pictureDao.boardList(listTO);
+		
+		request.setAttribute( "listTO", listTO );
+		
 		return "picture/picture_list";
 	}
-	
+
 	// 사진자랑 글쓰기 form
 	@RequestMapping(value = "/picture_write.do")
 	public String picture_write(Model model) {

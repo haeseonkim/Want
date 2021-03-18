@@ -70,7 +70,7 @@
 	<!-- ================  랜선여행 하기  ================= -->
 	<!--Lantriplist -->
 	<select id="lanTripList" resultType="com.exam.model1.LanTripTO">
-		select no, subject, writer, date_format(wdate, '%Y-%m-%d') wdate, hit, location, video, reply
+		select no, subject, writer, date_format(wdate, '%Y-%m-%d') wdate, hit, location, video, reply, heart
 		from l_board
 	</select>
 
@@ -78,8 +78,11 @@
 	 
 	<insert id="lanTrip_write_ok" parameterType="com.exam.model1.LanTripTO">
 		insert into l_board
-		values(0, #{ subject }, #{ content }, #{ writer }, now(), 0, #{ location }, #{ video }, 0 )
+		values(0, #{ subject }, #{ content }, #{ writer }, now(), 0, #{ location }, #{ video }, 0 , 0)
 	</insert>
+
+
+
 
 	<!-- ================  랜선여행 신청하기  =================  -->
 	<!-- LanTripApplyList -->
@@ -90,12 +93,22 @@
 	</select>
 
 
+
+
+
 	<!--  =================  사진자랑하기   =================  -->
+	<!-- 사진자랑 글쓰기  -->
 	<insert id="picture_write_ok" parameterType="com.exam.model1.PictureTO">
 		insert into p_board
-		values(0, #{ subject }, #{ content }, #{ writer }, now(), 0, #{ location }, #{ media }, 0 )
+		values(0, #{ subject }, #{ content }, #{ writer }, now(), 0, #{ location }, #{ media }, 0 ,0)
 	</insert>
 
+	<!-- 사진자랑 리스트 -->
+	<select id="picture_list" resultType="com.exam.model1.PictureTO">
+		select no, writer, hit, location, media, reply, heart
+		from p_board
+		order by no desc
+	</select>
 
 
 
