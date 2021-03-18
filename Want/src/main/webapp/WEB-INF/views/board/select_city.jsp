@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <% 
-	request.getParameter( "utf-8" );
+	request.setCharacterEncoding("utf-8");
 	String sa = request.getParameter( "sa" );
 	String pageName = "";
 	if( sa.equals( "s" ) ) {
@@ -21,33 +21,37 @@
 <jsp:include page="../include/index.jsp"></jsp:include>
 	
 <!-- CSS File -->
-<link href="./resources/css/select_city.css" rel="stylesheet">
+<link href="./resources/css/select_city.css?qq" rel="stylesheet">
 <link href="./resources/css/navbar.css" rel="stylesheet">
 
 <script type="text/javascript">
 window.onload = function() {
 	$('#paris').on('click', (event) => {
-		document.cfrm.cityName.value = "paris";
+		document.cfrm.location.value = "프랑스";
 		document.cfrm.submit();
 	});
 	$('#athens').on('click', (event) => {
-		document.cfrm.cityName.value = "athens";
+		document.cfrm.location.value = "그리스";
 		document.cfrm.submit();
 	});
 	$('#rome').on('click', (event) => {
-		document.cfrm.cityName.value = "rome";
+		document.cfrm.location.value = "이탈리아";
 		document.cfrm.submit();
 	});
 	$('#budapest').on('click', (event) => {
-		document.cfrm.cityName.value = "budapest";
+		document.cfrm.location.value = "스페인";
 		document.cfrm.submit();
 	});
 	$('#prague').on('click', (event) => {
-		document.cfrm.cityName.value = "prague";
+		document.cfrm.location.value = "체코";
 		document.cfrm.submit();
 	});
 	$('#london').on('click', (event) => {
-		document.cfrm.cityName.value = "london";
+		document.cfrm.location.value = "영국";
+		document.cfrm.submit();
+	});
+	$('#london').on('click', (event) => {
+		document.cfrm.location.value = "한국";
 		document.cfrm.submit();
 	});
 }
@@ -60,18 +64,18 @@ window.onload = function() {
 	<!-- 메뉴바 
 		 현재페이지 뭔지 param.thisPage에 넣어서 navbar.jsp에  던짐 -->
 	<jsp:include page="../include/navbar.jsp">
-		<jsp:param value="shopping_list" name="thisPage" />
+		<jsp:param value="select_city" name="thisPage" />
 	</jsp:include>
 	
 	<br /><br /><br />
 	<div class="select-form">
 		<div class="col-8 offset-3">
-			<h3>도시를 선택해주세요!</h3>
+			<h2>국가를 선택해주세요!</h2>
 		</div>	
 	</div>
 <form action="<%= pageName %>" method="post" name="cfrm">
 <input type="hidden" name="sa" value="<%= sa %>"/>
-<input type="hidden" name="cityName" value="" />
+<input type="hidden" name="location" value="" />
 <section class="container">
     
     <div class="row active-with-click">
@@ -81,7 +85,6 @@ window.onload = function() {
                     <span>프랑스</span>
                     <strong>
                         <i class="fa fa-fw fa-star"></i>
-                        파리
                     </strong>
                 </h2>
                 <div class="mc-content">
@@ -97,7 +100,6 @@ window.onload = function() {
                     <span>그리스</span>
                     <strong>
                         <i class="fa fa-fw fa-star"></i>
-                        아테네
                     </strong>
                 </h2>
                 <div class="mc-content">
@@ -113,7 +115,6 @@ window.onload = function() {
                     <span>이탈리아</span>
                     <strong>
                         <i class="fa fa-fw fa-star"></i>
-                       	로마
                     </strong>
                 </h2>
                 <div class="mc-content">
@@ -129,7 +130,6 @@ window.onload = function() {
                     <span>스페인</span>
                     <strong>
                         <i class="fa fa-fw fa-star"></i>
-                        부다페스트
                     </strong>
                 </h2>
                 <div class="mc-content">
@@ -145,7 +145,6 @@ window.onload = function() {
                     <span>체코</span>
                     <strong>
                         <i class="fa fa-fw fa-star"></i>
-                        프라하
                     </strong>
                 </h2>
                 <div class="mc-content">
@@ -161,12 +160,26 @@ window.onload = function() {
                     <span>영국</span>
                     <strong>
                         <i class="fa fa-fw fa-star"></i>
-                        런던
                     </strong>
                 </h2>
                 <div class="mc-content">
                     <div class="img-container">
                         <img class="img-responsive" src="./resources/img/런던.jpg">
+                    </div>
+                </div>
+            </article>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <article id="london" class="material-card Green">
+                <h2>
+                    <span>한국</span>
+                    <strong>
+                        <i class="fa fa-fw fa-star"></i>
+                    </strong>
+                </h2>
+                <div class="mc-content">
+                    <div class="img-container">
+                        <img class="img-responsive" src="./resources/img/서울.jpg">
                     </div>
                 </div>
             </article>

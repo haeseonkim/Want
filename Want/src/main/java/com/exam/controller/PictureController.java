@@ -1,6 +1,7 @@
 package com.exam.controller;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -28,18 +29,32 @@ public class PictureController {
 	private PictureDAO pictureDao;
 	
 	// 각자 맞는 upload 폴더 경로로 변경
-	private String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload";
+	private String uploadPath = "/Users/hyukjun/git/Want/Want/src/main/webapp/upload/picture";
 
 
 	// 사진자랑 목록
 	@RequestMapping(value = "/picture_list.do")
-	public String picture_list(Model model) {
+	public String picture_list(HttpServletRequest request, Model model) {
+		try {
+			request.setCharacterEncoding("utf-8");
+			
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return "picture/picture_list";
 	}
 	
 	// 사진자랑 글쓰기 form
 	@RequestMapping(value = "/picture_write.do")
-	public String picture_write(Model model) {
+	public String picture_write(HttpServletRequest request, Model model) {
+		try {
+			request.setCharacterEncoding("utf-8");
+			
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return "picture/picture_write";
 	}
 	
@@ -53,7 +68,8 @@ public class PictureController {
 	    MultipartRequest multi = null;
 		
 	    try {
-			multi = new MultipartRequest(request, uploadPath+"\\picture", maxFileSize, encType, new DefaultFileRenamePolicy());
+
+			multi = new MultipartRequest(request, uploadPath, maxFileSize, encType, new DefaultFileRenamePolicy());
 			
 			PictureTO to = new PictureTO();
 			to.setSubject(multi.getParameter("subject"));

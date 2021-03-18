@@ -2,6 +2,7 @@ package com.exam.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,25 +23,34 @@ import com.exam.model1.UserDAO;
 @Controller
 public class UserController {
 
-   @Autowired
-   private UserDAO userDao;
+
+	@Autowired
+	private UserDAO userDao;
+	
 
    // 각자 맞는 upload 폴더 경로로 변경
-   private String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload";
+   private String uploadPath = "/Users/hyukjun/git/Want/Want/src/main/webapp/upload";
 
-   // ---------------------- 로그인 관련 ----------------------
-   @RequestMapping(value = "/loginForm.do")
-   public String loginForm(HttpServletRequest request, HttpServletResponse response, HttpSession session)
-         throws Exception {
-      if (request.getParameter("login_ok") == null) {
-         
-      } else if (request.getParameter("login_ok").equals("1") && request.getParameter("id") != null) {
+	// ---------------------- 로그인 관련 ----------------------
+	@RequestMapping(value = "/loginForm.do")
+	public String loginForm(HttpServletRequest request, HttpServletResponse response, HttpSession session)
+			throws Exception {
+		
+		request.setCharacterEncoding("utf-8");
+		
+		if (request.getParameter("login_ok") == null) {
+			
+		} else if (request.getParameter("login_ok").equals("1") && !request.getParameter("id").equals("")) {
 
-         // =================  일반 로그인 =================
-         System.out.println("일반로그인");
+			// =================  일반 로그인 =================
+			System.out.println("일반로그인");
+			System.out.println(request.getParameter("id"));
+			System.out.println(request.getParameter("kakaoemail"));
+			
+			
+			int flag = 2;
+			String key = "secret Key";
          
-         int flag = 2;
-         String key = "secret Key";
 
          UserTO userTo = new UserTO();
 
@@ -78,12 +88,17 @@ public class UserController {
          session.setAttribute("id", userTo.getId());
          
 
-      } else if (request.getParameter("login_ok").equals("1") && request.getParameter("kakaoemail") != null) {
 
-         // ==================== 카카오 로그인 ========================
-         System.out.println("카카오로그인");
-         
-         String kakaoid = request.getParameter("kakaoemail");
+		} else if (request.getParameter("login_ok").equals("1") && !request.getParameter("kakaoemail").equals("")) {
+
+			// ==================== 카카오 로그인 ========================
+			System.out.println("카카오로그인");
+			System.out.println(request.getParameter("id"));
+			System.out.println(request.getParameter("kakaoemail"));
+			System.out.println(request.getParameter("kakaoname"));
+			System.out.println(request.getParameter("kakaobirth"));
+			
+			String kakaoid = request.getParameter("kakaoemail");
 
          UserTO userTo = new UserTO();
 
@@ -106,9 +121,9 @@ public class UserController {
             System.out.println(userTo.getName());
             int flag = userDao.signup_ok(userTo);
 
+				
             request.setAttribute("flag", flag);
-            
-
+				
          } else {   // 이미 카카오로 로그인한 적이 있을 때 (최초 1회 로그인때 회원가입된 상태)
             request.setAttribute("flag", 0);
          }
@@ -138,9 +153,16 @@ public class UserController {
 
    // ---------------------- 로그아웃 ----------------------
    @RequestMapping(value = "/logout.do")
-   public String logout_ok(HttpSession session, Model model) {
-      session.invalidate();
-      return "user/logout_ok";
+   public String logout_ok(HttpSession session, HttpServletRequest request, Model model) {
+	  try {
+		request.setCharacterEncoding("utf-8");
+	} catch (UnsupportedEncodingException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	  session.invalidate();
+	  return "user/logout_ok";
+
    }
 
    // ---------------------- 회원가입관련 ----------------------
@@ -160,6 +182,8 @@ public class UserController {
       MultipartRequest multi = null;
 
       try {
+    	  request.setCharacterEncoding("utf-8");
+
          multi = new MultipartRequest(request, uploadPath, maxFileSize, encType, new DefaultFileRenamePolicy());
 
          String key = "secret Key";
@@ -201,6 +225,14 @@ public class UserController {
    @RequestMapping(value = "/usingId_chk.do", produces = "text/plain")
    public String idCheck(HttpServletRequest request, HttpServletResponse response) {
 
+	   try {
+		request.setCharacterEncoding("utf-8");
+	} catch (UnsupportedEncodingException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	   
+
       String user_id = request.getParameter("user_id");
       UserTO userTo = new UserTO();
       userTo.setId(user_id);
@@ -215,6 +247,12 @@ public class UserController {
    @ResponseBody
    @RequestMapping(value = "/usingNick_chk.do", produces = "text/plain")
    public String nickCheck(HttpServletRequest request, HttpServletResponse response) {
+	   try {
+		request.setCharacterEncoding("utf-8");
+	} catch (UnsupportedEncodingException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
 
       String user_nick = request.getParameter("user_nick");
       UserTO userTo = new UserTO();
@@ -229,6 +267,12 @@ public class UserController {
    // 비밀번호찾기
    @RequestMapping(value = "/pwFindForm.do")
    public String pwFindForm(HttpServletRequest request, HttpServletResponse response) {
+	   try {
+		request.setCharacterEncoding("utf-8");
+	} catch (UnsupportedEncodingException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
 
       return "user/pwFindForm";
    }

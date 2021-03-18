@@ -2,17 +2,15 @@
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<%-- <%@ page import="com.exam.board02.model1.BoardTO" %>
-<%@ page import="com.exam.board02.model1.BoardDAO" %>
-
-<%@page import="java.util.ArrayList"%>
+<%@ page import="com.exam.model1.LanTripTO" %>
+<%@ page import="com.exam.model1.LanTripDAO" %>
+<%@ page import="java.util.ArrayList"%>
 
 <%
 	request.setCharacterEncoding( "utf-8" );
 	String cpage = request.getParameter( "cpage" );
-	String  = request.getParameter( "cpage" );
 	
-	BoardTO to = (BoardTO)request.getAttribute("to");
+	LanTripTO to = (LanTripTO)request.getAttribute("to");
 	
 	String no = to.getNo();
 	String subject = to.getSubject();
@@ -24,23 +22,9 @@
 	String video = to.getVideo();
 	String reply = to.getReply();
 	
-	ArrayList<CommentTO> lists = (ArrayList)request.getAttribute( "lists" );
-	StringBuffer sbHtml = new StringBuffer();
 	
-	for( CommentTO commentTo : lists ) {
-		sbHtml.append( "<table>" );
-		sbHtml.append( "	<tr>" );
-		sbHtml.append( "	<td class='coment_re' width='20%'>" );
-		sbHtml.append( "		<strong>"+ commentTo.getWriter() +"</strong> ("+ commentTo.getWdate() +")" );
-		sbHtml.append( "		<div class='coment_re_txt'>" );
-		sbHtml.append( "			"+ commentTo.getContent() +"" );
-		sbHtml.append( "		</div>" );
-		sbHtml.append( "	</td>" );
-		sbHtml.append( "</tr>" );
-		sbHtml.append( "</table>" );
-	}
 %>
- --%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -76,24 +60,24 @@
 		<table class="table table-hover" id='board_list'>
 			<thead>
 				<tr>
-					<td class="text-center d-none d-md-table-cell">1</td>
-					<td class="text-center d-none d-md-table-cell">이탈리아</td>
-					<td class="text-center">함께하는 랜선여행 포지타노편</td>
-					<td class="text-center d-none d-md-table-cell">박혁준</td>
-					<td class="text-center d-none d-md-table-cell">2021.03.14</td>
-					<td class="text-center d-none d-md-table-cell">조회수</td>
+					<td class="text-center d-none d-md-table-cell"><%=no %></td>
+					<td class="text-center d-none d-md-table-cell"><%=location %></td>
+					<td class="text-center"><%=subject %></td>
+					<td class="text-center d-none d-md-table-cell"><%=writer %></td>
+					<td class="text-center d-none d-md-table-cell"><%=wdate %></td>
+					<td class="text-center d-none d-md-table-cell"><%=hit %></td>
 				</tr>
 			</thead>
 		</table>
 	</section>
 	<section id="player" class="container">
 		<div class="video">
-			<video src="./upload/lanTrip/positano.mp4" width="600px" controls></video>
+			<video src="./upload/lanTrip/<%=video %>" width="600px" controls></video>
 		</div>
 	</section>
 	<section id="content" class="container">
 		<div class="form-group" style="border: 1px; color: solid; margin-top:20px;">
-			<textarea id="board_content" name="board_content" class="form-control" rows="10" style="resize: none" disabled="disabled">본문입니다</textarea>
+			<textarea id="board_content" name="board_content" class="form-control" rows="10" style="resize: none" disabled="disabled"><c:out value="${requestScope.to.content}" escapeXml="false" /></textarea>
 		</div>
 	</section>
 	<section id="comment" class="container" style="margin-top:10px;">

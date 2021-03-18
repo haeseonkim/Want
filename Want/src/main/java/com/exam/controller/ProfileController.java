@@ -1,5 +1,9 @@
 package com.exam.controller;
 
+import java.io.UnsupportedEncodingException;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,11 +15,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ProfileController {
 	
 	// 각자 맞는 upload 폴더 경로로 변경
-	private String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload";
+	private String uploadPath = "/Users/hyukjun/git/Want/Want/src/main/webapp/upload/profile";
 	
 	// 내 프로필
 	@RequestMapping(value = "/profile.do")
-	public String profile(Model model) {
+	public String profile(HttpServletRequest request, Model model ) {
+		try {
+			request.setCharacterEncoding("utf-8");
+			
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return "profile/profile";
 	}
 	

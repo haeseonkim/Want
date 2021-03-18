@@ -25,7 +25,7 @@ public class ShoppingListTO {
 
 	public ShoppingListTO() {
 		this.cpage = 1;
-		this.recordPerPage = 5;	//한 페이지에 보일 글의 수
+		this.recordPerPage = 10;	//한 페이지에 보일 글의 수
 		this.blockPerPage = 3;	//페이지 보일 개수 3개씩
 		this.totalPage = 1;
 		this.totalRecord = 0;

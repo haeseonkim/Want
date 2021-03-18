@@ -41,6 +41,15 @@
 	
 	window.onload = function() {
 		document.getElementById('login_submit').onclick = function() {
+			
+			if ( document.wfrm.id.value.trim() == '' ) {
+				alert( 'ID를 입력해주세요' );
+				return false;
+			}
+			if ( document.wfrm.password.value.trim() == '' ) {
+				alert( 'Password를 입력해주세요' );
+				return false;
+			}
 			document.login_frm.submit();
 		}
 	}
