@@ -26,7 +26,7 @@ public class UserController {
    private UserDAO userDao;
 
    // 각자 맞는 upload 폴더 경로로 변경
-   private String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload";
+   private String uploadPath = "/Users/hyukjun/git/Want/Want/src/main/webapp/upload";
 
    // ---------------------- 로그인 관련 ----------------------
    @RequestMapping(value = "/loginForm.do")
@@ -155,7 +155,7 @@ public class UserController {
 
       int maxFileSize = 1024 * 1024 * 6;
       String encType = "utf-8";
-      String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\profile";
+      String uploadPath = "/Users/hyukjun/git/Want/Want/src/main/webapp/upload/profile";
 
       MultipartRequest multi = null;
 

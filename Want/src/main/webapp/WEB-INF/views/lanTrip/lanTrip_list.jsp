@@ -23,15 +23,19 @@ StringBuffer sbHtml = new StringBuffer();
 
 int rowCount = 0;
 for (LanTripTO to : boardLists) {
-	int no = to.getNo();
+	String no = to.getNo();
 	String subject = to.getSubject();
 	String writer = to.getWriter();
 	String video = "./upload/lanTrip/" + to.getVideo();
 	String wdate = to.getWdate();
 	String location = to.getLocation();
-	int reply = to.getReply();
-	int hit = to.getHit();
+	String reply = to.getReply();
+	String hit = to.getHit();
 
+	if(rowCount%4 == 0 ){
+		sbHtml.append("<div class='row'>");
+	}
+	
 	sbHtml.append("<div class='col-3'> ");
 	sbHtml.append("	<div class='card'>");
 	sbHtml.append(
@@ -39,10 +43,16 @@ for (LanTripTO to : boardLists) {
 	sbHtml.append("		<div class='card-body'>");
 	sbHtml.append("		<h3 class='card-title'>" + writer + "</h3>");
 	sbHtml.append("			<p class='card-text'>" + subject + "</p>");
-	sbHtml.append("			<a href='./lanTrip_view.do' class='btn btn-primary'>Go Lan</a>");
+	sbHtml.append("			<a href='./lanTrip_view.do?no=" + no + "' class='btn btn-primary'>Go Lan</a>");
 	sbHtml.append("		</div>");
 	sbHtml.append("	</div>");
 	sbHtml.append("</div>");
+	
+	if( rowCount%4 == 3 ) {
+		   sbHtml.append( "</div>" );
+	}
+	
+	rowCount++;
 }
 %>
 
@@ -111,118 +121,8 @@ for (LanTripTO to : boardLists) {
 	<%-- card --%>
 	<section id="card">
 		<div class="card-container">
-			<div class="row">
-				<div class="col-3">
-					<div class="card">
-						<video
-							src="https://codingyaar.com/wp-content/uploads/video-in-bootstrap-card.mp4"
-							controls></video>
-						<div class="card-body">
-							<h3 class="card-title">김해선</h3>
-							<p class="card-text">Some quick example text to build on the
-								card title and make up the bulk of the card's content.</p>
-							<a href="./lanTrip_view.do" class="btn btn-primary">Go Lan</a>
-						</div>
-					</div>
-				</div>
-				<div class="col-3">
-					<div class="card">
-						<video
-							src="https://codingyaar.com/wp-content/uploads/video-in-bootstrap-card.mp4"
-							controls></video>
-						<div class="card-body">
-							<h3 class="card-title">정현수</h3>
-							<p class="card-text">Some quick example text to build on the
-								card title and make up the bulk of the card's content.</p>
-							<a href="./lanTrip_view.do" class="btn btn-primary">Go Lan</a>
-						</div>
-					</div>
-				</div>
-				<div class="col-3">
-					<div class="card">
-						<video
-							src="https://codingyaar.com/wp-content/uploads/video-in-bootstrap-card.mp4"
-							controls></video>
-						<div class="card-body">
-							<h3 class="card-title">이지훈</h3>
-							<p class="card-text">Some quick example text to build on the
-								card title and make up the bulk of the card's content.</p>
-							<a href="./lanTrip_view.do" class="btn btn-primary">Go Lan</a>
-						</div>
-					</div>
-				</div>
-				<div class="col-3">
-					<div class="card">
-						<video
-							src="https://codingyaar.com/wp-content/uploads/video-in-bootstrap-card.mp4"
-							controls></video>
-						<div class="card-body">
-							<h3 class="card-title">박혁준</h3>
-							<p class="card-text">Some quick example text to build on the
-								card title and make up the bulk of the card's content.</p>
-							<a href="./lanTrip_view.do" class="btn btn-primary">Go Lan</a>
-						</div>
-					</div>
-				</div>
-			</div>
-			<br />
-			<hr />
-			<br />
-			<div class="row">
-				<div class="col-3">
-					<div class="card">
-						<video
-							src="https://codingyaar.com/wp-content/uploads/video-in-bootstrap-card.mp4"
-							controls></video>
-						<div class="card-body">
-							<h3 class="card-title">이형석</h3>
-							<p class="card-text">Some quick example text to build on the
-								card title and make up the bulk of the card's content.</p>
-							<a href="./lanTrip_view.do" class="btn btn-primary">Go Lan</a>
-						</div>
-					</div>
-				</div>
-				<div class="col-3">
-					<div class="card">
-						<video
-							src="https://codingyaar.com/wp-content/uploads/video-in-bootstrap-card.mp4"
-							controls></video>
-						<div class="card-body">
-							<h3 class="card-title">이형진</h3>
-							<p class="card-text">Some quick example text to build on the
-								card title and make up the bulk of the card's content.</p>
-							<a href="./lanTrip_view.do" class="btn btn-primary">Go Lan</a>
-						</div>
-					</div>
-				</div>
-				<div class="col-3">
-					<div class="card">
-						<video
-							src="https://codingyaar.com/wp-content/uploads/video-in-bootstrap-card.mp4"
-							controls></video>
-						<div class="card-body">
-							<h3 class="card-title">이승원</h3>
-							<p class="card-text">Some quick example text to build on the
-								card title and make up the bulk of the card's content.</p>
-							<a href="./lanTrip_view.do" class="btn btn-primary">Go Lan</a>
-						</div>
-					</div>
-				</div>
-				<div class="col-3">
-					<div class="card">
-						<video
-							src="https://codingyaar.com/wp-content/uploads/video-in-bootstrap-card.mp4"
-							controls></video>
-						<div class="card-body">
-							<h3 class="card-title">윤동희</h3>
-							<p class="card-text">Some quick example text to build on the
-								card title and make up the bulk of the card's content.</p>
-							<a href="./lanTrip_view.do" class="btn btn-primary">Go Lan</a>
-						</div>
-					</div>
-				</div>
-
-			</div>
+			<%--<div class="row"> --%>
+			 <%= sbHtml %>
 		</div>
 	</section>
 	<button class="btn btn-primary btn-md" onclick="location.href='./lanTrip_write.do'" >등록하기</button>
