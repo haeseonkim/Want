@@ -74,6 +74,13 @@
 		from l_board
 	</select>
 
+	<!-- lanTrip write_ok -->
+	 
+	<insert id="lanTrip_write_ok" parameterType="com.exam.model1.LanTripTO">
+		insert into l_board
+		values(0, #{ subject }, #{ content }, #{ writer }, now(), 0, #{ location }, #{ video }, 0 )
+	</insert>
+
 	<!-- ================  랜선여행 신청하기  =================  -->
 	<!-- LanTripApplyList -->
 	<select id="LanTripApplyList"
