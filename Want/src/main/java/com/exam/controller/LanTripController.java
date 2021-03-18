@@ -2,6 +2,7 @@ package com.exam.controller;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-
+import com.exam.model1.CommentTO;
 import com.exam.model1.LanTripDAO;
 import com.exam.model1.LanTripListTO;
 import com.exam.model1.LanTripTO;
@@ -81,7 +82,18 @@ public class LanTripController {
    
    // 랜선여행 게시물 view
    @RequestMapping(value = "/lanTrip_view.do")
-   public String lanTrip_view(Model model) {
+   public String lanTrip_view(HttpServletRequest request) {
+	   
+	   String no = request.getParameter( "no" );
+	   LanTripTO to = new LanTripTO();
+	   
+	   to.setNo(request.getParameter( "no" ));
+	   
+	   
+	   to = dao.boardView(to);
+	   
+	   request.setAttribute("to", to);
+	   
       return "lanTrip/lanTrip_view";
    }
 

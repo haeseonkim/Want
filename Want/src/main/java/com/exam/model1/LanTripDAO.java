@@ -79,7 +79,7 @@ public class LanTripDAO {
 	// view
 	public LanTripTO boardView(LanTripTO to) {
 		sqlSession.update("view_hit", to);
-		to = sqlSession.selectOne("view", to);
+		to = sqlSession.selectOne("lanTrip_view", to);
 
 		return to;
 	}
