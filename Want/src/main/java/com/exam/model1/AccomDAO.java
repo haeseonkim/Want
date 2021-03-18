@@ -67,4 +67,14 @@ public class AccomDAO {
 
 		return listTO;
 	}
+	
+	//숙소 view
+	public AccomTO accomView( AccomTO to ) {
+		
+		sqlSession.update( "accomViewHit", to );
+		sqlSession.update( "accomViewReply",to );
+		to = sqlSession.selectOne( "accomView", to );
+		
+		return to;
+	}
 }

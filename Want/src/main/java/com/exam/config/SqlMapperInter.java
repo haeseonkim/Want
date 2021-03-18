@@ -3,8 +3,11 @@ package com.exam.config;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.exam.model1.AccomCommentTO;
+import com.exam.model1.AccomTO;
 import com.exam.model1.LanTripApplyTO;
 import com.exam.model1.LanTripTO;
+import com.exam.model1.ShoppingCommentTO;
 import com.exam.model1.ShoppingTO;
 import com.exam.model1.UserTO;
 
@@ -19,7 +22,7 @@ public interface SqlMapperInter {
 	public abstract int login_ok(UserTO to);
 	public abstract int login_lookup(UserTO to);
 	
-	public abstract int shop_write_ok(ShoppingTO to);
+	
 	
 	public abstract int login_decry(UserTO to);
 	
@@ -30,6 +33,56 @@ public interface SqlMapperInter {
 	public abstract ArrayList<LanTripApplyTO> LanTripApplyList();
 	
 	public abstract ArrayList<LanTripTO> lanTripList();
+	
+	
+	
+	//============ 여행지관련 ============
+	//===== 쇼핑관련 ======
+	//쇼핑 write ok
+	public abstract int shop_write_ok(ShoppingTO to);
+	
+	//쇼핑 list
+	public abstract ArrayList<ShoppingTO> shopList(ShoppingTO to);
+	
+	//쇼핑 view
+	public abstract ShoppingTO shopView(ShoppingTO to);
+	
+	//쇼핑 view reply 수 불러오기
+	public abstract int shopViewReply(ShoppingTO to);
+	
+	//쇼핑 view hit 수 올리기
+	public abstract int shopViewHit(ShoppingTO to);
+	
+	//쇼핑 comment list
+	public abstract ArrayList<ShoppingCommentTO> shopListComment(ShoppingCommentTO to);
+	
+	//쇼핑 comment write ok
+	public abstract void shopViewCommentOk(ShoppingCommentTO to);
+	
+	
+	//===== 숙소관련 ======
+	//숙소 write
+	public abstract int accom_write_ok(AccomTO to);
+	
+	//숙소 list
+	public abstract ArrayList<AccomTO> shopList(AccomTO to);
+	
+	//숙소 view
+	public abstract AccomTO accomView(AccomTO to);
+	
+	//숙소 view reply 수 불러오기
+	public abstract int accomViewReply(AccomTO to);
+	
+	//숙소 view hit 수 올리기
+	public abstract int accomViewHit(AccomTO to);
+	
+	//숙소 comment list
+	public abstract ArrayList<AccomCommentTO> accomListComment(AccomCommentTO to);
+	
+	//숙소 comment write ok
+	public abstract void accomViewCommentOk(AccomCommentTO to);
+	
+	
 	
 	
 //	public abstract ArrayList<BoardTO> list();

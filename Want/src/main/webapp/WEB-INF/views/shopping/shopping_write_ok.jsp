@@ -4,12 +4,12 @@
 
 <%
 	int flag = (Integer)request.getAttribute("flag");
-	String cityName = (String)request.getAttribute( "cityName" );
+	String location = (String)request.getAttribute( "location" );
 	
 	out.println("<script type='text/javascript'>");
 	if(flag == 0){
 	   out.println("alert('쇼핑 글쓰기에 성공했습니다.');");
-	   out.println("location.href='./shopping_list.do?cityName="+ cityName +"';");
+	   out.println("location.href='./shopping_list.do?location="+ location +"';");
 	}else{
 	   out.println("alert('쇼핑 글쓰기에 실패했습니다.');");
 	   out.println("history.back();");

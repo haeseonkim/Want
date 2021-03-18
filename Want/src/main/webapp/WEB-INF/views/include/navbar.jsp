@@ -27,15 +27,15 @@
 				<li><a
 					class="${param.thisPage eq 'picture_list' ? 'active':''}"
 					href="./picture_list.do">사진 자랑</a></li>
-				<li class="dropdown"><a href="./shopping_list.do"><span>여행지
+				<li class="dropdown"><a href="./select_shop_accom.do"><span>여행지
 							정보</span> <i class="bi bi-chevron-down"></i></a>
 					<ul>
 						<li><a
 							class="${param.thisPage eq 'shopping_list' ? 'active':''}"
-							href="./shopping_list.do">쇼핑</a></li>
+							href="./select_city.do?sa=s">쇼핑</a></li>
 						<li><a
 							class="${param.thisPage eq 'accom_list' ? 'active':''}"
-							href="./accom_list.do">숙소</a></li>
+							href="./select_city.do?sa=a">숙소</a></li>
 						<li><a class="${param.thisPage eq 'with_list' ? 'active':''}"
 							href="./with_list.do">동행 구해요</a></li>
 					</ul></li>
