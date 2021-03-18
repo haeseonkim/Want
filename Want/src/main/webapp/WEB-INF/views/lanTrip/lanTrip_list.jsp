@@ -225,5 +225,6 @@ for (LanTripTO to : boardLists) {
 			</div>
 		</div>
 	</section>
+	<button class="btn btn-primary btn-md" onclick="location.href='./lanTrip_write.do'" >등록하기</button>
 </body>
 </html>
