@@ -29,7 +29,7 @@ public class PictureController {
 	private PictureDAO pictureDao;
 	
 	// 각자 맞는 upload 폴더 경로로 변경
-	private String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload";
+	private String uploadPath = "/Users/hyukjun/git/Want/Want/src/main/webapp/upload/picture";
 
 
 	// 사진자랑 목록
@@ -68,8 +68,8 @@ public class PictureController {
 	    MultipartRequest multi = null;
 		
 	    try {
-	    	request.setCharacterEncoding("utf-8");
-			multi = new MultipartRequest(request, uploadPath+"\\picture", maxFileSize, encType, new DefaultFileRenamePolicy());
+
+			multi = new MultipartRequest(request, uploadPath, maxFileSize, encType, new DefaultFileRenamePolicy());
 			
 			PictureTO to = new PictureTO();
 			to.setSubject(multi.getParameter("subject"));

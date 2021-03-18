@@ -29,7 +29,7 @@ public class LanTripDAO {
 	public int boardWriteOk(LanTripTO to) {
 		int flag = 1;
 
-		int result = sqlSession.insert("write_ok", to);
+		int result = sqlSession.insert("lanTrip_write_ok", to);
 		if (result == 1) {
 			flag = 0;
 		}
@@ -79,7 +79,7 @@ public class LanTripDAO {
 	// view
 	public LanTripTO boardView(LanTripTO to) {
 		sqlSession.update("view_hit", to);
-		to = sqlSession.selectOne("view", to);
+		to = sqlSession.selectOne("lanTrip_view", to);
 
 		return to;
 	}

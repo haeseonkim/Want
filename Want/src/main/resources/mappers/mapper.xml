@@ -70,10 +70,27 @@
 	<!-- ================  랜선여행 하기  ================= -->
 	<!--Lantriplist -->
 	<select id="lanTripList" resultType="com.exam.model1.LanTripTO">
-		select no, subject, writer, date_format(wdate, '%Y-%m-%d') wdate, hit, location, video, reply
+		select no, subject, writer, date_format(wdate, '%Y-%m-%d') wdate, hit, location, video, reply, heart
 		from l_board
 	</select>
 
+	<!-- lanTrip write_ok -->
+	 
+	<insert id="lanTrip_write_ok" parameterType="com.exam.model1.LanTripTO">
+		insert into l_board
+		values(0, #{ subject }, #{ content }, #{ writer }, now(), 0, #{ location }, #{ video }, 0, 0 )
+	</insert>
+	
+	<!-- lanTrip view -->
+	<select id="lanTrip_view" parameterType="com.exam.model1.LanTripTO" resultType="com.exam.model1.LanTripTO">
+		select no, subject, writer, date_format(wdate, '%Y-%m-%d') wdate, content, hit, location, video, reply, heart
+		from l_board
+		where no=#{no}
+	</select>
+	<update id="view_hit" parameterType="com.exam.model1.LanTripTO">
+		update l_board set hit=hit+1
+		where no=#{no}
+	</update>
 	<!-- ================  랜선여행 신청하기  =================  -->
 	<!-- LanTripApplyList -->
 	<select id="LanTripApplyList"
