@@ -1,7 +1,9 @@
+
 package com.exam.controller;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -10,11 +12,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-
-import com.exam.model1.LanTripDAO;
-import com.exam.model1.LanTripListTO;
-import com.exam.model1.LanTripTO;
-import com.exam.model1.UserDAO;
+import com.exam.model1.lantrip.LanTripDAO;
+import com.exam.model1.lantrip.LanTripListTO;
+import com.exam.model1.lantrip.LanTripTO;
+import com.exam.model1.user.UserDAO;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
@@ -26,7 +27,7 @@ public class LanTripController {
    private LanTripDAO dao;
 
    // 각자 맞는 upload 폴더 경로로 변경
-   private String uploadPath = "/Users/hyukjun/git/Want/Want/src/main/webapp/upload/lanTrip";
+   private String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\lanTrip";
    
 
    // 랜선여행 목록
@@ -81,7 +82,18 @@ public class LanTripController {
    
    // 랜선여행 게시물 view
    @RequestMapping(value = "/lanTrip_view.do")
-   public String lanTrip_view(Model model) {
+   public String lanTrip_view(HttpServletRequest request) {
+	   
+	   String no = request.getParameter( "no" );
+	   LanTripTO to = new LanTripTO();
+	   
+	   to.setNo(request.getParameter( "no" ));
+	   
+	   
+	   to = dao.boardView(to);
+	   
+	   request.setAttribute("to", to);
+	   
       return "lanTrip/lanTrip_view";
    }
 

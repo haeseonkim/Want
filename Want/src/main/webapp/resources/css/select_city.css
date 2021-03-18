@@ -6,17 +6,22 @@ body {
 	font-family: 'Roboto', sans-serif;
 }
 .select-form {
-	width: 500px;
+	width: 530px;
 	margin: 0 auto;
 	padding: 30px 0;
 }
-.select-form h3 {
+.select-form h2 {
 	color: #333;
 	margin: 0 0 30px 0;
 	display: inline-block;
 	padding: 0 20px 10px 20px;
-	border-bottom: 3px solid #5cd3b4;
+	border-bottom: 3px solid #5cd3b4!important;
 }
+img {
+	width: 400px;
+	height: 384px;
+}
+
 
 @import "https://fonts.googleapis.com/css?family=Raleway:400,300,200,500,600,700";
 .fa-spin-fast {
@@ -43,6 +48,7 @@ body {
     transform: rotate(359deg);
   }
 }
+
 .material-card:hover {
   transform: rotatey(45deg) translatex(0px) translatey(0px);
 }
@@ -153,6 +159,7 @@ body {
   border-bottom-color: #880E4F;
   border-left-color: transparent;
 }
+
 .material-card.Purple h2 {
   background-color: #9C27B0;
 }
@@ -168,6 +175,7 @@ body {
   border-bottom-color: #4A148C;
   border-left-color: transparent;
 }
+
 .material-card.Deep-Purple h2 {
   background-color: #673AB7;
 }
@@ -183,6 +191,7 @@ body {
   border-bottom-color: #311B92;
   border-left-color: transparent;
 }
+
 .material-card.Indigo h2 {
   background-color: #3F51B5;
 }
@@ -198,6 +207,7 @@ body {
   border-bottom-color: #1A237E;
   border-left-color: transparent;
 }
+
 .material-card.Blue h2 {
   background-color: #2196F3;
 }
@@ -213,6 +223,23 @@ body {
   border-bottom-color: #0D47A1;
   border-left-color: transparent;
 }
+
+.material-card.Green h2 {
+  background-color: #C6FF70;
+}
+.material-card.Green h2:after {
+  border-top-color: #C6FF70;
+  border-right-color: #C6FF70;
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+}
+.material-card.Green h2:before {
+  border-top-color: transparent;
+  border-right-color: #8AE634;
+  border-bottom-color: #8AE634;
+  border-left-color: transparent;
+}
+
 body {
   background-color: #ECEFF1;
   color: #37474F;
