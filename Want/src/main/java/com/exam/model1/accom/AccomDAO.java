@@ -6,6 +6,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.exam.model1.shopping.ShoppingTO;
+
+
 @Repository
 public class AccomDAO {
 	@Autowired
@@ -77,5 +80,33 @@ public class AccomDAO {
 		to = sqlSession.selectOne( "accomView", to );
 		
 		return to;
+	}
+	
+	//숙소 delete
+	public int accomDelete( AccomTO to ) {
+		
+		int flag = 1;	//delete 실패시
+		int result = sqlSession.delete( "accomDelete", to );
+		
+		if( result == 0 ) {	}	//sql delete문 실패시
+		else if( result == 1 ) {	//sql delete문 성공시
+			flag = 0;	//delete 성공시
+		}
+		
+		return flag;
+	}
+	
+	//숙소 modify_ok
+	public int accomModifyOk( AccomTO to ) {
+		
+		int flag = 1;	//modify 실패시
+		int result = sqlSession.update( "accomModifyOk", to );
+		
+		if( result == 0 ) {	}	//sql update문 실패시
+		else if( result == 1 ) {	//sql update문 성공시
+			flag = 0;	//modify 성공시
+		}
+		
+		return flag;
 	}
 }

@@ -81,4 +81,32 @@ public class ShoppingDAO {
 		return to;
 	}
 	
+	//쇼핑 delete
+	public int shopDeleteOk( ShoppingTO to ) {
+		
+		int flag = 1;	//delete 실패시
+		int result = sqlSession.delete( "shopDeleteOk", to );
+		
+		if( result == 0 ) {	}	//sql delete문 실패시
+		else if( result == 1 ) {	//sql delete문 성공시
+			flag = 0;	//delete 성공시
+		}
+		
+		return flag;
+	}
+	
+	//쇼핑 modify_ok
+	public int shopModifyOk( ShoppingTO to ) {
+		
+		int flag = 1;	//modify 실패시
+		int result = sqlSession.update( "shopModifyOk", to );
+		
+		if( result == 0 ) {	}	//sql update문 실패시
+		else if( result == 1 ) {	//sql update문 성공시
+			flag = 0;	//modify 성공시
+		}
+		
+		return flag;
+	}
+	
 }

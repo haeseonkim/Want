@@ -1,7 +1,6 @@
 package com.exam.config;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import com.exam.model1.accom.AccomTO;
 import com.exam.model1.accomComment.AccomCommentTO;
@@ -64,6 +63,12 @@ public interface SqlMapperInter {
 	//쇼핑 comment write ok
 	public abstract void shopViewCommentOk(ShoppingCommentTO to);
 	
+	//쇼핑 delete
+	public abstract int shopDeleteOk(ShoppingTO to);
+	
+	//쇼핑 modify
+	public abstract int shopModifyOk(ShoppingTO to);
+	
 	
 	//===== 숙소관련 ======
 	//숙소 write
@@ -87,7 +92,11 @@ public interface SqlMapperInter {
 	//숙소 comment write ok
 	public abstract void accomViewCommentOk(AccomCommentTO to);
 	
+	//숙소 delete ok
+	public abstract int accomDeleteOk(AccomTO to);
 	
+	//숙소 modify ok
+	public abstract int accomModifyOk(AccomTO to);
 	
 	
 //	public abstract ArrayList<BoardTO> list();
