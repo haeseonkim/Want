@@ -39,7 +39,7 @@ for (LanTripTO to : boardLists) {
 	sbHtml.append("<div class='col-3'> ");
 	sbHtml.append("	<div class='card'>");
 	sbHtml.append(
-	"		<video src='https://codingyaar.com/wp-content/uploads/video-in-bootstrap-card.mp4' controls></video>");
+	"		<video src='" + video +"' controls></video>");
 	sbHtml.append("		<div class='card-body'>");
 	sbHtml.append("		<h3 class='card-title'>" + writer + "</h3>");
 	sbHtml.append("			<p class='card-text'>" + subject + "</p>");

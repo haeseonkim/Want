@@ -92,6 +92,24 @@
 		where no=#{no}
 	</update>
 	
+	<!-- lanTrip delete_ok -->
+	<delete id="lanTrip_delete_ok" parameterType="com.exam.model1.lantrip.LanTripTO">
+		delete from l_board
+		where no=#{no}
+	</delete>
+	
+	<!-- lanTrip modify -->
+	<select id="lanTrip_modify" parameterType="com.exam.model1.lantrip.LanTripTO" resultType="com.exam.model1.lantrip.LanTripTO">
+		select no, subject, content, writer, date_format(wdate, '%Y-%m-%d') wdate, hit, location, video
+		from l_board
+		where no=#{no}
+	</select>
+	
+	<!-- lanTrip modify_ok -->
+	<update id="lanTrip_modify_ok" parameterType="com.exam.model1.lantrip.LanTripTO">
+		update l_board set subject = #{ subject }, content = #{ content }, video = #{ video }, location = #{ location }
+		where no=#{no}
+	</update>
 	
 	<!-- ================  랜선여행 신청하기  =================  -->
 	<!-- LanTripApplyList -->
