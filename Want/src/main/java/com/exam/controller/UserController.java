@@ -83,7 +83,7 @@ public class UserController {
          }
          request.setAttribute("flag", flag);
 
-         // id를 세션에 저장
+         // id와 nick을 세션에 저장
          session.setAttribute("id", userTo.getId());
          session.setAttribute("nick", userTo.getNick());
 

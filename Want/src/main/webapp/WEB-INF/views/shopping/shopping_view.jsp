@@ -12,12 +12,7 @@
 	String cpage = request.getParameter( "cpage" );
 	String no = request.getParameter( "no" );
 	
-	String id = "";
-	if( session.getAttribute( "id" ) != null ) {
-		id = (String)session.getAttribute( "id" );
-	} else if( session.getAttribute( "kakaoid" ) != null ) {
-		id = (String)session.getAttribute( "kakaoid" );
-	} 
+	String nick = (String)request.getAttribute( "nick" );
 	
 	ShoppingTO to = (ShoppingTO)request.getAttribute( "to" );
 	
@@ -77,8 +72,8 @@
 	
 	const deleteOk = function() {
 		let writer = "<%= writer %>";
-		let id = "<%= id %>";
-		if( writer != id ) {
+		let nick = "<%= nick %>";
+		if( writer != nick ) {
 			alert( '글쓴이만 삭제가 가능합니다.' )
 			return false;
 		}
@@ -92,7 +87,7 @@
 		
 	const modifyOk = function() {
 		let writer = "<%= writer %>";
-		let id = "<%= id %>";
+		let id = "<%= nick %>";
 		if( writer != id ) {
 			alert( '글쓴이만 수정이 가능합니다.' )
 			return false;
@@ -164,7 +159,7 @@
 					<table class="table table-bordered table_reply">
 					<tr>
 						<td width="94%">
-							글쓴이 <input type="text" name="cwriter" maxlength="5" class="coment_input" value="<%= id %>" readonly/>&nbsp;&nbsp;
+							글쓴이 <input type="text" name="cwriter" maxlength="5" class="coment_input" value="<%= nick %>" readonly/>&nbsp;&nbsp;
 						</td>
 						<td width="6%" class="bg01"></td>
 					</tr>
@@ -190,7 +185,7 @@
 					</div>
 					<div class="btn_dm">
 					<c:choose>		
-						<c:when test="${empty sessionScope.id && empty sessionScope.kakaoid}">
+						<c:when test="${empty sessionScope.nick}">
 							<input type="button" id="submit_delete" value="삭제" class="btn btn-success" onclick="javascript:alert('로그인을 하셔야합니다.')" />
 							<input type="button" id="submit_modify" value="수정" class="btn btn-success" onclick="javascript:alert('로그인을 하셔야합니다.')" />
 						</c:when>
