@@ -154,14 +154,6 @@
 					<form action="./shopping_modify_ok.do" method="post" name="wfrm" enctype="multipart/form-data">
 						<input type="hidden" name="cpage" value="<%=cpage %>" />
 						<input type="hidden" name="no" value="<%=no %>" />
-						<c:choose>
-							<c:when test="${empty sessionScope.id }">
-								<input type="hidden" name="writer" value="${kakaoid}" />
-							</c:when>
-							<c:otherwise>
-								<input type="hidden" name="writer" value="${id}" />
-							</c:otherwise>
-						</c:choose>
 						
 						<div class="form-row">
 							<div class="name">글쓴이</div>
