@@ -9,51 +9,50 @@
 <%
 	LanTripListTO listTO = (LanTripListTO) request.getAttribute("listTO");
 
-int cpage = listTO.getCpage();
-int recordPerPage = listTO.getRecordPerPage();
-int totalRecord = listTO.getTotalRecord();
-int totalPage = listTO.getTotalPage();
-int blockPerPage = listTO.getBlockPerPage();
-int startBlock = listTO.getStartBlock();
-int endBlock = listTO.getEndBlock();
-
-ArrayList<LanTripTO> boardLists = listTO.getBoardLists();
-
-StringBuffer sbHtml = new StringBuffer();
-
-int rowCount = 0;
-for (LanTripTO to : boardLists) {
-	String no = to.getNo();
-	String subject = to.getSubject();
-	String writer = to.getWriter();
-	String video = "./upload/lanTrip/" + to.getVideo();
-	String wdate = to.getWdate();
-	String location = to.getLocation();
-	String reply = to.getReply();
-	String hit = to.getHit();
-
-	if(rowCount%4 == 0 ){
-		sbHtml.append("<div class='row'>");
+	int cpage = listTO.getCpage();
+	int recordPerPage = listTO.getRecordPerPage();
+	int totalRecord = listTO.getTotalRecord();
+	int totalPage = listTO.getTotalPage();
+	int blockPerPage = listTO.getBlockPerPage();
+	int startBlock = listTO.getStartBlock();
+	int endBlock = listTO.getEndBlock();
+	
+	ArrayList<LanTripTO> boardLists = listTO.getBoardLists();
+	
+	StringBuffer sbHtml = new StringBuffer();
+	
+	int rowCount = 0;
+	for (LanTripTO to : boardLists) {
+		String no = to.getNo();
+		String subject = to.getSubject();
+		String writer = to.getWriter();
+		String video = "./upload/lanTrip/" + to.getVideo();
+		String wdate = to.getWdate();
+		String location = to.getLocation();
+		String reply = to.getReply();
+		String hit = to.getHit();
+	
+		if (rowCount % 4 == 0) {
+			sbHtml.append("<div class='row'>");
+		}
+	
+		sbHtml.append("<div class='col-3'> ");
+		sbHtml.append("	<div class='card'>");
+		sbHtml.append("		<video src='" + video + "' controls></video>");
+		sbHtml.append("		<div class='card-body'>");
+		sbHtml.append("		<h3 class='card-title'>" + writer + "</h3>");
+		sbHtml.append("			<p class='card-text'>" + subject + "</p>");
+		sbHtml.append("			<a href='./lanTrip_view.do?no=" + no + "' class='btn btn-primary'>Go Lan</a>");
+		sbHtml.append("		</div>");
+		sbHtml.append("	</div>");
+		sbHtml.append("</div>");
+	
+		if (rowCount % 4 == 3) {
+			sbHtml.append("</div>");
+		}
+	
+		rowCount++;
 	}
-	
-	sbHtml.append("<div class='col-3'> ");
-	sbHtml.append("	<div class='card'>");
-	sbHtml.append(
-	"		<video src='https://codingyaar.com/wp-content/uploads/video-in-bootstrap-card.mp4' controls></video>");
-	sbHtml.append("		<div class='card-body'>");
-	sbHtml.append("		<h3 class='card-title'>" + writer + "</h3>");
-	sbHtml.append("			<p class='card-text'>" + subject + "</p>");
-	sbHtml.append("			<a href='./lanTrip_view.do?no=" + no + "' class='btn btn-primary'>Go Lan</a>");
-	sbHtml.append("		</div>");
-	sbHtml.append("	</div>");
-	sbHtml.append("</div>");
-	
-	if( rowCount%4 == 3 ) {
-		   sbHtml.append( "</div>" );
-	}
-	
-	rowCount++;
-}
 %>
 
 <!DOCTYPE html>
@@ -96,13 +95,16 @@ for (LanTripTO to : boardLists) {
 			</div>
 			<div class="carousel-inner">
 				<div class="carousel-item active">
-					<img src="./upload/lanTrip/img1.jpg" class="d-block w-100" alt="...">
+					<img src="./upload/lanTrip/img1.jpg" class="d-block w-100"
+						alt="...">
 				</div>
 				<div class="carousel-item">
-					<img src="./upload/lanTrip/img3.jpg" class="d-block w-100" alt="...">
+					<img src="./upload/lanTrip/img3.jpg" class="d-block w-100"
+						alt="...">
 				</div>
 				<div class="carousel-item">
-					<img src="./upload/lanTrip/img4.jpg" class="d-block w-100" alt="...">
+					<img src="./upload/lanTrip/img4.jpg" class="d-block w-100"
+						alt="...">
 				</div>
 			</div>
 			<button class="carousel-control-prev" type="button"
@@ -123,9 +125,18 @@ for (LanTripTO to : boardLists) {
 		<div class="card-container">
 
 			<%--<div class="row"> --%>
-			 <%= sbHtml %>
+			<%=sbHtml%>
 		</div>
 	</section>
-	<button class="btn btn-primary btn-md" onclick="location.href='./lanTrip_write.do'" >등록하기</button>
+	<c:choose>
+		<c:when test="${empty sessionScope.id && empty sessionScope.kakaoid}">
+			<button type="button" class="btn btn-primary"
+				onclick="javascript:alert('로그인을 하셔야합니다.')">글쓰기</button>
+		</c:when>
+		<c:otherwise>
+			<button type="button" class="btn btn-primary"
+				onclick="location.href='./lanTrip_write.do?cpage=<%=cpage%>'">글쓰기</button>
+		</c:otherwise>
+	</c:choose>
 </body>
 </html>

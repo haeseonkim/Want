@@ -1,9 +1,5 @@
 package com.exam.model1.picture;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.apache.ibatis.session.SqlSession;
@@ -12,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.exam.model1.picture.PictureListTO;
 import com.exam.model1.picture.PictureTO;
+import com.exam.model1.user.UserTO;
 
 @Repository
 public class PictureDAO {
@@ -34,30 +31,31 @@ public class PictureDAO {
 		return flag;
 	}
 
-	// list
+	// 로그인 전 게시판 list
 	public PictureListTO boardList(PictureListTO listTO) {
 
 		int cpage = listTO.getCpage();
 		int recordPerPage = listTO.getRecordPerPage();
 		int blockPerPage = listTO.getBlockPerPage();
 
-		ArrayList<PictureTO> lists = (ArrayList)sqlSession.selectList("picture_list");
+		// 현재 사용자 id가 담긴 uto 사용
+		ArrayList<PictureTO> lists = (ArrayList) sqlSession.selectList("picture_list");
 
 		listTO.setTotalRecord(lists.size());
 		listTO.setTotalPage(((listTO.getTotalRecord() - 1) / recordPerPage) + 1);
 
 		int skip = (cpage - 1) * recordPerPage;
-		
+
 		ArrayList<PictureTO> boardLists = new ArrayList();
 		
 		int cnt = 0;
 		for (int i = skip; i < lists.size(); i++) {
-			if(cnt == recordPerPage) {
+			if (cnt == recordPerPage) {
 				break;
 			}
 			if (lists.get(i) != null) {
-				PictureTO to = lists.get(i);
-				boardLists.add(to);
+				PictureTO pto = lists.get(i);
+				boardLists.add(pto);
 			}
 			cnt++;
 		}
@@ -73,13 +71,64 @@ public class PictureDAO {
 		return listTO;
 	}
 
+	// 로그인 후 게시판 list
+	public PictureListTO boardListLogin(PictureListTO listTO, PictureTO to) {
+
+		int cpage = listTO.getCpage();
+		int recordPerPage = listTO.getRecordPerPage();
+		int blockPerPage = listTO.getBlockPerPage();
+
+		// 현재 사용자 id가 담긴 uto 사용
+		ArrayList<PictureTO> lists = (ArrayList) sqlSession.selectList("picture_list_login", to);
+
+		listTO.setTotalRecord(lists.size());
+		listTO.setTotalPage(((listTO.getTotalRecord() - 1) / recordPerPage) + 1);
+
+		int skip = (cpage - 1) * recordPerPage;
+
+		ArrayList<PictureTO> boardLists = new ArrayList();
+
+		int cnt = 0;
+		for (int i = skip; i < lists.size(); i++) {
+			if (cnt == recordPerPage) {
+				break;
+			}
+			if (lists.get(i) != null) {
+				PictureTO pto = lists.get(i);
+				boardLists.add(pto);
+			}
+			cnt++;
+		}
+
+		listTO.setBoardList(boardLists);
+		
+		listTO.setStartBlock(((cpage - 1) / blockPerPage) * blockPerPage + 1);
+		listTO.setEndBlock(((cpage - 1) / blockPerPage) * blockPerPage + blockPerPage);
+		if (listTO.getEndBlock() >= listTO.getTotalPage()) {
+			listTO.setEndBlock(listTO.getTotalPage());
+		}
+
+		return listTO;
+	}
+
+	// 베스트5 list
+	public ArrayList<PictureTO> bestList() {
+
+		ArrayList<PictureTO> bestList = (ArrayList) sqlSession.selectList("best_picture_list");
+		System.out.println(bestList);
+		return bestList;
+	}
+
 	// view
 	public PictureTO boardView(PictureTO to) {
-		sqlSession.update("view_hit", to);
-		to = sqlSession.selectOne("view", to);
+		// hit 수 증가
+		sqlSession.update("picture_view_hit", to);
+		// 해당 게시물 정보가져오기
+		to = sqlSession.selectOne("picture_view", to);
 
 		return to;
 	}
+
 
 	// delete
 	public PictureTO boardDelete(PictureTO to) {
@@ -102,6 +151,7 @@ public class PictureDAO {
 		return flag;
 	}
 
+	
 	// modify
 	public PictureTO boardModify(PictureTO to) {
 		PictureTO board = sqlSession.selectOne("modify", to);

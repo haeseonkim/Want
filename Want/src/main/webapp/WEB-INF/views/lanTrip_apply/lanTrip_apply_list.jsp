@@ -8,42 +8,42 @@
 <%
 	LanTripApplyListTO listTO = (LanTripApplyListTO) request.getAttribute("listTO");
 
-	int cpage = listTO.getCpage();
-	if(request.getParameter( "cpage" ) != null && !request.getParameter( "cpage" ).equals( "" ) ) {
-		cpage = Integer.parseInt( request.getParameter( "cpage" ) );
-	}
-	int recordPerPage = listTO.getRecordPerPage();
-	int totalRecord = listTO.getTotalRecord();
-	int totalPage = listTO.getTotalPage();
-	int blockPerPage = listTO.getBlockPerPage();
+int cpage = listTO.getCpage();
+if (request.getParameter("cpage") != null && !request.getParameter("cpage").equals("")) {
+	cpage = Integer.parseInt(request.getParameter("cpage"));
+}
+int recordPerPage = listTO.getRecordPerPage();
+int totalRecord = listTO.getTotalRecord();
+int totalPage = listTO.getTotalPage();
+int blockPerPage = listTO.getBlockPerPage();
 
-	int startBlock = listTO.getStartBlock();
-	int endBlock = listTO.getEndBlock();
+int startBlock = listTO.getStartBlock();
+int endBlock = listTO.getEndBlock();
 
-	ArrayList<LanTripApplyTO> boardLists = listTO.getBoardLists();
-	
-	StringBuffer sbHtml = new StringBuffer();
-	for (LanTripApplyTO to : boardLists) {
-		String no = to.getNo();
-		String subject = to.getSubject();
-		String writer = to.getWriter();
-		String wdate = to.getWdate();
-		String hit = to.getHit();
-			
+ArrayList<LanTripApplyTO> boardLists = listTO.getBoardLists();
 
-		sbHtml.append("<tr>");
-		sbHtml.append("   <td>&nbsp;</td>");
-		sbHtml.append("   <td id='no'>" + no + "</td>");
-		sbHtml.append("	 <th>&nbsp;</th>");
-		sbHtml.append("   <td>");
-		sbHtml.append("      <a href='./lanTrip_apply_view.do?cpage="+cpage+"&no=" + no + "'>" + subject + "</a>&nbsp;");
-		sbHtml.append("   </td>");
-		sbHtml.append("   <td id='writer'>" + writer + "</td>");
-		sbHtml.append("   <td id='wdate'>" + wdate + "</td>");
-		sbHtml.append("   <td id='hit'>" + hit + "</td>");
-		sbHtml.append("   <td>&nbsp;</td>");
-		sbHtml.append("</tr>");
-	}	
+StringBuffer sbHtml = new StringBuffer();
+for (LanTripApplyTO to : boardLists) {
+	String no = to.getNo();
+	String subject = to.getSubject();
+	String writer = to.getWriter();
+	String wdate = to.getWdate();
+	String hit = to.getHit();
+
+	sbHtml.append("<tr>");
+	sbHtml.append("   <td>&nbsp;</td>");
+	sbHtml.append("   <td id='no'>" + no + "</td>");
+	sbHtml.append("	 <th>&nbsp;</th>");
+	sbHtml.append("   <td>");
+	sbHtml.append(
+	"      <a href='./lanTrip_apply_view.do?cpage=" + cpage + "&no=" + no + "'>" + subject + "</a>&nbsp;");
+	sbHtml.append("   </td>");
+	sbHtml.append("   <td id='writer'>" + writer + "</td>");
+	sbHtml.append("   <td id='wdate'>" + wdate + "</td>");
+	sbHtml.append("   <td id='hit'>" + hit + "</td>");
+	sbHtml.append("   <td>&nbsp;</td>");
+	sbHtml.append("</tr>");
+}
 %>
 <!DOCTYPE html>
 <html>
@@ -99,43 +99,52 @@
 				</table>
 			</div>
 			<div class="card-footer">
-				<button class="btn btn--radius-2 btn--blue-2 btn-sm" type="button"
-					onclick="location.href='./lanTrip_apply_write.do'">등록하기</button>
+				<c:choose>
+					<c:when
+						test="${empty sessionScope.id && empty sessionScope.kakaoid}">
+						<button type="button" class="btn btn-primary"
+							onclick="javascript:alert('로그인을 하셔야합니다.')">글쓰기</button>
+					</c:when>
+					<c:otherwise>
+						<button type="button" class="btn btn-primary"
+							onclick="location.href='./lanTrip_apply_write.do?cpage=<%=cpage%>'">글쓰기</button>
+					</c:otherwise>
+				</c:choose>
 			</div>
 
-<%
-	if(startBlock == 1) {
-        out.println("&lt;&lt;&nbsp;&nbsp;");
-	} else {
-		out.println("<a href='lanTrip_Apply_list.jsp?cpage=" + (startBlock - blockPerPage) + "'>&lt;&lt;</a>");
-	}
-	
-	if(cpage == 1) {
-		out.println("&lt;&nbsp;&nbsp;");    
-	} else {
-		out.println("<a href='lanTrip_Apply_list.jsp?cpage=" + (cpage - 1)   + "'>&lt;</a>");
-	}
+			<%
+				if (startBlock == 1) {
+				out.println("&lt;&lt;&nbsp;&nbsp;");
+			} else {
+				out.println("<a href='lanTrip_Apply_list.jsp?cpage=" + (startBlock - blockPerPage) + "'>&lt;&lt;</a>");
+			}
 
-	for(int i=startBlock ; i<=endBlock ; i++) {
-		if (cpage == i) {
-            out.println("<a href='#' style='color: red'>[ " + i + " ]</a>");
-       } else {
-			out.println("<a href='lanTrip_Apply_list.jsp?cpage=" + i + "'>[ " + i + " ]</a>");
-       }
-	}
-	
-	if(cpage == totalPage) {
-		out.println("&gt;&nbsp;&nbsp;");    
-	} else {
-		out.println("<a href='lanTrip_Apply_list.jsp?cpage=" + (cpage + 1)   + "'>&gt;</a>");
-	}
-	
-    if(endBlock == totalPage) {
-        out.println("&gt;&gt;&nbsp;");
-	} else {
-		out.println("<a href='lanTrip_Apply_list.jsp?cpage=" + (startBlock + blockPerPage) + "'>&gt;&gt;</a>");
-	}
-%>
+			if (cpage == 1) {
+				out.println("&lt;&nbsp;&nbsp;");
+			} else {
+				out.println("<a href='lanTrip_Apply_list.jsp?cpage=" + (cpage - 1) + "'>&lt;</a>");
+			}
+
+			for (int i = startBlock; i <= endBlock; i++) {
+				if (cpage == i) {
+					out.println("<a href='#' style='color: red'>[ " + i + " ]</a>");
+				} else {
+					out.println("<a href='lanTrip_Apply_list.jsp?cpage=" + i + "'>[ " + i + " ]</a>");
+				}
+			}
+
+			if (cpage == totalPage) {
+				out.println("&gt;&nbsp;&nbsp;");
+			} else {
+				out.println("<a href='lanTrip_Apply_list.jsp?cpage=" + (cpage + 1) + "'>&gt;</a>");
+			}
+
+			if (endBlock == totalPage) {
+				out.println("&gt;&gt;&nbsp;");
+			} else {
+				out.println("<a href='lanTrip_Apply_list.jsp?cpage=" + (startBlock + blockPerPage) + "'>&gt;&gt;</a>");
+			}
+			%>
 
 		</div>
 	</div>

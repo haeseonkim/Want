@@ -7,6 +7,8 @@ import com.exam.model1.accom.AccomTO;
 import com.exam.model1.accomComment.AccomCommentTO;
 import com.exam.model1.lantrip.LanTripTO;
 import com.exam.model1.lantripApply.LanTripApplyTO;
+import com.exam.model1.picture.PictureListTO;
+import com.exam.model1.picture.PictureTO;
 import com.exam.model1.shopping.ShoppingTO;
 import com.exam.model1.shoppingComment.ShoppingCommentTO;
 import com.exam.model1.user.UserTO;
@@ -38,6 +40,13 @@ public interface SqlMapperInter {
 	
 	public abstract int lanTrip_write_ok(LanTripTO to);
 	public abstract LanTripTO lanTrip_view(LanTripTO to);
+	
+	
+	
+	//============ 사진자랑 ============
+	public abstract int picture_write_ok(PictureTO to);
+	public abstract PictureListTO picture_list();
+	public abstract ArrayList<PictureTO> best_picture_list();
 	
 	
 	

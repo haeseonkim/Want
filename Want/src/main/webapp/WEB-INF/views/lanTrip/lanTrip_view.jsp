@@ -14,7 +14,8 @@
 	
 	String no = to.getNo();
 	String subject = to.getSubject();
-	String content = to.getContent().replaceAll("\n","<br />");
+	//String content = to.getContent().replaceAll("\n","<br />");
+	String content = to.getContent();
 	String writer = to.getWriter();
 	String wdate = to.getWdate();
 	String hit = to.getHit();
@@ -77,7 +78,7 @@
 	</section>
 	<section id="content" class="container">
 		<div class="form-group" style="border: 1px; color: solid; margin-top:20px;">
-			<textarea id="board_content" name="board_content" class="form-control" rows="10" style="resize: none" disabled="disabled"><c:out value="${requestScope.to.content}" escapeXml="false" /></textarea>
+			<div id="board_content" name="board_content" class="form-control" rows="10" style="resize: none" disabled="disabled"><%=content %> </div>
 		</div>
 	</section>
 	<section id="comment" class="container" style="margin-top:10px;">

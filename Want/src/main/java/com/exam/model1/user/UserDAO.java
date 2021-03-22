@@ -40,9 +40,15 @@ public class UserDAO {
 	}
 	
 	//회원 비번 맞는지 확인
-	public Integer loginOk( UserTO userTo ) {
+	public int loginOk( UserTO userTo ) {
 		int result = sqlSession.selectOne( "login_ok", userTo );
 		return result;
+	}
+	
+	//회원 비번 닉네임 가져오기
+	public UserTO loginOkNick( UserTO userTo ) {
+		UserTO to = sqlSession.selectOne( "login_ok_nick", userTo );
+		return to;
 	}
 
 	
