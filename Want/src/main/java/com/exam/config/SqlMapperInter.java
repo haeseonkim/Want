@@ -38,6 +38,9 @@ public interface SqlMapperInter {
 	
 	public abstract int lanTrip_write_ok(LanTripTO to);
 	public abstract LanTripTO lanTrip_view(LanTripTO to);
+	public abstract int lanTrip_delete_ok(LanTripTO to);
+	public abstract LanTripTO lanTrip_modify(LanTripTO to);
+	public abstract int lanTrip_modify_ok(LanTripTO to);
 	
 	
 	

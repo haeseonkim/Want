@@ -103,16 +103,18 @@
 	            </div>
 	        </div>
 	    </form>
-	    <%-- <div class="btn_area">
+	    <div class="btn_area">
 			<div class="align_left">
-				<input type="button" value="목록" class="btn_list btn_txt02" style="cursor: pointer;" onclick="location.href='list.do'" />
+				<input type="button" value="목록" class="btn_list btn_txt02" style="cursor: pointer;" onclick="location.href='lanTrip_list.do'" />
 			</div>
 			<div class="align_right">
-				<input type="button" value="수정" class="btn_list btn_txt02" style="cursor: pointer;" onclick="location.href='modify.do?seq=<%=request.getParameter("seq") %>'" />
-				<input type="button" value="삭제" class="btn_list btn_txt02" style="cursor: pointer;" onclick="location.href='delete.do?seq=<%=request.getParameter("seq") %>'" />
-				<input type="button" value="쓰기" class="btn_write btn_txt01" style="cursor: pointer;" onclick="location.href='write.do'" />
+				<c:if test="${to.writer eq sessionScope.id }">
+				<input type="button" value="수정" class="btn_list btn_txt02" style="cursor: pointer;" onclick="location.href='lanTrip_modify.do?no=<%=request.getParameter("no") %>'" />
+				<input type="button" value="삭제" class="btn_list btn_txt02" style="cursor: pointer;" onclick="location.href='lanTrip_delete_ok.do?no=<%=request.getParameter("no") %>'" />
+				<input type="button" value="쓰기" class="btn_write btn_txt01" style="cursor: pointer;" onclick="location.href='lanTrip_write.do'" />
+				</c:if>
 			</div>
-		</div> --%>
+		</div>
 	</section>
 	
 </body>

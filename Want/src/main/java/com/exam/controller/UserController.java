@@ -85,7 +85,7 @@ public class UserController {
 
          // id를 세션에 저장
          session.setAttribute("id", userTo.getId());
-         
+         session.setAttribute("nick", userTo.getNick());
 
 
 		} else if (request.getParameter("login_ok").equals("1") && !request.getParameter("kakaoemail").equals("")) {
