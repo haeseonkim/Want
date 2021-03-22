@@ -27,7 +27,7 @@ public class LanTripController {
    private LanTripDAO dao;
 
    // 각자 맞는 upload 폴더 경로로 변경
-   private String uploadPath = "/Users/hyukjun/git/Want/Want/src/main/webapp/upload/lanTrip";
+   private String uploadPath = "C:\\Users\\hyukj\\git\\Want\\Want\\src\\main\\webapp\\upload";
    
 
    // 랜선여행 목록
@@ -59,7 +59,7 @@ public class LanTripController {
 	    MultipartRequest multi = null;
 		
 	    try {
-			multi = new MultipartRequest(request, uploadPath, maxFileSize, encType, new DefaultFileRenamePolicy());
+			multi = new MultipartRequest(request, uploadPath+"\\lanTrip", maxFileSize, encType, new DefaultFileRenamePolicy());
 			
 			LanTripTO to = new LanTripTO();
 			to.setSubject(multi.getParameter("subject"));
