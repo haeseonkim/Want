@@ -12,18 +12,10 @@
 	String cpage = request.getParameter( "cpage" );
 	String no = request.getParameter( "no" );
 	
-	String id = "";
-	if( session.getAttribute( "id" ) != null ) {
-		id = (String)session.getAttribute( "id" );
-	} else if( session.getAttribute( "kakaoid" ) != null ) {
-		id = (String)session.getAttribute( "kakaoid" );
-	} else {
-		id = (String)session.getAttribute("id");
-	}
+	String nick = (String)request.getAttribute( "nick" );
 	
 	ShoppingTO to = (ShoppingTO)request.getAttribute( "to" );
 	
-	no = to.getNo();
 	String subject = to.getSubject();
 	String content = to.getContent();
 	String writer = to.getWriter();
@@ -60,17 +52,51 @@
 <jsp:include page="../include/index.jsp"></jsp:include>
 
 <!-- CSS File -->
-<link href="./resources/css/shopping_view.css?wq" rel="stylesheet">
+<link href="./resources/css/shopping_view.css?asdfa" rel="stylesheet">
 <link href="./resources/css/navbar.css" rel="stylesheet">
 
 <script type="text/javascript">
-const commentOk = function() {
-	if( document.cfrm.ccontent.value.trim() == '' ) {
-		alert( '댓글 내용을 입력해주세요' );
-		return false;
+
+	const commentOk = function() {
+		if( document.cfrm.cwriter.value.trim() == '' ) {
+			alert( '로그인을 해주세요' );
+			return false;
+		}
+		if( document.cfrm.ccontent.value.trim() == '' ) {
+			alert( '댓글내용을 입력해주세요' );
+			return false;
+		}
+		document.cfrm.submit();
+	}	
+	
+	
+	const deleteOk = function() {
+		let writer = "<%= writer %>";
+		let nick = "<%= nick %>";
+		if( writer != nick ) {
+			alert( '글쓴이만 삭제가 가능합니다.' )
+			return false;
+		}
+		if (confirm("해당 게시글을 삭제하시겠습니까?") == true){    //확인
+			document.shop_frm.action = "./shopping_delete_ok.do";
+			document.shop_frm.submit();
+		}else{   //취소
+		    return false;
+		}
 	}
-	document.cfrm.submit();
-}
+		
+	const modifyOk = function() {
+		let writer = "<%= writer %>";
+		let id = "<%= nick %>";
+		if( writer != id ) {
+			alert( '글쓴이만 수정이 가능합니다.' )
+			return false;
+		}
+		document.shop_frm.action = "./shopping_modify.do";
+		document.shop_frm.submit();
+		
+	}
+		
 </script>
 
 </head>
@@ -133,7 +159,7 @@ const commentOk = function() {
 					<table class="table table-bordered table_reply">
 					<tr>
 						<td width="94%">
-							글쓴이 <input type="text" name="cwriter" maxlength="5" class="coment_input" value="<%= id %>" readonly/>&nbsp;&nbsp;
+							글쓴이 <input type="text" name="cwriter" maxlength="5" class="coment_input" value="<%= nick %>" readonly/>&nbsp;&nbsp;
 						</td>
 						<td width="6%" class="bg01"></td>
 					</tr>
@@ -142,7 +168,7 @@ const commentOk = function() {
 							<textarea name="ccontent" cols="" rows="" class="coment_input_text"></textarea>
 						</td>
 						<td align="right" class="bg01">
-							<input type="button" id="submit_reply" value="댓글등록" class="btn_re btn_txt01" onclick="commentOk()" />
+							<input type="button" id="submit_reply" value="댓글등록" class="btn btn-success" onclick="commentOk()" />
 						</td>
 						
 					</tr>
@@ -155,11 +181,30 @@ const commentOk = function() {
 			<tr>
 				<td class="coment_re" width="20%">
 					<div class="btn_list">
-						<input type="button" id="submit_list" value="목록" class="btn btn-success" onclick="location.href='./shopping_list.do?cpage=<%=cpage %>&location=<%=location%>'" />
+						<input type="button" id="submit_list" value="목록" class="btn btn-success btn_list" onclick="location.href='./shopping_list.do?cpage=<%=cpage %>&location=<%=location%>'" />
 					</div>
 					<div class="btn_dm">
-						<input type="button" id="submit_delete" value="삭제" class="btn btn-success" onclick="location.href='./shopping_list.do?cpage=<%=cpage %>&no=<%=no %>" />
-						<input type="button" id="submit_modify" value="수정" class="btn btn-success" onclick="location.href='./shopping_list.do?cpage=<%=cpage %>&no=<%=no %>" />
+					<c:choose>		
+						<c:when test="${empty sessionScope.nick}">
+							<input type="button" id="submit_delete" value="삭제" class="btn btn-success" onclick="javascript:alert('로그인을 하셔야합니다.')" />
+							<input type="button" id="submit_modify" value="수정" class="btn btn-success" onclick="javascript:alert('로그인을 하셔야합니다.')" />
+						</c:when>
+						<c:otherwise>
+							<form name="shop_frm" method="post" >
+								<input type="hidden" name="no" value="<%=no %>"/>
+								<input type="hidden" name="location" value="<%= location %>" />
+								<input type="hidden" name="subject" value="<%= subject %>" />
+								<input type="hidden" name="cpage" value="<%= cpage %>" />
+								<input type="hidden" name="writer" value="<%= writer %>" />
+								<input type="hidden" name="content" value="<%= content %>" />
+								<input type="hidden" name="picture" value="<%= picture %>" />
+								<input type="button" id="submit_delete" value="삭제" class="btn btn-success" onclick="deleteOk()" />
+								<input type="button" id="submit_modify" value="수정" class="btn btn-success" onclick="modifyOk()" />
+							</form>
+								
+						</c:otherwise>
+					</c:choose>	
+						
 					</div>
 				</td>
 			</tr>

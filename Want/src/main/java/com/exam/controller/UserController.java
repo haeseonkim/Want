@@ -84,6 +84,7 @@ public class UserController {
 			session.setAttribute("id", userTo.getId());
 			session.setAttribute("nick", userTo.getNick());
 
+
 		} else if (request.getParameter("login_ok").equals("1") && !request.getParameter("kakaoemail").equals("")) {
 
 			// ==================== 카카오 로그인 ========================

@@ -22,8 +22,7 @@ import com.exam.model1.accom.AccomTO;
 import com.exam.model1.accomComment.AccomCommentDAO;
 import com.exam.model1.accomComment.AccomCommentTO;
 import com.exam.model1.shopping.ShoppingTO;
-import com.exam.model1.shoppingComment.ShoppingCommentDAO;
-import com.exam.model1.shoppingComment.ShoppingCommentTO;
+
 
 @Controller
 public class AccomController {
@@ -53,7 +52,7 @@ public class AccomController {
 		
 		int maxFileSize = 1024 * 1024 * 6;
 		String encType = "utf-8";
-		String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\accom";
+		String uploadPath = "/Users/hyukjun/git/Want/Want/src/main/webapp/upload/lanTrip/accom";
 		MultipartRequest multi = null;
 
 		try {
@@ -66,17 +65,17 @@ public class AccomController {
 			String picture = multi.getFilesystemName("picture");
 			File file = multi.getFile("profile");
 
-			AccomTO accomTo = new AccomTO();
-			accomTo.setWriter(writer);
-			accomTo.setSubject(subject);
-			accomTo.setContent(content);
-			accomTo.setLocation(location);
-			accomTo.setPicture(picture);
+			AccomTO to = new AccomTO();
+			to.setWriter(writer);
+			to.setSubject(subject);
+			to.setContent(content);
+			to.setLocation(location);
+			to.setPicture(picture);
 
-			int flag = accomDao.accom_write_ok(accomTo);
+			int flag = accomDao.accomModifyOk(to);
 
 			request.setAttribute("flag", flag);
-			request.setAttribute("location", accomTo.getLocation());
+			request.setAttribute("location", location );
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -184,5 +183,122 @@ public class AccomController {
 
 		return "accom/accom_view_comment_ok";
 	}
+	
+	// 숙소 delete
+	@RequestMapping(value = "/accom_delete_ok.do")
+	public String accom_delete_ok(HttpServletRequest request, HttpServletResponse response) {
+		try {
+			request.setCharacterEncoding("utf-8");
+			
+			String cpage = request.getParameter( "cpage" );
+			String location = request.getParameter( "location" );
+			String no = request.getParameter( "no" );
+			String writer = request.getParameter( "writer" );
+			
+			AccomTO to = new AccomTO();
+			to.setWriter( writer );
+			to.setNo(no);
+			
+			int flag = accomDao.accomDelete( to );
+			
+			request.setAttribute( "cpage", cpage );
+			request.setAttribute( "location", location );
+			request.setAttribute( "flag", flag );
+			
+			
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return "accom/accom_delete_ok";
+	}
+	
+	// 숙소 modify
+	@RequestMapping(value = "/accom_modify.do")
+	public String accom_modify(HttpServletRequest request, HttpServletResponse response) {
+		try {
+			request.setCharacterEncoding("utf-8");
+			
+			String cpage = request.getParameter( "cpage" );
+			String no = request.getParameter( "no" );
+			String writer = request.getParameter( "writer" );
+			String subject = request.getParameter( "subject" );
+			String location = request.getParameter( "location" );
+			String picture = request.getParameter( "picture" );
+			String content = request.getParameter( "content" );
+			
+			request.setAttribute( "cpage", cpage );
+			request.setAttribute( "no", no );
+			request.setAttribute( "writer", writer );
+			request.setAttribute( "subject", subject );
+			request.setAttribute( "location", location );
+			request.setAttribute( "subject", subject );
+			request.setAttribute( "picture", picture );
+			request.setAttribute( "content", content );
+			
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return "accom/accom_modify";
+	}
+	
+	// 숙소 modify_ok
+	@RequestMapping(value = "/accom_modify_ok.do")
+	public String accom_modify_ok(HttpServletRequest request, HttpServletResponse response) {
+		
+		int maxFileSize = 1024 * 1024 * 6;
+		String encType = "utf-8";
+		String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\accom";
+		MultipartRequest multi = null;
+
+		try {
+			request.setCharacterEncoding("utf-8");
+			multi = new MultipartRequest(request, uploadPath, maxFileSize, encType, new DefaultFileRenamePolicy());
+			
+			String cpage = multi.getParameter( "cpage" );
+			String no = multi.getParameter( "no" );
+			String writer = multi.getParameter("writer");
+			String subject = multi.getParameter("subject");
+			String content = multi.getParameter("content");
+			String location = multi.getParameter("location");
+			String picture = "";
+			if( multi.getFilesystemName("picture") == null ) {	//사진파일 수정안했을 때
+				picture = multi.getParameter( "ex-picture" );
+			} else {
+				picture = multi.getFilesystemName("picture");
+				
+			}
+
+			AccomTO to = new AccomTO();
+			to.setNo(no);
+			to.setWriter(writer);
+			to.setSubject(subject);
+			to.setContent(content);
+			to.setLocation(location);
+			to.setPicture(picture);
+
+			int flag = accomDao.accomModifyOk(to);
+
+			request.setAttribute("flag", flag);
+			request.setAttribute("cpage", cpage);
+			request.setAttribute("location", location );
+			
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return "accom/accom_modify_ok";
+	}	
 	
 }

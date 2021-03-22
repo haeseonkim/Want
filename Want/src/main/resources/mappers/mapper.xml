@@ -97,6 +97,24 @@
 		where no=#{no}
 	</update>
 	
+	<!-- lanTrip delete_ok -->
+	<delete id="lanTrip_delete_ok" parameterType="com.exam.model1.lantrip.LanTripTO">
+		delete from l_board
+		where no=#{no}
+	</delete>
+	
+	<!-- lanTrip modify -->
+	<select id="lanTrip_modify" parameterType="com.exam.model1.lantrip.LanTripTO" resultType="com.exam.model1.lantrip.LanTripTO">
+		select no, subject, content, writer, date_format(wdate, '%Y-%m-%d') wdate, hit, location, video
+		from l_board
+		where no=#{no}
+	</select>
+	
+	<!-- lanTrip modify_ok -->
+	<update id="lanTrip_modify_ok" parameterType="com.exam.model1.lantrip.LanTripTO">
+		update l_board set subject = #{ subject }, content = #{ content }, video = #{ video }, location = #{ location }
+		where no=#{no}
+	</update>
 	
 	<!-- ================  랜선여행 신청하기  =================  -->
 	<!-- LanTripApplyList -->
@@ -248,6 +266,19 @@
 		insert into s_reply
 		values( 0, #{bno}, #{writer}, #{content}, now() )
 	</insert>
+	
+	<!-- 쇼핑 delete_ok -->
+	<delete id="shopDeleteOk" parameterType="com.exam.model1.shopping.ShoppingTO">
+		delete from s_board
+		where writer like #{writer} and no = #{no}
+	</delete>
+	
+	<!-- 쇼핑 modify_ok -->
+	<delete id="shopModifyOk" parameterType="com.exam.model1.shopping.ShoppingTO">
+		update s_board
+		set subject=#{subject}, content=#{content}, picture=#{picture}
+		where no=#{no} and writer like #{writer}
+	</delete>
 
 	<!--ㅡㅡㅡㅡㅡㅡ 숙소관련 ㅡㅡㅡㅡㅡㅡ -->
 	<!-- 숙소 write_ok -->
@@ -303,6 +334,19 @@
 		insert into a_reply
 		values(0, #{bno}, #{writer}, #{content}, now() )
 	</insert>
+	
+	<!-- 숙소 delete_ok -->
+	<delete id="accomDeleteOk" parameterType="com.exam.model1.accom.AccomTO">
+		delete from a_board
+		where writer like #{writer} and no = #{no}
+	</delete>
+	
+	<!-- 숙소 modify_ok -->
+	<delete id="accomModifyOk" parameterType="com.exam.model1.accom.AccomTO">
+		update a_board
+		set subject=#{subject}, content=#{content}, picture=#{picture}
+		where no=#{no} and writer like #{writer}
+	</delete>
 
 </mapper>
 

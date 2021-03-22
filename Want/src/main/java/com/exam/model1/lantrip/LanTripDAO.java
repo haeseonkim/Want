@@ -95,7 +95,7 @@ public class LanTripDAO {
 	public int boardDeleteOk(LanTripTO to) {
 		int flag = 2;
 
-		int result = sqlSession.delete("delete_ok", to);
+		int result = sqlSession.delete("lanTrip_delete_ok", to);
 		if (result == 1) {
 			flag = 0;
 		} else if (result == 0) {
@@ -107,7 +107,7 @@ public class LanTripDAO {
 
 	// modify
 	public LanTripTO boardModify(LanTripTO to) {
-		LanTripTO board = sqlSession.selectOne("modify", to);
+		LanTripTO board = sqlSession.selectOne("lanTrip_modify", to);
 
 		return board;
 	}
@@ -115,7 +115,7 @@ public class LanTripDAO {
 	// modify_ok
 	public int boardModifyOk(LanTripTO to) {
 		int flag = 2;
-		int result = sqlSession.update("modify_ok", to);
+		int result = sqlSession.update("lanTrip_modify_ok", to);
 		if (result == 1) {
 			flag = 0;
 		} else if (result == 0) {

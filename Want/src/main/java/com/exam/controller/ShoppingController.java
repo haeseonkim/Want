@@ -37,9 +37,9 @@ public class ShoppingController {
 	private ShoppingCommentDAO shopCommentDao;
 
 	// 각자 맞는 upload 폴더 경로로 변경
-	private String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\shopping";
+	private String uploadPath = "/Users/hyukjun/git/Want/Want/src/main/webapp/upload/shopping";
 
-	// 쇼핑정보 글쓰기
+	// 쇼핑정보 write
 	@RequestMapping(value = "/shopping_write.do")
 	public String shopping_write(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		try {
@@ -53,13 +53,13 @@ public class ShoppingController {
 		return "shopping/shopping_write";
 	}
 
-	// 쇼핑정보 글쓰기 Ok
+	// 쇼핑정보 write_ok
 	@RequestMapping(value = "/shopping_write_ok.do")
 	public String shopping_write_ok(HttpServletRequest request, HttpServletResponse response) {
 
 		int maxFileSize = 1024 * 1024 * 6;
 		String encType = "utf-8";
-		String uploadPath = "/Users/hyukjun/git/Want/Want/src/main/webapp/upload/shopping";
+		String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\shopping";
 		MultipartRequest multi = null;
 
 		try {
@@ -190,5 +190,122 @@ public class ShoppingController {
 
 		return "shopping/shopping_view_comment_ok";
 	}
+	
+	// 쇼핑 delete
+	@RequestMapping(value = "/shopping_delete_ok.do")
+	public String shopping_delete_ok(HttpServletRequest request, HttpServletResponse response) {
+		try {
+			request.setCharacterEncoding("utf-8");
+			
+			String cpage = request.getParameter( "cpage" );
+			String location = request.getParameter( "location" );
+			String no = request.getParameter( "no" );
+			String writer = request.getParameter( "writer" );
+			
+			ShoppingTO to = new ShoppingTO();
+			to.setWriter( writer );
+			to.setNo(no);
+			
+			int flag = shopDao.shopDeleteOk( to );
+			
+			request.setAttribute( "cpage", cpage );
+			request.setAttribute( "location", location );
+			request.setAttribute( "flag", flag );
+			
+			
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return "shopping/shopping_delete_ok";
+	}
+	
+	// 쇼핑 modify
+	@RequestMapping(value = "/shopping_modify.do")
+	public String shopping_modify(HttpServletRequest request, HttpServletResponse response) {
+		try {
+			request.setCharacterEncoding("utf-8");
+			
+			String cpage = request.getParameter( "cpage" );
+			String no = request.getParameter( "no" );
+			String writer = request.getParameter( "writer" );
+			String subject = request.getParameter( "subject" );
+			String location = request.getParameter( "location" );
+			String picture = request.getParameter( "picture" );
+			String content = request.getParameter( "content" );
+			
+			request.setAttribute( "cpage", cpage );
+			request.setAttribute( "no", no );
+			request.setAttribute( "writer", writer );
+			request.setAttribute( "subject", subject );
+			request.setAttribute( "location", location );
+			request.setAttribute( "subject", subject );
+			request.setAttribute( "picture", picture );
+			request.setAttribute( "content", content );
+			
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return "shopping/shopping_modify";
+	}
+	
+	// 쇼핑 modify_ok
+	@RequestMapping(value = "/shopping_modify_ok.do")
+	public String shopping_modify_ok(HttpServletRequest request, HttpServletResponse response) {
+		
+		int maxFileSize = 1024 * 1024 * 6;
+		String encType = "utf-8";
+		String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\shopping";
+		MultipartRequest multi = null;
+
+		try {
+			request.setCharacterEncoding("utf-8");
+			multi = new MultipartRequest(request, uploadPath, maxFileSize, encType, new DefaultFileRenamePolicy());
+			
+			String cpage = multi.getParameter( "cpage" );
+			String no = multi.getParameter( "no" );
+			String writer = multi.getParameter("writer");
+			String subject = multi.getParameter("subject");
+			String content = multi.getParameter("content");
+			String location = multi.getParameter("location");
+			String picture = "";
+			if( multi.getFilesystemName("picture") == null ) {	//사진파일 수정안했을 때
+				picture = multi.getParameter( "ex-picture" );
+			} else {
+				picture = multi.getFilesystemName("picture");
+				
+			}
+
+			ShoppingTO to = new ShoppingTO();
+			to.setNo(no);
+			to.setWriter(writer);
+			to.setSubject(subject);
+			to.setContent(content);
+			to.setLocation(location);
+			to.setPicture(picture);
+
+			int flag = shopDao.shopModifyOk(to);
+
+			request.setAttribute("flag", flag);
+			request.setAttribute("cpage", cpage);
+			request.setAttribute("location", location );
+			
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return "shopping/shopping_modify_ok";
+	}	
 	
 }

@@ -1,4 +1,3 @@
-<!-- 현수 생성 -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 

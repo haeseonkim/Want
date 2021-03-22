@@ -27,7 +27,7 @@ public class LanTripController {
    private LanTripDAO dao;
 
    // 각자 맞는 upload 폴더 경로로 변경
-   private String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\lanTrip";
+   private String uploadPath = "/Users/hyukjun/git/Want/Want/src/main/webapp/upload/lanTrip";
    
 
    // 랜선여행 목록
@@ -96,5 +96,64 @@ public class LanTripController {
 	   
       return "lanTrip/lanTrip_view";
    }
+   
+   // 랜선여행 게시물 delete_ok
+   @RequestMapping(value = "/lanTrip_delete_ok.do")
+   public String lanTrip_delete_ok(HttpServletRequest request, Model model) {
+	   
+	   LanTripTO to = new LanTripTO();
+	   
+	   to.setNo(request.getParameter( "no" ));
+	   
+	   int flag = dao.boardDeleteOk(to);
+	   
+	   request.setAttribute("flag", flag);
+	   
+	   return "lanTrip/lanTrip_delete_ok";
+   }
+   
+   //랜선여행 게시물 modify
+   @RequestMapping(value = "/lanTrip_modify.do")
+	public String modify(HttpServletRequest request, Model model) {
+		String no = request.getParameter("no");
 
+		LanTripTO to = new LanTripTO();
+		to.setNo(no);
+		
+		to = dao.boardModify(to);
+		
+		request.setAttribute("to",to);
+		
+		return "lanTrip/lanTrip_modify";
+	}
+
+   // 랜선여행 modify_ok
+   @RequestMapping(value = "/lanTrip_modify_ok.do")
+   	public String lanTrip_modify_ok(HttpServletRequest request, Model model) {
+	    String encType = "utf-8";
+	    int maxFileSize = 2048 * 2048 * 6;
+	    
+	    MultipartRequest multi = null;
+		
+	    try {
+			multi = new MultipartRequest(request, uploadPath, maxFileSize, encType, new DefaultFileRenamePolicy());
+			
+			LanTripTO to = new LanTripTO();
+			to.setSubject(multi.getParameter("subject"));
+			to.setLocation(multi.getParameter("location"));
+			to.setWriter(multi.getParameter("writer"));
+			to.setContent(multi.getParameter("content"));
+			to.setVideo(multi.getFilesystemName("video"));
+			to.setWdate(multi.getParameter("wdate"));
+	
+			int flag = dao.boardWriteOk(to);
+			
+			request.setAttribute("flag", flag);
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	   return "lanTrip/lanTrip_modify_ok";
+   }
 }
