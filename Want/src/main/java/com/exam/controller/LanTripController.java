@@ -27,7 +27,7 @@ public class LanTripController {
    private LanTripDAO dao;
 
    // 각자 맞는 upload 폴더 경로로 변경
-   private String uploadPath = "/Users/hyukjun/git/Want/Want/src/main/webapp/upload/lanTrip";
+   private String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\lantrip";
    
 
    // 랜선여행 목록
@@ -84,11 +84,10 @@ public class LanTripController {
    @RequestMapping(value = "/lanTrip_view.do")
    public String lanTrip_view(HttpServletRequest request) {
 	   
-	   String no = request.getParameter( "no" );
+	   String no = request.getParameter("no");
 	   LanTripTO to = new LanTripTO();
 	   
-	   to.setNo(request.getParameter( "no" ));
-	   
+	   to.setNo(no);
 	   
 	   to = dao.boardView(to);
 	   
@@ -122,6 +121,7 @@ public class LanTripController {
 		
 		to = dao.boardModify(to);
 		
+//		model.addAttribute("to", to);
 		request.setAttribute("to",to);
 		
 		return "lanTrip/lanTrip_modify";
@@ -139,6 +139,7 @@ public class LanTripController {
 			multi = new MultipartRequest(request, uploadPath, maxFileSize, encType, new DefaultFileRenamePolicy());
 			
 			LanTripTO to = new LanTripTO();
+			to.setNo(multi.getParameter("no"));
 			to.setSubject(multi.getParameter("subject"));
 			to.setLocation(multi.getParameter("location"));
 			to.setWriter(multi.getParameter("writer"));
@@ -146,9 +147,10 @@ public class LanTripController {
 			to.setVideo(multi.getFilesystemName("video"));
 			to.setWdate(multi.getParameter("wdate"));
 	
-			int flag = dao.boardWriteOk(to);
+			int flag = dao.boardModifyOk(to);
 			
 			request.setAttribute("flag", flag);
+			request.setAttribute("no", to.getNo());
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

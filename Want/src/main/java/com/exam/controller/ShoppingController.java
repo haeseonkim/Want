@@ -37,7 +37,7 @@ public class ShoppingController {
 	private ShoppingCommentDAO shopCommentDao;
 
 	// 각자 맞는 upload 폴더 경로로 변경
-	private String uploadPath = "/Users/hyukjun/git/Want/Want/src/main/webapp/upload/shopping";
+	private String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\shopping";
 
 	// 쇼핑정보 write
 	@RequestMapping(value = "/shopping_write.do")
