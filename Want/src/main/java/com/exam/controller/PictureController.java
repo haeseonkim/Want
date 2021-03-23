@@ -17,11 +17,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.exam.model1.heart.HeartDAO;
-import com.exam.model1.heart.HeartTO;
 import com.exam.model1.picture.PictureDAO;
 import com.exam.model1.picture.PictureListTO;
 import com.exam.model1.picture.PictureTO;
+import com.exam.model1.pictureHeart.HeartDAO;
+import com.exam.model1.pictureHeart.HeartTO;
+import com.exam.model1.pictureReply.ReplyDAO;
 import com.exam.model1.user.UserTO;
 import com.oreilly.servlet.MultipartRequest;
 
@@ -40,8 +41,11 @@ public class PictureController {
 	@Autowired
 	private HeartDAO heartDao;
 	
+	@Autowired
+	private ReplyDAO replyDao;
+	
 	// 각자 맞는 upload 폴더 경로로 변경
-	private String uploadPath = "/Users/hyukjun/git/Want/Want/src/main/webapp/upload/picture";
+	private String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\picture";
 
 
 	// 사진자랑 목록
@@ -68,16 +72,6 @@ public class PictureController {
 			// 사진자랑 게시판 목록 가져오기
 			listTO.setCpage( Integer.parseInt( request.getParameter( "cpage" ) == null || request.getParameter( "cpage" ).equals( "" ) ? "1" : request.getParameter( "cpage" ) ) );
 			listTO = pictureDao.boardListLogin(listTO, to);
-			
-//			ArrayList<PictureTO> test = new ArrayList();
-//			test = listTO.getBoardLists();
-//			
-//			System.out.println(test.get(0).getHno());
-//			System.out.println(test.get(1).getHno());
-//			System.out.println(test.get(2).getHno());
-//			System.out.println(test.get(3).getHno());
-//			System.out.println(test.get(4).getHno());
-//			System.out.println(test.get(5).getHno());
 			
 		}
 		
@@ -151,10 +145,13 @@ public class PictureController {
 		PictureTO to = new PictureTO();
 		to.setNo(no);
 		
-		// 현재 사용자 id 세팅
+		// 현재 사용자 nick 세팅
 		to.setNick((String)session.getAttribute("nick"));
-	
+		
 		to = pictureDao.boardView(to);
+		
+		// 현재 사용자 nick 다시 세팅
+		to.setNick((String)session.getAttribute("nick"));
 
 		return to;
 	}
@@ -163,7 +160,7 @@ public class PictureController {
 	// 빈하트 클릭시 하트 저장
 	@ResponseBody
 	@RequestMapping(value = "/saveHeart.do")
-	public int save_heart(@RequestParam String no, HttpSession session) {
+	public PictureTO save_heart(@RequestParam String no, HttpSession session) {
 		
 		HeartTO to = new HeartTO();
 		
@@ -173,15 +170,16 @@ public class PictureController {
 		// 좋아요 누른 사람 nick을 userid로 세팅
 		to.setUserid((String)session.getAttribute("nick"));
 		
-		int flag = heartDao.pictureSaveHeart(to);
+		// +1된 하트 갯수를 담아오기위함
+		PictureTO pto = heartDao.pictureSaveHeart(to);
 	
-		return flag;
+		return pto;
 	}
 	
 	// 꽉찬하트 클릭시 하트 해제
 	@ResponseBody
 	@RequestMapping(value = "/removeHeart.do")
-	public int remove_heart(@RequestParam String no, HttpSession session) {
+	public PictureTO remove_heart(@RequestParam String no, HttpSession session) {
 		HeartTO to = new HeartTO();
 		
 		// 게시물 번호 세팅
@@ -190,9 +188,10 @@ public class PictureController {
 		// 좋아요 누른 사람 nick을 userid로 세팅
 		to.setUserid((String)session.getAttribute("nick"));
 		
-		int flag = heartDao.pictureRemoveHeart(to);
+		// -1된 하트 갯수를 담아오기위함
+		PictureTO pto = heartDao.pictureRemoveHeart(to);
 	
-		return flag;
+		return pto;
 	}
 	
 

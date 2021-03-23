@@ -79,7 +79,7 @@ public class PictureDAO {
 		int blockPerPage = listTO.getBlockPerPage();
 
 		// 현재 사용자 id가 담긴 uto 사용
-		ArrayList<PictureTO> lists = (ArrayList) sqlSession.selectList("picture_list_login", to);
+		ArrayList<PictureTO> lists = (ArrayList)sqlSession.selectList("picture_list_login", to);
 
 		listTO.setTotalRecord(lists.size());
 		listTO.setTotalPage(((listTO.getTotalRecord() - 1) / recordPerPage) + 1);
@@ -123,7 +123,8 @@ public class PictureDAO {
 	public PictureTO boardView(PictureTO to) {
 		// hit 수 증가
 		sqlSession.update("picture_view_hit", to);
-		// 해당 게시물 정보가져오기
+		
+		// 해당 게시물 정보가져오기 - list에서 다 가져오게 해서 사실상 필요없어졌지만 그냥 놔둠
 		to = sqlSession.selectOne("picture_view", to);
 
 		return to;

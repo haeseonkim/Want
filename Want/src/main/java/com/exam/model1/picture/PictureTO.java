@@ -1,5 +1,9 @@
 package com.exam.model1.picture;
 
+import java.util.ArrayList;
+
+import com.exam.model1.pictureReply.ReplyTO;
+
 public class PictureTO {
 	private String no;
 	private String subject;
@@ -21,10 +25,6 @@ public class PictureTO {
 	// 현재 사용자 id
 	private String nick;
 	
-	
-	
-	
-
 	public String getNick() {
 		return nick;
 	}

@@ -1,4 +1,4 @@
-package com.exam.model1.heart;
+package com.exam.model1.pictureHeart;
 
 public class HeartTO {
 	private String hno;

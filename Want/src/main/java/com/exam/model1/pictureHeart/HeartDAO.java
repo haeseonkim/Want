@@ -1,4 +1,4 @@
-package com.exam.model1.heart;
+package com.exam.model1.pictureHeart;
 
 
 import org.apache.ibatis.session.SqlSession;
@@ -15,35 +15,39 @@ public class HeartDAO {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	public int pictureSaveHeart(HeartTO to) {
+	public PictureTO pictureSaveHeart(HeartTO to) {
 		// p_board 테이블에 해당 게시물의 heart수를 +1 하기위한 to세팅
 		PictureTO pto = new PictureTO();
 		pto.setNo(to.getBno());
+		
+		// 해당 게시물의 heart를 +1 한다.
 		sqlSession.update("picture_heart_up", pto);
 		
-		// p_heart 테이블에 추가
-		int flag = 1;
-
+		// p_heart 테이블에 추가 
 		int result = sqlSession.insert("picture_heart_save", to);
-		if (result == 1) {
-			flag = 0;
+		
+		if (result == 1) {	// p_heart 테이블에 새로운 좋아요 추가가 성공한다면..
+			// 갱신된 하트 갯수를 가져옴
+			pto = sqlSession.selectOne("picture_heart_count", pto);
 		}
-		return flag;
+		return pto;
 	}
 
-	public int pictureRemoveHeart(HeartTO to) {
+	public PictureTO pictureRemoveHeart(HeartTO to) {
 		// p_board 테이블에 해당 게시물의 heart수를 -1 하기위한 to세팅
 		PictureTO pto = new PictureTO();
 		pto.setNo(to.getBno());
+		
+		// 해당 게시물의 heart를 -1 한다.
 		sqlSession.update("picture_heart_down", pto);
 		
 		// p_heart 테이블에서 삭제
-		int flag = 1;
-
 		int result = sqlSession.delete("picture_heart_remove", to);
-		if (result == 1) {
-			flag = 0;
+		
+		if (result == 1) {	// p_heart 테이블에 좋아요 삭제가 성공한다면..
+			// 갱신된 하트 갯수를 가져옴
+			pto = sqlSession.selectOne("picture_heart_count", pto);
 		}
-		return flag;
+		return pto;
 	}
 }

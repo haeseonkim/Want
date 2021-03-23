@@ -343,7 +343,7 @@ function agree() {
         <div class="form-group row">
 			<label class="col-form-label col-4">전화번호</label>
 			<div class="col-8">
-                <input type="email" class="form-control" id="user_phone" name="phone" placeholder="010-1234-5678" >
+                <input type="tel" class="form-control" id="user_phone" name="phone" placeholder="010-1234-5678" >
             </div>   
             <div id="phone_chk"></div>     	
         </div>

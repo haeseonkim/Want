@@ -150,18 +150,21 @@
 	
 	<!-- 로그인 전 사진자랑 리스트 -->
 	<select id="picture_list" resultType="com.exam.model1.picture.PictureTO">
-		select no, writer, hit, location, media, reply, heart
-		from p_board
-		order by no desc
+		select b.no, subject, content, writer, wdate, hit, location, media, reply, heart, u.profile
+		from p_board b left outer join user u
+		on b.writer = u.nick
+		order by b.no desc
 	</select>
 
 	<!-- 로그인 후 사진자랑 리스트 -->
 	<select id="picture_list_login" parameterType="com.exam.model1.picture.PictureTO" resultType="com.exam.model1.picture.PictureTO">
-		select b.no, b.writer, hit, location, media, reply, heart, h.hno, f.fno
+		select b.no, subject, content, writer, wdate, hit, location, media, reply, heart, h.hno, f.fno, u.profile
 		from p_board b left outer join p_heart h
 		on #{nick} = h.userid and b.no = h.bno
 		left outer join p_favorite f
 		on #{nick} = f.userid and b.no = f.bno
+		left outer join user u
+		on b.writer = u.nick
 		order by b.no desc
 	</select>
 	
@@ -190,7 +193,7 @@
 	</update>
 
 	<!-- 좋아요 추가 -->
-	<insert id="picture_heart_save" parameterType="com.exam.model1.heart.HeartTO">
+	<insert id="picture_heart_save" parameterType="com.exam.model1.pictureHeart.HeartTO">
 		insert into p_heart
 		values(0, #{bno}, #{userid})
 	</insert>
@@ -199,9 +202,15 @@
 		where no=#{no}
 	</update>
 	
+	<select id="picture_heart_count" parameterType="com.exam.model1.picture.PictureTO" resultType="com.exam.model1.picture.PictureTO">
+		select heart 
+		from p_board
+		where no=#{no}
+	</select>
+	
 	
 	<!-- 좋아요 삭제 -->
-	<delete id="picture_heart_remove" parameterType="com.exam.model1.heart.HeartTO">
+	<delete id="picture_heart_remove" parameterType="com.exam.model1.pictureHeart.HeartTO">
 		delete from p_heart
 		where bno=#{bno} and userid=#{userid}
 	</delete>
