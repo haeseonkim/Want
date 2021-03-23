@@ -109,9 +109,9 @@
 				<input type="button" value="목록" class="btn_list btn_txt02" style="cursor: pointer;" onclick="location.href='lanTrip_list.do'" />
 			</div>
 			<div class="align_right">
-				<c:if test="${to.writer eq sessionScope.id }">
-				<input type="button" value="수정" class="btn_list btn_txt02" style="cursor: pointer;" onclick="location.href='lanTrip_modify.do?no=<%=request.getParameter("no") %>'" />
-				<input type="button" value="삭제" class="btn_list btn_txt02" style="cursor: pointer;" onclick="location.href='lanTrip_delete_ok.do?no=<%=request.getParameter("no") %>'" />
+				<c:if test="${to.writer eq sessionScope.nick }">
+				<input type="button" value="수정" class="btn_list btn_txt02" style="cursor: pointer;" onclick="location.href='lanTrip_modify.do?no=<%=no %>'" />
+				<input type="button" value="삭제" class="btn_list btn_txt02" style="cursor: pointer;" onclick="location.href='lanTrip_delete_ok.do?no=<%=no %>'" />
 				<input type="button" value="쓰기" class="btn_write btn_txt01" style="cursor: pointer;" onclick="location.href='lanTrip_write.do'" />
 				</c:if>
 			</div>

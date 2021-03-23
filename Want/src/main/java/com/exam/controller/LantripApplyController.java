@@ -25,7 +25,7 @@ public class LantripApplyController {
 	@Autowired
 	private LanTripApplyDAO dao;
 
-	private String uploadPath = "/Users/hyukjun/git/Want/Want/src/main/webapp/upload";
+	private String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload";
 	
 	@RequestMapping(value = "/lanTrip_apply_list.do")
 	public String list(HttpServletRequest request, Model model) {
@@ -73,7 +73,7 @@ public class LantripApplyController {
 	    MultipartRequest multi = null;
 		
 	    try {
-			multi = new MultipartRequest(request, uploadPath+"/lanTrip_apply", maxFileSize, encType, new DefaultFileRenamePolicy());
+			multi = new MultipartRequest(request, uploadPath+"\\lanTrip_apply", maxFileSize, encType, new DefaultFileRenamePolicy());
 			
 			LanTripApplyTO to = new LanTripApplyTO();
 			to.setSubject(multi.getParameter("subject"));
