@@ -12,7 +12,7 @@
 	String cpage = request.getParameter( "cpage" );
 	String no = request.getParameter( "no" );
 	
-	String nick = (String)request.getAttribute( "nick" );
+	String nick = (String)session.getAttribute( "nick" );
 	
 	ShoppingTO to = (ShoppingTO)request.getAttribute( "to" );
 	

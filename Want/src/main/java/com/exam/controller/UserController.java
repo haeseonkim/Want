@@ -53,9 +53,14 @@ public class UserController {
 			String pwd = request.getParameter("password");
 			
 			userTo.setId(id);
-
-			String realPwd = userDao.loginDecry(userTo);
-			String decryPwd = userDao.decryptAES(realPwd, key);
+			
+			String realPwd = "";
+			String decryPwd = "";
+			
+			if( userDao.loginDecry(userTo) != null ) {
+				realPwd = userDao.loginDecry(userTo).getPwd();
+				decryPwd = userDao.decryptAES(realPwd, key);
+			}
 
 			int result_lookup = userDao.loginLookup(userTo);
 			if (result_lookup == 1) { // 회원있음
@@ -67,11 +72,11 @@ public class UserController {
 					if (result_ok == 1) { // 비번맞음
 						flag = 0;
 						userTo = userDao.loginOkNick(userTo);
-					} else if (result_ok == 0) { // 비번틀림
-						flag = 1;
 					} else { // 기타오류
 						flag = 3;
 					}
+				} else {	// 비번틀림
+					flag = 1;
 				}
 			} else if (result_lookup == 0) { // 회원없음
 				flag = 2;
