@@ -156,14 +156,9 @@
 				<div class="card-body">
 					<form action="./lanTrip_write_ok.do" method="post" name="wfrm" enctype="multipart/form-data">
 						
-						<c:choose>
-							<c:when test="${empty sessionScope.id }">
-								<input type="hidden" name="writer" value="${kakaoid}" />
-							</c:when>
-							<c:otherwise>
-								<input type="hidden" name="writer" value="${id}" />
-							</c:otherwise>
-						</c:choose>
+						<c:if test="${not empty sessionScope.nick}">
+							<input type="hidden" name="writer" value="${nick}" />
+						</c:if>
 						
 						<div class="form-row">
 							<div class="name">제목</div>

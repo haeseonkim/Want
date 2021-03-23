@@ -24,8 +24,8 @@ public class LantripApplyController {
 	@Autowired
 	private LanTripApplyDAO dao;
 
-	private String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload";
-
+	private String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload";
+	
 	@RequestMapping(value = "/lanTrip_apply_list.do")
 	public String list(HttpServletRequest request, Model model) {
 		try {
