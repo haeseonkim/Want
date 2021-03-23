@@ -2,6 +2,10 @@
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
+<%
+	String cpage = request.getParameter("cpage");
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,13 +35,10 @@
 				alert('제목을 입력하셔야 합니다.');
 				return false;
 			}
-
 			if (document.wfrm.location.value.trim() == "(선택 안함)") {
 				alert('위치를 입력하셔야 합니다.');
 				return false;
 			}
-
-
 			// 파일 업로드 확인 메세지
 			if (document.wfrm.picture.value.trim() == "") {
 				
@@ -65,29 +66,21 @@
 		var file_input_container = $('.js-input-file');
 		if (file_input_container[0]) {
 			file_input_container.each(function() {
-
 				var that = $(this);
-
 				var fileInput = that.find(".input-file");
 				var info = that.find(".input-file__info");
-
 				fileInput.on("change", function() {
-
 					var fileName;
 					fileName = $(this).val();
-
 					if (fileName.substring(3, 11) == 'fakepath') {
 						fileName = fileName.substring(12);
 					}
-
 					if (fileName == "") {
 						info.text("No file chosen");
 					} else {
 						info.text(fileName);
 					}
-
 				})
-
 			});
 		}
 		
@@ -126,7 +119,6 @@
 		
 	};
 	
-
 </script>
 
 
@@ -151,14 +143,8 @@
 				<div class="card-body">
 					<form action="./lanTrip_apply_write_ok.do" method="post" name="wfrm" enctype="multipart/form-data">
 						
-						<c:choose>
-							<c:when test="${empty sessionScope.id }">
-								<input type="hidden" name="writer" value="${kakaoid}" />
-							</c:when>
-							<c:otherwise>
-								<input type="hidden" name="writer" value="${id}" />
-							</c:otherwise>
-						</c:choose>
+					
+						<input type="hidden" name="writer" value="${nick}" />
 						
 						<div class="form-row">
 							<div class="name">제목</div>
@@ -213,8 +199,14 @@
 					</form>
 				</div>
 				<div class="card-footer">
-					<button class="btn btn--radius-2 btn--blue-2" type="submit"
-						id="submit1" >등록하기</button>
+					<c:choose>      
+						<c:when test="${empty sessionScope.nick}">
+							<button type="submit" id="submit1" class="btn btn--radius-2 btn--blue-2" onclick="javascript:alert('로그인을 하셔야합니다.')">등록하기</button>
+						</c:when>
+					<c:otherwise>
+						<button type="submit" id="submit1" class="btn btn--radius-2 btn--blue-2" onclick="location.href='./lanTrip_apply_write.do?cpage=<%=cpage%>'">등록하기</button>
+					</c:otherwise>
+					</c:choose>
 				</div>
 			</div>
 		</div>

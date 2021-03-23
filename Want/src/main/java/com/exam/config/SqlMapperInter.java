@@ -1,13 +1,12 @@
 package com.exam.config;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.exam.model1.accom.AccomTO;
 import com.exam.model1.accomComment.AccomCommentTO;
 import com.exam.model1.lantrip.LanTripTO;
 import com.exam.model1.lantripApply.LanTripApplyTO;
-import com.exam.model1.picture.PictureListTO;
-import com.exam.model1.picture.PictureTO;
 import com.exam.model1.shopping.ShoppingTO;
 import com.exam.model1.shoppingComment.ShoppingCommentTO;
 import com.exam.model1.user.UserTO;
@@ -31,24 +30,29 @@ public interface SqlMapperInter {
 	public abstract int pwFind_ok(UserTO to);
 	public abstract int pwFind_lookup(UserTO to);
 	
+	
+	//============ 랜선여행신청 ============
+	// list
 	public abstract ArrayList<LanTripApplyTO> LanTripApplyList();
+	
+	// write
 	public abstract int lanTrip_apply_write_ok(LanTripApplyTO to);
+	
+	// view
 	public abstract void LanTrip_apply_View(LanTripApplyTO to);
+	
+	// delete
+	public abstract int lanTrip_apply_delete_ok(LanTripApplyTO to);
+	
+	// modify
+	public abstract void lanTrip_apply_modify(LanTripApplyTO to);
+	public abstract int lanTrip_apply_modify_ok(LanTripApplyTO to);
+	
 	
 	public abstract ArrayList<LanTripTO> lanTripList();
 	
 	public abstract int lanTrip_write_ok(LanTripTO to);
 	public abstract LanTripTO lanTrip_view(LanTripTO to);
-	public abstract int lanTrip_delete_ok(LanTripTO to);
-	public abstract LanTripTO lanTrip_modify(LanTripTO to);
-	public abstract int lanTrip_modify_ok(LanTripTO to);
-	
-	
-	
-	//============ 사진자랑 ============
-	public abstract int picture_write_ok(PictureTO to);
-	public abstract PictureListTO picture_list();
-	public abstract ArrayList<PictureTO> best_picture_list();
 	
 	
 	
@@ -75,12 +79,6 @@ public interface SqlMapperInter {
 	//쇼핑 comment write ok
 	public abstract void shopViewCommentOk(ShoppingCommentTO to);
 	
-	//쇼핑 delete
-	public abstract int shopDeleteOk(ShoppingTO to);
-	
-	//쇼핑 modify
-	public abstract int shopModifyOk(ShoppingTO to);
-	
 	
 	//===== 숙소관련 ======
 	//숙소 write
@@ -104,11 +102,7 @@ public interface SqlMapperInter {
 	//숙소 comment write ok
 	public abstract void accomViewCommentOk(AccomCommentTO to);
 	
-	//숙소 delete ok
-	public abstract int accomDeleteOk(AccomTO to);
 	
-	//숙소 modify ok
-	public abstract int accomModifyOk(AccomTO to);
 	
 	
 //	public abstract ArrayList<BoardTO> list();

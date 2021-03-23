@@ -53,9 +53,9 @@ public class UserDAO {
 
 	
 	//회원 비밀번호 디코딩해서 비번비교하기
-	public String loginDecry( UserTO userTo ) {
+	public UserTO loginDecry( UserTO userTo ) {
 		userTo = sqlSession.selectOne( "login_decry", userTo );
-		return userTo.getPwd();
+		return userTo;
 	}
 
 	// ------------------- 회원가입관련 ----------------------

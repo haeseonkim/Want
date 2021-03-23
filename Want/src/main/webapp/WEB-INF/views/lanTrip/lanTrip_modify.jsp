@@ -179,43 +179,38 @@
 					<h2 class="title">랜선여행을 떠나요!</h2>
 				</div>
 				<div class="card-body">
-					<form action="./lanTrip_write_ok.do" method="post" name="wfrm" enctype="multipart/form-data">
+<!-- 					<form action="./lanTrip_write_ok.do" method="post" name="wfrm" enctype="multipart/form-data"> -->
 						
-						<c:choose>
-							<c:when test="${empty sessionScope.id }">
-								<input type="hidden" name="writer" value="${kakaoid}" />
-							</c:when>
-							<c:otherwise>
-								<input type="hidden" name="writer" value="${id}" />
-							</c:otherwise>
-						</c:choose>
+						<c:if test="${not empty sessionScope.nick}">
+                     		<input type="hidden" name="writer" value="${nick}" />
+                  		</c:if>
 						
 						<div class="form-row">
 							<div class="name">제목</div>
 							<div class="value">
-								<input class="input--style-6" type="text" name="subject" value=<%=subject %>>
+								<input class="input--style-6" type="text" name="subject" value="<%=subject %>">
 							</div>
 						</div>
 						<div class="form-row">
 							<div class="name">위치</div>
 							<div class="value">
 								<label for="location">국가</label> 
-								<select id="location" name="location" class="form-select" value="<%=location %>">
+								<select id="location" name="location" class="form-select" >
 									<option>(선택 안함)</option>
-									<option>영국</option>
-									<option>프랑스</option>
-									<option>독일</option>
-									<option>이탈리아</option>
-									<option>스위스</option>
-									<option>그리스</option>
-									<option>스페인</option>
-									<option>포르투갈</option>
-									<option>체코</option>
-									<option>헝가리</option>
-									<option>오스트리아</option>
-									<option>스웨덴</option>
-									<option>핀란드</option>
-									<option>폴란드</option>
+									<option value="영국" <c:if test="${to.location eq '영국'}">selected</c:if>>영국</option>
+									<option value="프랑스" <c:if test="${to.location eq '프랑스'}">selected</c:if>>프랑스</option>
+									<option value="독일" <c:if test="${to.location eq '독일'}">selected</c:if>>독일</option>
+									<option value="이탈리아" <c:if test="${to.location eq '이탈리아'}">selected</c:if>>이탈리아</option>
+									<option value="스위스" <c:if test="${to.location eq '스위스'}">selected</c:if>>스위스</option>
+									<option value="그리스" <c:if test="${to.location eq '그리스'}">selected</c:if>>그리스</option>
+									<option value="스페인" <c:if test="${to.location eq '스페인'}">selected</c:if>>스페인</option>
+									<option value="포르투갈" <c:if test="${to.location eq '포르투갈'}">selected</c:if>>포르투갈</option>
+									<option value="체코" <c:if test="${to.location eq '체코'}">selected</c:if>>체코</option>
+									<option value="헝가리" <c:if test="${to.location eq '헝가리'}">selected</c:if>>헝가리</option>
+									<option value="오스트리아" <c:if test="${to.location eq '오스트리아'}">selected</c:if>>오스트리아</option>
+									<option value="스웨덴" <c:if test="${to.location eq '스웨덴'}">selected</c:if>>스웨덴</option>
+									<option value="핀란드" <c:if test="${to.location eq '핀란드'}">selected</c:if>>핀란드</option>
+									<option value="폴란드" <c:if test="${to.location eq '폴란드'}">selected</c:if>>폴란드</option>
 								</select>
 							</div>
 						</div>
@@ -240,7 +235,7 @@
 								</div>
 							</div>
 						</div>
-					</form>
+<!-- 					</form> -->
 				</div>
 				<div class="card-footer">
 					<button class="btn btn--radius-2 btn--blue-2" type="submit"

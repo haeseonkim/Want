@@ -130,7 +130,7 @@
 		</div>
 	</section>
 	<c:choose>
-		<c:when test="${empty sessionScope.id && empty sessionScope.kakaoid}">
+		<c:when test="${empty sessionScope.nick}">
 			<button type="button" class="btn btn-primary"
 				onclick="javascript:alert('로그인을 하셔야합니다.')">글쓰기</button>
 		</c:when>

@@ -4,7 +4,6 @@
 
 <%
 	int flag = (Integer)request.getAttribute("flag");
-
 	out.println("<script type='text/javascript'>");
 	if(flag == 0){
 		out.println("alert('글쓰기에 성공했습니다.');");
