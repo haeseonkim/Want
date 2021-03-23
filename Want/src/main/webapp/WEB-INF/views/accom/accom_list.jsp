@@ -11,14 +11,7 @@
 	String sa = request.getParameter( "sa" );
 	String location = request.getParameter( "location" );
 	
-	String id = "";
-	if( session.getAttribute( "id" ) != null ) {
-		id = (String)session.getAttribute( "id" );
-	} else if( session.getAttribute( "kakaoid" ) != null ) {
-		id = (String)session.getAttribute( "kakaoid" );
-	} else {
-		id = (String)session.getAttribute("id");
-	}
+	String writer = (String)session.getAttribute( "nick" );
 	
 	
 	AccomListTO listTO = (AccomListTO)request.getAttribute( "listTO" );
@@ -127,7 +120,7 @@
 		
 		<div class="align_right">
 		<c:choose>		
-		<c:when test="${empty sessionScope.id && empty sessionScope.kakaoid}">
+		<c:when test="${empty sessionScope.nick}">
 			<button type="button" class="btn btn-primary" onclick="javascript:alert('로그인을 하셔야합니다.')">글쓰기</button>
 		</c:when>
 		<c:otherwise>

@@ -5,17 +5,7 @@
 <%
 	request.setCharacterEncoding("utf-8");
 	
-	String id = "";
-	if( session.getAttribute( "id" ) != null ) {
-		id = (String)session.getAttribute( "id" );
-	} else if( session.getAttribute( "kakaoid" ) != null ) {
-		id = (String)session.getAttribute( "kakaoid" );
-	} else {
-		id = (String)session.getAttribute("id");
-	}
-
-	
-	String writer = (String)session.getAttribute( "id" );
+	String writer = (String)session.getAttribute( "nick" );
 	String location = request.getParameter( "location" );
 %>
 
@@ -155,19 +145,11 @@
 				<div class="card-body">
 					<form action="./accom_write_ok.do" method="post" name="wfrm" enctype="multipart/form-data">
 						
-						<c:choose>
-							<c:when test="${empty sessionScope.id }">
-								<input type="hidden" name="writer" value="${kakaoid}" />
-							</c:when>
-							<c:otherwise>
-								<input type="hidden" name="writer" value="${id}" />
-							</c:otherwise>
-						</c:choose>
 						
 						<div class="form-row">
 							<div class="name">글쓴이</div>
 							<div class="value">
-								<input class="input--style-6" type="text" name="writer" value="<%= id %>" readonly>
+								<input class="input--style-6" type="text" name="writer" value="<%= writer %>" readonly>
 							</div>
 						</div>
 						<div class="form-row">
