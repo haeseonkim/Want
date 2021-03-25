@@ -11,7 +11,41 @@ public class LanTripTO {
 	private String video;
 	private String reply;
 	private String heart;
+	// 현재사용자가 좋아요 누른건지 아닌지
+	   private String hno;
+	   // 현재사용자가 즐겨찾기 누른건지 아닌지
+	   private String fno;
+	   // 글쓴이 프로필 사진 
+	   private String profile;
+	   // 현재 사용자 id
+	   private String nick;
+	   
+	   
 	
+	public String getHno() {
+		return hno;
+	}
+	public void setHno(String hno) {
+		this.hno = hno;
+	}
+	public String getFno() {
+		return fno;
+	}
+	public void setFno(String fno) {
+		this.fno = fno;
+	}
+	public String getProfile() {
+		return profile;
+	}
+	public void setProfile(String profile) {
+		this.profile = profile;
+	}
+	public String getNick() {
+		return nick;
+	}
+	public void setNick(String nick) {
+		this.nick = nick;
+	}
 	public String getNo() {
 		return no;
 	}
