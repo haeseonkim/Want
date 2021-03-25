@@ -72,6 +72,9 @@ public class UserController {
 					if (result_ok == 1) { // 비번맞음
 						flag = 0;
 						userTo = userDao.loginOkNick(userTo);
+						// id를 세션에 저장
+						session.setAttribute("id", userTo.getId());
+						session.setAttribute("nick", userTo.getNick());
 					} else { // 기타오류
 						flag = 3;
 					}
@@ -85,9 +88,7 @@ public class UserController {
 			}
 			request.setAttribute("flag", flag);
 
-			// id를 세션에 저장
-			session.setAttribute("id", userTo.getId());
-			session.setAttribute("nick", userTo.getNick());
+			
 
 
 		} else if (request.getParameter("login_ok").equals("1") && !request.getParameter("kakaoemail").equals("")) {

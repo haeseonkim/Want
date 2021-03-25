@@ -61,8 +61,11 @@ public interface SqlMapperInter {
 	//쇼핑 write ok
 	public abstract int shop_write_ok(ShoppingTO to);
 	
-	//쇼핑 list
+	//로그인전 쇼핑 list
 	public abstract ArrayList<ShoppingTO> shopList(ShoppingTO to);
+	
+	//로그인후 쇼핑 list
+	public abstract ArrayList<ShoppingTO> shopListLogin(ShoppingTO to);
 	
 	//쇼핑 view
 	public abstract ShoppingTO shopView(ShoppingTO to);

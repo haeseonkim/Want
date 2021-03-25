@@ -81,6 +81,17 @@ body {
 	padding-bottom: 10px;
 }
 
+svg.heart1 {
+	cursor: pointer;
+	color: red;
+}
+
+svg.heart2 {
+	cursor: pointer;
+	color: red;
+}
+
+
 /* 
 .card img {
 	position: absolute;

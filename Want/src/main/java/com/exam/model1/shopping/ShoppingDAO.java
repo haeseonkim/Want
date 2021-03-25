@@ -23,7 +23,7 @@ public class ShoppingDAO {
 		return flag;
 	}
 	
-	//쇼핑 list
+	//로그인 아닐 때 쇼핑 list
 	public ShoppingListTO shopList(ShoppingListTO listTO) {
 
 		ArrayList<ShoppingTO> totalLists = (ArrayList)sqlSession.selectList( "shopList", listTO );
@@ -71,7 +71,57 @@ public class ShoppingDAO {
 		return listTO;
 	}
 	
-	//쇼핑 view
+	//로그인 후 쇼핑 list
+	public ShoppingListTO shopListLogin(ShoppingListTO listTO, ShoppingTO to) {
+
+		ArrayList<ShoppingTO> totalLists = (ArrayList)sqlSession.selectList( "shopListLogin", to );
+		
+		// 페이지를 위한 기본 요소
+		int cpage = listTO.getCpage();
+		int recordPerPage = listTO.getRecordPerPage(); // 한페이지에 보이는 글의 개수 10개
+		int BlockPerPage = listTO.getBlockPerPage(); // 한 화면에 보일 페이지의 수 3개
+
+		// 총 글의 개수 얻기
+		listTO.setTotalRecord( totalLists.size() );
+
+		// 총 페이지 수 얻기
+		listTO.setTotalPage(((listTO.getTotalRecord() - 1) / recordPerPage) + 1);
+		int skip = (cpage * recordPerPage) - recordPerPage;
+		
+		ArrayList<ShoppingTO> lists = new ArrayList<ShoppingTO>();
+		
+		for( int i=0; i<10; i++ ) {
+			if( skip+i != totalLists.size() ) {
+				ShoppingTO sto = new ShoppingTO();
+				sto.setNo( totalLists.get(skip+i).getNo() );
+				sto.setSubject( totalLists.get(skip+i).getSubject() );
+				sto.setWriter( totalLists.get(skip+i).getWriter() );
+				sto.setPicture( totalLists.get(skip+i).getPicture() );
+				sto.setWdate( totalLists.get(skip+i).getWdate() );
+				sto.setHit( totalLists.get(skip+i).getHit() );
+				sto.setReply( totalLists.get(skip+i).getReply() );
+				sto.setHeart( totalLists.get(skip+i).getHeart() );
+				sto.setHno( totalLists.get(skip+i).getHno() );
+				sto.setFno( totalLists.get(skip+i).getFno() );
+				
+				lists.add(sto);
+				
+			} else { break; }
+		}
+		listTO.setShopLists( lists );
+		
+		
+		listTO.setStartBlock(((cpage - 1) / BlockPerPage) * BlockPerPage + 1);
+		listTO.setEndBlock(((cpage - 1) / BlockPerPage) * BlockPerPage + BlockPerPage);
+		if (listTO.getEndBlock() >= listTO.getTotalPage()) {
+			listTO.setEndBlock(listTO.getTotalPage());
+		}
+
+		return listTO;
+	}
+	
+	
+	//로그인 아닐 때 쇼핑 view
 	public ShoppingTO shopView( ShoppingTO to ) {
 		
 		sqlSession.update( "shopViewHit", to );
@@ -80,6 +130,17 @@ public class ShoppingDAO {
 		
 		return to;
 	}
+	
+	//로그인일 때 쇼핑 view
+	public ShoppingTO shopViewLogin( ShoppingTO to ) {
+		
+		sqlSession.update( "shopViewHit", to );
+		sqlSession.update( "shopViewReply",to );
+		to = sqlSession.selectOne( "shopViewLogin", to );
+		
+		return to;
+	}
+	
 	
 	//쇼핑 delete
 	public int shopDeleteOk( ShoppingTO to ) {
