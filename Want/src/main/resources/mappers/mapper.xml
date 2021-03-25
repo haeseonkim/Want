@@ -371,5 +371,56 @@
 		where no=#{no} and writer like #{writer}
 	</delete>
 
+	<!-- ================  동행구해요  =================  -->
+	<!-- with_list -->
+	<select id="withList"
+		resultType="com.exam.model1.with.withTO"> <!-- 파라메터가 없으므로 parameter Type 필요 없음 -->
+		select no, location, subject, writer, date_format(wdate, '%Y-%m-%d') wdate, hit, reply
+		from w_board
+	</select>
+
+	<!-- withWriteOk -->
+	<insert id="with_write_ok" parameterType="com.exam.model1.with.withTO">
+		insert into w_board
+		values(0, #{ subject }, #{ content }, #{ writer }, now(), 0, #{ location }, #{ picture }, 0 )
+	</insert>
+
+	<!-- withView -->
+	<select id="with_view" parameterType="com.exam.model1.with.withTO" 
+	resultType="com.exam.model1.with.withTO">
+		select no, subject, content, writer, date_format(wdate, '%Y-%m-%d') wdate, hit, location, picture, reply
+		from w_board
+		where no = #{no}
+	</select>
+	<!-- 랜선여행신청하기 조회수 -->
+	<update id="with_view_hit" parameterType="com.exam.model1.with.withTO">
+		update w_board
+		set hit=hit+1
+		where no = #{no}
+	</update>
+	<!-- LanTripApplyDeleteOk -->
+	<delete id="with_delete_ok" parameterType="com.exam.model1.with.withTO">
+		delete from w_board
+		where no = #{no}
+	</delete>
+	
+	<!-- LanTripApplyModify -->
+	<select id="with_modify" parameterType="com.exam.model1.with.withTO" 
+	resultType="com.exam.model1.with.withTO">
+		select no, subject, content, writer, date_format(wdate, '%Y-%m-%d') wdate, hit, location, picture, reply
+		from w_board
+		where no = #{no}
+	</select>
+	
+	<!-- LanTripApplyModifyOk -->
+	<update id="with_modify_ok" parameterType="com.exam.model1.with.withTO">
+		update w_board
+		set subject = #{subject}, content = #{content}, location = #{location}, picture = #{picture}
+		where no = #{no}
+	</update>
+
+
+
+
 </mapper>
 

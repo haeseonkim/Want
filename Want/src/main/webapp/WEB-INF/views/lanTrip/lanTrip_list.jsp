@@ -42,9 +42,11 @@
 		sbHtml.append("		<div class='card-body'>");
 		sbHtml.append("		<h3 class='card-title'>" + writer + "</h3>");
 		sbHtml.append("			<p class='card-text'>" + subject + "</p>");
-		sbHtml.append("			<a href='./lanTrip_view.do?no=" + no + "' class='btn btn-primary'>Go Lan</a>");
+		sbHtml.append("			<div class='text-end'>");
+		sbHtml.append("				<a href='./lanTrip_view.do?no=" + no + "' class='btn btn--blue-2'>Go Lan</a>");
+		sbHtml.append("			</div>");
 		sbHtml.append("		</div>");
-		sbHtml.append("	</div>");
+		sbHtml.append("</div>");
 		sbHtml.append("</div>");
 	
 		if (rowCount % 4 == 3) {
