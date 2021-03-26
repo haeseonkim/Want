@@ -1,0 +1,175 @@
+@charset "UTF-8";
+
+body{
+	font_family :'Song Myung', sans-serif;
+}
+
+#totalRecord{
+	color: orange;
+}
+
+#subject{
+	text-align:center;
+}
+
+table{
+	width:100%;
+}
+@charset "UTF-8";
+
+#no, #writer, #wdate, #hit, #loc {
+	text-align:center;
+}
+
+
+/* ==========================================================================
+   #FONT
+   ========================================================================== */
+.font-robo {
+	font-family: "Roboto", "Arial", "Helvetica Neue", sans-serif;
+}
+
+.font-poppins {
+	font-family: "Poppins", "Arial", "Helvetica Neue", sans-serif;
+}
+
+.font-opensans {
+	font-family: "Open Sans", "Arial", "Helvetica Neue", sans-serif;
+}
+
+/* ==========================================================================
+   #BOX-SIZING
+   ========================================================================== */
+
+/**
+ * Remove default table spacing.
+ */
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/**
+ * 1. Reset Chrome and Firefox behaviour which sets a `min-width: min-content;`
+ *    on fieldsets.
+ */
+button {
+	outline: none;
+	background: none;
+	border: none;
+}
+
+/* ==========================================================================
+   #PAGE WRAPPER
+   ========================================================================== */
+
+body {
+	font-family: "Open Sans", "Arial", "Helvetica Neue", sans-serif;
+	font-weight: 400;
+	/* font-size: 14px; */
+	line-height: 2.4;
+}
+
+
+/* ==========================================================================
+   #BUTTON
+   ========================================================================== */
+.btn {
+	display: inline-block;
+	line-height: 30px;	/* 수정 */
+	padding: 0 20px;	/* 수정 */
+	-webkit-transition: all 0.4s ease;
+	-o-transition: all 0.4s ease;
+	-moz-transition: all 0.4s ease;
+	transition: all 0.4s ease;
+	cursor: pointer;
+	font-size: 15px;
+	text-transform: capitalize;
+	font-weight: 700;
+	color: #fff;
+	font-family: inherit;
+}
+
+.btn--radius {
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+
+.btn--radius-2 {
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+
+.btn--blue-2 {
+	background: #5fcf80;
+}
+
+.btn--blue-2:hover {
+	background: #008040;
+	color: #ffffff;
+}
+
+/* ==========================================================================
+   #CARD
+   ========================================================================== */
+
+div.card-footer{
+	text-align: right;
+}
+
+#with-header {
+ 	position: relative;
+	background-image: url("../img/w_header.jpg");
+	height: 300px;
+	background-size: cover;
+}
+ 
+#with-header:before {
+	content: "";
+	background: rgba(0, 0, 0, 0.4);
+	position: absolute;
+	bottom: 0;
+	top: 0;
+	left: 0;
+	right: 0;
+}
+
+#with-header h1 {
+	text-align: center;
+	margin: 28px 0 10px 0;
+	font-size: 48px;
+	font-weight: 700;
+	line-height: 56px;
+	color: #fff;
+	text-shadow: 1.25px 1.25px 1.25px black;
+}
+
+#with-header p {
+	text-align: center;
+	margin: 0 0 10px 0;
+	font-size: 20px;
+	font-weight: 700;
+	line-height: 56px;
+	color: #fff;
+	text-shadow: 1.25px 1.25px 1.25px black;
+}
+
+#with-header .with-header-container {
+	position: absolute;
+	bottom: 0;
+	top: 0;
+	left: 0;
+	right: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	text-align: center;
+	padding: 0 15px;
+}
+
+.align-center{
+	text-align:center;
+}

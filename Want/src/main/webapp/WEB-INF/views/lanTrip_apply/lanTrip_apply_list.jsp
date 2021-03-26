@@ -68,12 +68,21 @@
 	<br />
 	<br />
 	<br />
+
+	<section id="la-header">
+		<br />
+		<div class="la-header-container" data-aos="fade-up">
+			<h1> 랜선여행 신청하기</h1>
+			<p>원하는 랜선여행을 신청하세요!</p>
+		</div>
+	</section>
 	<div class="con_txt" align="center">
 		<div class="contents_sub">
 			<div class="board_top">
 				<div class="bold" align="left">
 					총 <span id="totalRecord"><%=totalRecord%></span>건
 				</div>
+			
 				<hr />
 			</div>
 
@@ -109,7 +118,7 @@
 				</c:otherwise>
 			</c:choose>   
 			</div>
-
+	<div class="align-center">
 <%
 	if(startBlock == 1) {
         out.println("&lt;&lt;&nbsp;&nbsp;");
@@ -131,7 +140,7 @@
 	}
 	
 	if(cpage == totalPage) {
-		out.println("&gt;&nbsp;&nbsp;");    
+		out.println("&nbsp;&nbsp;&gt;&nbsp;&nbsp;");    
 	} else {
 		out.println("<a href='lanTrip_Apply_list.jsp?cpage=" + (cpage + 1)   + "'>&gt;</a>");
 	}
@@ -142,7 +151,7 @@
 		out.println("<a href='lanTrip_Apply_list.jsp?cpage=" + (startBlock + blockPerPage) + "'>&gt;&gt;</a>");
 	}
 %>
-
+	</div>
 		</div>
 	</div>
 

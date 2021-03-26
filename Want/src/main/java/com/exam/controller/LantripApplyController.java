@@ -20,12 +20,13 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 @Controller
 public class LantripApplyController {
 
-	// 랜선여행 신청 목록
+	
 	@Autowired
 	private LanTripApplyDAO dao;
 
-	private String uploadPath = "/Users/hyukjun/git/Want/Want/src/main/webapp/upload/";
+	private String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\lanTrip_apply";
 	
+	// 랜선여행 신청 목록					
 	@RequestMapping(value = "/lanTrip_apply_list.do")
 	public String list(HttpServletRequest request, Model model) {
 		try {
@@ -72,7 +73,7 @@ public class LantripApplyController {
 		MultipartRequest multi = null;
 
 		try {
-			multi = new MultipartRequest(request, uploadPath + "/lanTrip_apply", maxFileSize, encType,
+			multi = new MultipartRequest(request, uploadPath, maxFileSize, encType,
 					new DefaultFileRenamePolicy());
 
 			LanTripApplyTO to = new LanTripApplyTO();
@@ -152,7 +153,7 @@ public class LantripApplyController {
 		MultipartRequest multi = null;
 
 		try {
-			multi = new MultipartRequest(request, uploadPath + "/lanTrip_apply", maxFileSize, encType,
+			multi = new MultipartRequest(request, uploadPath, maxFileSize, encType,
 					new DefaultFileRenamePolicy());
 
 			String cpage = multi.getParameter("cpage");
@@ -163,12 +164,18 @@ public class LantripApplyController {
 			to.setLocation(multi.getParameter("location"));
 			to.setWriter(multi.getParameter("writer"));
 			to.setContent(multi.getParameter("content"));
-			to.setPicture(multi.getParameter("picture"));
+			
+			if( multi.getFilesystemName( "picture" ) == null ) {
+				to.setPicture(multi.getParameter( "ex-picture" ) );
+			} else {
+				to.setPicture(multi.getFilesystemName( "picture" ) );
+			}
 
 			int flag = dao.lanTrip_apply_modify_ok(to);
 
 			request.setAttribute("flag", flag);
 			request.setAttribute("cpage", cpage);
+			request.setAttribute("no", to.getNo());
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

@@ -122,7 +122,7 @@ body{
 	border-width:1px;
 	border-radius:.5rem;
 	border-color: grey;
-	width:100%;
+	width:100px;
 }
 
 #modal-content{
@@ -611,6 +611,10 @@ textarea {
 	border-color:white;
 }
 
+.a {
+	text-align:right;
+}
+
 .textarea--style-6 {
 	line-height: 1.2;
 	min-height: 120px;
@@ -761,4 +765,14 @@ div.card-footer{
 	display : block;
    	text-align: center;   	
    	margin-top : 50px;   		
+}
+
+ #lanTrip_apply_header {
+	text-align: center;
+	background-image: url("../img/header.jpg");
+	height: 200px;
+	vertical-align: middle;
+	color:white;
+	text-shadow: 1.25px 1.25px 1.25px black;
+	
 }
