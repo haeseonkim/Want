@@ -67,6 +67,11 @@
 	<section id="info" class="container" style="margin-top:100px;">
 		<table class="table table-hover" id='board_list'>
 			<thead>
+			<div id="lanTrip_apply_header" class="align-middle">
+				<br />
+				<div id="header-title" class="fs-1 d-block"><b>랜선여행 신청하기</b></div>
+				<span id="header-sub" class="fs-6">원하는 랜선여행을 신청하세요!</span>
+			</div>
 				<tr>
 					<td id="location" class="text-left d-none d-md-table-cell"><b>[<%=location %>]</b></td>
 				</tr>

@@ -10,6 +10,8 @@ import com.exam.model1.lantripApply.LanTripApplyTO;
 import com.exam.model1.shopping.ShoppingTO;
 import com.exam.model1.shoppingComment.ShoppingCommentTO;
 import com.exam.model1.user.UserTO;
+import com.exam.model1.with.withTO;
+
 
 public interface SqlMapperInter {
 	// mapper.xml의 sql 이름과 같게 선언해주기
@@ -49,11 +51,21 @@ public interface SqlMapperInter {
 	public abstract int lanTrip_apply_modify_ok(LanTripApplyTO to);
 	
 	
-	public abstract ArrayList<LanTripTO> lanTripList();
-	
+	// list
+	public abstract ArrayList<LanTripTO> lanTripList(LanTripTO to);
+	// wirte
+	public abstract void lanTrip_write(LanTripTO to);
 	public abstract int lanTrip_write_ok(LanTripTO to);
-	public abstract LanTripTO lanTrip_view(LanTripTO to);
 	
+	// modify
+	public abstract void lanTrip_modify(LanTripTO to);
+	public abstract int lanTrip_modify_ok(LanTripTO to);
+	
+	// delete
+	public abstract int lanTrip_delete_ok(LanTripTO to);
+	
+	//view
+	public abstract LanTripTO lanTrip_view(LanTripTO to);
 	
 	
 	//============ 여행지관련 ============
@@ -106,6 +118,22 @@ public interface SqlMapperInter {
 	public abstract void accomViewCommentOk(AccomCommentTO to);
 	
 	
+	//============ 동행구해요 ============
+	// list
+	public abstract ArrayList<withTO> withList();
+	
+	// write
+	public abstract int with_write_ok(withTO to);
+	
+	// view
+	public abstract void with_view(withTO to);
+	
+	// delete
+	public abstract int with_delete_ok(withTO to);
+	
+	// modify
+	public abstract void with_modify(withTO to);
+	public abstract int with_modify_ok(withTO to);	
 	
 	
 //	public abstract ArrayList<BoardTO> list();

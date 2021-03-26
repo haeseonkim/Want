@@ -6,12 +6,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.exam.model1.heart.HeartDAO;
+import com.exam.model1.heart.HeartTO;
 import com.exam.model1.lantrip.LanTripDAO;
 import com.exam.model1.lantrip.LanTripListTO;
 import com.exam.model1.lantrip.LanTripTO;
@@ -19,24 +24,38 @@ import com.exam.model1.user.UserDAO;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
+
 @Controller
 public class LanTripController {
 
 
    @Autowired
    private LanTripDAO dao;
+   
+   @Autowired
+   private HeartDAO heartDao;
 
    // 각자 맞는 upload 폴더 경로로 변경
-   private String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\lantrip";
+   private String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\lanTrip";
+
    
 
    // 랜선여행 목록
    @RequestMapping(value = "/lanTrip_list.do")
-   public String lanTrip_list(HttpServletRequest request, Model model) {
+   public String lanTrip_list(HttpServletRequest request, Model model, HttpSession session) {
       
       LanTripListTO listTO = new LanTripListTO();
+      LanTripTO to = new LanTripTO();
+      String nick = (String)session.getAttribute( "nick" );
       listTO.setCpage( Integer.parseInt( request.getParameter( "cpage" ) == null || request.getParameter( "cpage" ).equals( "" ) ? "1" : request.getParameter( "cpage" ) ) );
-      listTO = dao.lanTripList(listTO);
+      //로그인아닐 때
+      if( nick == null ) {
+    	  listTO = dao.lanTripList(listTO);
+      } else {   //로그인일 때
+         to.setNick( nick );
+         listTO = dao.lanTripListLogin(listTO, to);
+      }
+      
       
       model.addAttribute( "listTO", listTO );
       
@@ -158,4 +177,43 @@ public class LanTripController {
 		}
 	   return "lanTrip/lanTrip_modify_ok";
    }
+   
+   // 랜선여행 reply_ok
+  
+   // 랜선여행 좋아요(빈하트 클릭시)/조회수/댓글수
+// 빈하트 클릭시 하트 저장
+   @ResponseBody
+   @RequestMapping(value = "/lanTrip_saveHeart.do")
+   public int save_heart(@RequestParam String no, HttpSession session) {
+      
+      HeartTO to = new HeartTO();
+      
+      // 게시물 번호 세팅
+      to.setBno(no);
+      
+      // 좋아요 누른 사람 nick을 userid로 세팅
+      to.setUserid((String)session.getAttribute("nick"));
+      
+      int flag = heartDao.lanTripSaveHeart(to);
+   
+      return flag;
+   }
+   
+   // 꽉찬하트 클릭시 하트 해제
+   @ResponseBody
+   @RequestMapping(value = "/lanTrip_removeHeart.do")
+   public int remove_heart(@RequestParam String no, HttpSession session) {
+      HeartTO to = new HeartTO();
+      
+      // 게시물 번호 세팅
+      to.setBno(no);
+      
+      // 좋아요 누른 사람 nick을 userid로 세팅
+      to.setUserid((String)session.getAttribute("nick"));
+      
+      int flag = heartDao.lanTripRemoveHeart(to);
+   
+      return flag;
+   }
+   
 }

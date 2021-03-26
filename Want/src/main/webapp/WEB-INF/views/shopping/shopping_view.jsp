@@ -250,7 +250,7 @@ $(document).ready( function() {
 	//글쓴이 일치여부 확인 후 글수정
 	const modifyOk = function() {
 		let writer = "<%= writer %>";
-		let id = "<%= nick %>";
+		let nick = "<%= nick %>";
 		if( writer != nick ) {
 			alert( '글쓴이만 수정이 가능합니다.' )
 			return false;

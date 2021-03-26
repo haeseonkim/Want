@@ -37,7 +37,7 @@ public class LanTripDAO {
 	}
 	
 
-	// list
+	// list (비로그인)
 	public LanTripListTO lanTripList(LanTripListTO listTO) {
 
 		int cpage = listTO.getCpage();
@@ -76,6 +76,45 @@ public class LanTripDAO {
 		return listTO;
 	}
 
+
+	// list(로그인)
+	public LanTripListTO lanTripListLogin(LanTripListTO listTO, LanTripTO to) {
+
+		int cpage = listTO.getCpage();
+		int recordPerPage = listTO.getRecordPerPage();
+		int blockPerPage = listTO.getBlockPerPage();
+
+		ArrayList<LanTripTO> lists = (ArrayList)sqlSession.selectList( "lanTrip_list_login", to );
+		
+		listTO.setTotalRecord(lists.size());
+		listTO.setTotalPage(((listTO.getTotalRecord() - 1) / recordPerPage) + 1);
+
+		int skip = (cpage - 1) * recordPerPage;
+
+		ArrayList<LanTripTO> boardLists = new ArrayList();
+
+		int cnt = 0;
+		for (int i = skip; i < lists.size(); i++) {
+			if (cnt == recordPerPage) {
+				break;
+			}
+			if (lists.get(i) != null) {
+				LanTripTO to1 = lists.get(i);
+				boardLists.add(to1);
+			}
+			cnt++;
+		}
+
+		listTO.setBoardList(boardLists);
+
+		listTO.setStartBlock(((cpage - 1) / blockPerPage) * blockPerPage + 1);
+		listTO.setEndBlock(((cpage - 1) / blockPerPage) * blockPerPage + blockPerPage);
+		if (listTO.getEndBlock() >= listTO.getTotalPage()) {
+			listTO.setEndBlock(listTO.getTotalPage());
+		}
+
+		return listTO;
+	}
 	// view
 	public LanTripTO boardView(LanTripTO to) {
 		sqlSession.update("view_hit", to);
