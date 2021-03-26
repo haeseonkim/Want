@@ -33,7 +33,7 @@
 	</select>
 	
 	<select id="login_ok_nick" parameterType="com.exam.model1.user.UserTO" resultType="com.exam.model1.user.UserTO">
-		select id, nick
+		select id, nick, profile
 		from user
 		where id like #{id} and pwd like #{pwd}
 	</select>
@@ -173,7 +173,7 @@
 	
 	<!-- 로그인 전 사진자랑 리스트 -->
 	<select id="picture_list" resultType="com.exam.model1.picture.PictureTO">
-		select b.no, subject, content, writer, wdate, hit, location, media, reply, heart, u.profile
+		select b.no, subject, content, writer, date_format(wdate,'%Y-%m-%d') wdate, hit, location, media, reply, heart, u.profile
 		from p_board b left outer join user u
 		on b.writer = u.nick
 		order by b.no desc
@@ -181,7 +181,7 @@
 
 	<!-- 로그인 후 사진자랑 리스트 -->
 	<select id="picture_list_login" parameterType="com.exam.model1.picture.PictureTO" resultType="com.exam.model1.picture.PictureTO">
-		select b.no, subject, content, writer, wdate, hit, location, media, reply, heart, h.hno, f.fno, u.profile
+		select b.no, subject, content, writer, date_format(wdate,'%Y-%m-%d') wdate, hit, location, media, reply, heart, h.hno, f.fno, u.profile
 		from p_board b left outer join p_heart h
 		on #{nick} = h.userid and b.no = h.bno
 		left outer join p_favorite f
@@ -225,13 +225,6 @@
 		where no=#{no}
 	</update>
 	
-	<select id="picture_heart_count" parameterType="com.exam.model1.picture.PictureTO" resultType="com.exam.model1.picture.PictureTO">
-		select heart 
-		from p_board
-		where no=#{no}
-	</select>
-	
-	
 	<!-- 좋아요 삭제 -->
 	<delete id="picture_heart_remove" parameterType="com.exam.model1.pictureHeart.HeartTO">
 		delete from p_heart
@@ -241,7 +234,96 @@
 		update p_board set heart=heart-1 
 		where no=#{no}
 	</update>
-
+	
+	<!-- 좋아요 추가/삭제시 좋아요 갯수 가져오기 -->
+	<select id="picture_heart_count" parameterType="com.exam.model1.picture.PictureTO" resultType="com.exam.model1.picture.PictureTO">
+		select heart 
+		from p_board
+		where no=#{no}
+	</select>
+	
+	<!-- 댓글 테이블의 마지막 auto_increment 값을 가져옴 -->
+	<select id="p_reply_max_no" resultType="int">
+		select ifnull(max(no),0) from p_reply
+	</select>
+	
+	<!-- 댓글 쓰기 -->
+	<insert id="picture_reply_write" parameterType="com.exam.model1.pictureReply.ReplyTO">
+		insert into p_reply
+		values(0, #{bno}, #{grp}, 0, 0, #{writer}, #{content}, now())
+	</insert>
+	<!-- 모댓글일경우 no, grp 일치하게 함 -->
+	<update id="picture_reply_check" parameterType="com.exam.model1.pictureReply.ReplyTO">
+		update p_reply set grp=#{grp}
+		where no != grp
+	</update>
+	
+	<!-- 모댓글이 삭제된 댓글일때 그에 딸린 답글들이 모두삭제되면 테이블에서 완전히 삭제한다 -->
+	<delete id="picture_reply_delete_after_rereply_delete" parameterType="com.exam.model1.pictureReply.ReplyTO">
+		delete from p_reply
+		where content="" and grp=#{grp}
+	</delete>
+	
+	<!-- 답글 쓰기 -->
+	<insert id="picture_rereply_write" parameterType="com.exam.model1.pictureReply.ReplyTO">
+		insert into p_reply
+		values(0, #{bno}, #{grp}, 0, #{grpl}, #{writer}, #{content}, now())
+	</insert>
+	
+	<!-- p_board에 댓글수 증가 -->
+	<update id="picture_reply_up" parameterType="com.exam.model1.picture.PictureTO">
+		update p_board set reply=reply+1 
+		where no=#{no}
+	</update>
+	
+	<!-- 댓글 리스트 가져오기 -->
+	<select id="picutre_replyList" parameterType="com.exam.model1.pictureReply.ReplyTO" resultType="com.exam.model1.pictureReply.ReplyTO">
+		select r.no, r.bno, r.grp, r.grpl, r.writer, r.content, date_format(wdate,'%Y-%m-%d') wdate, datediff(now(), wdate) wgap , u.profile
+		from p_reply r left outer join user u
+		on r.writer = u.nick
+		where r.bno = #{bno}
+		order by grp asc, grps desc
+	</select>
+	
+	
+	<!-- 댓글 추가/삭제시 댓글 갯수 가져오기 -->
+	<select id="picture_reply_count" parameterType="com.exam.model1.picture.PictureTO" resultType="com.exam.model1.picture.PictureTO">
+		select reply 
+		from p_board
+		where no=#{no}
+	</select>
+	
+	<!-- 모댓글의 답글수를 카운트 -->
+	<select id="picture_count_rereply" parameterType="com.exam.model1.pictureReply.ReplyTO" resultType="int">
+		select count(no)
+		from p_reply
+		where no != #{no} and grp = #{no}
+	</select>
+	
+	<!-- 답글수를 카운트 -->
+	<select id="picture_count_rereply_fromrereply" parameterType="com.exam.model1.pictureReply.ReplyTO" resultType="int">
+		select count(no)
+		from p_reply
+		where no != #{grp} and grp = #{grp}
+	</select>
+	
+	<!-- 모댓글 삭제 - 답글 없음 -->
+	<delete id="picture_reply_delete" parameterType="com.exam.model1.pictureReply.ReplyTO">
+		delete from p_reply
+		where no=#{no}
+	</delete>
+	
+	<!-- 모댓글 삭제 - 답글 있음 -->
+	<update id="picture_reply_not_delete" parameterType="com.exam.model1.pictureReply.ReplyTO">
+		update p_reply set content=""
+		where no=#{no}
+	</update>
+	
+	<!-- p_board에 댓글수 감소 -->
+	<update id="picture_reply_down" parameterType="com.exam.model1.picture.PictureTO">
+		update p_board set reply=reply-1
+		where no=#{no}
+	</update>
 
 
 	<!--ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ여행지정보 관련ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->

@@ -25,6 +25,16 @@ public class PictureTO {
 	// 현재 사용자 id
 	private String nick;
 	
+	// 댓글 목록 
+	ArrayList<ReplyTO> replyList;
+	
+	
+	public ArrayList<ReplyTO> getReplyList() {
+		return replyList;
+	}
+	public void setReplyList(ArrayList<ReplyTO> replyList) {
+		this.replyList = replyList;
+	}
 	public String getNick() {
 		return nick;
 	}

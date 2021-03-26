@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.exam.model1.picture.PictureListTO;
 import com.exam.model1.picture.PictureTO;
+import com.exam.model1.pictureReply.ReplyTO;
 import com.exam.model1.user.UserTO;
 
 @Repository
@@ -38,8 +39,15 @@ public class PictureDAO {
 		int recordPerPage = listTO.getRecordPerPage();
 		int blockPerPage = listTO.getBlockPerPage();
 
-		// 현재 사용자 id가 담긴 uto 사용
+		// 게시물 리스트 가져오기
 		ArrayList<PictureTO> lists = (ArrayList) sqlSession.selectList("picture_list");
+		
+		// 게시물에 해당하는 댓글목록 담기 
+//		ArrayList<ReplyTO> replyList = new ArrayList();
+//		for(int i=0; i < lists.size(); i++) {
+//			replyList = (ArrayList)sqlSession.selectList("picture_reply_list", lists.get(i));
+//			lists.get(i).setReplyList(replyList);
+//		}
 
 		listTO.setTotalRecord(lists.size());
 		listTO.setTotalPage(((listTO.getTotalRecord() - 1) / recordPerPage) + 1);

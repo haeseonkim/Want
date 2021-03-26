@@ -87,7 +87,10 @@ public class UserController {
 
 			// id를 세션에 저장
 			session.setAttribute("id", userTo.getId());
+			// nick을 세션에 저장
 			session.setAttribute("nick", userTo.getNick());
+			// 프로필 사진 (profile)을 세션에 저장
+			session.setAttribute("profile", userTo.getProfile());
 
 
 		} else if (request.getParameter("login_ok").equals("1") && !request.getParameter("kakaoemail").equals("")) {

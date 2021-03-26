@@ -19,6 +19,11 @@ a.open_reply_list:hover{
 	color: black;
 }
 
+.modal-size{
+	height:80%; 
+	width: auto;
+}
+
 #m_writer {
 	font-size: 1.2rem;
 }
@@ -28,7 +33,7 @@ a.open_reply_list:hover{
 }
 
 .modal-section-media {
-	padding: 10px 0;
+	padding:  0;
 }
 
 .reply-list{
@@ -39,13 +44,42 @@ a.open_reply_list:hover{
 	padding: 10px 10px;
 }
 
-/*프로필 사진을 둥글게*/
+/*글쓴이의 프로필 사진을 둥글게*/
 #profileImage {
 	width: 40px;
 	height: 40px;
 	border: 0px;
 	/*border: 1px solid #cecece;*/
 	border-radius: 50%;
+}
+
+/*사용자의 댓글 입력란 프로필 사진을 둥글게*/
+#write_reply_profileImage{
+	width: 40px;
+	height: 40px;
+	border: 0px;
+	/*border: 1px solid #cecece;*/
+	border-radius: 50%;
+}
+
+.reply_list_profileImage{
+	width: 40px;
+	height: 40px;
+	border: 0px;
+	/*border: 1px solid #cecece;*/
+	border-radius: 50%;
+}
+
+.replyrow, .rereply_write{
+	padding: 10px 0;
+}
+
+.reply-list{
+	padding: 20px 0;
+}
+
+.reply-right{
+	text-align: right;
 }
 
 .card-title {
@@ -55,6 +89,12 @@ a.open_reply_list:hover{
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	text-align: left;
+}
+
+.card-img-top{
+	height: auto;
+	width: 100%;
+	overflow: hidden!important;
 }
 
 .card-heart {
@@ -80,12 +120,18 @@ a.open_reply_list:hover{
 }
 */
 .carousel {
-	padding: 0 50px 0 50px;
+	padding: 0 20px 0 20px;
+	text-align: center;
 }
 
 .carousel-item {
 	width: 100%;
-	height: 500px;
+	height: 550px;
+}
+
+
+img.card-img-top{
+	object-fit: fill;
 }
 
 .card {
