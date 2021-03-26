@@ -7,11 +7,15 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.oreilly.servlet.MultipartRequest;
 
 
@@ -21,7 +25,11 @@ import com.exam.model1.accom.AccomListTO;
 import com.exam.model1.accom.AccomTO;
 import com.exam.model1.accomComment.AccomCommentDAO;
 import com.exam.model1.accomComment.AccomCommentTO;
+import com.exam.model1.heart.HeartDAO;
+import com.exam.model1.heart.HeartTO;
+import com.exam.model1.shopping.ShoppingListTO;
 import com.exam.model1.shopping.ShoppingTO;
+import com.exam.model1.shoppingComment.ShoppingCommentTO;
 
 
 @Controller
@@ -29,6 +37,9 @@ public class AccomController {
 	
 	@Autowired
 	private AccomDAO accomDao;
+	
+	@Autowired
+	private HeartDAO heartDao;
 	
 	@Autowired
 	private AccomCommentDAO accomCommentDao;
@@ -73,7 +84,7 @@ public class AccomController {
 			to.setLocation(location);
 			to.setPicture(picture);
 
-			int flag = accomDao.accomModifyOk(to);
+			int flag = accomDao.accom_write_ok(to);
 
 			request.setAttribute("flag", flag);
 			request.setAttribute("location", location );
@@ -88,20 +99,30 @@ public class AccomController {
 
 	// 숙소 list
 	@RequestMapping(value = "/accom_list.do")
-	public String accom_list(HttpServletRequest request, HttpServletResponse response) {
+	public String accom_list(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		try {
 			request.setCharacterEncoding("utf-8");
 			String location = request.getParameter("location");
 			int cpage = 1;
+			String nick = (String)session.getAttribute( "nick" );
+			
+			AccomListTO listTO = new AccomListTO();
+			AccomTO to = new AccomTO();
+			
 			if (request.getParameter("cpage") != null && !request.getParameter("cpage").equals("")) {
 				cpage = Integer.parseInt(request.getParameter("cpage"));
 			}
-
-			AccomListTO listTO = new AccomListTO();
 			listTO.setLocation(location);
 			listTO.setCpage(cpage);
-
-			listTO = accomDao.accomList(listTO);
+			
+			//로그인아닐 때
+			if( nick == null ) {
+				listTO = accomDao.accomList(listTO);
+			} else {	//로그인일 때
+				to.setNick( nick );
+				to.setLocation(location);
+				listTO = accomDao.accomListLogin(listTO, to);
+			}
 
 			request.setAttribute("listTO", listTO);
 			request.setAttribute("cpage", cpage);
@@ -117,27 +138,68 @@ public class AccomController {
 		return "accom/accom_list";
 	}
 	
+	// 빈하트 클릭시 하트 저장
+	@ResponseBody
+	@RequestMapping(value = "/accom_saveHeart.do")
+	public int save_heart(@RequestParam String no, HttpSession session) {
+		
+		HeartTO to = new HeartTO();
+		
+		// 게시물 번호 세팅
+		to.setBno(no);
+		
+		// 좋아요 누른 사람 nick을 userid로 세팅
+		to.setUserid((String)session.getAttribute("nick"));
+		
+		int flag = heartDao.accomSaveHeart(to);
+	
+		return flag;
+	}
+	
+	// 꽉찬하트 클릭시 하트 해제
+	@ResponseBody
+	@RequestMapping(value = "/accom_removeHeart.do")
+	public int remove_heart(@RequestParam String no, HttpSession session) {
+		HeartTO to = new HeartTO();
+		
+		// 게시물 번호 세팅
+		to.setBno(no);
+		
+		// 좋아요 누른 사람 nick을 userid로 세팅
+		to.setUserid((String)session.getAttribute("nick"));
+		
+		int flag = heartDao.accomRemoveHeart(to);
+	
+		return flag;
+	}
+	
 	// 숙소 view
 	@RequestMapping(value = "/accom_view.do")
-	public String accom_view(HttpServletRequest request, HttpServletResponse response) {
+	public String accom_view(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		try {
 			request.setCharacterEncoding("utf-8");
 			
 			String no = request.getParameter( "no" );
 			String cpage = request.getParameter( "cpage" );
+			String nick = (String)session.getAttribute( "nick" );
 			
-			//글 내용 가져오기
 			AccomTO to = new AccomTO();
 			to.setNo( no );
-			to = accomDao.accomView(to);	
 			
-			request.setAttribute( "to", to );
+			//글 내용 가져오기
+			if( nick == null ) {	//로그인아닐 때
+				to = accomDao.accomView(to);	
+			} else {	//로그인일 때
+				to.setNick( nick );
+				to = accomDao.accomViewLogin(to);
+			}
 			
 			//해당 글에 대한 댓글 list가져오기
 			AccomCommentTO commentTo = new AccomCommentTO();
 			commentTo.setBno( no );
 			ArrayList<AccomCommentTO> lists = accomCommentDao.accomListComment(commentTo);	
 			
+			request.setAttribute( "to", to );
 			request.setAttribute( "lists", lists );
 			request.setAttribute( "cpage", cpage );
 			
@@ -183,6 +245,115 @@ public class AccomController {
 		}
 
 		return "accom/accom_view_comment_ok";
+	}
+	
+	// 숙소 rereply_ok
+	@RequestMapping(value = "/accom_rereplyOk.do")
+	public String accom_rereplyOk(HttpServletRequest request) {
+		
+		try {
+			request.setCharacterEncoding("utf-8");
+			
+			String cpage = request.getParameter( "cpage" );
+			String no = request.getParameter( "no" );
+			String bno = request.getParameter("bno");
+			String writer = request.getParameter("writer");
+			String content = request.getParameter("ccontent_reply");
+			
+			AccomCommentTO commentTo = new AccomCommentTO();
+			commentTo.setNo(no);
+			
+			// 부모글의 grp, grps, grpl 가져와서 commentTo에 저장
+			commentTo = accomCommentDao.accomParentSelect(commentTo);
+			
+			commentTo.setBno(bno);
+			commentTo.setWriter(writer);
+			commentTo.setContent(content);
+			
+			//기존에 있던 댓글중에서 부모 댓글과 같은 grp이고 부모 grps보다 큰 댓글들은 모두 grps를 1씩 늘려준다.
+			int result1 = accomCommentDao.accomUpdateGrps(commentTo);
+			
+			//새로운 답글을 추가 (sql문에서 grps와 grpl을 모두 1씩 늘려준다.)
+			int flag = 1;
+			int result2 = accomCommentDao.accomRereplyInsertOk(commentTo);
+			if( result2 == 1 ) {
+				flag = 0;
+			}
+			
+			request.setAttribute( "flag", flag );
+			request.setAttribute( "cpage", cpage );
+			request.setAttribute( "no", bno );
+			
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return "accom/accom_rereply_ok";
+	}
+	
+	// 숙소 reply delete
+	@RequestMapping(value = "/accom_reply_deleteOk.do")
+	public String accom_reply_deleteOk(HttpServletRequest request, HttpServletResponse response) {
+		try {
+			request.setCharacterEncoding("utf-8");
+			
+			String cpage = request.getParameter( "cpage" );
+			String bno = request.getParameter( "bno" );	//게시글번호
+			String no = request.getParameter( "no" );	//댓글 번호
+			
+			AccomCommentTO cto = new AccomCommentTO();
+			cto.setNo(no);
+			
+			int flag = accomCommentDao.accom_reply_deleteOk( cto );
+			
+			request.setAttribute( "cpage", cpage );
+			request.setAttribute( "no", bno );
+			request.setAttribute( "flag", flag );
+			
+			
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return "accom/accom_reply_deleteOk";
+	}
+	
+	// 숙소 reply modify
+	@RequestMapping(value = "/accom_reply_modifyOk.do")
+	public String accom_reply_modifyOk(HttpServletRequest request, HttpServletResponse response) {
+		try {
+			request.setCharacterEncoding("utf-8");
+			
+			String cpage = request.getParameter( "cpage" );
+			String content = request.getParameter( "ccontent_modify" );	//댓글내용
+			String bno = request.getParameter( "bno" );	//게시글번호
+			String no = request.getParameter( "no" );	//댓글번호
+			
+			AccomCommentTO cto = new AccomCommentTO();
+			cto.setNo(no);
+			cto.setContent(content);
+			
+			int flag = accomCommentDao.accom_reply_modifyOk( cto );
+			
+			request.setAttribute( "cpage", cpage );
+			request.setAttribute( "no", bno );
+			request.setAttribute( "flag", flag );
+			
+			
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return "accom/accom_reply_modifyOk";
 	}
 	
 	// 숙소 delete

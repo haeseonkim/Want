@@ -276,21 +276,64 @@
 		values(0, #{ subject }, #{ content }, #{ writer }, now(), 0, #{ location }, #{ picture }, 0, 0 )
 	</insert>
 
-	<!-- 쇼핑 list -->
+	<!--로그인 전 쇼핑 list -->
 	<select id="shopList" parameterType="com.exam.model1.shopping.ShoppingTO"
 		resultType="com.exam.model1.shopping.ShoppingTO">
-		select no, subject, content, writer, date_format(wdate, '%Y-%m-%d') wdate, hit, datediff(now(), wdate) wgap, ifnull(picture, '') picture, reply, heart
+		select no, subject, writer, date_format(wdate, '%Y-%m-%d') wdate, hit, ifnull(picture, '') picture, reply, heart, datediff(now(), wdate) wgap
 		from s_board
 		where location like #{ location }
 		order by no desc
 	</select>
 
-	<!-- 쇼핑 view -->
+	<!-- 로그인 후 쇼핑 list -->
+	<select id="shopListLogin" parameterType="com.exam.model1.shopping.ShoppingTO" resultType="com.exam.model1.shopping.ShoppingTO">
+		select b.no, b.subject, b.writer, ifnull(picture, '') picture, date_format(wdate, '%Y-%m-%d') wdate, hit, reply, heart, h.hno, f.fno, datediff(now(), wdate) wgap
+		from s_board b left outer join s_heart h
+		on #{nick} = h.userid and b.no = h.bno
+		left outer join s_favorite f
+		on #{nick} = f.userid and b.no = f.bno
+		where location like #{ location }
+		order by b.no desc
+	</select>
+
+	<!-- 쇼핑 좋아요 추가 -->
+	<insert id="shop_heart_save" parameterType="com.exam.model1.heart.HeartTO">
+		insert into s_heart
+		values(0, #{bno}, #{userid})
+	</insert>
+	<update id="shop_heart_up" parameterType="com.exam.model1.shopping.ShoppingTO">
+		update s_board set heart=heart+1 
+		where no=#{no}
+	</update>
+	
+	
+	<!-- 쇼핑 좋아요 삭제 -->
+	<delete id="shop_heart_remove" parameterType="com.exam.model1.heart.HeartTO">
+		delete from s_heart
+		where bno=#{bno} and userid=#{userid}
+	</delete>
+	<update id="shop_heart_down" parameterType="com.exam.model1.shopping.ShoppingTO">
+		update s_board set heart=heart-1 
+		where no=#{no}
+	</update>
+
+	<!-- 로그인아닐 때 쇼핑 view -->
 	<select id="shopView" parameterType="com.exam.model1.shopping.ShoppingTO" 
 			resultType="com.exam.model1.shopping.ShoppingTO">
 		select no, subject, content, writer, wdate, hit, location, picture, reply, heart
 		from s_board
 		where no = #{no}
+	</select>
+	
+	<!-- 로그인일 때 쇼핑 view -->
+	<select id="shopViewLogin" parameterType="com.exam.model1.shopping.ShoppingTO" 
+			resultType="com.exam.model1.shopping.ShoppingTO">
+		select s.no, s.subject, s.content, s.writer, s.wdate, s.hit, s.location, s.picture, s.reply, s.heart, h.hno, f.fno
+		from s_board s left outer join s_heart h
+		on #{nick} = h.userid and s.no = h.bno
+		left outer join s_favorite f
+		on #{nick} = f.userid and s.no = f.bno
+		where s.no = #{no}
 	</select>
 	
 	<!-- 쇼핑 view hit 올리기 -->
@@ -312,16 +355,65 @@
 	<!-- 쇼핑 comment list -->
 	<select id="shopListComment" parameterType="com.exam.model1.shoppingComment.ShoppingCommentTO"
 		resultType="com.exam.model1.shoppingComment.ShoppingCommentTO">
-		select no, bno, writer, content, wdate
+		select no, bno, writer, content, wdate, grp, grps, grpl
 		from s_reply
 		where bno = #{bno}
+		order by grp asc, grps asc
 	</select>
 	
 	<!-- 쇼핑 comment write ok -->
 	<insert id="shopViewCommentOk" parameterType="com.exam.model1.shoppingComment.ShoppingCommentTO">
 		insert into s_reply
-		values( 0, #{bno}, #{writer}, #{content}, now() )
+		values( 0, #{bno}, #{writer}, #{content}, now(), 0, 0, 0 )
 	</insert>
+	
+	
+	<!-- 가장 최근 no받아오기 -->
+	<select id="shop_noSelect" resultType="String">
+		select max(no)
+		from s_reply
+	</select>
+	
+	<!-- 가장 최근에 추가된 no를 grp로 설정 -->
+	<update id="shop_grpUpdate" parameterType="com.exam.model1.shoppingComment.ShoppingCommentTO">
+		update s_reply
+		set grp = #{ grp }
+		where no = #{ no }
+	</update>
+	
+	<!-- 쇼핑 reply 부모 grp, grps, grpl가져오는 sql -->
+	<select id="shopParentSelect" parameterType="com.exam.model1.shoppingComment.ShoppingCommentTO" 
+		resultType="com.exam.model1.shoppingComment.ShoppingCommentTO">
+		select grp, grps, grpl
+		from s_reply
+		where no = #{ no }	
+	</select>
+	
+	<!-- 쇼핑 reply 부모 grp와 같고 grps보다 큰 답글들 grps 1씩 증가시키는 sql -->
+	<update id="shopUpdateGrps" parameterType="com.exam.model1.shoppingComment.ShoppingCommentTO">
+		update s_reply
+		set grps = grps + 1
+		where grp = #{ grp } and grps > #{ grps }
+	</update>
+	
+	<!-- 쇼핑 reply 답글 추가하는 sql -->
+	<insert id="shopRereplyInsertOk" parameterType="com.exam.model1.shoppingComment.ShoppingCommentTO">
+		insert into s_reply
+		values (0, #{bno}, #{writer}, #{content}, now(), #{grp}, #{grps}+1, #{grpl}+1 )
+	</insert>
+	
+	<!--  쇼핑 reply_deleteOk -->
+	<delete id="shopping_reply_deleteOk" parameterType="com.exam.model1.shoppingComment.ShoppingCommentTO">
+		delete from s_reply
+		where grp = #{ no }
+	</delete>
+	
+	<!--  쇼핑 reply_modifyOk -->
+	<update id="shopping_reply_modifyOk" parameterType="com.exam.model1.shoppingComment.ShoppingCommentTO">
+		update s_reply
+		set content = #{ content } 
+		where no = #{ no }
+	</update>
 	
 	<!-- 쇼핑 delete_ok -->
 	<delete id="shopDeleteOk" parameterType="com.exam.model1.shopping.ShoppingTO">
@@ -344,21 +436,63 @@
 		values(0, #{ subject }, #{ content }, #{ writer }, now(), 0, #{ location }, #{ picture }, 0, 0 )
 	</insert>
 
-	<!-- 숙소 list -->
+	<!--로그인 전 숙소 list -->
 	<select id="accomList" parameterType="com.exam.model1.accom.AccomTO"
 		resultType="com.exam.model1.accom.AccomTO">
-		select no, subject, writer, date_format(wdate, '%Y-%m-%d') wdate, hit, datediff(now(), wdate) wgap, ifnull(picture, '') picture, reply, heart
+		select no, subject, writer, date_format(wdate, '%Y-%m-%d') wdate, hit, ifnull(picture, '') picture, reply, heart, datediff(now(), wdate) wgap
 		from a_board
 		where location like #{ location }
 		order by no desc
 	</select>
 
-	<!-- 숙소 view -->
+	<!-- 로그인 후 숙소 list -->
+	<select id="accomListLogin" parameterType="com.exam.model1.accom.AccomTO" resultType="com.exam.model1.accom.AccomTO">
+		select b.no, b.subject, b.writer, ifnull(picture, '') picture, date_format(wdate, '%Y-%m-%d') wdate, hit, reply, heart, h.hno, f.fno, datediff(now(), wdate) wgap
+		from a_board b left outer join a_heart h
+		on #{nick} = h.userid and b.no = h.bno
+		left outer join a_favorite f
+		on #{nick} = f.userid and b.no = f.bno
+		where location like #{ location }
+		order by b.no desc
+	</select>
+
+	<!-- 숙소 좋아요 추가 -->
+	<insert id="accom_heart_save" parameterType="com.exam.model1.heart.HeartTO">
+		insert into a_heart
+		values(0, #{bno}, #{userid})
+	</insert>
+	<update id="accom_heart_up" parameterType="com.exam.model1.accom.AccomTO">
+		update a_board set heart=heart+1 
+		where no=#{no}
+	</update>
+	
+	<!-- 슥소 좋아요 삭제 -->
+	<delete id="accom_heart_remove" parameterType="com.exam.model1.heart.HeartTO">
+		delete from a_heart
+		where bno=#{bno} and userid=#{userid}
+	</delete>
+	<update id="accom_heart_down" parameterType="com.exam.model1.accom.AccomTO">
+		update a_board set heart=heart-1 
+		where no=#{no}
+	</update>
+
+	<!-- 로그인아닐 때 숙소 view -->
 	<select id="accomView" parameterType="com.exam.model1.accom.AccomTO" 
 			resultType="com.exam.model1.accom.AccomTO">
 		select no, subject, content, writer, wdate, hit, location, picture, reply, heart
 		from a_board
 		where no = #{no}
+	</select>
+	
+	<!-- 로그인일 숙소 view -->
+	<select id="accomViewLogin" parameterType="com.exam.model1.accom.AccomTO" 
+			resultType="com.exam.model1.accom.AccomTO">
+		select a.no, a.subject, a.content, a.writer, a.wdate, a.hit, a.location, a.picture, a.reply, a.heart, h.hno, f.fno
+		from a_board a left outer join a_heart h
+		on #{nick} = h.userid and a.no = h.bno
+		left outer join a_favorite f
+		on #{nick} = f.userid and a.no = f.bno
+		where a.no = #{no}
 	</select>
 	
 	<!-- 숙소 view hit 올리기 -->
@@ -380,16 +514,64 @@
 	<!-- 숙소 comment list -->
 	<select id="accomListComment" parameterType="com.exam.model1.accomComment.AccomCommentTO"
 		resultType="com.exam.model1.accomComment.AccomCommentTO">
-		select no, bno, writer, content, wdate
+		select no, bno, writer, content, wdate, grp, grps, grpl
 		from a_reply
 		where bno = #{bno}
+		order by grp asc, grps asc
 	</select>
 	
 	<!-- 숙소 comment write ok -->
 	<insert id="accomViewCommentOk" parameterType="com.exam.model1.accomComment.AccomCommentTO">
 		insert into a_reply
-		values(0, #{bno}, #{writer}, #{content}, now() )
+		values( 0, #{bno}, #{writer}, #{content}, now(), 0, 0, 0 )
 	</insert>
+	
+	<!-- 가장 최근 no받아오기 -->
+	<select id="accom_noSelect" resultType="String">
+		select max(no)
+		from a_reply
+	</select>
+	
+	<!-- 가장 최근에 추가된 no를 grp로 설정 -->
+	<update id="accom_grpUpdate" parameterType="com.exam.model1.accomComment.AccomCommentTO">
+		update a_reply
+		set grp = #{ grp }
+		where no = #{ no }
+	</update>
+	
+	<!-- 숙소 reply 부모 grp, grps, grpl가져오는 sql -->
+	<select id="accomParentSelect" parameterType="com.exam.model1.accomComment.AccomCommentTO" 
+		resultType="com.exam.model1.accomComment.AccomCommentTO">
+		select grp, grps, grpl
+		from a_reply
+		where no = #{ no }	
+	</select>
+	
+	<!-- 숙소 reply 부모 grp와 같고 grps보다 큰 답글들 grps 1씩 증가시키는 sql -->
+	<update id="accomUpdateGrps" parameterType="com.exam.model1.accomComment.AccomCommentTO">
+		update a_reply
+		set grps = grps + 1
+		where grp = #{ grp } and grps > #{ grps }
+	</update>
+	
+	<!-- 숙소 reply 답글 추가하는 sql -->
+	<insert id="accomRereplyInsertOk" parameterType="com.exam.model1.accomComment.AccomCommentTO">
+		insert into a_reply
+		values (0, #{bno}, #{writer}, #{content}, now(), #{grp}, #{grps}+1, #{grpl}+1 )
+	</insert>
+	
+	<!--  숙소 reply_deleteOk -->
+	<delete id="accom_reply_deleteOk" parameterType="com.exam.model1.accomComment.AccomCommentTO">
+		delete from a_reply
+		where grp = #{ no }
+	</delete>
+	
+	<!--  숙소 reply_modifyOk -->
+	<update id="accom_reply_modifyOk" parameterType="com.exam.model1.accomComment.AccomCommentTO">
+		update a_reply
+		set content = #{ content } 
+		where no = #{ no }
+	</update>
 	
 	<!-- 숙소 delete_ok -->
 	<delete id="accomDeleteOk" parameterType="com.exam.model1.accom.AccomTO">

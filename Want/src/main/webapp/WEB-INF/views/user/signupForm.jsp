@@ -81,27 +81,36 @@ window.onload = function() {
 	$( "#nick_id" ).blur( function() {
 		var user_nick = $( "#nick_id" ).val();
 		if( user_nick != '' ) {
-			$.ajax({
-				url: './usingNick_chk.do?user_nick='+user_nick,
-				type: 'GET',
-				success: function( data ) {
-					
-					if( data == "0" ) {
-						$( "#usingNick_chk" ).text( "사용할 수 있는 닉네임입니다." );
-						$( "#usingNick_chk" ).css( "margin-left", "155px" );
-						$( "#usingNick_chk" ).css( "color", "blue" );
-						$( "#submit1" ).attr( "disabled", false );
-					} else if( data == "1"  ) {
-						$( "#usingNick_chk" ).text( "사용중인 닉네임입니다." );
-						$( "#usingNick_chk" ).css( "margin-left", "155px" );
-						$( "#usingNick_chk" ).css( "color", "red" );
-						$( "#submit1" ).attr( "disabled", true );
+			if( check( val, user_nick ) ) {
+				$.ajax({
+					url: './usingNick_chk.do?user_nick='+user_nick,
+					type: 'GET',
+					success: function( data ) {
+						
+						if( data == "0" ) {
+							$( "#usingNick_chk" ).text( "사용할 수 있는 닉네임입니다." );
+							$( "#usingNick_chk" ).css( "margin-left", "155px" );
+							$( "#usingNick_chk" ).css( "color", "blue" );
+							$( "#submit1" ).attr( "disabled", false );
+						} else if( data == "1"  ) {
+							$( "#usingNick_chk" ).text( "사용중인 닉네임입니다." );
+							$( "#usingNick_chk" ).css( "margin-left", "155px" );
+							$( "#usingNick_chk" ).css( "color", "red" );
+							$( "#submit1" ).attr( "disabled", true );
+						}
+					},
+					error: function() {
+						console.log( "signupForm의 ajax 에러" )
 					}
-				},
-				error: function() {
-					console.log( "signupForm의 ajax 에러" )
-				}
-			})
+				})
+			} else {
+				$( "#usingNick_chk" ).text( "닉네임이 형식에 맞지않습니다." );
+				$( "#usingNick_chk" ).css( "margin-left", "155px" );
+				$( "#usingNick_chk" ).css( "color", "red" );
+				$( "#user_nick" ).val( "" );
+				$( "#submit1" ).attr( "disabled", true );
+			}
+			
 		} else {
 			$( "#usingNick_chk" ).text( "" );
 		}
@@ -350,7 +359,7 @@ function agree() {
         <div class="form-group row">
 			<label class="col-form-label col-4">닉네임</label>
 			<div class="col-8">
-                <input type="text" class="form-control" id="nick_id" name="nick" >
+                <input type="text" class="form-control" id="nick_id" name="nick" placeholder="4~12, 영어대소문자, 숫자가능">
             </div>        	
             <div id="usingNick_chk"></div>
         </div>
