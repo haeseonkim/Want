@@ -53,6 +53,7 @@ public class AccomController {
 		int maxFileSize = 1024 * 1024 * 6;
 		String encType = "utf-8";
 		String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\accom";
+
 		MultipartRequest multi = null;
 
 		try {
@@ -258,6 +259,7 @@ public class AccomController {
 		int maxFileSize = 1024 * 1024 * 6;
 		String encType = "utf-8";
 		String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\accom";
+
 		MultipartRequest multi = null;
 
 		try {

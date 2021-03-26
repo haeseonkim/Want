@@ -23,20 +23,19 @@
 	String video = to.getVideo();
 	String reply = to.getReply();
 	
-	
 %>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, intial-scale=1.0">
+<meta name="viewport" content="width=device-width">
 <title>Insert title here</title>
 	
 <jsp:include page="../include/index.jsp"></jsp:include>
 
 <!-- CSS File -->
-<link href="./resources/css/lanTrip_list.css" rel="stylesheet">
+<link href="./resources/css/lanTrip_view.css?1111" rel="stylesheet">
 <link href="./resources/css/navbar.css" rel="stylesheet">
 <style type="text/css">
 
@@ -81,9 +80,10 @@
 			<div id="board_content" name="board_content" class="form-control" rows="10" style="resize: none" disabled="disabled"><%=content %> </div>
 		</div>
 	</section>
-	<section id="comment" class="container" style="margin-top:10px;">
+	
+	<section class="container" style="margin-top:10px;">
 	    <form id="commentForm" name="commentForm" method="post">
-	    <br/><br />
+	    <br/><br /><br />
 	        <div>
 	            <div>
 	                <span><strong>Comments</strong></span> 
@@ -93,10 +93,9 @@
 	                <table class="table">                    
 	                    <tr>
 	                        <td>
-	                            <textarea style="width: 1100px" rows="3" cols="30" id="comment" name="comment" placeholder="댓글을 입력하세요"></textarea>
-	                            <br />
-	                            <div>
-	                                <a href='#' onClick="fn_comment('${result.code }')" class="btn pull-right btn-success">등록</a>
+	                            <textarea style="width: 1100px" rows="3" cols="50" id="comment" name="comment" placeholder="&nbsp;댓글을 입력하세요"></textarea>
+	                            <div id="btn_comment">
+	                                <a href='#' onClick="fn_comment('${result.code }')" class="btn btn--radius-2 btn--blue-2 btn-md">댓글등록</a>
 	                            </div>
 	                        </td>
 	                    </tr>
@@ -104,19 +103,51 @@
 	            </div>
 	        </div>
 	    </form>
-	    <div class="btn_area">
-			<div class="align_left">
-				<input type="button" value="목록" class="btn_list btn_txt02" style="cursor: pointer;" onclick="location.href='lanTrip_list.do'" />
-			</div>
-			<div class="align_right">
+	    <div id="btn_buttons">
+			<span>
+				<button class="btn btn--radius-2 btn-sm btn--silver"  type="button"
+				onclick="location.href='./lanTrip_list.do'"> 목록 </button>
+				<!-- 로그인이 되어있고 작성자가 같을 때만 수정과 삭제버튼이 보이게 한다. -->
 				<c:if test="${to.writer eq sessionScope.nick }">
-				<input type="button" value="수정" class="btn_list btn_txt02" style="cursor: pointer;" onclick="location.href='lanTrip_modify.do?no=<%=no %>'" />
-				<input type="button" value="삭제" class="btn_list btn_txt02" style="cursor: pointer;" onclick="location.href='lanTrip_delete_ok.do?no=<%=no %>'" />
-				<input type="button" value="쓰기" class="btn_write btn_txt01" style="cursor: pointer;" onclick="location.href='lanTrip_write.do'" />
+					<button class="btn btn--radius-2 btn--silver btn-sm" type="button" data-bs-toggle="modal" data-bs-target=".bs-modify-modal-sm">수정</button>
+					<button class="btn btn--radius-2 btn--silver btn-sm" type="button" data-bs-toggle="modal" data-bs-target=".bs-delete-modal-sm">삭제</button>
 				</c:if>
-			</div>
+			</span>
+		</div>
+		
+		<div class="modal fade bs-delete-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  			<div class="modal-dialog modal-sm">
+  		
+  		
+    			<div class="modal-content" >
+    				<br />
+      				<div style="height:60px;">&nbsp;&nbsp;정말 삭제하시겠습니까?</div>
+      		
+      				<div class="modal-footer">
+        				<button type="button" class="btn btn--silver" data-bs-dismiss="modal" >취소</button>
+        				<button type="button" class="btn btn--blue-2" onclick="location.href='./lanTrip_delete_ok.do?no=<%=no %>'">삭제</button>
+      				</div>
+    			</div>
+    		
+  			</div>
+		</div>
+		
+		<div class="modal fade bs-modify-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  			<div class="modal-dialog modal-sm">
+  		
+  		
+    			<div class="modal-content">
+      			<br />
+      			<div style="height:60px;">&nbsp;&nbsp;정말 수정하시겠습니까?</div>
+      				<div class="modal-footer">
+        				<button type="button" class="btn btn--silver" data-bs-dismiss="modal" >취소</button>
+        				<button type="button" class="btn btn--blue-2" onclick="location.href='./lanTrip_modify.do?no=<%=no %>'">수정</button>
+      				</div>
+    			</div>
+    		
+  			</div>
 		</div>
 	</section>
 	
 </body>
-</html>
+</html>	

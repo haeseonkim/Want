@@ -78,6 +78,16 @@
 		select no, subject, writer, date_format(wdate, '%Y-%m-%d') wdate, hit, location, video, reply, heart
 		from l_board
 	</select>
+	
+	<!-- 로그인 후 lanTrip 리스트 -->
+	<select id="lanTrip_list_login" parameterType="com.exam.model1.lantrip.LanTripTO" resultType="com.exam.model1.lantrip.LanTripTO">
+		select b.no, b.subject, b.writer, hit, location, video, reply, heart, h.hno, f.fno
+		from l_board b left outer join l_heart h
+		on #{nick} = h.userid and b.no = h.bno
+		left outer join l_favorite f
+		on #{nick} = f.userid and b.no = f.bno
+		order by b.no desc
+	</select>
 
 	<!-- lanTrip write_ok -->
 	 
@@ -115,6 +125,29 @@
 		update l_board set subject = #{ subject }, content = #{ content }, video = #{ video }, location = #{ location }
 		where no=#{no}
 	</update>
+	
+	<!--lanTrip heart -->
+	<!-- 좋아요 추가 -->
+	<insert id="lanTrip_heart_save" parameterType="com.exam.model1.heart.HeartTO">
+		insert into l_heart
+		values(0, #{bno}, #{userid})
+	</insert>
+	<update id="lanTrip_heart_up" parameterType="com.exam.model1.lantrip.LanTripTO">
+		update l_board set heart=heart+1 
+		where no=#{no}
+	</update>
+	
+	
+	<!-- 좋아요 삭제 -->
+	<delete id="lanTrip_heart_remove" parameterType="com.exam.model1.heart.HeartTO">
+		delete from l_heart
+		where bno=#{bno} and userid=#{userid}
+	</delete>
+	<update id="lanTrip_heart_down" parameterType="com.exam.model1.lantrip.LanTripTO">
+		update l_board set heart=heart-1 
+		where no=#{no}
+	</update>
+	
 	
 	<!-- ================  랜선여행 신청하기  =================  -->
 	<!-- LanTripApplyList -->
