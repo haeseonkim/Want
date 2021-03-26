@@ -16,5 +16,4 @@
 	}
 	out.println("</script>");
 	
-	
 %>

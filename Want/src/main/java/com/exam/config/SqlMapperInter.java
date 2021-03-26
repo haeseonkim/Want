@@ -11,6 +11,7 @@ import com.exam.model1.shopping.ShoppingTO;
 import com.exam.model1.shoppingComment.ShoppingCommentTO;
 import com.exam.model1.user.UserTO;
 
+
 public interface SqlMapperInter {
 	// mapper.xml의 sql 이름과 같게 선언해주기
 	
@@ -49,11 +50,21 @@ public interface SqlMapperInter {
 	public abstract int lanTrip_apply_modify_ok(LanTripApplyTO to);
 	
 	
-	public abstract ArrayList<LanTripTO> lanTripList();
-	
+	// list
+	public abstract ArrayList<LanTripTO> lanTripList(LanTripTO to);
+	// wirte
+	public abstract void lanTrip_write(LanTripTO to);
 	public abstract int lanTrip_write_ok(LanTripTO to);
-	public abstract LanTripTO lanTrip_view(LanTripTO to);
 	
+	// modify
+	public abstract void lanTrip_modify(LanTripTO to);
+	public abstract int lanTrip_modify_ok(LanTripTO to);
+	
+	// delete
+	public abstract int lanTrip_delete_ok(LanTripTO to);
+	
+	//view
+	public abstract LanTripTO lanTrip_view(LanTripTO to);
 	
 	
 	//============ 여행지관련 ============
