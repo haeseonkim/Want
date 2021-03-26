@@ -12,8 +12,13 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+import com.exam.model1.shopHeart.ShopHeartDAO;
+import com.exam.model1.shopHeart.ShopHeartTO;
 import com.exam.model1.shopping.ShoppingDAO;
 import com.exam.model1.shopping.ShoppingListTO;
 import com.exam.model1.shopping.ShoppingTO;
@@ -35,9 +40,12 @@ public class ShoppingController {
 	
 	@Autowired
 	private ShoppingCommentDAO shopCommentDao;
+	
+	@Autowired
+	private ShopHeartDAO heartDao;
 
 	// 각자 맞는 upload 폴더 경로로 변경
-	private String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\shopping";
+	private String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\WEB-INF\\views\\shopping";
 
 	// 쇼핑정보 write
 	@RequestMapping(value = "/shopping_write.do")
@@ -59,7 +67,7 @@ public class ShoppingController {
 
 		int maxFileSize = 1024 * 1024 * 6;
 		String encType = "utf-8";
-		String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\shopping";
+		String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\shopping";
 		MultipartRequest multi = null;
 
 		try {
@@ -94,20 +102,30 @@ public class ShoppingController {
 
 	// 쇼핑 list
 	@RequestMapping(value = "/shopping_list.do")
-	public String shopping_list(HttpServletRequest request, HttpServletResponse response) {
+	public String shopping_list(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		try {
 			request.setCharacterEncoding("utf-8");
 			String location = request.getParameter("location");
 			int cpage = 1;
+			String nick = (String)session.getAttribute( "nick" );
+			
+			ShoppingListTO listTO = new ShoppingListTO();
+			ShoppingTO to = new ShoppingTO();
+			
 			if (request.getParameter("cpage") != null && !request.getParameter("cpage").equals("")) {
 				cpage = Integer.parseInt(request.getParameter("cpage"));
 			}
-
-			ShoppingListTO listTO = new ShoppingListTO();
 			listTO.setLocation(location);
 			listTO.setCpage(cpage);
 			
-			listTO = shopDao.shopList(listTO);
+			//로그인아닐 때
+			if( nick == null ) {
+				listTO = shopDao.shopList(listTO);
+			} else {	//로그인일 때
+				to.setNick( nick );
+				to.setLocation(location);
+				listTO = shopDao.shopListLogin(listTO, to);
+			}
 
 			request.setAttribute("listTO", listTO);
 			request.setAttribute("cpage", cpage);
@@ -123,27 +141,68 @@ public class ShoppingController {
 		return "shopping/shopping_list";
 	}
 	
+	// 빈하트 클릭시 하트 저장
+	@ResponseBody
+	@RequestMapping(value = "/shop_saveHeart.do")
+	public int save_heart(@RequestParam String no, HttpSession session) {
+		
+		ShopHeartTO to = new ShopHeartTO();
+		
+		// 게시물 번호 세팅
+		to.setBno(no);
+		
+		// 좋아요 누른 사람 nick을 userid로 세팅
+		to.setUserid((String)session.getAttribute("nick"));
+		
+		int flag = heartDao.shopSaveHeart(to);
+	
+		return flag;
+	}
+	
+	// 꽉찬하트 클릭시 하트 해제
+	@ResponseBody
+	@RequestMapping(value = "/shop_removeHeart.do")
+	public int remove_heart(@RequestParam String no, HttpSession session) {
+		ShopHeartTO to = new ShopHeartTO();
+		
+		// 게시물 번호 세팅
+		to.setBno(no);
+		
+		// 좋아요 누른 사람 nick을 userid로 세팅
+		to.setUserid((String)session.getAttribute("nick"));
+		
+		int flag = heartDao.shopRemoveHeart(to);
+	
+		return flag;
+	}
+	
 	// 쇼핑 view
 	@RequestMapping(value = "/shopping_view.do")
-	public String shopping_view(HttpServletRequest request, HttpServletResponse response) {
+	public String shopping_view(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		try {
 			request.setCharacterEncoding("utf-8");
 			
 			String no = request.getParameter( "no" );
 			String cpage = request.getParameter( "cpage" );
+			String nick = (String)session.getAttribute( "nick" );
 			
-			//글 내용 가져오기
 			ShoppingTO to = new ShoppingTO();
 			to.setNo( no );
-			to = shopDao.shopView(to);	
 			
-			request.setAttribute( "to", to );
+			//글 내용 가져오기
+			if( nick == null ) {	//로그인아닐 때
+				to = shopDao.shopView(to);	
+			} else {	//로그인일 때
+				to.setNick( nick );
+				to = shopDao.shopViewLogin(to);
+			}
 			
 			//해당 글에 대한 댓글 list가져오기
 			ShoppingCommentTO commentTo = new ShoppingCommentTO();
 			commentTo.setBno( no );
 			ArrayList<ShoppingCommentTO> lists = shopCommentDao.shopListComment(commentTo);	
 			
+			request.setAttribute( "to", to );
 			request.setAttribute( "lists", lists );
 			request.setAttribute( "cpage", cpage );
 			
@@ -189,6 +248,116 @@ public class ShoppingController {
 		}
 
 		return "shopping/shopping_view_comment_ok";
+	}
+	
+	// 쇼핑 rereply_ok
+	@RequestMapping(value = "/shopping_rereplyOk.do")
+	public String shopping_rereplyOk(HttpServletRequest request) {
+		
+		try {
+			request.setCharacterEncoding("utf-8");
+			
+			String cpage = request.getParameter( "cpage" );
+			String no = request.getParameter( "no" );
+			String bno = request.getParameter("bno");
+			String writer = request.getParameter("writer");
+			String content = request.getParameter("ccontent_reply");
+			
+			ShoppingCommentTO commentTo = new ShoppingCommentTO();
+			commentTo.setNo(no);
+			
+			// 부모글의 grp, grps, grpl 가져와서 commentTo에 저장
+			commentTo = shopCommentDao.shopParentSelect(commentTo);
+			
+			commentTo.setBno(bno);
+			commentTo.setWriter(writer);
+			commentTo.setContent(content);
+			
+			//기존에 있던 댓글중에서 부모 댓글과 같은 grp이고 부모 grps보다 큰 댓글들은 모두 grps를 1씩 늘려준다.
+			int result1 = shopCommentDao.shopUpdateGrps(commentTo);
+			
+			//새로운 답글을 추가 (sql문에서 grps와 grpl을 모두 1씩 늘려준다.)
+			int flag = 1;
+			int result2 = shopCommentDao.shopRereplyInsertOk(commentTo);
+			if( result2 == 1 ) {
+				flag = 0;
+			}
+			
+			request.setAttribute( "flag", flag );
+			request.setAttribute( "cpage", cpage );
+			request.setAttribute( "no", bno );
+			
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return "shopping/shopping_rereply_ok";
+	}
+	
+	// 쇼핑 reply delete
+	@RequestMapping(value = "/shopping_reply_deleteOk.do")
+	public String shopping_reply_deleteOk(HttpServletRequest request, HttpServletResponse response) {
+		try {
+			request.setCharacterEncoding("utf-8");
+			
+			String cpage = request.getParameter( "cpage" );
+			String bno = request.getParameter( "bno" );	//게시글번호
+			String no = request.getParameter( "no" );	//댓글 번호
+			
+			ShoppingCommentTO cto = new ShoppingCommentTO();
+			cto.setNo(no);
+			
+			int flag = shopCommentDao.shopping_reply_deleteOk( cto );
+			System.out.println( "여기는 홈컨 flag확인중: "+flag );
+			
+			request.setAttribute( "cpage", cpage );
+			request.setAttribute( "no", bno );
+			request.setAttribute( "flag", flag );
+			
+			
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return "shopping/shopping_reply_deleteOk";
+	}
+	
+	// 쇼핑 reply modify
+	@RequestMapping(value = "/shopping_reply_modifyOk.do")
+	public String shopping_reply_modifyOk(HttpServletRequest request, HttpServletResponse response) {
+		try {
+			request.setCharacterEncoding("utf-8");
+			
+			String cpage = request.getParameter( "cpage" );
+			String content = request.getParameter( "ccontent_modify" );	//댓글내용
+			String bno = request.getParameter( "bno" );	//게시글번호
+			String no = request.getParameter( "no" );	//댓글번호
+			
+			ShoppingCommentTO cto = new ShoppingCommentTO();
+			cto.setNo(no);
+			cto.setContent(content);
+			
+			int flag = shopCommentDao.shopping_reply_modifyOk( cto );
+			
+			request.setAttribute( "cpage", cpage );
+			request.setAttribute( "no", bno );
+			request.setAttribute( "flag", flag );
+			
+			
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return "shopping/shopping_reply_modifyOk";
 	}
 	
 	// 쇼핑 delete
@@ -264,7 +433,7 @@ public class ShoppingController {
 		
 		int maxFileSize = 1024 * 1024 * 6;
 		String encType = "utf-8";
-		String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\shopping";
+		String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\shopping";
 		MultipartRequest multi = null;
 
 		try {
@@ -307,5 +476,8 @@ public class ShoppingController {
 
 		return "shopping/shopping_modify_ok";
 	}	
+	
+	
+	
 	
 }

@@ -7,8 +7,7 @@
 	out.println("<script type='text/javascript'>");
 	if(flag == 0){
 		out.println("alert('수정에 성공했습니다.');");
-		out.println("location.href='./lanTrip_apply_list.do'");
-			//?no="+request.getAttribute("no")+";');
+		out.println("location.href='./lanTrip_apply_list.do?no="+request.getAttribute("no")+"';");
 			
 	}else{
 		out.println("alert('수정에 실패했습니다.');");

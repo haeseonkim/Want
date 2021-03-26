@@ -89,6 +89,7 @@ a.open_reply_list:hover{
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	text-align: left;
+
 }
 
 .card-img-top{
@@ -98,7 +99,7 @@ a.open_reply_list:hover{
 }
 
 .card-heart {
-	text-align: right;
+   text-align: right;
 }
 
 

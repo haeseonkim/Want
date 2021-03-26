@@ -6,7 +6,30 @@ public class ShoppingCommentTO {
 	private String writer;
 	private String content;
 	private String wdate;
+	private String grp;
+	private String grps;
+	private int grpl;
 	
+	
+	
+	public String getGrp() {
+		return grp;
+	}
+	public void setGrp(String grp) {
+		this.grp = grp;
+	}
+	public String getGrps() {
+		return grps;
+	}
+	public void setGrps(String grps) {
+		this.grps = grps;
+	}
+	public int getGrpl() {
+		return grpl;
+	}
+	public void setGrpl(int grpl) {
+		this.grpl = grpl;
+	}
 	public String getNo() {
 		return no;
 	}

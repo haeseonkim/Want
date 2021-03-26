@@ -64,3 +64,67 @@ body {
 .btn_dm {
 	float: right;
 }
+.thead_view {
+	border-bottom: 1px solid black;
+}
+.like {
+	text-align: left;
+}
+
+svg.heart1 {
+	cursor: pointer;
+	color: red;
+}
+
+svg.heart2 {
+	cursor: pointer;
+	color: red;
+}
+
+.reply_delete {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+.reply_delete .tooltip_delete {
+  visibility: hidden;
+  width: 120px;
+  background-color: #040505;
+  font-size:13px;color:#fff;font-family:IranYekanWeb;
+  text-align: center;
+  border-radius: 3px;
+  padding: 4px 0;
+  position: absolute;
+  z-index: 1;
+  top: 105%;
+  left: 50%;
+  margin-left: -60px;
+}
+
+.reply_delete .tooltip_delete::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent #040505 transparent;
+}
+
+.reply_delete:hover .tooltip_delete {
+  visibility: visible;
+}
+
+.rereply_td {
+	color: black!important;
+}
+
+.ccontent_reply {
+	width:95%;
+	height:90%;
+}
+
+.thead_view {
+	font-weight: bold;
+}

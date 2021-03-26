@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.exam.model1.picture.PictureDAO;
 import com.exam.model1.picture.PictureListTO;
 import com.exam.model1.picture.PictureTO;
-import com.exam.model1.pictureHeart.HeartDAO;
-import com.exam.model1.pictureHeart.HeartTO;
+import com.exam.model1.pictureHeart.PictureHeartDAO;
+import com.exam.model1.pictureHeart.PictureHeartTO;
 import com.exam.model1.pictureReply.ReplyDAO;
 import com.exam.model1.pictureReply.ReplyTO;
 import com.exam.model1.user.UserTO;
@@ -40,13 +40,13 @@ public class PictureController {
 	private PictureDAO pictureDao;
 	
 	@Autowired
-	private HeartDAO heartDao;
+	private PictureHeartDAO heartDao;
 	
 	@Autowired
 	private ReplyDAO replyDao;
 	
 	// 각자 맞는 upload 폴더 경로로 변경
-	private String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\picture";
+	private String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\picture";
 
 
 	// 사진자랑 목록
@@ -112,6 +112,7 @@ public class PictureController {
 	    MultipartRequest multi = null;
 		
 	    try {
+	    	String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\picture";
 
 			multi = new MultipartRequest(request, uploadPath, maxFileSize, encType, new DefaultFileRenamePolicy());
 			
@@ -163,7 +164,7 @@ public class PictureController {
 	@RequestMapping(value = "/saveHeart.do")
 	public PictureTO save_heart(@RequestParam String no, HttpSession session) {
 		
-		HeartTO to = new HeartTO();
+		PictureHeartTO to = new PictureHeartTO();
 		
 		// 게시물 번호 세팅
 		to.setBno(no);
@@ -181,7 +182,7 @@ public class PictureController {
 	@ResponseBody
 	@RequestMapping(value = "/removeHeart.do")
 	public PictureTO remove_heart(@RequestParam String no, HttpSession session) {
-		HeartTO to = new HeartTO();
+		PictureHeartTO to = new PictureHeartTO();
 		
 		// 게시물 번호 세팅
 		to.setBno(no);

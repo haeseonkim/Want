@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.exam.model1.picture.PictureTO;
-import com.exam.model1.pictureHeart.HeartTO;
+import com.exam.model1.pictureHeart.PictureHeartTO;
 import com.exam.model1.pictureReply.ReplyTO;
 
 
