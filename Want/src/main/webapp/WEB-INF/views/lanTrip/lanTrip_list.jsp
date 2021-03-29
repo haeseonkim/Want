@@ -37,7 +37,7 @@
 			sbHtml.append("<div class='row'>");
 		}
 	
-		sbHtml.append( "<div class='col-3'> ");
+		sbHtml.append( "<div class='col-lg-3 col-md-6'> ");
 		sbHtml.append( "	<div class='card'>");
 		sbHtml.append( "		<a href='./lanTrip_view.do?no=" + no + "'><video src='" + video + "' class='card-img-top' controls></video></a>");
 		sbHtml.append( "			<div class='card-body'>");
@@ -160,13 +160,21 @@ $(document).ready( function() {
       removeHeart(no);
    });
 })
+
+	/* $('#carousel-container').on('slid.bs.carousel', function () { // function called when the slide is showed
+  	$('.carousel-item video').removeAttr('autoplay'); // To stop all videos
+  	$('.carousel-item.active video').attr('autoplay', 'autoplay'); // To play the current video
+	}); */
+	
+	
+
 </script>
 
 </head>
 <body>
 	<!-- 메뉴바 
 		 현재페이지 뭔지 param.thisPage에 넣어서 navbar.jsp에  던짐 -->
-	<jsp:include page="../include/navbar.jsp">
+	<jsp:include page="../include/navbar_lantrip.jsp">
 		<jsp:param value="lanTrip_list" name="thisPage" />
 	</jsp:include>
 
@@ -174,44 +182,53 @@ $(document).ready( function() {
 	<br />
 	<br />
 
-	<section>
-		<div id="carouselExampleIndicators" class="carousel slide"
-			data-bs-ride="carousel">
-			<div class="carousel-indicators">
-				<button type="button" data-bs-target="#carouselExampleIndicators"
-					data-bs-slide-to="0" class="active" aria-current="true"
-					aria-label="Slide 1"></button>
-				<button type="button" data-bs-target="#carouselExampleIndicators"
-					data-bs-slide-to="1" aria-label="Slide 2"></button>
-				<button type="button" data-bs-target="#carouselExampleIndicators"
-					data-bs-slide-to="2" aria-label="Slide 3"></button>
+	<section id="carousel-container" class="carousel-container" >
+		<div class="row row-carousel">
+			<div class="section-title col-md-4">
+				<h2>Best5</h2>
+				<p>인기게시물을 확인하세요!</p>
 			</div>
-			<div class="carousel-inner">
-				<div class="carousel-item active">
-					<img src="./upload/lanTrip/img1.jpg" class="d-block w-100"
-						alt="...">
+			<div id="carouselExampleIndicators" class="carousel slide col-md-8" data-bs-ride="carousel">
+				<div class="carousel-indicators">
+				    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+				    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+				    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+				    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
+				    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 5"></button>
+				 </div>
+				<div class="carousel-inner">
+					<c:forEach var="tmp" items="${bestList }">
+						<c:choose>
+							<c:when test="${tmp eq bestList[0] }">
+								<div class="carousel-item active">
+									<%-- <video class="d-block w-100 carousel-img" src="./upload/lanTrip/${tmp.video }"
+										alt="..." /> --%>
+									<video id="video" class="" src="./upload/lanTrip/${tmp.video }" muted autoplay loop playsinline />
+								</div>
+							</c:when>
+							<c:otherwise>
+								<div class="carousel-item">
+									<video id="video" class="" src="./upload/lanTrip/${tmp.video }" muted autoplay loop playsinline />
+<%-- 									<video class="d-block w-100 carousel-img" src="./upload/lanTrip/${tmp.video }"/> --%>
+								</div>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
 				</div>
-				<div class="carousel-item">
-					<img src="./upload/lanTrip/img3.jpg" class="d-block w-100"
-						alt="...">
-				</div>
-				<div class="carousel-item">
-					<img src="./upload/lanTrip/img4.jpg" class="d-block w-100"
-						alt="...">
-				</div>
+	
+	
+				<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"  data-bs-slide="prev">
+				    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				    <span class="visually-hidden">Previous</span>
+				  </button>
+				  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"  data-bs-slide="next">
+				    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+				    <span class="visually-hidden">Next</span>
+				  </button>
 			</div>
-			<button class="carousel-control-prev" type="button"
-				data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-				<span class="visually-hidden">Previous</span>
-			</button>
-			<button class="carousel-control-next" type="button"
-				data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-				<span class="carousel-control-next-icon" aria-hidden="true"></span>
-				<span class="visually-hidden">Next</span>
-			</button>
 		</div>
 	</section>
+	<!-- best5 캐러샐 끝 -->
 
 	<%-- card --%>
 	<section id="card">
@@ -221,15 +238,6 @@ $(document).ready( function() {
 			<%=sbHtml%>
 		</div>
 	</section>
-	<div id="write">
-		<c:choose>
-			<c:when test="${empty sessionScope.nick}">
-				<button type="button" class="btn btn--radius-2 btn--blue-2 btn-md" onclick="javascript:alert('로그인을 하셔야합니다.')">등록하기</button>
-			</c:when>
-			<c:otherwise>
-				<button type="button" class="btn btn--radius-2 btn--blue-2 btn-md" onclick="location.href='./lanTrip_write.do?cpage=<%=cpage%>'">등록하기</button>	
-			</c:otherwise>
-		</c:choose>
-	</div>
+	
 </body>
 </html>
