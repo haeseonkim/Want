@@ -225,11 +225,11 @@ img {
 }
 
 .material-card.Green h2 {
-  background-color: #C6FF70;
+  background-color: #54BD54;
 }
 .material-card.Green h2:after {
-  border-top-color: #C6FF70;
-  border-right-color: #C6FF70;
+  border-top-color: #54BD54;
+  border-right-color: #54BD54;
   border-bottom-color: transparent;
   border-left-color: transparent;
 }
@@ -239,6 +239,104 @@ img {
   border-bottom-color: #8AE634;
   border-left-color: transparent;
 }
+
+.material-card.portugal h2 {
+  background-color: #32B2B2;
+}
+.material-card.portugal h2:after {
+  border-top-color: #32B2B2;
+  border-right-color: #32B2B2;
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+}
+.material-card.portugal h2:before {
+  border-top-color: transparent;
+  border-right-color: #008080;
+  border-bottom-color: #008080;
+  border-left-color: transparent;
+}
+
+
+.material-card.hungary h2 {
+  background-color: #9C8CCD;
+}
+.material-card.hungary h2:after {
+  border-top-color: #9C8CCD;
+  border-right-color: #9C8CCD;
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+}
+.material-card.hungary h2:before {
+  border-top-color: transparent;
+  border-right-color: #6A5ACD;
+  border-bottom-color: #6A5ACD;
+  border-left-color: transparent;
+}
+
+.material-card.osterria h2 {
+  background-color: #F088B1;
+}
+.material-card.osterria h2:after {
+  border-top-color: #F088B1;
+  border-right-color: #F088B1;
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+}
+.material-card.osterria h2:before {
+  border-top-color: transparent;
+  border-right-color: #DC6089;
+  border-bottom-color: #DC6089;
+  border-left-color: transparent;
+}
+
+.material-card.sweden h2 {
+  background-color: #FFB432;
+}
+.material-card.sweden h2:after {
+  border-top-color: #FFB432;
+  border-right-color: #FFB432;
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+}
+.material-card.sweden h2:before {
+  border-top-color: transparent;
+  border-right-color: #FF8200;
+  border-bottom-color: #FF8200;
+  border-left-color: transparent;
+}
+
+.material-card.finland h2 {
+  background-color: #EB6464;
+}
+.material-card.finland h2:after {
+  border-top-color: #EB6464;
+  border-right-color: #EB6464;
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+}
+.material-card.finland h2:before {
+  border-top-color: transparent;
+  border-right-color: #EB0000;
+  border-bottom-color: #EB0000;
+  border-left-color: transparent;
+}
+
+.material-card.poland h2 {
+  background-color: #9A7745;
+}
+.material-card.poland h2:after {
+  border-top-color: #9A7745;
+  border-right-color: #9A7745;
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+}
+.material-card.poland h2:before {
+  border-top-color: transparent;
+  border-right-color: #8B4513;
+  border-bottom-color: #8B4513;
+  border-left-color: transparent;
+}
+
 
 body {
   background-color: #ECEFF1;

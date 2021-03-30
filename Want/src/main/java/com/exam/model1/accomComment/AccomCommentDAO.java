@@ -48,7 +48,7 @@ public class AccomCommentDAO {
 		return commentTo;
 	}
 	
-	//기존에 있던 댓글중에서 부모 댓글과 같은 grp이고 부모 grps보다 큰 댓글들은 모두 grps를 1씩 늘려주는 메서드
+	//기존에 있던 댓글중에서 부모 댓글과 같은 grp이고 부모 grpl(0)보다 자식 grps가 큰 댓글들은 모두 grps를 1씩 늘려준다.
 	public int accomUpdateGrps(AccomCommentTO to) {
 		int result = sqlSession.update( "accomUpdateGrps", to );
 		return result;
@@ -63,7 +63,16 @@ public class AccomCommentDAO {
 	//댓글 삭제하는 메서드
 	public int accom_reply_deleteOk( AccomCommentTO to ) {
 		int flag = 1;
-		int result = sqlSession.delete( "accom_reply_deleteOk", to );
+		String no = to.getNo();
+		String grp = to.getGrp();
+		
+		int result = 0;
+		if( no.equals(grp) ) {	//부모 댓글일 경우 댓글번호랑 grp가 같다.
+			//부모 댓글과 그 밑에 있는 자식댓글까지 모두 삭제
+			result = sqlSession.delete( "accom_reply_deleteOk_parent", to );
+		} else {
+			result = sqlSession.delete( "accom_reply_deleteOk_child", to );
+		}
 		if( result != 0 ) {
 			flag = 0;
 		}

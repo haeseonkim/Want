@@ -2,12 +2,19 @@
 
 body {
 	color: #999;
-	background: #f3f3f3;
+	background: #f4f4f4;
 	font-family: 'Roboto', sans-serif;
+}
+.banner {
+  background: #a770ef;
+  background: -webkit-linear-gradient(to right, #a770ef, #cf8bf3, #fdb99b);
+  background: linear-gradient(to right, #a770ef, #cf8bf3, #fdb99b);
+  overflow: auto;
 }
 .select-form {
 	width: 500px;
-	margin: 0 auto;
+	/* margin: 0 auto; */
+	float: left;
 	padding: 30px 0;
 }
 .select-form h3 {
@@ -17,7 +24,6 @@ body {
 	padding: 0 20px 10px 20px;
 	border-bottom: 3px solid #5cd3b4;
 }
-
 
 .contents1 {
 	margin: 0px auto;
@@ -42,13 +48,6 @@ body {
 	padding-left: 10px;
 	padding-top: 10px;
 }
-.card {
-	width: 200px;
-	line-height: 200px;
-	text-align: center;
-	display: table;
-	border-style: none!important;
-}
 .card-img-div {
 	width: 200px;
 	height: 200px;
@@ -62,7 +61,7 @@ body {
 .board {
 	margin: 10px;
 }
-.board:hover .card-img-top{
+img:hover {
 	transform: scale(1.05);
 	opacity: 0.7;
 }
@@ -73,6 +72,7 @@ body {
 .align_right {
 	text-align: right;
 	padding-right: 10px;
+	margin-top: 50px;
 }
 .txt_orange {
 	color: #ff0080;
@@ -89,6 +89,61 @@ svg.heart1 {
 svg.heart2 {
 	cursor: pointer;
 	color: red;
+}
+
+.weather_div1 {
+	width: 270px;
+	height: 250px;
+	float: right;
+	color: white;
+	text-align: center;
+	margin-right: 5px;
+	overflow: hidden;
+}
+
+.weather_table {
+	width: 100%;
+}
+
+.weather_i {
+	font-size: 55px;
+}
+
+.weather_name {
+	font-weight: bold;
+	font-size: 20px;
+}
+
+.weather_tr1 {
+	background-color: #0A6EFF;
+}
+
+.weather_tr2 {
+	background-color: #E8F5FF;
+}
+
+.weather_bottom {
+	color: #0A6EFF;
+}
+
+
+/* top-left border-radius */
+.weather_table tr:first-child th:first-child {
+  border-top-left-radius: 6px;
+}
+
+/* top-right border-radius */
+.weather_table tr:first-child td:last-child {
+  border-top-right-radius: 6px;
+}
+
+/* bottom-left border-radius */
+.weather_table tr:last-child td:first-child {
+  border-bottom-left-radius: 10px;
+  
+}
+.weather_table tr:last-child td:last-child {
+  border-bottom-right-radius: 10px;
 }
 
 

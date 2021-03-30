@@ -45,7 +45,7 @@ public class ShoppingController {
 	private ShopHeartDAO heartDao;
 
 	// 각자 맞는 upload 폴더 경로로 변경
-	private String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\WEB-INF\\views\\shopping";
+	private String uploadPath = "C:\\kickic\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\shopping";
 
 	// 쇼핑정보 write
 	@RequestMapping(value = "/shopping_write.do")
@@ -67,7 +67,7 @@ public class ShoppingController {
 
 		int maxFileSize = 1024 * 1024 * 6;
 		String encType = "utf-8";
-		String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\shopping";
+		String uploadPath = "C:\\kickic\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\shopping";
 		MultipartRequest multi = null;
 
 		try {
@@ -273,7 +273,7 @@ public class ShoppingController {
 			commentTo.setWriter(writer);
 			commentTo.setContent(content);
 			
-			//기존에 있던 댓글중에서 부모 댓글과 같은 grp이고 부모 grps보다 큰 댓글들은 모두 grps를 1씩 늘려준다.
+			//기존에 있던 댓글중에서 부모 댓글과 같은 grp이고 부모 grpl(0)보다 자식 grps가 큰 댓글들은 모두 grps를 1씩 늘려준다.
 			int result1 = shopCommentDao.shopUpdateGrps(commentTo);
 			
 			//새로운 답글을 추가 (sql문에서 grps와 grpl을 모두 1씩 늘려준다.)
@@ -295,21 +295,22 @@ public class ShoppingController {
 		return "shopping/shopping_rereply_ok";
 	}
 	
-	// 쇼핑 reply delete
+	// 쇼핑 reply deleteOk
 	@RequestMapping(value = "/shopping_reply_deleteOk.do")
 	public String shopping_reply_deleteOk(HttpServletRequest request, HttpServletResponse response) {
 		try {
 			request.setCharacterEncoding("utf-8");
 			
 			String cpage = request.getParameter( "cpage" );
-			String bno = request.getParameter( "bno" );	//게시글번호
-			String no = request.getParameter( "no" );	//댓글 번호
+			String bno = request.getParameter( "bno" );	//게시글번호 bno
+			String no = request.getParameter( "no" );	//댓글 번호 no
+			String grp = request.getParameter( "grp" );	//그룹번호 grp
 			
 			ShoppingCommentTO cto = new ShoppingCommentTO();
 			cto.setNo(no);
+			cto.setGrp(grp);
 			
 			int flag = shopCommentDao.shopping_reply_deleteOk( cto );
-			System.out.println( "여기는 홈컨 flag확인중: "+flag );
 			
 			request.setAttribute( "cpage", cpage );
 			request.setAttribute( "no", bno );
@@ -433,7 +434,7 @@ public class ShoppingController {
 		
 		int maxFileSize = 1024 * 1024 * 6;
 		String encType = "utf-8";
-		String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\shopping";
+		String uploadPath = "C:\\kickic\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\shopping";
 		MultipartRequest multi = null;
 
 		try {

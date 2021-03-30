@@ -36,7 +36,7 @@ public class LanTripController {
    private LantripHeartDAO heartDao;
 
    // 각자 맞는 upload 폴더 경로로 변경
-   private String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\lanTrip";
+   private String uploadPath = "C:\\kickic\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\lanTrip";
 
    
 

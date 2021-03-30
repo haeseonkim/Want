@@ -24,7 +24,7 @@ public class LantripApplyController {
 	@Autowired
 	private LanTripApplyDAO dao;
 
-	private String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\lanTrip_apply";
+	private String uploadPath = "C:\\kickic\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\lanTrip";
 	
 	// 랜선여행 신청 목록					
 	@RequestMapping(value = "/lanTrip_apply_list.do")
