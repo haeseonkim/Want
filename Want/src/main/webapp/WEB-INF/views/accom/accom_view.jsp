@@ -352,7 +352,7 @@ const reply_commentOk = function(clicked_id) {
 			<tbody>
 				<tr>
 					<td colspan="6" >
-							<img src="./upload/shopping/<%=picture %>" width="900" onerror="" /><br />
+							<img src="./upload/accom/<%=picture %>" width="900" onerror="" /><br />
 							<%= content %>
 					</td>
 				</tr>

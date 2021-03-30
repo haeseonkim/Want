@@ -36,6 +36,7 @@
 		sbHtml.append( "<input type='hidden' name='bno' value='"+no+"' />" );
 		sbHtml.append( "<input type='hidden' name='writer' value='"+nick+"' />" );
 		sbHtml.append( "<input type='hidden' name='cpage' value='"+cpage+"' />" );
+		sbHtml.append( "<input type='hidden' name='grp' value='"+commentTo.getGrp()+"' />" );
 		
 		sbHtml.append( "<table class='table table-bordered table_reply_view'> " );
 		sbHtml.append( "<tr> " );
@@ -125,7 +126,7 @@
 <jsp:include page="../include/index.jsp"></jsp:include>
 
 <!-- CSS File -->
-<link href="./resources/css/shopping_view.css?zs" rel="stylesheet">
+<link href="./resources/css/shopping_view.css?z" rel="stylesheet">
 <link href="./resources/css/navbar.css" rel="stylesheet">
 
 <script type="text/javascript">

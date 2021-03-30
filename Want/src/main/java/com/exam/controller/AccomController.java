@@ -267,7 +267,7 @@ public class AccomController {
 			commentTo.setWriter(writer);
 			commentTo.setContent(content);
 			
-			//기존에 있던 댓글중에서 부모 댓글과 같은 grp이고 부모 grps보다 큰 댓글들은 모두 grps를 1씩 늘려준다.
+			//기존에 있던 댓글중에서 부모 댓글과 같은 grp이고 부모 grpl(0)보다 자식 grps가 큰 댓글들은 모두 grps를 1씩 늘려준다.
 			int result1 = accomCommentDao.accomUpdateGrps(commentTo);
 			
 			//새로운 답글을 추가 (sql문에서 grps와 grpl을 모두 1씩 늘려준다.)

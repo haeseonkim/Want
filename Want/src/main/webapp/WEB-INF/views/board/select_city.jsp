@@ -26,34 +26,60 @@
 
 <script type="text/javascript">
 window.onload = function() {
-	$('#paris').on('click', (event) => {
+	$('#france').on('click', (event) => {
 		document.cfrm.location.value = "프랑스";
 		document.cfrm.submit();
 	});
-	$('#athens').on('click', (event) => {
+	$('#greece').on('click', (event) => {
 		document.cfrm.location.value = "그리스";
 		document.cfrm.submit();
 	});
-	$('#rome').on('click', (event) => {
+	$('#italy').on('click', (event) => {
 		document.cfrm.location.value = "이탈리아";
 		document.cfrm.submit();
 	});
-	$('#budapest').on('click', (event) => {
+	$('#spain').on('click', (event) => {
 		document.cfrm.location.value = "스페인";
 		document.cfrm.submit();
 	});
-	$('#prague').on('click', (event) => {
+	$('#czech').on('click', (event) => {
 		document.cfrm.location.value = "체코";
 		document.cfrm.submit();
 	});
-	$('#london').on('click', (event) => {
+	$('#uk').on('click', (event) => {
 		document.cfrm.location.value = "영국";
 		document.cfrm.submit();
 	});
-	$('#london').on('click', (event) => {
-		document.cfrm.location.value = "한국";
+	$('#swizerland').on('click', (event) => {
+		document.cfrm.location.value = "스위스";
 		document.cfrm.submit();
 	});
+	$('#portugal').on('click', (event) => {
+		document.cfrm.location.value = "포르투갈";
+		document.cfrm.submit();
+	});
+	$('#hungary').on('click', (event) => {
+		document.cfrm.location.value = "헝가리";
+		document.cfrm.submit();
+	});
+	$('#osterria').on('click', (event) => {
+		document.cfrm.location.value = "오스트리아";
+		document.cfrm.submit();
+	});
+	$('#sweden').on('click', (event) => {
+		document.cfrm.location.value = "스웨덴";
+		document.cfrm.submit();
+	});
+	$('#finland').on('click', (event) => {
+		document.cfrm.location.value = "핀란드";
+		document.cfrm.submit();
+	});
+	$('#poland').on('click', (event) => {
+		document.cfrm.location.value = "폴란드";
+		document.cfrm.submit();
+	});
+	
+	
 }
 
 	
@@ -79,8 +105,9 @@ window.onload = function() {
 <section class="container">
     
     <div class="row active-with-click">
-        <div class="col-md-4 col-sm-6 col-xs-12">
-            <article id="paris" class="material-card Red">
+    
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <article id="france" class="material-card Red">
                 <h2>
                     <span>프랑스</span>
                     <strong>
@@ -94,8 +121,9 @@ window.onload = function() {
                 </div>
             </article>
         </div>
-        <div class="col-md-4 col-sm-6 col-xs-12">
-            <article id="athens" class="material-card Pink">
+        
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <article id="greece" class="material-card Pink">
                 <h2>
                     <span>그리스</span>
                     <strong>
@@ -109,8 +137,9 @@ window.onload = function() {
                 </div>
             </article>
         </div>
-        <div class="col-md-4 col-sm-6 col-xs-12">
-            <article id="rome" class="material-card Purple">
+        
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <article id="italy" class="material-card Purple">
                 <h2>
                     <span>이탈리아</span>
                     <strong>
@@ -124,8 +153,9 @@ window.onload = function() {
                 </div>
             </article>
         </div>
-        <div class="col-md-4 col-sm-6 col-xs-12">
-            <article id="budapest" class="material-card Deep-Purple">
+        
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <article id="spain" class="material-card Deep-Purple">
                 <h2>
                     <span>스페인</span>
                     <strong>
@@ -139,8 +169,9 @@ window.onload = function() {
                 </div>
             </article>
         </div>
-        <div class="col-md-4 col-sm-6 col-xs-12">
-            <article id="prague" class="material-card Indigo">
+        
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <article id="czech" class="material-card Indigo">
                 <h2>
                     <span>체코</span>
                     <strong>
@@ -154,8 +185,9 @@ window.onload = function() {
                 </div>
             </article>
         </div>
-        <div class="col-md-4 col-sm-6 col-xs-12">
-            <article id="london" class="material-card Blue">
+        
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <article id="uk" class="material-card Blue">
                 <h2>
                     <span>영국</span>
                     <strong>
@@ -169,22 +201,116 @@ window.onload = function() {
                 </div>
             </article>
         </div>
-        <div class="col-md-4 col-sm-6 col-xs-12">
-            <article id="london" class="material-card Green">
+        
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <article id="swizerland" class="material-card Green">
                 <h2>
-                    <span>한국</span>
+                    <span>스위스</span>
                     <strong>
                         <i class="fa fa-fw fa-star"></i>
                     </strong>
                 </h2>
                 <div class="mc-content">
                     <div class="img-container">
-                        <img class="img-responsive" src="./resources/img/서울.jpg">
+                        <img class="img-responsive" src="./resources/img/스위스.jpg">
                     </div>
                 </div>
             </article>
         </div>
-    </div>
+        
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <article id="portugal" class="material-card portugal">
+                <h2>
+                    <span>포르투갈</span>
+                    <strong>
+                        <i class="fa fa-fw fa-star"></i>
+                    </strong>
+                </h2>
+                <div class="mc-content">
+                    <div class="img-container">
+                        <img class="img-responsive" src="./resources/img/포르투갈.jpg">
+                    </div>
+                </div>
+            </article>
+        </div>
+        
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <article id="hungary" class="material-card hungary">
+                <h2>
+                    <span>헝가리</span>
+                    <strong>
+                        <i class="fa fa-fw fa-star"></i>
+                    </strong>
+                </h2>
+                <div class="mc-content">
+                    <div class="img-container">
+                        <img class="img-responsive" src="./resources/img/헝가리.jpg">
+                    </div>
+                </div>
+            </article>
+        </div>
+
+    
+    	<div class="col-md-3 col-sm-6 col-xs-12">
+            <article id="osterria" class="material-card osterria">
+                <h2>
+                    <span>오스트리아</span>
+                    <strong>
+                        <i class="fa fa-fw fa-star"></i>
+                    </strong>
+                </h2>
+                <div class="mc-content">
+                    <div class="img-container">
+                        <img class="img-responsive" src="./resources/img/오스트리아.jpg">
+                    </div>
+                </div>
+            </article>
+        </div>
+
+		<div class="col-md-3 col-sm-6 col-xs-12">
+			<article id="sweden" class="material-card sweden">
+				<h2>
+					<span>스웨덴</span> <strong> <i class="fa fa-fw fa-star"></i>
+					</strong>
+				</h2>
+				<div class="mc-content">
+					<div class="img-container">
+						<img class="img-responsive" src="./resources/img/스웨덴.jpg">
+					</div>
+				</div>
+			</article>
+		</div>
+		
+		<div class="col-md-3 col-sm-6 col-xs-12">
+			<article id="finland" class="material-card finland">
+				<h2>
+					<span>핀란드</span> <strong> <i class="fa fa-fw fa-star"></i>
+					</strong>
+				</h2>
+				<div class="mc-content">
+					<div class="img-container">
+						<img class="img-responsive" src="./resources/img/핀란드.jpg">
+					</div>
+				</div>
+			</article>
+		</div>
+		
+		<div class="col-md-3 col-sm-6 col-xs-12">
+			<article id="poland" class="material-card poland">
+				<h2>
+					<span>폴란드</span> <strong> <i class="fa fa-fw fa-star"></i>
+					</strong>
+				</h2>
+				<div class="mc-content">
+					<div class="img-container">
+						<img class="img-responsive" src="./resources/img/폴란드.jpg">
+					</div>
+				</div>
+			</article>
+		</div>
+
+	</div>
+    <!-- 전체 div 끝 -->
 </section>
 </form>
 
