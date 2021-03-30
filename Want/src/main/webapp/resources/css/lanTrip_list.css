@@ -5,11 +5,34 @@ body {
 	font_family: 'Song Myung', sans-serif;
 }
 
-
 .carousel-container {
-   padding: 15px;
-   margin-top : 60px;
+	background-color: #e3f0d9;
+	padding: 15px;
 }
+
+/*
+.carousel-container::before{
+        content: "";
+        opacity: 0.7;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        right: 0px;
+        bottom: 0px;
+        background-color: #000;
+}
+*/
+.carousel {
+	padding: 0 20px 0 20px;
+	text-align: center;
+}
+
+.carousel-item {
+	width: 100%;
+	height: 550px;
+}
+
+
 .carousel {
       display : block;
       margin-left : auto;
@@ -17,9 +40,11 @@ body {
       margin-top : auto;         
       width: 40%;
 }
-.carousel-inner img {
+
+.carousel-inner video {
       width: 100%;
-      height: auto;
+      height: 100%;
+      object-fit: cover;
 }
 .card-container {
     padding: 30px;
@@ -93,11 +118,6 @@ body {
 	background: #eb3746;
 }
 
-
-#write {
-	text-align: right;	
-}
-
 .card-img-top {
 	height: 10rem;
 	object-fit: cover;
@@ -112,3 +132,36 @@ svg.heart2 {
    cursor: pointer;
    color: red;
 }
+
+/*--------------------------------------------------------------
+# Sections General
+--------------------------------------------------------------*/
+section {
+	padding: 60px 0;
+}
+
+.section-bg {
+	background-color: #f1f1f1;
+}
+
+.section-title {
+	text-align: center;
+	padding-bottom: 30px;
+}
+
+.section-title h2 {
+	font-size: 32px;
+	font-weight: bold;
+	text-transform: uppercase;
+	margin-bottom: 20px;
+	padding-bottom: 0;
+	color: #80ff00;
+}
+
+.section-title p {
+	margin-bottom: 0;
+}
+
+
+
+
