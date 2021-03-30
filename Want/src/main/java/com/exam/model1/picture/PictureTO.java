@@ -25,15 +25,34 @@ public class PictureTO {
 	// 현재 사용자 id
 	private String nick;
 	
-	// 댓글 목록 
-	ArrayList<ReplyTO> replyList;
+	// 시작 게시물 번호
+	private int startRowNum;
+	// 끝 게시물 번호
+	private int endRowNum;
+	// 가져갈 게시물 갯수
+	private int rowCount;
 	
 	
-	public ArrayList<ReplyTO> getReplyList() {
-		return replyList;
+	
+	
+	
+	public int getRowCount() {
+		return rowCount;
 	}
-	public void setReplyList(ArrayList<ReplyTO> replyList) {
-		this.replyList = replyList;
+	public void setRowCount(int rowCount) {
+		this.rowCount = rowCount;
+	}
+	public int getStartRowNum() {
+		return startRowNum;
+	}
+	public void setStartRowNum(int startRowNum) {
+		this.startRowNum = startRowNum;
+	}
+	public int getEndRowNum() {
+		return endRowNum;
+	}
+	public void setEndRowNum(int endRowNum) {
+		this.endRowNum = endRowNum;
 	}
 	public String getNick() {
 		return nick;

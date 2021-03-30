@@ -33,97 +33,41 @@ public class PictureDAO {
 	}
 
 	// 로그인 전 게시판 list
-	public PictureListTO boardList(PictureListTO listTO) {
-
-		int cpage = listTO.getCpage();
-		int recordPerPage = listTO.getRecordPerPage();
-		int blockPerPage = listTO.getBlockPerPage();
+	public ArrayList<PictureTO> boardList(PictureTO to) {
 
 		// 게시물 리스트 가져오기
-		ArrayList<PictureTO> lists = (ArrayList) sqlSession.selectList("picture_list");
+		ArrayList<PictureTO> list = (ArrayList) sqlSession.selectList("picture_list", to);
 		
-		// 게시물에 해당하는 댓글목록 담기 
-//		ArrayList<ReplyTO> replyList = new ArrayList();
-//		for(int i=0; i < lists.size(); i++) {
-//			replyList = (ArrayList)sqlSession.selectList("picture_reply_list", lists.get(i));
-//			lists.get(i).setReplyList(replyList);
-//		}
-
-		listTO.setTotalRecord(lists.size());
-		listTO.setTotalPage(((listTO.getTotalRecord() - 1) / recordPerPage) + 1);
-
-		int skip = (cpage - 1) * recordPerPage;
-
-		ArrayList<PictureTO> boardLists = new ArrayList();
-		
-		int cnt = 0;
-		for (int i = skip; i < lists.size(); i++) {
-			if (cnt == recordPerPage) {
-				break;
-			}
-			if (lists.get(i) != null) {
-				PictureTO pto = lists.get(i);
-				boardLists.add(pto);
-			}
-			cnt++;
-		}
-
-		listTO.setBoardList(boardLists);
-
-		listTO.setStartBlock(((cpage - 1) / blockPerPage) * blockPerPage + 1);
-		listTO.setEndBlock(((cpage - 1) / blockPerPage) * blockPerPage + blockPerPage);
-		if (listTO.getEndBlock() >= listTO.getTotalPage()) {
-			listTO.setEndBlock(listTO.getTotalPage());
-		}
-
-		return listTO;
+		return list;
 	}
 
 	// 로그인 후 게시판 list
-	public PictureListTO boardListLogin(PictureListTO listTO, PictureTO to) {
+	public ArrayList<PictureTO> boardListLogin(PictureTO to) {
 
-		int cpage = listTO.getCpage();
-		int recordPerPage = listTO.getRecordPerPage();
-		int blockPerPage = listTO.getBlockPerPage();
-
-		// 현재 사용자 id가 담긴 uto 사용
-		ArrayList<PictureTO> lists = (ArrayList)sqlSession.selectList("picture_list_login", to);
-
-		listTO.setTotalRecord(lists.size());
-		listTO.setTotalPage(((listTO.getTotalRecord() - 1) / recordPerPage) + 1);
-
-		int skip = (cpage - 1) * recordPerPage;
-
-		ArrayList<PictureTO> boardLists = new ArrayList();
-
-		int cnt = 0;
-		for (int i = skip; i < lists.size(); i++) {
-			if (cnt == recordPerPage) {
-				break;
-			}
-			if (lists.get(i) != null) {
-				PictureTO pto = lists.get(i);
-				boardLists.add(pto);
-			}
-			cnt++;
-		}
-
-		listTO.setBoardList(boardLists);
 		
-		listTO.setStartBlock(((cpage - 1) / blockPerPage) * blockPerPage + 1);
-		listTO.setEndBlock(((cpage - 1) / blockPerPage) * blockPerPage + blockPerPage);
-		if (listTO.getEndBlock() >= listTO.getTotalPage()) {
-			listTO.setEndBlock(listTO.getTotalPage());
-		}
-
-		return listTO;
+		System.out.println("location : " + to.getLocation());
+		
+		//게시물 리스트 가져오기 - 현재사용자의 nick이 nick에 세팅된 to를 넘긴다.
+		ArrayList<PictureTO> list = (ArrayList) sqlSession.selectList("picture_list_login", to);
+				
+		return list;
+	}
+	
+	// 게시물 갯수 가져오기
+	public int PictureCount(PictureTO to) {
+		
+		// 게시물 갯수를 구한다.
+		// 검색 키워드가 들어온 경우 검색결과의 게시물갯수가 된다.
+		int result = sqlSession.selectOne("picture_count", to);
+		
+		return result;
 	}
 
 	// 베스트5 list
-	public ArrayList<PictureTO> bestList() {
+	public ArrayList<PictureTO> bestList(PictureTO to) {
 
-		ArrayList<PictureTO> bestList = (ArrayList) sqlSession.selectList("best_picture_list");
-		System.out.println(bestList);
+		ArrayList<PictureTO> bestList = (ArrayList) sqlSession.selectList("best_picture_list", to);
+		//System.out.println(bestList);
 		return bestList;
 	}
 
@@ -162,22 +106,36 @@ public class PictureDAO {
 
 	
 	// modify
-	public PictureTO boardModify(PictureTO to) {
-		PictureTO board = sqlSession.selectOne("modify", to);
+	public PictureTO pictureModify(PictureTO to) {
+		PictureTO board = sqlSession.selectOne("picture_modify", to);
 
 		return board;
 	}
 
 	// modify_ok
-	public int boardModifyOk(PictureTO to) {
+	public int pictureModifyOk(PictureTO to) {
 		int flag = 2;
-		int result = sqlSession.update("modify_ok", to);
+		int result = sqlSession.update("picture_modify_ok", to);
 		if (result == 1) {
 			flag = 0;
 		} else if (result == 0) {
 			flag = 1;
 		}
 
+		return flag;
+	}
+	
+	// delete_ok
+	public int pictureDeleteOk(String no) {
+		int flag = 2;
+		PictureTO to = new PictureTO();
+		to.setNo(no);
+		int result = sqlSession.delete("picture_delete_ok", to);
+		if (result == 1) {
+			flag = 0;
+		} else if (result == 0) {
+			flag = 1;
+		}
 		return flag;
 	}
 }

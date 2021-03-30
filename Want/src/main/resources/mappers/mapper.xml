@@ -197,6 +197,9 @@
 		where no = #{no}
 	</update>
 
+
+
+
 	<!--  =================  사진자랑하기   =================  -->
 	<!-- 사진자랑 글쓰기  -->
 	<insert id="picture_write_ok" parameterType="com.exam.model1.picture.PictureTO">
@@ -204,12 +207,55 @@
 		values(0, #{ subject }, #{ content }, #{ writer }, now(), 0, #{ location }, #{ media }, 0 ,0)
 	</insert>
 	
+	<!-- 게시물 갯수 가져오기  - 검색기능이 추가되었을 때 sql문이 바껴야한다. -->
+	<select id="picture_count" parameterType="com.exam.model1.picture.PictureTO" resultType="int">
+		select count(no) 
+		from p_board
+		<choose>
+			<!-- if문과 비슷한 구조임, subject가 둘 null이 아니라면, 제목 검색 -->
+		 	<when test="subject != null">
+		 		where (subject like CONCAT('%',#{subject},'%'))
+		 	</when>
+			<!--content가 null이 아니라면-->
+		 	<when test="content != null">
+		 		where (content like CONCAT('%',#{content},'%'))
+		 	</when>
+			<!--writer가 null이 아니라면-->
+		 	<when test="writer != null">
+		 		where (writer like CONCAT('%',#{writer},'%'))
+		 	</when>
+		 	<!--location이 null이 아니라면-->
+		 	<when test="location != null">
+		 		where (location like CONCAT('%',#{location},'%'))
+		 	</when>
+		</choose>
+	</select>
+	
 	<!-- 로그인 전 사진자랑 리스트 -->
 	<select id="picture_list" resultType="com.exam.model1.picture.PictureTO">
 		select b.no, subject, content, writer, date_format(wdate,'%Y-%m-%d') wdate, hit, location, media, reply, heart, u.profile
 		from p_board b left outer join user u
 		on b.writer = u.nick
+		<choose>
+			<!-- if문과 비슷한 구조임, subject가 둘 null이 아니라면, 제목 검색 -->
+		 	<when test="subject != null">
+		 		where (subject like CONCAT('%',#{subject},'%'))
+		 	</when>
+			<!--content가 null이 아니라면-->
+		 	<when test="content != null">
+		 		where (content like CONCAT('%',#{content},'%'))
+		 	</when>
+			<!--writer가 null이 아니라면-->
+		 	<when test="writer != null">
+		 		where (writer like CONCAT('%',#{writer},'%'))
+		 	</when>
+		 	<!--location이 null이 아니라면-->
+		 	<when test="location != null">
+		 		where (location like CONCAT('%',#{location},'%'))
+		 	</when>
+		</choose>
 		order by b.no desc
+		limit #{startRowNum}, #{rowCount}
 	</select>
 
 	<!-- 로그인 후 사진자랑 리스트 -->
@@ -220,14 +266,51 @@
 		left outer join p_favorite f
 		on #{nick} = f.userid and b.no = f.bno
 		left outer join user u
-		on b.writer = u.nick
+		on b.writer = u.nick 
+		<choose>
+			<!-- if문과 비슷한 구조임, subject가 둘 null이 아니라면, 제목 검색 -->
+		 	<when test="subject != null">
+		 		where (subject like CONCAT('%',#{subject},'%'))
+		 	</when>
+			<!--content가 null이 아니라면-->
+		 	<when test="content != null">
+		 		where (content like CONCAT('%',#{content},'%'))
+		 	</when>
+			<!--writer가 null이 아니라면-->
+		 	<when test="writer != null">
+		 		where (writer like CONCAT('%',#{writer},'%'))
+		 	</when>
+		 	<!--location이 null이 아니라면-->
+		 	<when test="location != null">
+		 		where (location like CONCAT('%',#{location},'%'))
+		 	</when>
+		</choose>
 		order by b.no desc
+		limit #{startRowNum}, #{rowCount}
 	</select>
 	
 	<!-- 사진자랑 BEST5 리스트 -->
-	<select id="best_picture_list" resultType="com.exam.model1.picture.PictureTO">
+	<select id="best_picture_list" parameterType="com.exam.model1.picture.PictureTO" resultType="com.exam.model1.picture.PictureTO">
 		select no, writer, hit, location, media, reply, heart
 		from p_board
+		<choose>
+			<!-- if문과 비슷한 구조임, subject가 둘 null이 아니라면, 제목 검색 -->
+		 	<when test="subject != null">
+		 		where (subject like CONCAT('%',#{subject},'%'))
+		 	</when>
+			<!--content가 null이 아니라면-->
+		 	<when test="content != null">
+		 		where (content like CONCAT('%',#{content},'%'))
+		 	</when>
+			<!--writer가 null이 아니라면-->
+		 	<when test="writer != null">
+		 		where (writer like CONCAT('%',#{writer},'%'))
+		 	</when>
+		 	<!--location이 null이 아니라면-->
+		 	<when test="location != null">
+		 		where (location like CONCAT('%',#{location},'%'))
+		 	</when>
+		</choose>
 		order by heart desc
 		limit 5
 	</select>
@@ -357,7 +440,29 @@
 		update p_board set reply=reply-1
 		where no=#{no}
 	</update>
+	
+	<!-- modify -->
+	<select id="picture_modify" parameterType="com.exam.model1.picture.PictureTO" resultType="com.exam.model1.picture.PictureTO">
+		select no, subject, content, writer, wdate, location, media 
+		from p_board
+		where no=#{no} 
+	</select>
+	
+	<!-- modify_ok -->
+	<update id="picture_modify_ok" parameterType="com.exam.model1.picture.PictureTO">
+		update p_board
+		set subject=#{subject}, content=#{content}, media=#{media}, location=#{location}
+		where no=#{no}
+	</update>
+	
+	<!-- delete_ok -->
+	<delete id="picture_delete_ok"  parameterType="com.exam.model1.picture.PictureTO">
+		delete from p_board 
+		where no=#{no}
+	</delete>
 
+	
+	
 
 	<!--ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ여행지정보 관련ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
 	<!--ㅡㅡㅡㅡㅡㅡ 쇼핑관련 ㅡㅡㅡㅡㅡㅡ -->
