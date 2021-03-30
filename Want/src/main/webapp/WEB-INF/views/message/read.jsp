@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <script type="text/javascript">
-	var ws = new WebSocket("ws://localhost:8081/replyEcho");
+	var ws = new WebSocket("ws://localhost:8080/replyEcho");
 	//var ws = new WebSocket("ws://localhost:8080/replyEcho?bno=1234");
 	
 	// 커넥션이 연결 됐을 때 실행
