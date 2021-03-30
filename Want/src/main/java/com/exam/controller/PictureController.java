@@ -112,7 +112,7 @@ public class PictureController {
 	    MultipartRequest multi = null;
 		
 	    try {
-	    	String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\picture";
+	    	String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\picture";
 
 			multi = new MultipartRequest(request, uploadPath, maxFileSize, encType, new DefaultFileRenamePolicy());
 			
