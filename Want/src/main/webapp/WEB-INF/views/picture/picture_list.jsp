@@ -411,6 +411,7 @@
 		let documentHeight=$(document).height();
 		//바닥까지 스크롤 되었는 지 여부를 알아낸다.
 		let isBottom=scrollTop+windowHeight + 10 >= documentHeight;
+		
 		if(isBottom){
 			//만일 현재 마지막 페이지라면
 			if(currentPage == ${totalPageCount } || isLoading){

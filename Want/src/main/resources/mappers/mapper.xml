@@ -148,6 +148,14 @@
 		where no=#{no}
 	</update>
 	
+	<!-- 랜선여행 BEST5 리스트 -->
+	<select id="best_lantrip_list" resultType="com.exam.model1.lantrip.LanTripTO">
+		select no, writer, hit, location, video, reply, heart
+		from l_board
+		order by heart desc
+		limit 5
+	</select>
+	
 	
 	<!-- ================  랜선여행 신청하기  =================  -->
 	<!-- LanTripApplyList -->
@@ -554,13 +562,13 @@
 		select no, bno, writer, content, wdate, grp, grps, grpl
 		from s_reply
 		where bno = #{bno}
-		order by grp asc, grps asc
+		order by grp asc, grps desc
 	</select>
 	
 	<!-- 쇼핑 comment write ok -->
 	<insert id="shopViewCommentOk" parameterType="com.exam.model1.shoppingComment.ShoppingCommentTO">
 		insert into s_reply
-		values( 0, #{bno}, #{writer}, #{content}, now(), 0, 0, 0 )
+		values( 0, #{bno}, #{writer}, #{content}, now(), 0, 999, 0 )
 	</insert>
 	
 	
@@ -585,11 +593,11 @@
 		where no = #{ no }	
 	</select>
 	
-	<!-- 쇼핑 reply 부모 grp와 같고 grps보다 큰 답글들 grps 1씩 증가시키는 sql -->
+	<!-- 쇼핑 reply 부모 grp와 같고 부모 grpl(0)보다 큰 답글들 grps 1씩 증가시키는 sql -->
 	<update id="shopUpdateGrps" parameterType="com.exam.model1.shoppingComment.ShoppingCommentTO">
 		update s_reply
 		set grps = grps + 1
-		where grp = #{ grp } and grps > #{ grps }
+		where grp = #{ grp } and grps > #{ grpl }
 	</update>
 	
 	<!-- 쇼핑 reply 답글 추가하는 sql -->
@@ -598,10 +606,16 @@
 		values (0, #{bno}, #{writer}, #{content}, now(), #{grp}, #{grps}+1, #{grpl}+1 )
 	</insert>
 	
-	<!--  쇼핑 reply_deleteOk -->
-	<delete id="shopping_reply_deleteOk" parameterType="com.exam.model1.shoppingComment.ShoppingCommentTO">
+	<!--  쇼핑 reply_deleteOk_parent -->
+	<delete id="shopping_reply_deleteOk_parent" parameterType="com.exam.model1.shoppingComment.ShoppingCommentTO">
 		delete from s_reply
 		where grp = #{ no }
+	</delete>
+	
+	<!--  쇼핑 reply_deleteOk_child -->
+	<delete id="shopping_reply_deleteOk_child" parameterType="com.exam.model1.shoppingComment.ShoppingCommentTO">
+		delete from s_reply
+		where no = #{ no }
 	</delete>
 	
 	<!--  쇼핑 reply_modifyOk -->
@@ -713,13 +727,13 @@
 		select no, bno, writer, content, wdate, grp, grps, grpl
 		from a_reply
 		where bno = #{bno}
-		order by grp asc, grps asc
+		order by grp asc, grps desc
 	</select>
 	
 	<!-- 숙소 comment write ok -->
 	<insert id="accomViewCommentOk" parameterType="com.exam.model1.accomComment.AccomCommentTO">
 		insert into a_reply
-		values( 0, #{bno}, #{writer}, #{content}, now(), 0, 0, 0 )
+		values( 0, #{bno}, #{writer}, #{content}, now(), 0, 999, 0 )
 	</insert>
 	
 	<!-- 가장 최근 no받아오기 -->
@@ -747,7 +761,7 @@
 	<update id="accomUpdateGrps" parameterType="com.exam.model1.accomComment.AccomCommentTO">
 		update a_reply
 		set grps = grps + 1
-		where grp = #{ grp } and grps > #{ grps }
+		where grp = #{ grp } and grps > #{ grpl }
 	</update>
 	
 	<!-- 숙소 reply 답글 추가하는 sql -->
@@ -756,10 +770,16 @@
 		values (0, #{bno}, #{writer}, #{content}, now(), #{grp}, #{grps}+1, #{grpl}+1 )
 	</insert>
 	
-	<!--  숙소 reply_deleteOk -->
-	<delete id="accom_reply_deleteOk" parameterType="com.exam.model1.accomComment.AccomCommentTO">
+	<!--  숙소 reply_deleteOk_parent -->
+	<delete id="accom_reply_deleteOk_parent" parameterType="com.exam.model1.accomComment.AccomCommentTO">
 		delete from a_reply
 		where grp = #{ no }
+	</delete>
+	
+	<!--  숙소 reply_deleteOk_child -->
+	<delete id="accom_reply_deleteOk_child" parameterType="com.exam.model1.accomComment.AccomCommentTO">
+		delete from a_reply
+		where no = #{ no }
 	</delete>
 	
 	<!--  숙소 reply_modifyOk -->

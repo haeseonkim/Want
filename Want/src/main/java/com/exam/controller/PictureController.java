@@ -45,6 +45,7 @@ public class PictureController {
 	@Autowired
 	private ReplyDAO replyDao;
 
+
 	// 각자 맞는 upload 폴더 경로로 변경
 	private String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\picture";
 
@@ -217,7 +218,7 @@ public class PictureController {
 				pto.setContent(keyword);
 			} else if (condition.equals("writer")) { // 작성자 검색인 경우
 				pto.setWriter(keyword);
-			} else if (condition.equals("")) {	// 위치 검색인 경우
+			} else if (condition.equals("location")) {	// 위치 검색인 경우
 				pto.setLocation(keyword);
 			} // 다른검색 조건을 추가하고 싶다면 아래 else if()를 계속 추가하면 된다.
 		}
@@ -289,6 +290,7 @@ public class PictureController {
 
 		try {
 			String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\picture";
+
 
 			multi = new MultipartRequest(request, uploadPath, maxFileSize, encType, new DefaultFileRenamePolicy());
 
