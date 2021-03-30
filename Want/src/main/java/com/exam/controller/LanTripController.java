@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.exam.model1.lantripHeart.LantripHeartDAO;
 import com.exam.model1.lantripHeart.LantripHeartTO;
+import com.exam.model1.picture.PictureTO;
 import com.exam.model1.lantrip.LanTripDAO;
 import com.exam.model1.lantrip.LanTripListTO;
 import com.exam.model1.lantrip.LanTripTO;
@@ -36,7 +37,7 @@ public class LanTripController {
    private LantripHeartDAO heartDao;
 
    // 각자 맞는 upload 폴더 경로로 변경
-   private String uploadPath = "C:\\kickic\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\lanTrip";
+   private String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\lanTrip";
 
    
 
@@ -56,8 +57,13 @@ public class LanTripController {
          listTO = dao.lanTripListLogin(listTO, to);
       }
       
-      
-      model.addAttribute( "listTO", listTO );
+   // 사진자랑 좋아요(heart)순으로 상위5개 가져오기
+   		ArrayList<LanTripTO> bestList = new ArrayList();
+   		bestList = dao.bestList();
+   		
+   		
+   		model.addAttribute( "listTO", listTO );
+   		model.addAttribute( "bestList", bestList );
       
       return "lanTrip/lanTrip_list";
    }
