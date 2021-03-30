@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
 
 import com.exam.model1.lantrip.LanTripListTO;
 import com.exam.model1.lantrip.LanTripTO;
+import com.exam.model1.picture.PictureTO;
 
 @Repository
 public class LanTripDAO {
@@ -163,4 +164,12 @@ public class LanTripDAO {
 
 		return flag;
 	}
+	// 베스트5 list
+		public ArrayList<LanTripTO> bestList() {
+
+			ArrayList<LanTripTO> bestList = (ArrayList) sqlSession.selectList("best_lantrip_list");
+			System.out.println(bestList);
+			
+			return bestList;
+		}
 }
