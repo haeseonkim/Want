@@ -414,7 +414,7 @@
 		
 		if(isBottom){
 			//만일 현재 마지막 페이지라면
-			if(currentPage == ${totalPageCount } || isLoading){
+			if(currentPage == ${totalPageCount} || isLoading){
 				return; //함수를 여기서 끝낸다.
 			}
 			//현재 로딩 중이라고 표시한다.
@@ -460,7 +460,7 @@
 	   }
 	});
 	
-	
+	// [댓글]
 	// 게시물의 댓글 목록을 불러오는 함수입니다.
 	const ReplyList = function(no) {
 		$.ajax({
@@ -543,6 +543,7 @@
 						listHtml += "		<div>";
 						listHtml += 			wdate;
 						listHtml += "		</div>";
+						// 책갈피
 						// 현재 로그인 상태이고..
 						if("${nick}" != ""){
 							
@@ -667,7 +668,7 @@
 					
 					let reply = pto.reply;
 					// 페이지, 모달창에 댓글수 갱신
-					$('#m_reply'+bno).text(reply);
+					$('#m_reply'+bno).text(reply);//
 					$('#reply'+bno).text(reply);
 					
 					console.log("답글 작성 성공");
