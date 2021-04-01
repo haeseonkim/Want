@@ -12,7 +12,6 @@ public class ShoppingTO {
 	private String reply;
 	private int wgap;
 	private String heart;
-	private String pno;
 	
 	// 현재사용자가 좋아요 누른건지 아닌지
 	private String hno;
@@ -23,12 +22,31 @@ public class ShoppingTO {
 	// 현재 사용자 id
 	private String nick;
 	
+	// 시작 게시물 번호
+	private int startRowNum;
+	// 끝 게시물 번호
+	private int endRowNum;
+	// 가져갈 게시물 갯수
+	private int rowCount;
 	
-	public String getPno() {
-		return pno;
+	
+	public int getStartRowNum() {
+		return startRowNum;
 	}
-	public void setPno(String pno) {
-		this.pno = pno;
+	public void setStartRowNum(int startRowNum) {
+		this.startRowNum = startRowNum;
+	}
+	public int getEndRowNum() {
+		return endRowNum;
+	}
+	public void setEndRowNum(int endRowNum) {
+		this.endRowNum = endRowNum;
+	}
+	public int getRowCount() {
+		return rowCount;
+	}
+	public void setRowCount(int rowCount) {
+		this.rowCount = rowCount;
 	}
 	public String getHno() {
 		return hno;

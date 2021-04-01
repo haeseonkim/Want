@@ -163,5 +163,11 @@ section {
 }
 
 
+.heart-click {
+   color: red;
+}
 
+a.heart-click:hover {
+   color: red;
+}
 

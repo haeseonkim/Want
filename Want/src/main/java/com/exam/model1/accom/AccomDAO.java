@@ -27,101 +27,30 @@ public class AccomDAO {
 	}
 	
 	//로그인 아닐 때 숙소 list
-	public AccomListTO accomList(AccomListTO listTO) {
-		ArrayList<AccomTO> totalLists = (ArrayList)sqlSession.selectList( "accomList", listTO );
-		
-		// 페이지를 위한 기본 요소
-		int cpage = listTO.getCpage();
-		int recordPerPage = listTO.getRecordPerPage(); // 한페이지에 보이는 글의 개수 5개
-		int BlockPerPage = listTO.getBlockPerPage(); // 한 화면에 보일 페이지의 수 3개
+	public ArrayList<AccomTO> accomList(AccomTO to) {
 
-		// 총 글의 개수 얻기
-		listTO.setTotalRecord( totalLists.size() );
+		ArrayList<AccomTO> list = (ArrayList)sqlSession.selectList( "accomList", to );
 
-		// 총 페이지 수 얻기
-		listTO.setTotalPage(((listTO.getTotalRecord() - 1) / recordPerPage) + 1);
-		int skip = (cpage * recordPerPage) - recordPerPage;
-		
-		ArrayList<AccomTO> lists = new ArrayList<AccomTO>();
-		
-		for( int i=0; i<10; i++ ) {
-			if( skip+i != totalLists.size() ) {
-				AccomTO to = new AccomTO();
-				to.setNo( totalLists.get(skip+i).getNo() );
-				to.setSubject( totalLists.get(skip+i).getSubject() );
-				to.setWriter( totalLists.get(skip+i).getWriter() );
-				to.setPicture( totalLists.get(skip+i).getPicture() );
-				to.setWdate( totalLists.get(skip+i).getWdate() );
-				to.setHit( totalLists.get(skip+i).getHit() );
-				to.setWgap( totalLists.get(skip+i).getWgap() );
-				to.setReply( totalLists.get(skip+i).getReply() );
-				to.setHeart( totalLists.get(skip+i).getHeart() );
-				
-				lists.add(to);
-				
-			} else { break; }
-		}
-		listTO.setAccomLists( lists );
-		
-		
-		listTO.setStartBlock(((cpage - 1) / BlockPerPage) * BlockPerPage + 1);
-		listTO.setEndBlock(((cpage - 1) / BlockPerPage) * BlockPerPage + BlockPerPage);
-		if (listTO.getEndBlock() >= listTO.getTotalPage()) {
-			listTO.setEndBlock(listTO.getTotalPage());
-		}
-
-		return listTO;
+		return list;
 	}
 	
 	//로그인 후 숙소 list
-	public AccomListTO accomListLogin(AccomListTO listTO, AccomTO to) {
+	public ArrayList<AccomTO> accomListLogin(AccomTO to) {
 
-		ArrayList<AccomTO> totalLists = (ArrayList)sqlSession.selectList( "accomListLogin", to );
+		ArrayList<AccomTO> list = (ArrayList)sqlSession.selectList( "accomListLogin", to );
 		
-		// 페이지를 위한 기본 요소
-		int cpage = listTO.getCpage();
-		int recordPerPage = listTO.getRecordPerPage(); // 한페이지에 보이는 글의 개수 10개
-		int BlockPerPage = listTO.getBlockPerPage(); // 한 화면에 보일 페이지의 수 3개
-
-		// 총 글의 개수 얻기
-		listTO.setTotalRecord( totalLists.size() );
-
-		// 총 페이지 수 얻기
-		listTO.setTotalPage(((listTO.getTotalRecord() - 1) / recordPerPage) + 1);
-		int skip = (cpage * recordPerPage) - recordPerPage;
-		
-		ArrayList<AccomTO> lists = new ArrayList<AccomTO>();
-		
-		for( int i=0; i<10; i++ ) {
-			if( skip+i != totalLists.size() ) {
-				AccomTO ato = new AccomTO();
-				ato.setNo( totalLists.get(skip+i).getNo() );
-				ato.setSubject( totalLists.get(skip+i).getSubject() );
-				ato.setWriter( totalLists.get(skip+i).getWriter() );
-				ato.setPicture( totalLists.get(skip+i).getPicture() );
-				ato.setWdate( totalLists.get(skip+i).getWdate() );
-				ato.setHit( totalLists.get(skip+i).getHit() );
-				ato.setReply( totalLists.get(skip+i).getReply() );
-				ato.setHeart( totalLists.get(skip+i).getHeart() );
-				ato.setHno( totalLists.get(skip+i).getHno() );
-				ato.setFno( totalLists.get(skip+i).getFno() );
-				
-				lists.add(ato);
-				
-			} else { break; }
-		}
-		listTO.setAccomLists( lists );
-		
-		
-		listTO.setStartBlock(((cpage - 1) / BlockPerPage) * BlockPerPage + 1);
-		listTO.setEndBlock(((cpage - 1) / BlockPerPage) * BlockPerPage + BlockPerPage);
-		if (listTO.getEndBlock() >= listTO.getTotalPage()) {
-			listTO.setEndBlock(listTO.getTotalPage());
-		}
-
-		return listTO;
+		return list;
 	}
 	
+	// 게시물 갯수 가져오기
+	public int accomCount(AccomTO to) {
+		
+		// 게시물 갯수를 구한다.
+		// 검색 키워드가 들어온 경우 검색결과의 게시물갯수가 된다.
+		int result = sqlSession.selectOne("accom_count", to);
+		
+		return result;
+	}
 	
 	//로그인 아닐 때 숙소 view
 	public AccomTO accomView( AccomTO to ) {
