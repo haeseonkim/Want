@@ -13,18 +13,7 @@
 		<h1 class="logo me-auto">
 			<a href="./lanTrip_list.do">Want</a>
 		</h1>
-		<div id="writebox">
-		<c:if test="${!empty sessionScope.nick}">
-			<c:choose>
-				<c:when test="${empty sessionScope.nick}">
-					<button type="button" class="btn btn--radius-2 btn--blue-2 btn-md" onclick="javascript:alert('로그인을 하셔야합니다.')">등록하기</button>
-				</c:when>
-				<c:otherwise>
-					<button type="button" class="btn btn--radius-2 btn--blue-2 btn-md" onclick="location.href='./lanTrip_write.do?cpage=<%=cpage%>'">등록하기</button>	
-				</c:otherwise>
-			</c:choose>
-			</c:if>
-		</div>
+
 		
 		<!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
