@@ -21,39 +21,33 @@ public class ShopHeartDAO {
 	
 	//========== 여행지관련 ==========
 	//쇼핑
-	public int shopSaveHeart(ShopHeartTO to) {
+	public ShoppingTO shopSaveHeart(ShopHeartTO to) {
 		// s_board 테이블에 해당 게시물의 heart수를 +1 하기위한 to세팅
 		ShoppingTO sto = new ShoppingTO();
 		sto.setNo(to.getBno());
 		sqlSession.update("shop_heart_up", sto);
 		
 		// s_heart 테이블에 추가
-		int flag = 1;
-
 		int result = sqlSession.insert("shop_heart_save", to);
-	// 랜선여행 좋아
 		if (result == 1) {
-			flag = 0;
+			sto = sqlSession.selectOne( "shopHeartCount", sto );
 		}
-		return flag;
+		return sto;
 	}
 
 
-	public int shopRemoveHeart(ShopHeartTO to) {
+	public ShoppingTO shopRemoveHeart(ShopHeartTO to) {
 		// s_board 테이블에 해당 게시물의 heart수를 -1 하기위한 to세팅
-		PictureTO sto = new PictureTO();
+		ShoppingTO sto = new ShoppingTO();
 		sto.setNo(to.getBno());
 		sqlSession.update("shop_heart_down", sto);
 		
 		// s_heart 테이블에서 삭제
-		int flag = 1;
-
 		int result = sqlSession.delete("shop_heart_remove", to);
-		
 		if (result == 1) {
-			flag = 0;
+			sto = sqlSession.selectOne( "shopHeartCount", sto );
 		}
-		return flag;
+		return sto;
 	}
 	
 

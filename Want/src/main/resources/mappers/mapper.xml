@@ -73,10 +73,57 @@
 
 
 	<!-- ================  랜선여행 하기  ================= -->
-	<!--Lantriplist -->
+	
+
+	<!-- 게시물 갯수 가져오기  - 검색기능이 추가되었을 때 sql문이 바껴야한다. -->
+	<select id="lantrip_count" parameterType="com.exam.model1.lantrip.LanTripTO" resultType="int">
+		select count(no) 
+		from l_board
+		<choose>
+			<!-- if문과 비슷한 구조임, subject가 둘 null이 아니라면, 제목 검색 -->
+		 	<when test="subject != null">
+		 		where (subject like CONCAT('%',#{subject},'%'))
+		 	</when>
+			<!--content가 null이 아니라면-->
+		 	<when test="content != null">
+		 		where (content like CONCAT('%',#{content},'%'))
+		 	</when>
+			<!--writer가 null이 아니라면-->
+		 	<when test="writer != null">
+		 		where (writer like CONCAT('%',#{writer},'%'))
+		 	</when>
+		 	<!--location이 null이 아니라면-->
+		 	<when test="location != null">
+		 		where (location like CONCAT('%',#{location},'%'))
+		 	</when>
+		</choose>
+	</select>
+	
+	<!--로그인 전 Lantriplist -->
 	<select id="lanTripList" resultType="com.exam.model1.lantrip.LanTripTO">
 		select no, subject, writer, date_format(wdate, '%Y-%m-%d') wdate, hit, location, video, reply, heart
-		from l_board
+		from l_board b left outer join user u
+		on b.writer = u.nick
+		<choose>
+			<!-- if문과 비슷한 구조임, subject가 둘 null이 아니라면, 제목 검색 -->
+		 	<when test="subject != null">
+		 		where (subject like CONCAT('%',#{subject},'%'))
+		 	</when>
+			<!--content가 null이 아니라면-->
+		 	<when test="content != null">
+		 		where (content like CONCAT('%',#{content},'%'))
+		 	</when>
+			<!--writer가 null이 아니라면-->
+		 	<when test="writer != null">
+		 		where (writer like CONCAT('%',#{writer},'%'))
+		 	</when>
+		 	<!--location이 null이 아니라면-->
+		 	<when test="location != null">
+		 		where (location like CONCAT('%',#{location},'%'))
+		 	</when>
+		</choose>
+		order by b.no desc
+		limit #{startRowNum}, #{rowCount}
 	</select>
 	
 	<!-- 로그인 후 lanTrip 리스트 -->
@@ -86,7 +133,28 @@
 		on #{nick} = h.userid and b.no = h.bno
 		left outer join l_favorite f
 		on #{nick} = f.userid and b.no = f.bno
+		left outer join user u
+		on b.writer = u.nick 
+		<choose>
+			<!-- if문과 비슷한 구조임, subject가 둘 null이 아니라면, 제목 검색 -->
+		 	<when test="subject != null">
+		 		where (subject like CONCAT('%',#{subject},'%'))
+		 	</when>
+			<!--content가 null이 아니라면-->
+		 	<when test="content != null">
+		 		where (content like CONCAT('%',#{content},'%'))
+		 	</when>
+			<!--writer가 null이 아니라면-->
+		 	<when test="writer != null">
+		 		where (writer like CONCAT('%',#{writer},'%'))
+		 	</when>
+		 	<!--location이 null이 아니라면-->
+		 	<when test="location != null">
+		 		where (location like CONCAT('%',#{location},'%'))
+		 	</when>
+		</choose>
 		order by b.no desc
+		limit #{startRowNum}, #{rowCount}
 	</select>
 
 	<!-- lanTrip write_ok -->
@@ -107,6 +175,84 @@
 		where no=#{no}
 	</update>
 	
+		<!-- 랜선여행 view reply 수 불러오기 -->
+	<update id="lanViewReply" parameterType="com.exam.model1.lantrip.LanTripTO">
+		update l_board
+		set reply = ( select count(*) 
+				from l_reply
+				where bno = #{no} )
+		where no = #{no}
+	</update>
+
+	<!-- 랜선여행 reply list -->
+	<select id="lantripReplyList" parameterType="com.exam.model1.lantripReply.LanTripReplyTO"
+		resultType="com.exam.model1.lantripReply.LanTripReplyTO">
+		select no, bno, writer, content, wdate, grp, grps, grpl, u.profile
+		from l_reply r inner join user u
+		on r.writer = u.nick
+		where bno = #{bno}
+		order by grp asc, grps desc, grpl asc
+	</select>
+	
+	<!-- 랜선여행 comment write ok -->
+	<insert id="lanTripReplyOk" parameterType="com.exam.model1.lantripReply.LanTripReplyTO">
+		insert into l_reply
+		values( 0, #{bno}, #{writer}, #{content}, now(), 0, 999, 0 )
+	</insert>
+
+	<!-- 가장 최근 no받아오기 -->
+	<select id="lan_noSelect" resultType="String">
+		select max(no)
+		from l_reply
+	</select>
+	
+	<!-- 가장 최근에 추가된 no를 grp로 설정 -->
+	<update id="lan_grpUpdate" parameterType="com.exam.model1.lantripReply.LanTripReplyTO">
+		update l_reply
+		set grp = #{ grp }
+		where no = #{ no }
+	</update>
+
+	<!-- lanTrip reply 부모 grp, grps, grpl가져오는 sql -->
+	<select id="lanParentSelect" parameterType="com.exam.model1.lantripReply.LanTripReplyTO" 
+		resultType="com.exam.model1.lantripReply.LanTripReplyTO">
+		select grp, grps, grpl
+		from l_reply
+		where no = #{ no }	
+	</select>
+	
+	<!-- lanTrip reply 부모 grp와 같고 부모 grpl(0)보다 큰 답글들 grps 1씩 증가시키는 sql -->
+	<update id="lanUpdateGrps" parameterType="com.exam.model1.lantripReply.LanTripReplyTO">
+		update l_reply
+		set grps = grps + 1
+		where grp = #{ grp } and grps > #{ grpl }
+	</update>
+	
+	<!-- lanTrip reply 답글 추가하는 sql -->
+	<insert id="lanRereplyInsertOk" parameterType="com.exam.model1.lantripReply.LanTripReplyTO">
+		insert into l_reply
+		values (0, #{bno}, #{writer}, #{content}, now(), #{grp}, #{grps}+1, #{grpl}+1 )
+	</insert>
+	
+	<!--  lanTrip reply_deleteOk_parent -->
+	<delete id="lanTrip_reply_deleteOk_parent" parameterType="com.exam.model1.lantripReply.LanTripReplyTO">
+		delete from l_reply
+		where grp = #{ no }
+	</delete>
+	
+	<!--  lanTrip reply_deleteOk_child -->
+	<delete id="lanTrip_reply_deleteOk_child" parameterType="com.exam.model1.lantripReply.LanTripReplyTO">
+		delete from l_reply
+		where no = #{ no }
+	</delete>
+	
+	<!--  lanTrip reply_modifyOk -->
+	<update id="lanTrip_reply_modifyOk" parameterType="com.exam.model1.lantripReply.LanTripReplyTO">
+		update l_reply
+		set content = #{ content } 
+		where no = #{ no }
+	</update>
+
 	<!-- lanTrip delete_ok -->
 	<delete id="lanTrip_delete_ok" parameterType="com.exam.model1.lantrip.LanTripTO">
 		delete from l_board
@@ -148,14 +294,49 @@
 		where no=#{no}
 	</update>
 	
+	<!-- 좋아요 개수 가져오는 sql -->
+	<select id="lanTripHeartCount" parameterType="com.exam.model1.lantrip.LanTripTO" resultType="com.exam.model1.lantrip.LanTripTO">
+		select heart
+		from l_board
+		where no = #{ no }
+	</select>
+	
 	<!-- 랜선여행 BEST5 리스트 -->
 	<select id="best_lantrip_list" resultType="com.exam.model1.lantrip.LanTripTO">
 		select no, writer, hit, location, video, reply, heart
 		from l_board
+		<choose>
+			<!-- if문과 비슷한 구조임, subject가 둘 null이 아니라면, 제목 검색 -->
+		 	<when test="subject != null">
+		 		where (subject like CONCAT('%',#{subject},'%'))
+		 	</when>
+			<!--content가 null이 아니라면-->
+		 	<when test="content != null">
+		 		where (content like CONCAT('%',#{content},'%'))
+		 	</when>
+			<!--writer가 null이 아니라면-->
+		 	<when test="writer != null">
+		 		where (writer like CONCAT('%',#{writer},'%'))
+		 	</when>
+		 	<!--location이 null이 아니라면-->
+		 	<when test="location != null">
+		 		where (location like CONCAT('%',#{location},'%'))
+		 	</when>
+		</choose>
 		order by heart desc
 		limit 5
 	</select>
 	
+	<select id="favoriteList" parameterType="com.exam.model1.lantrip.LanTripTO" resultType="com.exam.model1.lantrip.LanTripTO">
+		select b.no, b.subject, b.writer, date_format(b.wdate, '%Y-%m-%d') wdate, b.hit, b.location, b.video, b.reply, b.heart, h.hno, u.profile
+		from l_board b inner join l_heart h
+		on b.no = h.bno
+		inner join user u
+		on b.writer = u.nick
+		where h.userid like #{ nick }
+		order by b.no desc
+		limit #{startRowNum}, #{endRowNum}
+	</select>
 	
 	<!-- ================  랜선여행 신청하기  =================  -->
 	<!-- LanTripApplyList -->
@@ -204,7 +385,90 @@
 		set subject = #{subject}, content = #{content}, location = #{location}, picture = #{picture}
 		where no = #{no}
 	</update>
-
+	
+	<!-- 댓글 테이블의 마지막 auto_increment 값을 가져옴 -->
+	<select id="la_reply_max_no" resultType="int">
+		select ifnull(max(no),0) from la_reply
+	</select>
+	
+	<!-- 댓글 쓰기 -->
+	<insert id="la_reply_write" parameterType="com.exam.model1.lantripApplyReply.LaReplyTO">
+		insert into la_reply
+		values(0, #{bno}, #{grp}, 0, 0, #{writer}, #{content}, now())
+	</insert>
+	
+	<!-- 모댓글일경우 no, grp 일치하게 함 -->
+	<update id="la_reply_check" parameterType="com.exam.model1.lantripApplyReply.LaReplyTO">
+		update la_reply set grp=#{grp}
+		where no != grp
+	</update>
+	
+	<!-- 모댓글이 삭제된 댓글일때 그에 딸린 답글들이 모두삭제되면 테이블에서 완전히 삭제한다 -->
+	<delete id="la_reply_delete_after_rereply_delete" parameterType="com.exam.model1.lantripApplyReply.LaReplyTO">
+		delete from la_reply
+		where content="" and grp=#{grp}
+	</delete>
+	
+	<!-- 답글 쓰기 -->
+	<insert id="la_rereply_write" parameterType="com.exam.model1.lantripApplyReply.LaReplyTO">
+		insert into la_reply
+		values(0, #{bno}, #{grp}, 0, #{grpl}, #{writer}, #{content}, now())
+	</insert>
+	
+	<!-- p_board에 댓글수 증가 -->
+	<update id="la_reply_up" parameterType="com.exam.model1.lantripApply.LanTripApplyTO">
+		update la_board set reply=reply+1 
+		where no=#{no}
+	</update>
+	
+	<!-- 댓글 리스트 가져오기 -->
+	<select id="la_replyList" parameterType="com.exam.model1.lantripApplyReply.LaReplyTO" resultType="com.exam.model1.lantripApplyReply.LaReplyTO">
+		select r.no, r.bno, r.grp, r.grpl, r.writer, r.content, date_format(wdate,'%Y-%m-%d') wdate, datediff(now(), wdate) wgap , u.profile
+		from la_reply r left outer join user u
+		on r.writer = u.nick
+		where r.bno = #{bno}
+		order by grp asc, grps desc
+	</select>
+	
+	
+	<!-- 댓글 추가/삭제시 댓글 갯수 가져오기 -->
+	<select id="la_reply_count" parameterType="com.exam.model1.lantripApply.LanTripApplyTO" resultType="com.exam.model1.lantripApply.LanTripApplyTO">
+		select reply 
+		from la_board
+		where no=#{no}
+	</select>
+	
+	<!-- 모댓글의 답글수를 카운트 -->
+	<select id="la_count_rereply" parameterType="com.exam.model1.lantripApplyReply.LaReplyTO" resultType="int">
+		select count(no)
+		from la_reply
+		where no != #{no} and grp = #{no}
+	</select>
+	
+	<!-- 답글수를 카운트 -->
+	<select id="la_count_rereply_fromrereply" parameterType="com.exam.model1.lantripApplyReply.LaReplyTO" resultType="int">
+		select count(no)
+		from la_reply
+		where no != #{grp} and grp = #{grp}
+	</select>
+	
+	<!-- 모댓글 삭제 - 답글 없음 -->
+	<delete id="la_reply_delete" parameterType="com.exam.model1.lantripApplyReply.LaReplyTO">
+		delete from la_reply
+		where no=#{no}
+	</delete>
+	
+	<!-- 모댓글 삭제 - 답글 있음 -->
+	<update id="la_reply_not_delete" parameterType="com.exam.model1.lantripApplyReply.LaReplyTO">
+		update la_reply set content=""
+		where no=#{no}
+	</update>
+	
+	<!-- p_board에 댓글수 감소 -->
+	<update id="la_reply_down" parameterType="com.exam.model1.lantripApplyReply.LaReplyTO">
+		update la_board set reply=reply-1
+		where no=#{no}
+	</update>
 
 
 
@@ -376,6 +640,7 @@
 		insert into p_reply
 		values(0, #{bno}, #{grp}, 0, 0, #{writer}, #{content}, now())
 	</insert>
+	
 	<!-- 모댓글일경우 no, grp 일치하게 함 -->
 	<update id="picture_reply_check" parameterType="com.exam.model1.pictureReply.ReplyTO">
 		update p_reply set grp=#{grp}
@@ -483,22 +748,77 @@
 	<!--로그인 전 쇼핑 list -->
 	<select id="shopList" parameterType="com.exam.model1.shopping.ShoppingTO"
 		resultType="com.exam.model1.shopping.ShoppingTO">
-		select no, subject, writer, date_format(wdate, '%Y-%m-%d') wdate, hit, ifnull(picture, '') picture, reply, heart, datediff(now(), wdate) wgap
-		from s_board
+		select b.no, subject, content, writer, date_format(wdate,'%Y-%m-%d') wdate, hit, location, ifnull(picture, '') picture, reply, heart, u.profile
+		from s_board b left outer join user u
+		on b.writer = u.nick
 		where location like #{ location }
-		order by no desc
+		<choose>
+			<!-- if문과 비슷한 구조임, subject가 둘 null이 아니라면, 제목 검색 -->
+		 	<when test="subject != null">
+		 		and (subject like CONCAT('%',#{subject},'%'))
+		 	</when>
+			<!--content가 null이 아니라면-->
+		 	<when test="content != null">
+		 		and (content like CONCAT('%',#{content},'%'))
+		 	</when>
+			<!--writer가 null이 아니라면-->
+		 	<when test="writer != null">
+		 		and (writer like CONCAT('%',#{writer},'%'))
+		 	</when>
+		</choose>
+		order by b.no desc
+		limit #{startRowNum}, #{rowCount}
 	</select>
 
 	<!-- 로그인 후 쇼핑 list -->
 	<select id="shopListLogin" parameterType="com.exam.model1.shopping.ShoppingTO" resultType="com.exam.model1.shopping.ShoppingTO">
-		select b.no, b.subject, b.writer, ifnull(picture, '') picture, date_format(wdate, '%Y-%m-%d') wdate, hit, reply, heart, h.hno, f.fno, datediff(now(), wdate) wgap
+		select b.no, subject, content, writer, date_format(wdate,'%Y-%m-%d') wdate, hit, location, ifnull(picture, '') picture, reply, heart, h.hno, f.fno, u.profile
 		from s_board b left outer join s_heart h
 		on #{nick} = h.userid and b.no = h.bno
 		left outer join s_favorite f
 		on #{nick} = f.userid and b.no = f.bno
+		left outer join user u
+		on b.writer = u.nick 
 		where location like #{ location }
+		<choose>
+			<!-- if문과 비슷한 구조임, subject가 둘 null이 아니라면, 제목 검색 -->
+		 	<when test="subject != null">
+		 		and (subject like CONCAT('%',#{subject},'%'))
+		 	</when>
+			<!--content가 null이 아니라면-->
+		 	<when test="content != null">
+		 		and (content like CONCAT('%',#{content},'%'))
+		 	</when>
+			<!--writer가 null이 아니라면-->
+		 	<when test="writer != null">
+		 		and (writer like CONCAT('%',#{writer},'%'))
+		 	</when>
+		</choose>
 		order by b.no desc
+		limit #{startRowNum}, #{rowCount}
 	</select>
+	
+	<!-- 게시물 갯수 가져오기  - 검색기능이 추가되었을 때 sql문이 바껴야한다. -->
+	<select id="shop_count" parameterType="com.exam.model1.shopping.ShoppingTO" resultType="int">
+		select count(no) 
+		from s_board
+		where location like #{ location }
+		<choose>
+			<!-- if문과 비슷한 구조임, subject가 둘 null이 아니라면, 제목 검색 -->
+		 	<when test="subject != null">
+		 		and (subject like CONCAT('%',#{subject},'%'))
+		 	</when>
+			<!--content가 null이 아니라면-->
+		 	<when test="content != null">
+		 		and (content like CONCAT('%',#{content},'%'))
+		 	</when>
+			<!--writer가 null이 아니라면-->
+		 	<when test="writer != null">
+		 		and (writer like CONCAT('%',#{writer},'%'))
+		 	</when>
+		</choose>
+	</select>
+	
 
 	<!-- 쇼핑 좋아요 추가 -->
 	<insert id="shop_heart_save" parameterType="com.exam.model1.shopHeart.ShopHeartTO">
@@ -520,6 +840,13 @@
 		update s_board set heart=heart-1 
 		where no=#{no}
 	</update>
+
+	<!-- 좋아요 개수 가져오는 sql -->
+	<select id="shopHeartCount" parameterType="com.exam.model1.shopping.ShoppingTO" resultType="com.exam.model1.shopping.ShoppingTO">
+		select heart
+		from s_board
+		where no = #{ no }
+	</select>
 
 	<!-- 로그인아닐 때 쇼핑 view -->
 	<select id="shopView" parameterType="com.exam.model1.shopping.ShoppingTO" 
@@ -649,21 +976,75 @@
 	<!--로그인 전 숙소 list -->
 	<select id="accomList" parameterType="com.exam.model1.accom.AccomTO"
 		resultType="com.exam.model1.accom.AccomTO">
-		select no, subject, writer, date_format(wdate, '%Y-%m-%d') wdate, hit, ifnull(picture, '') picture, reply, heart, datediff(now(), wdate) wgap
-		from a_board
+		select b.no, subject, content, writer, date_format(wdate,'%Y-%m-%d') wdate, hit, location, ifnull(picture, '') picture, reply, heart, u.profile
+		from a_board b left outer join user u
+		on b.writer = u.nick
 		where location like #{ location }
-		order by no desc
+		<choose>
+			<!-- if문과 비슷한 구조임, subject가 둘 null이 아니라면, 제목 검색 -->
+		 	<when test="subject != null">
+		 		and (subject like CONCAT('%',#{subject},'%'))
+		 	</when>
+			<!--content가 null이 아니라면-->
+		 	<when test="content != null">
+		 		and (content like CONCAT('%',#{content},'%'))
+		 	</when>
+			<!--writer가 null이 아니라면-->
+		 	<when test="writer != null">
+		 		and (writer like CONCAT('%',#{writer},'%'))
+		 	</when>
+		</choose>
+		order by b.no desc
+		limit #{startRowNum}, #{rowCount}
 	</select>
 
 	<!-- 로그인 후 숙소 list -->
 	<select id="accomListLogin" parameterType="com.exam.model1.accom.AccomTO" resultType="com.exam.model1.accom.AccomTO">
-		select b.no, b.subject, b.writer, ifnull(picture, '') picture, date_format(wdate, '%Y-%m-%d') wdate, hit, reply, heart, h.hno, f.fno, datediff(now(), wdate) wgap
+		select b.no, subject, content, writer, date_format(wdate,'%Y-%m-%d') wdate, hit, location, ifnull(picture, '') picture, reply, heart, h.hno, f.fno, u.profile
 		from a_board b left outer join a_heart h
 		on #{nick} = h.userid and b.no = h.bno
 		left outer join a_favorite f
 		on #{nick} = f.userid and b.no = f.bno
+		left outer join user u
+		on b.writer = u.nick 
 		where location like #{ location }
+		<choose>
+			<!-- if문과 비슷한 구조임, subject가 둘 null이 아니라면, 제목 검색 -->
+		 	<when test="subject != null">
+		 		and (subject like CONCAT('%',#{subject},'%'))
+		 	</when>
+			<!--content가 null이 아니라면-->
+		 	<when test="content != null">
+		 		and (content like CONCAT('%',#{content},'%'))
+		 	</when>
+			<!--writer가 null이 아니라면-->
+		 	<when test="writer != null">
+		 		and (writer like CONCAT('%',#{writer},'%'))
+		 	</when>
+		</choose>
 		order by b.no desc
+		limit #{startRowNum}, #{rowCount}
+	</select>
+	
+	<!-- 게시물 갯수 가져오기  - 검색기능이 추가되었을 때 sql문이 바껴야한다. -->
+	<select id="accom_count" parameterType="com.exam.model1.accom.AccomTO" resultType="int">
+		select count(no) 
+		from a_board
+		where location like #{ location }
+		<choose>
+			<!-- if문과 비슷한 구조임, subject가 둘 null이 아니라면, 제목 검색 -->
+		 	<when test="subject != null">
+		 		and (subject like CONCAT('%',#{subject},'%'))
+		 	</when>
+			<!--content가 null이 아니라면-->
+		 	<when test="content != null">
+		 		and (content like CONCAT('%',#{content},'%'))
+		 	</when>
+			<!--writer가 null이 아니라면-->
+		 	<when test="writer != null">
+		 		and (writer like CONCAT('%',#{writer},'%'))
+		 	</when>
+		</choose>
 	</select>
 
 	<!-- 숙소 좋아요 추가 -->
@@ -685,6 +1066,13 @@
 		update a_board set heart=heart-1 
 		where no=#{no}
 	</update>
+	
+	<!-- 좋아요 개수 가져오는 sql -->
+	<select id="accomHeartCount" parameterType="com.exam.model1.accom.AccomTO" resultType="com.exam.model1.accom.AccomTO">
+		select heart
+		from a_board
+		where no = #{ no }
+	</select>
 
 	<!-- 로그인아닐 때 숙소 view -->
 	<select id="accomView" parameterType="com.exam.model1.accom.AccomTO" 
