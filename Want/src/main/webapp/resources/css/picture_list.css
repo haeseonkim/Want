@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
-.card-search {
-	text-align: center;
+.card-search{
+   text-align: center;
 }
 
 /*
@@ -161,11 +161,11 @@ a.open_reply_list:hover{
 }
 
 .modal-section-media {
-	padding: 0;
+   padding:  0;
 }
 
-.reply-list {
-	padding: 0px 20px 30px 20px;
+.reply-list{
+   padding: 0px 20px 30px 20px;
 }
 
 #m_media {
@@ -182,6 +182,7 @@ a.open_reply_list:hover{
 }
 
 /*사용자의 댓글 입력란 프로필 사진을 둥글게*/
+
 #write_reply_profileImage {
 	width: 40px;
 	height: 40px;

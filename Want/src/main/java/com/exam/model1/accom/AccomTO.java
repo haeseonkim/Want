@@ -13,6 +13,7 @@ public class AccomTO {
 	private String pno;
 	private int wgap;
 	private String heart;
+	
 	// 현재사용자가 좋아요 누른건지 아닌지
 	private String hno;
 	// 현재사용자가 즐겨찾기 누른건지 아닌지
@@ -22,7 +23,32 @@ public class AccomTO {
 	// 현재 사용자 id
 	private String nick;
 	
+	// 시작 게시물 번호
+	private int startRowNum;
+	// 끝 게시물 번호
+	private int endRowNum;
+	// 가져갈 게시물 갯수
+	private int rowCount;
 	
+	
+	public int getStartRowNum() {
+		return startRowNum;
+	}
+	public void setStartRowNum(int startRowNum) {
+		this.startRowNum = startRowNum;
+	}
+	public int getEndRowNum() {
+		return endRowNum;
+	}
+	public void setEndRowNum(int endRowNum) {
+		this.endRowNum = endRowNum;
+	}
+	public int getRowCount() {
+		return rowCount;
+	}
+	public void setRowCount(int rowCount) {
+		this.rowCount = rowCount;
+	}
 	public String getPno() {
 		return pno;
 	}

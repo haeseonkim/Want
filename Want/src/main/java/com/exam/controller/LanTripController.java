@@ -554,7 +554,7 @@ public class LanTripController {
    // 빈하트 클릭시 하트 저장
    @ResponseBody
    @RequestMapping(value = "/lanTrip_saveHeart.do")
-   public int save_heart(@RequestParam String no, HttpSession session) {
+   public LanTripTO save_heart(@RequestParam String no, HttpSession session) {
       
       LantripHeartTO to = new LantripHeartTO();
       
@@ -564,15 +564,17 @@ public class LanTripController {
       // 좋아요 누른 사람 nick을 userid로 세팅
       to.setUserid((String)session.getAttribute("nick"));
       
-      int flag = heartDao.lanTripSaveHeart(to);
+
+      LanTripTO lto = heartDao.lanTripSaveHeart(to);
+      
    
-      return flag;
+      return lto;
    }
    
    // 꽉찬하트 클릭시 하트 해제
    @ResponseBody
    @RequestMapping(value = "/lanTrip_removeHeart.do")
-   public int remove_heart(@RequestParam String no, HttpSession session) {
+   public LanTripTO remove_heart(@RequestParam String no, HttpSession session) {
       LantripHeartTO to = new LantripHeartTO();
       
       // 게시물 번호 세팅
@@ -581,9 +583,9 @@ public class LanTripController {
       // 좋아요 누른 사람 nick을 userid로 세팅
       to.setUserid((String)session.getAttribute("nick"));
       
-      int flag = heartDao.lanTripRemoveHeart(to);
+      LanTripTO lto = heartDao.lanTripRemoveHeart(to);
    
-      return flag;
+      return lto;
    }
    
 }

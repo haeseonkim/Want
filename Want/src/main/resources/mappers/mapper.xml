@@ -74,6 +74,7 @@
 
 	<!-- ================  랜선여행 하기  ================= -->
 	
+
 	<!-- 게시물 갯수 가져오기  - 검색기능이 추가되었을 때 sql문이 바껴야한다. -->
 	<select id="lantrip_count" parameterType="com.exam.model1.lantrip.LanTripTO" resultType="int">
 		select count(no) 
@@ -293,6 +294,13 @@
 		where no=#{no}
 	</update>
 	
+	<!-- 좋아요 개수 가져오는 sql -->
+	<select id="lanTripHeartCount" parameterType="com.exam.model1.lantrip.LanTripTO" resultType="com.exam.model1.lantrip.LanTripTO">
+		select heart
+		from l_board
+		where no = #{ no }
+	</select>
+	
 	<!-- 랜선여행 BEST5 리스트 -->
 	<select id="best_lantrip_list" resultType="com.exam.model1.lantrip.LanTripTO">
 		select no, writer, hit, location, video, reply, heart
@@ -317,6 +325,17 @@
 		</choose>
 		order by heart desc
 		limit 5
+	</select>
+	
+	<select id="favoriteList" parameterType="com.exam.model1.lantrip.LanTripTO" resultType="com.exam.model1.lantrip.LanTripTO">
+		select b.no, b.subject, b.writer, date_format(b.wdate, '%Y-%m-%d') wdate, b.hit, b.location, b.video, b.reply, b.heart, h.hno, u.profile
+		from l_board b inner join l_heart h
+		on b.no = h.bno
+		inner join user u
+		on b.writer = u.nick
+		where h.userid like #{ nick }
+		order by b.no desc
+		limit #{startRowNum}, #{endRowNum}
 	</select>
 	
 	<!-- ================  랜선여행 신청하기  =================  -->
@@ -729,22 +748,77 @@
 	<!--로그인 전 쇼핑 list -->
 	<select id="shopList" parameterType="com.exam.model1.shopping.ShoppingTO"
 		resultType="com.exam.model1.shopping.ShoppingTO">
-		select no, subject, writer, date_format(wdate, '%Y-%m-%d') wdate, hit, ifnull(picture, '') picture, reply, heart, datediff(now(), wdate) wgap
-		from s_board
+		select b.no, subject, content, writer, date_format(wdate,'%Y-%m-%d') wdate, hit, location, ifnull(picture, '') picture, reply, heart, u.profile
+		from s_board b left outer join user u
+		on b.writer = u.nick
 		where location like #{ location }
-		order by no desc
+		<choose>
+			<!-- if문과 비슷한 구조임, subject가 둘 null이 아니라면, 제목 검색 -->
+		 	<when test="subject != null">
+		 		and (subject like CONCAT('%',#{subject},'%'))
+		 	</when>
+			<!--content가 null이 아니라면-->
+		 	<when test="content != null">
+		 		and (content like CONCAT('%',#{content},'%'))
+		 	</when>
+			<!--writer가 null이 아니라면-->
+		 	<when test="writer != null">
+		 		and (writer like CONCAT('%',#{writer},'%'))
+		 	</when>
+		</choose>
+		order by b.no desc
+		limit #{startRowNum}, #{rowCount}
 	</select>
 
 	<!-- 로그인 후 쇼핑 list -->
 	<select id="shopListLogin" parameterType="com.exam.model1.shopping.ShoppingTO" resultType="com.exam.model1.shopping.ShoppingTO">
-		select b.no, b.subject, b.writer, ifnull(picture, '') picture, date_format(wdate, '%Y-%m-%d') wdate, hit, reply, heart, h.hno, f.fno, datediff(now(), wdate) wgap
+		select b.no, subject, content, writer, date_format(wdate,'%Y-%m-%d') wdate, hit, location, ifnull(picture, '') picture, reply, heart, h.hno, f.fno, u.profile
 		from s_board b left outer join s_heart h
 		on #{nick} = h.userid and b.no = h.bno
 		left outer join s_favorite f
 		on #{nick} = f.userid and b.no = f.bno
+		left outer join user u
+		on b.writer = u.nick 
 		where location like #{ location }
+		<choose>
+			<!-- if문과 비슷한 구조임, subject가 둘 null이 아니라면, 제목 검색 -->
+		 	<when test="subject != null">
+		 		and (subject like CONCAT('%',#{subject},'%'))
+		 	</when>
+			<!--content가 null이 아니라면-->
+		 	<when test="content != null">
+		 		and (content like CONCAT('%',#{content},'%'))
+		 	</when>
+			<!--writer가 null이 아니라면-->
+		 	<when test="writer != null">
+		 		and (writer like CONCAT('%',#{writer},'%'))
+		 	</when>
+		</choose>
 		order by b.no desc
+		limit #{startRowNum}, #{rowCount}
 	</select>
+	
+	<!-- 게시물 갯수 가져오기  - 검색기능이 추가되었을 때 sql문이 바껴야한다. -->
+	<select id="shop_count" parameterType="com.exam.model1.shopping.ShoppingTO" resultType="int">
+		select count(no) 
+		from s_board
+		where location like #{ location }
+		<choose>
+			<!-- if문과 비슷한 구조임, subject가 둘 null이 아니라면, 제목 검색 -->
+		 	<when test="subject != null">
+		 		and (subject like CONCAT('%',#{subject},'%'))
+		 	</when>
+			<!--content가 null이 아니라면-->
+		 	<when test="content != null">
+		 		and (content like CONCAT('%',#{content},'%'))
+		 	</when>
+			<!--writer가 null이 아니라면-->
+		 	<when test="writer != null">
+		 		and (writer like CONCAT('%',#{writer},'%'))
+		 	</when>
+		</choose>
+	</select>
+	
 
 	<!-- 쇼핑 좋아요 추가 -->
 	<insert id="shop_heart_save" parameterType="com.exam.model1.shopHeart.ShopHeartTO">
@@ -766,6 +840,13 @@
 		update s_board set heart=heart-1 
 		where no=#{no}
 	</update>
+
+	<!-- 좋아요 개수 가져오는 sql -->
+	<select id="shopHeartCount" parameterType="com.exam.model1.shopping.ShoppingTO" resultType="com.exam.model1.shopping.ShoppingTO">
+		select heart
+		from s_board
+		where no = #{ no }
+	</select>
 
 	<!-- 로그인아닐 때 쇼핑 view -->
 	<select id="shopView" parameterType="com.exam.model1.shopping.ShoppingTO" 
@@ -895,21 +976,75 @@
 	<!--로그인 전 숙소 list -->
 	<select id="accomList" parameterType="com.exam.model1.accom.AccomTO"
 		resultType="com.exam.model1.accom.AccomTO">
-		select no, subject, writer, date_format(wdate, '%Y-%m-%d') wdate, hit, ifnull(picture, '') picture, reply, heart, datediff(now(), wdate) wgap
-		from a_board
+		select b.no, subject, content, writer, date_format(wdate,'%Y-%m-%d') wdate, hit, location, ifnull(picture, '') picture, reply, heart, u.profile
+		from a_board b left outer join user u
+		on b.writer = u.nick
 		where location like #{ location }
-		order by no desc
+		<choose>
+			<!-- if문과 비슷한 구조임, subject가 둘 null이 아니라면, 제목 검색 -->
+		 	<when test="subject != null">
+		 		and (subject like CONCAT('%',#{subject},'%'))
+		 	</when>
+			<!--content가 null이 아니라면-->
+		 	<when test="content != null">
+		 		and (content like CONCAT('%',#{content},'%'))
+		 	</when>
+			<!--writer가 null이 아니라면-->
+		 	<when test="writer != null">
+		 		and (writer like CONCAT('%',#{writer},'%'))
+		 	</when>
+		</choose>
+		order by b.no desc
+		limit #{startRowNum}, #{rowCount}
 	</select>
 
 	<!-- 로그인 후 숙소 list -->
 	<select id="accomListLogin" parameterType="com.exam.model1.accom.AccomTO" resultType="com.exam.model1.accom.AccomTO">
-		select b.no, b.subject, b.writer, ifnull(picture, '') picture, date_format(wdate, '%Y-%m-%d') wdate, hit, reply, heart, h.hno, f.fno, datediff(now(), wdate) wgap
+		select b.no, subject, content, writer, date_format(wdate,'%Y-%m-%d') wdate, hit, location, ifnull(picture, '') picture, reply, heart, h.hno, f.fno, u.profile
 		from a_board b left outer join a_heart h
 		on #{nick} = h.userid and b.no = h.bno
 		left outer join a_favorite f
 		on #{nick} = f.userid and b.no = f.bno
+		left outer join user u
+		on b.writer = u.nick 
 		where location like #{ location }
+		<choose>
+			<!-- if문과 비슷한 구조임, subject가 둘 null이 아니라면, 제목 검색 -->
+		 	<when test="subject != null">
+		 		and (subject like CONCAT('%',#{subject},'%'))
+		 	</when>
+			<!--content가 null이 아니라면-->
+		 	<when test="content != null">
+		 		and (content like CONCAT('%',#{content},'%'))
+		 	</when>
+			<!--writer가 null이 아니라면-->
+		 	<when test="writer != null">
+		 		and (writer like CONCAT('%',#{writer},'%'))
+		 	</when>
+		</choose>
 		order by b.no desc
+		limit #{startRowNum}, #{rowCount}
+	</select>
+	
+	<!-- 게시물 갯수 가져오기  - 검색기능이 추가되었을 때 sql문이 바껴야한다. -->
+	<select id="accom_count" parameterType="com.exam.model1.accom.AccomTO" resultType="int">
+		select count(no) 
+		from a_board
+		where location like #{ location }
+		<choose>
+			<!-- if문과 비슷한 구조임, subject가 둘 null이 아니라면, 제목 검색 -->
+		 	<when test="subject != null">
+		 		and (subject like CONCAT('%',#{subject},'%'))
+		 	</when>
+			<!--content가 null이 아니라면-->
+		 	<when test="content != null">
+		 		and (content like CONCAT('%',#{content},'%'))
+		 	</when>
+			<!--writer가 null이 아니라면-->
+		 	<when test="writer != null">
+		 		and (writer like CONCAT('%',#{writer},'%'))
+		 	</when>
+		</choose>
 	</select>
 
 	<!-- 숙소 좋아요 추가 -->
@@ -931,6 +1066,13 @@
 		update a_board set heart=heart-1 
 		where no=#{no}
 	</update>
+	
+	<!-- 좋아요 개수 가져오는 sql -->
+	<select id="accomHeartCount" parameterType="com.exam.model1.accom.AccomTO" resultType="com.exam.model1.accom.AccomTO">
+		select heart
+		from a_board
+		where no = #{ no }
+	</select>
 
 	<!-- 로그인아닐 때 숙소 view -->
 	<select id="accomView" parameterType="com.exam.model1.accom.AccomTO" 

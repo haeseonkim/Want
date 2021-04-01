@@ -19,35 +19,31 @@ public class AccomHeartDAO {
 	private SqlSession sqlSession;
 	
 	//숙소
-	public int accomSaveHeart(AccomHeartTO to) {
+	public AccomTO accomSaveHeart(AccomHeartTO to) {
 		// a_board 테이블에 해당 게시물의 heart수를 +1 하기위한 to세팅
 		AccomTO ato = new AccomTO();
 		ato.setNo(to.getBno());
 		sqlSession.update("accom_heart_up", ato);
 		
 		// a_heart 테이블에 추가
-		int flag = 1;
-
 		int result = sqlSession.insert("accom_heart_save", to);
 		if (result == 1) {
-			flag = 0;
+			ato = sqlSession.selectOne( "accomHeartCount", ato );
 		}
-		return flag;
+		return ato;
 	}
 
-	public int accomRemoveHeart(AccomHeartTO to) {
+	public AccomTO accomRemoveHeart(AccomHeartTO to) {
 		// a_board 테이블에 해당 게시물의 heart수를 -1 하기위한 to세팅
 		AccomTO ato = new AccomTO();
 		ato.setNo(to.getBno());
 		sqlSession.update("accom_heart_down", ato);
 		
 		// a_heart 테이블에서 삭제
-		int flag = 1;
-
 		int result = sqlSession.delete("accom_heart_remove", to);
 		if (result == 1) {
-			flag = 0;
+			ato = sqlSession.selectOne( "accomHeartCount", ato );
 		}
-		return flag;
+		return ato;
 	}
 }
