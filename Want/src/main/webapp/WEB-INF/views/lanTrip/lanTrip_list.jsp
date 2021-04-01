@@ -7,18 +7,10 @@
 <%@ page import="java.util.ArrayList"%>
 
 <%
-	LanTripListTO listTO = (LanTripListTO) request.getAttribute("listTO");
-	String nick = (String)session.getAttribute( "nick" );	
 
-	int cpage = listTO.getCpage();
-	int recordPerPage = listTO.getRecordPerPage();
-	int totalRecord = listTO.getTotalRecord();
-	int totalPage = listTO.getTotalPage();
-	int blockPerPage = listTO.getBlockPerPage();
-	int startBlock = listTO.getStartBlock();
-	int endBlock = listTO.getEndBlock();
+	String nick = (String)session.getAttribute( "nick" );	
 	
-	ArrayList<LanTripTO> boardLists = listTO.getBoardLists();
+	ArrayList<LanTripTO> boardLists = (ArrayList)request.getAttribute("lists");
 	
 	StringBuffer sbHtml = new StringBuffer();
 	
@@ -100,6 +92,60 @@
 <link href="./resources/css/navbar.css" rel="stylesheet">
 
 <script type="text/javascript">
+
+//페이지가 처음 로딩될 때 1page를 보여주기 때문에 초기값을 1로 지정한다.
+let currentPage=1;
+//현재 페이지가 로딩중인지 여부를 저장할 변수이다.
+let isLoading=false;
+
+
+//웹브라우저의 창을 스크롤 할 때 마다 호출되는 함수 등록
+$(window).on("scroll",function(){
+	   //위로 스크롤된 길이
+	   let scrollTop=$(window).scrollTop();
+	   //웹브라우저의 창의 높이
+	   let windowHeight=$(window).height();
+	   //문서 전체의 높이
+	   let documentHeight=$(document).height();
+	   //바닥까지 스크롤 되었는 지 여부를 알아낸다.
+	   let isBottom=scrollTop+windowHeight + 10 >= documentHeight;
+	   
+	   console.log( scrollTop, windowHeight, documentHeight, isBottom );
+	   
+	   if(isBottom){
+	      //만일 현재 마지막 페이지라면
+	      if( currentPage == ${totalPageCount} || isLoading ) {
+	         return; //함수를 여기서 끝낸다.
+	      }
+	      //현재 로딩 중이라고 표시한다.
+	      isLoading=true;
+	      //로딩바를 띄우고
+	      $(".back-drop").show();
+	      //요청할 페이지 번호를 1 증가시킨다.
+	      currentPage++;
+	      //추가로 받아올 페이지를 서버에 ajax 요청을 하고
+	      $.ajax({
+	         url:"./lanTrip_ajax_page.do",
+	         method:"GET",
+	         //검색기능이 있는 경우 condition과 keyword를 함께 넘겨줘야한다. 안그러면 검색결과만 나와야하는데 다른것들이 덧붙여져 나온다.
+	         data:"pageNum="+currentPage+"&condition=${condition}&keyword=${keyword}",
+	         //ajax_page.jsp의 내용이 data로 들어온다.
+	         success:function(data){
+	            console.log(data);
+	            //응답된 문자열은 html 형식이다.(shopping/shop_ajax_page.jsp에 응답내용이 있다.)
+	            //해당 문자열을 .card-list-container  div에 html로 해석하라고 추가한다.
+	            $(".card-container").append(data);
+	            //로딩바를 숨긴다.
+	            $(".back-drop").hide();
+	            //로딩중이 아니라고 표시한다.
+	            isLoading=false;
+	         }
+	         
+	      });
+	   }; 
+});
+
+
 $(document).ready( function() {
    
    // 로그인 후 하트 추가를 위한 함수
@@ -161,12 +207,6 @@ $(document).ready( function() {
    });
 })
 
-	/* $('#carousel-container').on('slid.bs.carousel', function () { // function called when the slide is showed
-  	$('.carousel-item video').removeAttr('autoplay'); // To stop all videos
-  	$('.carousel-item.active video').attr('autoplay', 'autoplay'); // To play the current video
-	}); */
-	
-	
 
 </script>
 
@@ -174,7 +214,7 @@ $(document).ready( function() {
 <body>
 	<!-- 메뉴바 
 		 현재페이지 뭔지 param.thisPage에 넣어서 navbar.jsp에  던짐 -->
-	<jsp:include page="../include/navbar_lantrip.jsp">
+	<jsp:include page="../include/navbar.jsp">
 		<jsp:param value="lanTrip_list" name="thisPage" />
 	</jsp:include>
 
@@ -182,53 +222,101 @@ $(document).ready( function() {
 	<br />
 	<br />
 
+	<!-- best5 캐러샐 -->
+	<%-- 
+	<section id="carousel-container" class="carousel-container" style="background:url('./resources/img/slide-1.jpg');">
+	--%>
 	<section id="carousel-container" class="carousel-container" >
 		<div class="row row-carousel">
-			<div class="section-title col-md-4">
+			<div class="section-title">
 				<h2>Best5</h2>
-				<p>인기게시물을 확인하세요!</p>
 			</div>
-			<div id="carouselExampleIndicators" class="carousel slide col-md-8" data-bs-ride="carousel">
-				<div class="carousel-indicators">
-				    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-				    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-				    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-				    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
-				    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 5"></button>
-				 </div>
-				<div class="carousel-inner">
-					<c:forEach var="tmp" items="${bestList }">
-						<c:choose>
-							<c:when test="${tmp eq bestList[0] }">
-								<div class="carousel-item active">
-									<%-- <video class="d-block w-100 carousel-img" src="./upload/lanTrip/${tmp.video }"
-										alt="..." /> --%>
-									<video id="video" class="" src="./upload/lanTrip/${tmp.video }" muted autoplay loop playsinline />
-								</div>
-							</c:when>
-							<c:otherwise>
-								<div class="carousel-item">
-									<video id="video" class="" src="./upload/lanTrip/${tmp.video }" muted autoplay loop playsinline />
-<%-- 									<video class="d-block w-100 carousel-img" src="./upload/lanTrip/${tmp.video }"/> --%>
-								</div>
-							</c:otherwise>
-						</c:choose>
-					</c:forEach>
+				<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+					<div class="carousel-indicators">
+					    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+					    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+					    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+					    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
+					    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 5"></button>
+					 </div>
+					<div class="carousel-inner">
+						<c:forEach var="tmp" items="${bestList }">
+							<c:choose>
+								<c:when test="${tmp eq bestList[0] }">
+									<div class="carousel-item active">
+										<video id="video" class="" src="./upload/lanTrip/${tmp.video }" muted autoplay loop playsinline />
+									</div>
+								</c:when>
+								<c:otherwise>
+									<div class="carousel-item">
+										<video id="video" class="" src="./upload/lanTrip/${tmp.video }" muted autoplay loop playsinline />
+									</div>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+					</div>
+		
+		
+					<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"  data-bs-slide="prev">
+					    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					    <span class="visually-hidden">Previous</span>
+					  </button>
+					  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"  data-bs-slide="next">
+					    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+					    <span class="visually-hidden">Next</span>
+					  </button>
 				</div>
-	
-	
-				<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"  data-bs-slide="prev">
-				    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-				    <span class="visually-hidden">Previous</span>
-				  </button>
-				  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"  data-bs-slide="next">
-				    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-				    <span class="visually-hidden">Next</span>
-				  </button>
-			</div>
 		</div>
 	</section>
 	<!-- best5 캐러샐 끝 -->
+									
+									
+
+		<div id="card-search" class="card-search" >
+		<!-- 검색 버튼과 form -->
+		<form action="./lanTrip_list.do" method="get">
+			<div class="row justify-content-md-center" id="search">
+				<div class="form-row col-2">
+					<div class="value">
+						<select id="condition" name="condition" class="form-select">
+							<option value="subject" ${condition eq 'subject' ? 'selected' : '' }>제목</option>
+							<option value="content" ${condition eq 'content' ? 'selected' : '' }>내용</option>
+							<option value="writer" ${condition eq 'writer' ? 'selected' : '' }>작성자</option>
+							<option value="location" ${condition eq 'location' ? 'selected' : '' }>위치</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<input value="${keyword }" type="text" name="keyword" placeholder="검색어를 입력해주세요" class="form-control">
+					
+				</div>
+				<div class="col-md-1">
+					<button class="btn btn-success" type="submit">검색</button>
+				</div>
+				<div class="col-md-1">
+				<div id="writebox">
+					<c:if test="${!empty sessionScope.nick}">
+						<c:choose>
+							<c:when test="${empty sessionScope.nick}">
+								<button type="button" class="btn btn--radius-2 btn--blue-2 btn-md" onclick="javascript:alert('로그인을 하셔야합니다.')">등록하기</button>
+							</c:when>
+							<c:otherwise>
+								<button type="button" class="btn btn--radius-2 btn--blue-2 btn-md" onclick="location.href='./lanTrip_write.do'">등록하기</button>	
+							</c:otherwise>
+					</c:choose>
+					</c:if>
+				</div>
+				</div>
+			</div>
+		</form>
+	</div>
+	
+	<%-- 만일 검색 키워드가 존재한다면 몇개의 글이 검색 되었는지 알려준다. --%>
+	<c:if test="${not empty keyword }">
+		<div class="alert text-center">
+			<strong>${totalRow }</strong> 개의 자료가 검색되었습니다.
+		</div>
+	</c:if>
 
 	<%-- card --%>
 	<section id="card">

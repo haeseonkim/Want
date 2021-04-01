@@ -38,87 +38,102 @@ public class LanTripDAO {
 	}
 	
 
+
 	// list (비로그인)
-	public LanTripListTO lanTripList(LanTripListTO listTO) {
+	public ArrayList<LanTripTO> boardLists(LanTripTO to) {
 
-		int cpage = listTO.getCpage();
-		int recordPerPage = listTO.getRecordPerPage();
-		int blockPerPage = listTO.getBlockPerPage();
+//		int cpage = to.get
+//		int recordPerPage = to.getRecordPerPage();
+//		int blockPerPage = to.getBlockPerPage();
+		
+		// 게시물 리스트 가져오기
+		ArrayList<LanTripTO> lists = (ArrayList)sqlSession.selectList("lanTripList", to);
 
-		ArrayList<LanTripTO> lists = (ArrayList)sqlSession.selectList("lanTripList");
+//		listTO.setTotalRecord(lists.size());
+//		listTO.setTotalPage(((listTO.getTotalRecord() - 1) / recordPerPage) + 1);
+//
+//		int skip = (cpage - 1) * recordPerPage;
 
-		listTO.setTotalRecord(lists.size());
-		listTO.setTotalPage(((listTO.getTotalRecord() - 1) / recordPerPage) + 1);
+//		ArrayList<LanTripTO> boardLists = new ArrayList();
+//
+//		int cnt = 0;
+//		for (int i = skip; i < lists.size(); i++) {
+//			if (cnt == recordPerPage) {
+//				break;
+//			}
+//			if (lists.get(i) != null) {
+//				LanTripTO to = lists.get(i);
+//				boardLists.add(to);
+//			}
+//			cnt++;
+//		}
+//
+//		listTO.setBoardList(boardLists);
+//
+//		listTO.setStartBlock(((cpage - 1) / blockPerPage) * blockPerPage + 1);
+//		listTO.setEndBlock(((cpage - 1) / blockPerPage) * blockPerPage + blockPerPage);
+//		if (listTO.getEndBlock() >= listTO.getTotalPage()) {
+//			listTO.setEndBlock(listTO.getTotalPage());
+//		}
 
-		int skip = (cpage - 1) * recordPerPage;
-
-		ArrayList<LanTripTO> boardLists = new ArrayList();
-
-		int cnt = 0;
-		for (int i = skip; i < lists.size(); i++) {
-			if (cnt == recordPerPage) {
-				break;
-			}
-			if (lists.get(i) != null) {
-				LanTripTO to = lists.get(i);
-				boardLists.add(to);
-			}
-			cnt++;
-		}
-
-		listTO.setBoardList(boardLists);
-
-		listTO.setStartBlock(((cpage - 1) / blockPerPage) * blockPerPage + 1);
-		listTO.setEndBlock(((cpage - 1) / blockPerPage) * blockPerPage + blockPerPage);
-		if (listTO.getEndBlock() >= listTO.getTotalPage()) {
-			listTO.setEndBlock(listTO.getTotalPage());
-		}
-
-		return listTO;
+		return lists;
 	}
 
 
 	// list(로그인)
-	public LanTripListTO lanTripListLogin(LanTripListTO listTO, LanTripTO to) {
+	public ArrayList<LanTripTO> lanTripListLogin(LanTripTO to) {
 
-		int cpage = listTO.getCpage();
-		int recordPerPage = listTO.getRecordPerPage();
-		int blockPerPage = listTO.getBlockPerPage();
-
-		ArrayList<LanTripTO> lists = (ArrayList)sqlSession.selectList( "lanTrip_list_login", to );
+//		int cpage = listTO.getCpage();
+//		int recordPerPage = listTO.getRecordPerPage();
+//		int blockPerPage = listTO.getBlockPerPage();
 		
-		listTO.setTotalRecord(lists.size());
-		listTO.setTotalPage(((listTO.getTotalRecord() - 1) / recordPerPage) + 1);
+		// 게시물 리스트 가져오기
+		ArrayList<LanTripTO> lists = (ArrayList)sqlSession.selectList( "lanTrip_list_login", to );
+//		
+//		listTO.setTotalRecord(lists.size());
+//		listTO.setTotalPage(((listTO.getTotalRecord() - 1) / recordPerPage) + 1);
+//
+//		int skip = (cpage - 1) * recordPerPage;
+//
+//		ArrayList<LanTripTO> boardLists = new ArrayList();
+//
+//		int cnt = 0;
+//		for (int i = skip; i < lists.size(); i++) {
+//			if (cnt == recordPerPage) {
+//				break;
+//			}
+//			if (lists.get(i) != null) {
+//				LanTripTO to1 = lists.get(i);
+//				boardLists.add(to1);
+//			}
+//			cnt++;
+//		}
+//
+//		listTO.setBoardList(boardLists);
+//
+//		listTO.setStartBlock(((cpage - 1) / blockPerPage) * blockPerPage + 1);
+//		listTO.setEndBlock(((cpage - 1) / blockPerPage) * blockPerPage + blockPerPage);
+//		if (listTO.getEndBlock() >= listTO.getTotalPage()) {
+//			listTO.setEndBlock(listTO.getTotalPage());
+//		}
 
-		int skip = (cpage - 1) * recordPerPage;
-
-		ArrayList<LanTripTO> boardLists = new ArrayList();
-
-		int cnt = 0;
-		for (int i = skip; i < lists.size(); i++) {
-			if (cnt == recordPerPage) {
-				break;
-			}
-			if (lists.get(i) != null) {
-				LanTripTO to1 = lists.get(i);
-				boardLists.add(to1);
-			}
-			cnt++;
-		}
-
-		listTO.setBoardList(boardLists);
-
-		listTO.setStartBlock(((cpage - 1) / blockPerPage) * blockPerPage + 1);
-		listTO.setEndBlock(((cpage - 1) / blockPerPage) * blockPerPage + blockPerPage);
-		if (listTO.getEndBlock() >= listTO.getTotalPage()) {
-			listTO.setEndBlock(listTO.getTotalPage());
-		}
-
-		return listTO;
+		return lists;
 	}
+	
+	// 게시물 갯수 가져오기
+	public int LanTripCount(LanTripTO to) {
+		
+		// 게시물 갯수를 구한다.
+		// 검색 키워드가 들어온 경우 검색결과의 게시물갯수가 된다.
+		int result = sqlSession.selectOne("lantrip_count", to);
+		
+		return result;
+	}
+	
 	// view
 	public LanTripTO boardView(LanTripTO to) {
 		sqlSession.update("view_hit", to);
+		sqlSession.update("lanViewReply", to);
 		to = sqlSession.selectOne("lanTrip_view", to);
 
 		return to;
@@ -172,4 +187,8 @@ public class LanTripDAO {
 			
 			return bestList;
 		}
+
+		
+
+		
 }

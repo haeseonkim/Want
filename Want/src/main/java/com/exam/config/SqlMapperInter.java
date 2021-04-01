@@ -7,6 +7,7 @@ import com.exam.model1.accom.AccomTO;
 import com.exam.model1.accomComment.AccomCommentTO;
 import com.exam.model1.lantrip.LanTripTO;
 import com.exam.model1.lantripApply.LanTripApplyTO;
+import com.exam.model1.lantripReply.LanTripReplyTO;
 import com.exam.model1.shopping.ShoppingTO;
 import com.exam.model1.shoppingComment.ShoppingCommentTO;
 import com.exam.model1.user.UserTO;
@@ -66,6 +67,18 @@ public interface SqlMapperInter {
 	
 	//view
 	public abstract LanTripTO lanTrip_view(LanTripTO to);
+	
+	// view reply 
+	public abstract int lanViewReply(LanTripTO to);
+	
+	// view hit 수 올리기
+	public abstract int view_hit(LanTripTO to);
+	
+	// comment list
+	public abstract ArrayList<LanTripReplyTO> lantripReplyList(LanTripReplyTO to);
+	
+	// comment write ok
+	public abstract void lanTripReplyOk(LanTripReplyTO to);
 	
 	
 	//============ 여행지관련 ============

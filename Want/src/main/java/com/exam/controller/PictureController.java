@@ -47,10 +47,10 @@ public class PictureController {
 
 
 	// 각자 맞는 upload 폴더 경로로 변경
-	private String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\picture";
-//	private String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\picture";
-
-	
+   //private String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\picture";
+   private String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\picture";
+   //private String uploadPath ="/Users/hyukjun/git/Want/Want/src/main/webapp/upload/picture";
+  
 	// 사진자랑 목록
 	@RequestMapping(value = "/picture_list.do")
 	public String picture_list(HttpServletRequest request, HttpSession session) {
@@ -291,9 +291,11 @@ public class PictureController {
 		MultipartRequest multi = null;
 
 		try {
-			String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\picture";
-//			String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\picture";
-			
+      
+   //String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\picture";
+   String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\picture";
+   //String uploadPath ="/Users/hyukjun/git/Want/Want/src/main/webapp/upload/picture";
+      
 			multi = new MultipartRequest(request, uploadPath, maxFileSize, encType, new DefaultFileRenamePolicy());
 
 			PictureTO to = new PictureTO();
@@ -512,9 +514,11 @@ public class PictureController {
 		MultipartRequest multi = null;
 
 		try {
-			String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\picture";
-//			String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\picture";
-			
+      
+   //String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\picture";
+   String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\picture";
+   //String uploadPath ="/Users/hyukjun/git/Want/Want/src/main/webapp/upload/picture";
+      
 			multi = new MultipartRequest(request, uploadPath, maxFileSize, encType, new DefaultFileRenamePolicy());
 
 			PictureTO to = new PictureTO();
