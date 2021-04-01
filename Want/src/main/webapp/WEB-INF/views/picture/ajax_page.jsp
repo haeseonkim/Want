@@ -287,9 +287,3 @@
 
 </c:forEach>
 
-
-
-
-</body>
-
-</html>

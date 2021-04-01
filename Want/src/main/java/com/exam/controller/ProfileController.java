@@ -20,7 +20,7 @@ public class ProfileController {
 	
 	// 내 프로필
 	@RequestMapping(value = "/profile.do")
-	public String profile(HttpServletRequest request, Model model ) {
+	public String profile(HttpServletRequest request) {
 		try {
 			request.setCharacterEncoding("utf-8");
 			
@@ -30,6 +30,21 @@ public class ProfileController {
 		}
 		return "profile/profile";
 	}
+	
+	// 내 프로필
+	@RequestMapping(value = "/other_profile.do")
+	public String other_profile(HttpServletRequest request) {
+		try {
+			request.setCharacterEncoding("utf-8");
+			
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "profile/other_profile";
+	}
+	
+	
 	
 
 

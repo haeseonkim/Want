@@ -68,7 +68,7 @@
 		<c:choose>
 			<%--session scope에 로그인 된 아이디가 있는지 찾아본다.--%>
 			<%-- 로그인 상태가 아닐 때 --%>
-			<c:when test="${empty sessionScope.id && empty sessionScope.kakaoid}">
+			<c:when test="${empty sessionScope.nick}">
 				<a href="./loginForm.do" class="get-started-btn">로그인</a>
 				<a href="./signupForm.do" class="get-started-btn">회원가입</a>
 			</c:when>
@@ -77,6 +77,10 @@
 				<span class="navbar-text">
 					<a href="./logout.do" class="get-started-btn">로그아웃</a>
 				</span>
+				<span class="message">
+				<a href="./message_list.do"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
+  					<path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2zm13 2.383-4.758 2.855L15 11.114v-5.73zm-.034 6.878L9.271 8.82 8 9.583 6.728 8.82l-5.694 3.44A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.739zM1 11.114l4.758-2.876L1 5.383v5.73z"/>
+					</svg></a></span>
 			</c:otherwise>
 		</c:choose>
 
