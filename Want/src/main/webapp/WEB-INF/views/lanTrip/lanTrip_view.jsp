@@ -3,12 +3,14 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <%@ page import="com.exam.model1.lantrip.LanTripTO" %>
+<%@ page import="com.exam.model1.lantripReply.LanTripReplyTO" %>
 <%@ page import="com.exam.model1.lantrip.LanTripDAO" %>
 <%@ page import="java.util.ArrayList"%>
 
 <%
 	request.setCharacterEncoding( "utf-8" );
 	String cpage = request.getParameter( "cpage" );
+	String nick = (String)session.getAttribute("nick");
 	
 	LanTripTO to = (LanTripTO)request.getAttribute("to");
 	
@@ -22,7 +24,45 @@
 	String location = to.getLocation();
 	String video = to.getVideo();
 	String reply = to.getReply();
+	String heart = to.getHeart();
+	String hno = to.getHno();
 	
+	ArrayList<LanTripReplyTO> rLists = (ArrayList)request.getAttribute( "rLists" );
+	StringBuffer sbHtml = new StringBuffer();
+	
+	for( LanTripReplyTO replyTo : rLists ) {
+		sbHtml.append( "<form method='post' name='reply_content"+replyTo.getNo()+"' >" );
+		sbHtml.append( "<input type='hidden' name='no' value='"+replyTo.getNo()+"' />" );
+		sbHtml.append( "<input type='hidden' name='bno' value='"+no+"' />" );
+		sbHtml.append( "<input type='hidden' name='writer' value='"+nick+"' />" );
+		sbHtml.append( "<input type='hidden' name='cpage' value='"+cpage+"' />" );
+		sbHtml.append( "<input type='hidden' name='grp' value='"+replyTo.getGrp()+"' />" );
+		if( replyTo.getGrpl() != 0 ) {
+			sbHtml.append( "&nbsp;&nbsp;&nbsp;&nbsp;");
+		}
+		sbHtml.append( "<div class='col-1 profile_img'> ");
+		sbHtml.append( "	<img class='cmt_profile img-circle' src='./upload/profile/" + replyTo.getProfile() + "'> ");
+		sbHtml.append( "</div> ");
+		sbHtml.append( "<div class='col-10'> ");
+		sbHtml.append( "	<h6><b>" + replyTo.getWriter() + "</b></h6>");
+		sbHtml.append( "<div>" + replyTo.getContent() + "</div> ");
+		sbHtml.append( "	<div class='rereply_box'> ");
+		sbHtml.append( "		<span class='cdate'>" + replyTo.getWdate() + "</span> &nbsp;&nbsp;");
+        sbHtml.append( "		<span><button type='button' class='btn_rereply' idx='"+replyTo.getNo()+"'>답글쓰기</button></span> ");
+      	sbHtml.append( "		| ");
+       	sbHtml.append( "		<span><button type='button' class='btn_rdelete' id='reply_content"+ replyTo.getNo()+"d"+replyTo.getWriter()+"' onclick='reply_deleteOk(this.id)'>삭제</button></span> ");
+   		sbHtml.append( " 	</div> ");
+ 		sbHtml.append( "</div> ");
+		sbHtml.append( "<div class='row reply_div" + replyTo.getNo() + "' style='display: none;'> ");
+    	sbHtml.append( "		<div> ");
+    	sbHtml.append( "			<textarea style='width: 1100px' rows='3' cols='50' id='reply_content"+replyTo.getNo()+"' name='r_ccontent' placeholder='&nbsp;댓글을 입력하세요'></textarea> ");
+        sbHtml.append( "			<span><button id='reply_content" + replyTo.getNo() + "' type='button' class='btn_rereply' onclick='reply_commentOk(this.id)'>답글쓰기</button></span> ");
+		sbHtml.append( "     	</div> ");
+    	sbHtml.append( "	</div> ");
+ 		sbHtml.append( "</div> ");
+		sbHtml.append( "</div> ");
+		sbHtml.append( "</form>");
+	}
 %>
 
 <!DOCTYPE html>
@@ -37,15 +77,110 @@
 <!-- CSS File -->
 <link href="./resources/css/lanTrip_view.css?1111" rel="stylesheet">
 <link href="./resources/css/navbar.css" rel="stylesheet">
-<style type="text/css">
 
-.video {
-	display : block;
-   	text-align: center;   	
-   	margin-top : 50px;   		
-}
+<script type="text/javascript">
+$(document).ready( function() {
+	
+	//답글 달기 버튼 눌렀을 때
+	$('.btn_rereply').click( function() {
+		let re_no = $(this).attr('idx');
+		if( $('.reply_div'+re_no).attr('id') == 'h' || $('.reply_div'+re_no).attr('id') == null ) {
+			$('.reply_div'+re_no).css("display", "block")
+			$('.reply_div'+re_no).attr('id', 'b');
+		} else {
+			$('.reply_div'+re_no).css("display", "none")
+			$('.reply_div'+re_no).attr('id', 'h');
+		}
+	})
+	
+	//댓글 수정 버튼 눌렀을 때
+	$( 'svg.reply_modify' ).click( function() {
+		let re_no = $(this).attr('idx');
+		if( $( '.reply_comment'+re_no ).attr('id') == 'b' || $( '.reply_comment'+re_no ).attr('id') == null ) {
+			$( '.reply_comment'+re_no ).css( "display", "none" );
+			$( '.reply_comment'+re_no ).attr('id', 'h' );
+			$( '.reply_comment_textarea'+re_no ).css( "display", "block" );
+			$( '.reply_comment_textarea'+re_no ).attr('id', 'b' );
+		} else {
+			$( '.reply_comment'+re_no ).css( "display", "block" );
+			$( '.reply_comment'+re_no ).attr('id', 'b' );
+			$( '.reply_comment_textarea'+re_no ).css( "display", "none" );
+			$( '.reply_comment_textarea'+re_no ).attr('id', 'h' );
+		}
+	})
+	
+})
 
-</style>
+	const replyOk = function() {
+		if( document.cfrm.cwriter.value.trim() == '' ) {
+			alert( '로그인을 해주세요' );
+			return false;
+		}
+		if( document.cfrm.ccontent.value.trim() == '' ) {
+			alert( '댓글내용을 입력해주세요' );
+			return false;
+		}
+		
+		document.cfrm.submit();
+	}	
+	
+	
+	//글쓴이 일치여부 확인 후 댓글 삭제
+	const reply_deleteOk = function(clicked_id) {
+		let nick = "<%= nick %>";
+		list = clicked_id.split('d');
+		
+		let frm_id = list[0];
+		let re_writer = list[1];
+		
+		if( re_writer != nick ) {
+			alert( '글쓴이만 삭제가 가능합니다.' )
+			return false;
+		}	
+		if (confirm("해당 댓글을 삭제하시겠습니까?") == true){    //확인
+			
+			document.forms[frm_id].action = "./lanTrip_reply_deleteOk.do";
+			document.forms[frm_id].submit();
+		}else{   //취소
+		    return false;
+		}
+	}
+	
+	//글쓴이 일치여부 확인 후 댓글 수정
+	const reply_modifyOk = function(clicked_id) {
+		let nick = "<%= nick %>";
+		list = clicked_id.split('m');
+		
+		let frm_id = list[0];
+		let re_writer = list[1];
+		
+		if( re_writer != nick ) {
+			alert( '글쓴이만 수정이 가능합니다.' )
+			return false;
+		}
+		document.forms[frm_id].action = "./lanTrip_reply_modifyOk.do";
+		document.forms[frm_id].submit();
+	}
+	
+	//답글 쓰기
+	const reply_commentOk = function(clicked_id) {
+		let nick = "<%= nick %>";
+		console.log( $( '#'+clicked_id ).text() );
+		console.log( clicked_id );
+		if( nick == "null" ) {
+			alert( '로그인을 해주세요.' );
+			return false;
+		}
+		if( $('#'+clicked_id ).val() == '' ) {
+			alert( '답글 내용을 입력해주세요.' )
+			return false;
+		}
+		document.forms[clicked_id].action = "./lanTrip_rereply_ok.do";
+		document.forms[clicked_id].submit();
+	}
+	
+			
+</script>
 </head>
 <body>
 	<!-- 메뉴바 
@@ -81,28 +216,35 @@
 		</div>
 	</section>
 	
+	<!-- 댓글 -->
 	<section class="container" style="margin-top:10px;">
-	    <form id="commentForm" name="commentForm" method="post">
-	    <br/><br /><br />
-	        <div>
-	            <div>
-	                <span><strong>Comments</strong></span> 
-	                <span id="cCnt"></span>
-	            </div>
-	            <div>
-	                <table class="table">                    
-	                    <tr>
-	                        <td>
-	                            <textarea style="width: 1100px" rows="3" cols="50" id="comment" name="comment" placeholder="&nbsp;댓글을 입력하세요"></textarea>
-	                            <div id="btn_comment">
-	                                <a href='#' onClick="fn_comment('${result.code }')" class="btn btn--radius-2 btn--blue-2 btn-md">댓글등록</a>
+		    
+		    <%=sbHtml %>
+		    
+            <div class="cmt">
+               <span><strong>댓글 | <%=reply %></strong></span>
+            </div>
+            <div class="row">
+               
+            <div>
+            <form action="./lanTrip_view_reply_ok.do" method="post" name="cfrm">
+            <input type="hidden" name="cwriter" value="<%= nick %>" />
+            <input type="hidden" name="bno" value="<%=no %>" />
+	        	<table class="table">                    
+	        	    <tr>
+	                	<td>
+	            	        <textarea style="width: 1100px" rows="3" cols="50" id="comment" name="ccontent" placeholder="&nbsp;댓글을 입력하세요"></textarea>
+	                        	<div id="btn_comment">
+	                                <button type="submit" onClick="replyOk()" class="btn btn--radius-2 btn--blue-2 btn-md">댓글등록</button>
 	                            </div>
-	                        </td>
-	                    </tr>
-	                </table>
-	            </div>
+	                    </td>
+	                 </tr>
+	           	</table>
+	           	 </form>
 	        </div>
-	    </form>
+         </div>
+     
+	        
 	    <div id="btn_buttons">
 			<span>
 				<button class="btn btn--radius-2 btn-sm btn--silver"  type="button"

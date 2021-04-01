@@ -12,14 +12,40 @@ public class LanTripTO {
 	private String reply;
 	private String heart;
 	// 현재사용자가 좋아요 누른건지 아닌지
-	   private String hno;
-	   // 현재사용자가 즐겨찾기 누른건지 아닌지
-	   private String fno;
-	   // 글쓴이 프로필 사진 
-	   private String profile;
-	   // 현재 사용자 id
-	   private String nick;
-	   
+	private String hno;
+	// 현재사용자가 즐겨찾기 누른건지 아닌지
+	private String fno;
+	// 글쓴이 프로필 사진 
+	private String profile;
+	// 현재 사용자 id
+	private String nick;
+	
+	// 시작 게시물 번호
+	private int startRowNum;
+	// 끝 게시물 번호
+	private int endRowNum;
+	// 가져갈 게시물 갯수
+	private int rowCount;
+	
+	
+	public int getRowCount() {
+		return rowCount;
+	}
+	public void setRowCount(int rowCount) {
+		this.rowCount = rowCount;
+	}
+	public int getStartRowNum() {
+		return startRowNum;
+	}
+	public void setStartRowNum(int startRowNum) {
+		this.startRowNum = startRowNum;
+	}
+	public int getEndRowNum() {
+		return endRowNum;
+	}
+	public void setEndRowNum(int endRowNum) {
+		this.endRowNum = endRowNum;
+	}
 	   
 	
 	public String getHno() {

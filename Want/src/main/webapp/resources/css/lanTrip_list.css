@@ -6,7 +6,6 @@ body {
 }
 
 .carousel-container {
-	background-color: #e3f0d9;
 	padding: 15px;
 }
 
@@ -29,9 +28,8 @@ body {
 
 .carousel-item {
 	width: 100%;
-	height: 550px;
+	height: 400px;
 }
-
 
 .carousel {
       display : block;
@@ -47,9 +45,12 @@ body {
       object-fit: cover;
 }
 .card-container {
-    padding: 30px;
+    padding: 10px;
 }
 
+.card-search {
+	margin-top: 60px;
+}
 
 .btn {
 	display: inline-block;
@@ -153,9 +154,9 @@ section {
 	font-size: 32px;
 	font-weight: bold;
 	text-transform: uppercase;
-	margin-bottom: 20px;
+	margin-top: 30px;
 	padding-bottom: 0;
-	color: #80ff00;
+	color: #000000;
 }
 
 .section-title p {
