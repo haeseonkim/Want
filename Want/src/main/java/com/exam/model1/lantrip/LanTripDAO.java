@@ -120,16 +120,6 @@ public class LanTripDAO {
 		return lists;
 	}
 	
-	// 게시물 갯수 가져오기
-	public int LanTripCount(LanTripTO to) {
-		
-		// 게시물 갯수를 구한다.
-		// 검색 키워드가 들어온 경우 검색결과의 게시물갯수가 된다.
-		int result = sqlSession.selectOne("lantrip_count", to);
-		
-		return result;
-	}
-	
 	
 	// 게시물 갯수 가져오기
 	public int LanTripCount(LanTripTO to) {
