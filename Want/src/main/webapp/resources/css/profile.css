@@ -1,14 +1,125 @@
 @charset "UTF-8";
 
+
+body{
+	font_family :'Song Myung', sans-serif;
+	font-size: 12pt;
+}
+
 #profile {
 	/* background-color:black; */
-	height:450px;
 	width:100%;
-	margin:70px;
+	margin-top:8%;
+	margin-left:15%;
+}
+
+#my-feed {
+	/* background-color:black; */
+	width:100%;
+	margin-top:8%;
+	margin-left:15%;
 }
 
 #profile-img {
-	height: 450px;
-	width:40%;
+	height: 250px;
+}
+
+#profile-info {
 	
+}
+
+h1 {
+	line-height:1.5;
+}
+
+table {
+	font-size:20pt;
+}
+
+.img-circle {
+	height:350px;
+}
+
+#btns{
+	text-align:center;
+	margin-top:30px;
+}
+
+#btn-modify {
+	text-align:right;
+	margin-top:10px;
+}
+
+.btn {
+	display: inline-block;
+	line-height: 30px;	/* 수정 */
+	padding: 0 20px;	/* 수정 */
+	-webkit-transition: all 0.4s ease;
+	-o-transition: all 0.4s ease;
+	-moz-transition: all 0.4s ease;
+	transition: all 0.4s ease;
+	cursor: pointer;
+	font-size: 15px;
+	text-transform: capitalize;
+	font-weight: 700;
+	/* color: #fff; */
+	font-family: inherit;
+}
+
+.btn--radius {
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+
+.btn--radius-2 {
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+
+.btn--blue-2 {
+	/* background: #5fcf80; */
+	background: white;
+	border : solid #5fcf80 1px;
+}
+
+.btn--blue-2:hover {
+	background: #5fcf80;
+	color: #ffffff;
+}
+
+.btn--blue-1 {
+	background: #5fcf80;
+	color:white;
+}
+
+.btn--blue-1:hover {
+	background: #008040;
+	color: #ffffff;
+}
+
+
+#greeting {
+	border : solid 1px;
+	border-color: #5fcf80;
+	height : 140px;
+}
+
+#greet {
+	font-size : 20px;
+	margin-top: 5px;
+}
+
+.card {
+	width:18rem;
+	margin:12px;
+}
+
+.card-img-top {
+	margin-top: 8px;
+}
+
+#view {
+	text-align:right;
 }

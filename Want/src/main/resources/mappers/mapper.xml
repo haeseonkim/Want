@@ -366,7 +366,90 @@
 		set subject = #{subject}, content = #{content}, location = #{location}, picture = #{picture}
 		where no = #{no}
 	</update>
-
+	
+	<!-- 댓글 테이블의 마지막 auto_increment 값을 가져옴 -->
+	<select id="la_reply_max_no" resultType="int">
+		select ifnull(max(no),0) from la_reply
+	</select>
+	
+	<!-- 댓글 쓰기 -->
+	<insert id="la_reply_write" parameterType="com.exam.model1.lantripApplyReply.LaReplyTO">
+		insert into la_reply
+		values(0, #{bno}, #{grp}, 0, 0, #{writer}, #{content}, now())
+	</insert>
+	
+	<!-- 모댓글일경우 no, grp 일치하게 함 -->
+	<update id="la_reply_check" parameterType="com.exam.model1.lantripApplyReply.LaReplyTO">
+		update la_reply set grp=#{grp}
+		where no != grp
+	</update>
+	
+	<!-- 모댓글이 삭제된 댓글일때 그에 딸린 답글들이 모두삭제되면 테이블에서 완전히 삭제한다 -->
+	<delete id="la_reply_delete_after_rereply_delete" parameterType="com.exam.model1.lantripApplyReply.LaReplyTO">
+		delete from la_reply
+		where content="" and grp=#{grp}
+	</delete>
+	
+	<!-- 답글 쓰기 -->
+	<insert id="la_rereply_write" parameterType="com.exam.model1.lantripApplyReply.LaReplyTO">
+		insert into la_reply
+		values(0, #{bno}, #{grp}, 0, #{grpl}, #{writer}, #{content}, now())
+	</insert>
+	
+	<!-- p_board에 댓글수 증가 -->
+	<update id="la_reply_up" parameterType="com.exam.model1.lantripApply.LanTripApplyTO">
+		update la_board set reply=reply+1 
+		where no=#{no}
+	</update>
+	
+	<!-- 댓글 리스트 가져오기 -->
+	<select id="la_replyList" parameterType="com.exam.model1.lantripApplyReply.LaReplyTO" resultType="com.exam.model1.lantripApplyReply.LaReplyTO">
+		select r.no, r.bno, r.grp, r.grpl, r.writer, r.content, date_format(wdate,'%Y-%m-%d') wdate, datediff(now(), wdate) wgap , u.profile
+		from la_reply r left outer join user u
+		on r.writer = u.nick
+		where r.bno = #{bno}
+		order by grp asc, grps desc
+	</select>
+	
+	
+	<!-- 댓글 추가/삭제시 댓글 갯수 가져오기 -->
+	<select id="la_reply_count" parameterType="com.exam.model1.lantripApply.LanTripApplyTO" resultType="com.exam.model1.lantripApply.LanTripApplyTO">
+		select reply 
+		from la_board
+		where no=#{no}
+	</select>
+	
+	<!-- 모댓글의 답글수를 카운트 -->
+	<select id="la_count_rereply" parameterType="com.exam.model1.lantripApplyReply.LaReplyTO" resultType="int">
+		select count(no)
+		from la_reply
+		where no != #{no} and grp = #{no}
+	</select>
+	
+	<!-- 답글수를 카운트 -->
+	<select id="la_count_rereply_fromrereply" parameterType="com.exam.model1.lantripApplyReply.LaReplyTO" resultType="int">
+		select count(no)
+		from la_reply
+		where no != #{grp} and grp = #{grp}
+	</select>
+	
+	<!-- 모댓글 삭제 - 답글 없음 -->
+	<delete id="la_reply_delete" parameterType="com.exam.model1.lantripApplyReply.LaReplyTO">
+		delete from la_reply
+		where no=#{no}
+	</delete>
+	
+	<!-- 모댓글 삭제 - 답글 있음 -->
+	<update id="la_reply_not_delete" parameterType="com.exam.model1.lantripApplyReply.LaReplyTO">
+		update la_reply set content=""
+		where no=#{no}
+	</update>
+	
+	<!-- p_board에 댓글수 감소 -->
+	<update id="la_reply_down" parameterType="com.exam.model1.lantripApplyReply.LaReplyTO">
+		update la_board set reply=reply-1
+		where no=#{no}
+	</update>
 
 
 
@@ -538,6 +621,7 @@
 		insert into p_reply
 		values(0, #{bno}, #{grp}, 0, 0, #{writer}, #{content}, now())
 	</insert>
+	
 	<!-- 모댓글일경우 no, grp 일치하게 함 -->
 	<update id="picture_reply_check" parameterType="com.exam.model1.pictureReply.ReplyTO">
 		update p_reply set grp=#{grp}

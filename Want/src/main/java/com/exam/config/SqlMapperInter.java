@@ -52,7 +52,6 @@ public interface SqlMapperInter {
 	public abstract int lanTrip_apply_modify_ok(LanTripApplyTO to);
 	
 	//============ 랜선여행 ============
-	
 	// list
 	public abstract ArrayList<LanTripTO> lanTripList(LanTripTO to);
 	// wirte
