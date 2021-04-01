@@ -16,7 +16,7 @@ public class LanTripTO {
 	private String hno;
 	// 현재사용자가 즐겨찾기 누른건지 아닌지
 	private String fno;
-	// 글쓴이 프로필 사진
+
 	private String profile;
 	// 현재 사용자 id
 	private String nick;
@@ -27,8 +27,7 @@ public class LanTripTO {
 	private int endRowNum;
 	// 가져갈 게시물 갯수
 	private int rowCount;
-	  
-	
+
 	
 	public int getStartRowNum() {
 		return startRowNum;
@@ -48,6 +47,8 @@ public class LanTripTO {
 	public void setRowCount(int rowCount) {
 		this.rowCount = rowCount;
 	}
+  
+  
 	public String getHno() {
 		return hno;
 	}

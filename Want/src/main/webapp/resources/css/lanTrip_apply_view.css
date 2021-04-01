@@ -64,11 +64,11 @@ body{
 	width: calc(( 100% - 30px)/2);
 }
 
-@media ( max-width : 767px) {
+/* @media ( max-width : 767px) {
 	.col-2 {
 		width: 100%;
 	}
-}
+} */
 
 .form-row {
 	display: -webkit-box;
@@ -128,6 +128,20 @@ body{
 #modal-content{
 	height:5px;
 	background-color:white;
+}
+
+.cdate{
+	margin-top:0px;
+	line-height:1.0rem;
+	color:silver;
+}
+.rereply_box{
+	padding:0;
+	margin-top:0;
+}
+
+.rereply{
+	margin-top:10px;
 }
 /* ==========================================================================
    #BOX-SIZING
@@ -767,7 +781,7 @@ div.card-footer{
    	margin-top : 50px;   		
 }
 
- #lanTrip_apply_header {
+#lanTrip_apply_header {
 	text-align: center;
 	background-image: url("../img/header.jpg");
 	height: 200px;
@@ -775,4 +789,37 @@ div.card-footer{
 	color:white;
 	text-shadow: 1.25px 1.25px 1.25px black;
 	
+}
+.cmt{
+	margin-bottom:10px;
+	font-size:12pt;
+	margin-left:10px;
+}
+.profile_img{
+	width:60px;
+	margin-left:10px;
+}
+.cmt_profile{
+	width:45px;
+	height:45px;
+	
+}
+.btn_rereply{
+	color:#5fcf80;
+	height:10px;
+}
+.btn_rereply:hover{
+	color:#2eb82e;
+	height:10px;
+}
+.btn_rdelete{
+	color:#b32d00;
+	height:10px;
+}
+.btn_rdelete:hover{
+	color:#4d1300;
+	height:10px;
+}
+.space{
+	margin-top:30px;
 }

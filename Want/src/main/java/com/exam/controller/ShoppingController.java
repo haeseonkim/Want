@@ -47,7 +47,10 @@ public class ShoppingController {
 	private ShopHeartDAO heartDao;
 
 	// 각자 맞는 upload 폴더 경로로 변경
-	private String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\shopping";
+  
+   //private String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\shopping";
+   private String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\shopping";
+   //private String uploadPath ="/Users/hyukjun/git/Want/Want/src/main/webapp/upload/shopping";
 
 	// 쇼핑정보 write
 	@RequestMapping(value = "/shopping_write.do")
@@ -69,7 +72,11 @@ public class ShoppingController {
 
 		int maxFileSize = 1024 * 1024 * 6;
 		String encType = "utf-8";
-		String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\shopping";
+    
+   //String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\shopping";
+   String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\shopping";
+   //String uploadPath ="/Users/hyukjun/git/Want/Want/src/main/webapp/upload/shopping";
+    
 		MultipartRequest multi = null;
 
 		try {
@@ -622,7 +629,11 @@ public class ShoppingController {
 		
 		int maxFileSize = 1024 * 1024 * 6;
 		String encType = "utf-8";
-		String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\shopping";
+    
+   //String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\shopping";
+   String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\shopping";
+   //String uploadPath ="/Users/hyukjun/git/Want/Want/src/main/webapp/upload/shopping";
+    
 		MultipartRequest multi = null;
 
 		try {
