@@ -1,9 +1,9 @@
-<%@page import="java.util.ArrayList"%>
-<%@page import="com.exam.model1.with.withTO"%>
-<%@page import="com.exam.model1.with.withListTO"%>
+<%@ page import="java.util.ArrayList"%>
+<%@ page import="com.exam.model1.with.withTO"%>
+<%@ page import="com.exam.model1.with.withListTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 
 <%
@@ -28,6 +28,7 @@
 		String wdate = to.getWdate();
 		String hit = to.getHit();
 		String location = to.getLocation();
+		String reply = to.getReply();
 			
 		sbHtml.append("<tr>");
 		sbHtml.append("   <td>&nbsp;</td>");
@@ -37,6 +38,13 @@
 		sbHtml.append("	 <th>&nbsp;</th>");
 		sbHtml.append("   <td>");
 		sbHtml.append("      <a href='./with_view.do?cpage="+cpage+"&no=" + no + "'>" + subject + "</a>&nbsp;");
+		
+		if(Integer.parseInt(reply)==0){
+			sbHtml.append("");
+		} else {
+			sbHtml.append("<span style='color:#5fcf80;'>["+reply+"]</span>");
+		};
+		
 		sbHtml.append("   </td>");
 		sbHtml.append("   <td id='writer'>" + writer + "</td>");
 		sbHtml.append("   <td id='wdate'>" + wdate + "</td>");
@@ -62,9 +70,7 @@
 	<!-- 메뉴바 
 		 현재페이지 뭔지 param.thisPage에 넣어서 navbar.jsp에  던짐 -->
 	<jsp:include page="../include/navbar.jsp">
-
 		<jsp:param value="with_list" name="thisPage" />
-
 	</jsp:include>
 
 	<br />
@@ -78,14 +84,12 @@
 			<p>함께 여행할 동행을 구해보세요!</p>
 		</div>
 	</section>
-	<div class="con_txt" align="center">
+	<div class="con_txt" align="center" style="margin-top:10px;">
 		<div class="contents_sub">
 			<div class="board_top">
 				<div class="bold" align="left">
 					총 <span id="totalRecord"><%=totalRecord%></span>건
 				</div>
-			
-				
 			</div>
 
 			<!--게시판-->

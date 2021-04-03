@@ -22,7 +22,6 @@ public class LaReplyDAO {
 	public LanTripApplyTO LaWriteReply(LaReplyTO to) {
 		// p_board 테이블에 해당 게시물의 reply수를 +1 하기위한 to세팅
 		
-		System.out.println("dao");
 		LanTripApplyTO lato = new LanTripApplyTO();
 		lato.setNo(to.getBno());
 		
@@ -34,7 +33,7 @@ public class LaReplyDAO {
 		
 		// grp 세팅
 		to.setGrp(grp+1);
-		System.out.println(grp);
+		/* System.out.println(grp); */
 		
 		int result = sqlSession.insert("la_reply_write", to);
 
@@ -61,10 +60,10 @@ public class LaReplyDAO {
 		// 해당 게시물의 reply를 +1 한다.
 		sqlSession.update("la_reply_up", lato);
 		
-		// p_reply 테이블에 추가 (댓글 작성과 동일)
+		// la_reply 테이블에 추가 (댓글 작성과 동일)
 		int result = sqlSession.insert("la_rereply_write", to);
 		
-		if (result == 1) {	// p_reply 테이블에 새로운 댓글 추가가 성공한다면..
+		if (result == 1) {	// la_reply 테이블에 새로운 댓글 추가가 성공한다면..
 			// 갱신된 댓글 갯수를 가져옴
 			lato = sqlSession.selectOne("la_reply_count", lato);
 		}
@@ -96,11 +95,14 @@ public class LaReplyDAO {
 		sqlSession.update("la_reply_down", lato);
 		
 		if(count_rereply==0) {	// 답글이 없을 때 - 그냥 삭제
-			// p_reply 테이블에서 삭제
+			// la_reply 테이블에서 삭제
+			
 			result = sqlSession.delete("la_reply_delete", to);
+			
 		}else {					// 답글이 있을 때 - content에 공백을 넣음 ("삭제된 게시물입니다" 라고 표기하기 위함)
-			// p_reply 테이블에서 삭제하지 않고 content에 공백을 넣음 
+			// la_reply 테이블에서 삭제하지 않고 content에 공백을 넣음 
 			result = sqlSession.update("la_reply_not_delete", to);
+			
 		}
 		
 		if (result == 1) {	// p_reply 테이블에서 댓글삭제가 성공한다면..
@@ -119,19 +121,18 @@ public class LaReplyDAO {
 		// 해당 게시물의 reply를 -1 한다.
 		sqlSession.update("la_reply_down", lato);
 				
-		// p_reply 테이블에서 삭제
-		int result = sqlSession.delete("la_reply_delete", to);
+		// la_reply 테이블에서 삭제
+		int result = sqlSession.delete("la_rereply_delete", to);
 		
 		// grp가  일치하는 답글이 몇갠지 카운트 한다. 없고 모댓글의 content가 ""이면 모댓글을 삭제하기 위함.
 		int count_rereply = sqlSession.selectOne("la_count_rereply_fromrereply", to);
 		
-		
-		System.out.println("count_rereply = " + count_rereply);
+		/* System.out.println("count_rereply = " + count_rereply); */
 		if(count_rereply == 0) {
 			sqlSession.delete("la_reply_delete_after_rereply_delete", to);
 		}
 		
-		if (result == 1) {	// p_reply 테이블에서 댓글삭제가 성공한다면..
+		if (result == 1) {	// la_reply 테이블에서 댓글삭제가 성공한다면..
 			// 갱신된 댓글 갯수를 가져옴
 			lato = sqlSession.selectOne("la_reply_count", lato);
 		}
