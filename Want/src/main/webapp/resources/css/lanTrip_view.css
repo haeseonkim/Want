@@ -217,10 +217,10 @@ body {
    font-family: "Open Sans", "Arial", "Helvetica Neue", sans-serif;
    font-weight: 400;
    font-size: 14px;
-   line-height: 2.4;
+   /* line-height: 2.4; */
 }
 
-h1, h2, h3, h4, h5, h6 {
+/* h1, h2, h3, h4, h5, h6 {
    font-weight: 400;
 }
 
@@ -246,7 +246,7 @@ h5 {
 
 h6 {
    font-size: 13px;
-}
+} */
 
 #location{
    color:green;
@@ -422,11 +422,7 @@ h6 {
    border-radius: 3px;
 }
 
-.btn--pill {
-   -webkit-border-radius: 20px;
-   -moz-border-radius: 20px;
-   border-radius: 20px;
-}
+
 
 .btn--green {
    background: #57b846;

@@ -6,7 +6,7 @@
 <%@ page import="java.util.ArrayList"%>
 
 <%
-
+	request.setCharacterEncoding("utf-8");
 	String nick = (String)session.getAttribute( "nick" );	
 	
 	ArrayList<LanTripTO> boardLists = (ArrayList)request.getAttribute("list");

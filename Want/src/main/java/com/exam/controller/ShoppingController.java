@@ -74,8 +74,8 @@ public class ShoppingController {
 		String encType = "utf-8";
     
    //String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\shopping";
-   String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\shopping";
-   //String uploadPath ="/Users/hyukjun/git/Want/Want/src/main/webapp/upload/shopping";
+   //String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\shopping";
+   String uploadPath ="/Users/hyukjun/git/Want/Want/src/main/webapp/upload/shopping";
     
 		MultipartRequest multi = null;
 
@@ -631,8 +631,8 @@ public class ShoppingController {
 		String encType = "utf-8";
     
    //String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\shopping";
-   String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\shopping";
-   //String uploadPath ="/Users/hyukjun/git/Want/Want/src/main/webapp/upload/shopping";
+   //String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\shopping";
+   String uploadPath ="/Users/hyukjun/git/Want/Want/src/main/webapp/upload/shopping";
     
 		MultipartRequest multi = null;
 
