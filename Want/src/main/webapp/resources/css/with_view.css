@@ -3,7 +3,9 @@
 body{
 	font_family :'Song Myung', sans-serif;
 }
-
+.table{
+	font-size: 14px;
+}
 
 @charset "UTF-8";
 
@@ -120,6 +122,10 @@ body{
 	}
 }
 
+#commentForm{
+	font-size:14px;
+}
+
 #comment{
 	border:solid;
 	border-width:1px;
@@ -128,9 +134,39 @@ body{
 	width:100px;
 }
 
+.re_comment{
+	border:solid;
+	border-width:1px;
+	border-radius:.5rem;
+	border-color: grey;
+	width:86%;
+	margin-left:30px;
+	margin-bottom:10px;
+}
+
+.btn_recomment{
+	margin-left:30px;
+}
+
 #modal-content{
 	height:5px;
 	background-color:white;
+}
+
+
+.cdate{
+	margin-top:0px;
+	line-height:1.0rem;
+	color:silver;
+}
+
+.rereply_box{
+	padding:0;
+	margin-top:0;
+}
+
+.rereply{
+	margin-top:10px;
 }
 /* ==========================================================================
    #BOX-SIZING
@@ -205,8 +241,6 @@ button {
 body {
 	font-family: "Open Sans", "Arial", "Helvetica Neue", sans-serif;
 	font-weight: 400;
-	font-size: 14px;
-	line-height: 2.4;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -820,4 +854,41 @@ div.card-footer{
 	flex-direction: column;
 	text-align: center;
 	padding: 0 15px;
+}
+
+#info {
+	line-height: 2.4;
+}
+.cmt{
+	margin-bottom:10px;
+	font-size:12pt;
+	margin-left:10px;
+}
+.profile_img{
+	width:60px;
+	margin-left:10px;
+}
+.cmt_profile{
+	width:45px;
+	height:45px;
+	
+}
+.btn_rereply{
+	color:#5fcf80;
+	height:10px;
+}
+.btn_rereply:hover{
+	color:#2eb82e;
+	height:10px;
+}
+.btn_rdelete{
+	color:#b32d00;
+	height:10px;
+}
+.btn_rdelete:hover{
+	color:#4d1300;
+	height:10px;
+}
+.space{
+	margin-top:30px;
 }
