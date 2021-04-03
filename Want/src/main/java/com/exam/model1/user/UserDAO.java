@@ -263,4 +263,16 @@ public class UserDAO {
 	}
 	
 	
+	
+	// -------------------------- 프로필 정보 -----------------------------
+	
+	// 다른 사람 프로필 정보 가져오기
+	public UserTO OtherProfile(UserTO to) {
+		
+		UserTO pto = sqlSession.selectOne("otherProfile",to);
+		
+		return pto;
+	}
+	
+	
 }

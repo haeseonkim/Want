@@ -1288,6 +1288,16 @@
 		insert into message values(0, #{room}, #{send_nick}, #{recv_nick}, now(), now(), #{content}, 0);
 	</insert>
 	
+	
+	
+	
+	<!-- =============== 프로필 정보 ================= -->
+	<!-- 다른 사람 프로필 정보 가져오기 -->
+	<select id="otherProfile" parameterType="com.exam.model1.user.UserTO" resultType="com.exam.model1.user.UserTO">
+		select id, name, birth, mail, phone, nick, rdate, profile, greet
+		from user
+		where nick=#{nick}
+	</select>
 
 </mapper>
 
