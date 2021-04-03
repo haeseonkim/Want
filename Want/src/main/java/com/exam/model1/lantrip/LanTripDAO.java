@@ -190,9 +190,9 @@ public class LanTripDAO {
 		}
 		
 	//마이페이지 favorite 목록
-	public ArrayList<LanTripTO> favoriteList( LanTripTO to ) {
+	public ArrayList<LanTripTO> lantrip_favoriteList( LanTripTO to ) {
 		
-		ArrayList<LanTripTO> list = (ArrayList)sqlSession.selectList( "favoriteList", to ); 
+		ArrayList<LanTripTO> list = (ArrayList)sqlSession.selectList( "lantrip_favoriteList", to ); 
 		
 		return list;
 	}

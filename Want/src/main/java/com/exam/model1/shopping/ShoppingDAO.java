@@ -101,4 +101,12 @@ public class ShoppingDAO {
 		return flag;
 	}
 	
+	//마이페이지 즐겨찾기 쇼핑게시판 출력
+	public ArrayList<ShoppingTO> shop_favoriteList( ShoppingTO sto ) {
+		
+		ArrayList<ShoppingTO> list = (ArrayList)sqlSession.selectList( "shop_favoriteList", sto );
+		
+		return list;
+	}
+	
 }

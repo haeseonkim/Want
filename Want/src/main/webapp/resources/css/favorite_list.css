@@ -115,7 +115,7 @@ body {
 
 /* lantrip 메뉴관련 css */
 .card-img-top {
-	height: 10rem;
+	height: 20rem;
 	object-fit: cover;
 }
 
