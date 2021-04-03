@@ -16,11 +16,24 @@
 <jsp:include page="../include/index.jsp"></jsp:include>
 	
 <!-- CSS File -->
-<link href="./resources/css/favorite_list.css?dda" rel="stylesheet">
+<link href="./resources/css/favorite_list.css?da" rel="stylesheet">
 <link href="./resources/css/navbar.css" rel="stylesheet">
 
 <script type="text/javascript">
 
+//페이지가 뒤로가기 하면 하트버튼과 하트수 갱신이 안된다. 이때 하트를 누르면 디비에 중복으로 값이 들어가진다.
+//방지하기 위해 페이지가 뒤로가기 할때마다 css로 클릭을 막고 새로고침을 통해 갱신된 하트버튼과 하트수가 나오도록 한다.
+$(window).bind("pageshow", function (event) {
+   //파이어폭스와 사파리에서는 persisted를 통해서 뒤로가기 감지가 가능하지만 익스와 크롬에서는 불가  ||뒤의 코드를 추가한다. 
+   if (event.originalEvent.persisted || (window.performance && window.performance.navigation.type == 2)) {
+      console.log('BFCahe로부터 복원됨');
+      $(".heart-click").css("pointer-events","none");
+      location.reload();//새로고침 
+   }
+   else {
+      console.log('새로 열린 페이지');
+   }
+});
 
 $(document).ready(function() { 
 	
@@ -54,9 +67,10 @@ $(document).ready(function() {
 				method:"GET",
 				data: "nick="+userName,
 				success: function(html) {
-					console.log( html );
+					//console.log( html );
 					$('.div_menu').empty();	//div_menu의 내부요소들만 삭제
 					$('.div_menu').append(html);
+					FuncHeart();
 				}
 			})
 		} else if( doName == './f_picture_list.do' ) {
@@ -70,9 +84,10 @@ $(document).ready(function() {
 				method:"GET",
 				data: "nick="+userName,
 				success: function(html) {
-					console.log( html );
+					//console.log( html );
 					$('.div_menu').empty();	//div_menu의 내부요소들만 삭제
 					$('.div_menu').append(html);
+					FuncHeart();
 				}
 			})
 		} else if( doName == './f_shop_list.do' ) {
@@ -86,9 +101,10 @@ $(document).ready(function() {
 				method:"GET",
 				data: "nick="+userName,
 				success: function(html) {
-					console.log( html );
+					//console.log( html );
 					$('.div_menu').empty();	//div_menu의 내부요소들만 삭제
 					$('.div_menu').append(html);
+					FuncHeart();
 				}
 			})
 		} else if( doName == './f_accom_list.do' ) {
@@ -102,9 +118,10 @@ $(document).ready(function() {
 				method:"GET",
 				data: "nick="+userName,
 				success: function(html) {
-					console.log( html );
+					//console.log( html );
 					$('.div_menu').empty();	//div_menu의 내부요소들만 삭제
 					$('.div_menu').append(html);
+					FuncHeart();
 				}
 			})
 		}
@@ -115,62 +132,65 @@ $(document).ready(function() {
 	
 	//======= 좋아요 관련 =========
 	// 하트 클릭했을 때
-	$(".heart-click").unbind('click');
-	$(".heart-click").click(function() {
-		
-		if( $(this).children('svg').attr('class') == 'bi bi-suit-heart' ) {
-			//빈하트 클릭시
-			let no = $(this).attr('idx');
-			let menuName = $('.menu_name').attr('id');
-			let doName = menuName + 'saveHeart.do';
-			console.log("빈하트 클릭" + no + " / 메뉴이름" + menuName + " / do이름 " + doName );
+	let FuncHeart = function() {
+		$(".heart-click").unbind('click');
+		$(".heart-click").click(function() {
 			
-			//꽉찬하트로 만들기 전에 DB 하트테이블에 로우 추가
-			$.ajax({
-				url : doName,
-				type : 'get',
-				data : {
-					no : no,
-				},
-				success : function(lto) {
-					console.log("하트추가 성공");
-					
-					$('#heart'+no).text( lto.heart );
-					
-				},
-				error : function() {
-					alert('서버 에러');
-				}
-			});
-			$(this).html("<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-suit-heart-fill' viewBox='0 0 16 16'><path d='M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1z'/></svg>");
-			
-		} else if( $(this).children('svg').attr('class') == 'bi bi-suit-heart-fill' ) {
-			//꽉찬하트 클릭시
-			let no = $(this).attr('idx');
-			console.log("꽉찬하트 클릭" + no);
-			let menuName = $('.menu_name').attr('id');
-			let doName = menuName + 'removeHeart.do';
-			console.log("빈하트 클릭" + no + " / 메뉴이름" + menuName + " / do이름 " + doName );
-			
-			//빈하트로 만들기 전에 DB 하트테이블에 로우 삭제
-			$.ajax({
-				url : doName,
-				type : 'get',
-				data : {
-					no : no,
-				},
-				success : function(lto) {
-					console.log("하트삭제 성공");
-					
-					$('#heart'+no).text( lto.heart );
-				},
-				error : function() {
-					alert('서버 에러');
-				}
-			});
-			$(this).html('<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-suit-heart" viewBox="0 0 16 16"><path d="M8 6.236l-.894-1.789c-.222-.443-.607-1.08-1.152-1.595C5.418 2.345 4.776 2 4 2 2.324 2 1 3.326 1 4.92c0 1.211.554 2.066 1.868 3.37.337.334.721.695 1.146 1.093C5.122 10.423 6.5 11.717 8 13.447c1.5-1.73 2.878-3.024 3.986-4.064.425-.398.81-.76 1.146-1.093C14.446 6.986 15 6.131 15 4.92 15 3.326 13.676 2 12 2c-.777 0-1.418.345-1.954.852-.545.515-.93 1.152-1.152 1.595L8 6.236zm.392 8.292a.513.513 0 0 1-.784 0c-1.601-1.902-3.05-3.262-4.243-4.381C1.3 8.208 0 6.989 0 4.92 0 2.755 1.79 1 4 1c1.6 0 2.719 1.05 3.404 2.008.26.365.458.716.596.992a7.55 7.55 0 0 1 .596-.992C9.281 2.049 10.4 1 12 1c2.21 0 4 1.755 4 3.92 0 2.069-1.3 3.288-3.365 5.227-1.193 1.12-2.642 2.48-4.243 4.38z" /></svg>');
-		}
-	});
+			if( $(this).children('svg').attr('class') == 'bi bi-suit-heart' ) {
+				//빈하트 클릭시
+				let no = $(this).attr('idx');
+				let menuName = $('.menu_name').attr('id');
+				let doName = menuName + 'saveHeart.do';
+				console.log("빈하트 클릭" + no + " / 메뉴이름" + menuName + " / do이름 " + doName );
+				
+				//꽉찬하트로 만들기 전에 DB 하트테이블에 로우 추가
+				$.ajax({
+					url : doName,
+					type : 'get',
+					data : {
+						no : no,
+					},
+					success : function(lto) {
+						console.log("하트추가 성공");
+						
+						$('#heart'+no).text( lto.heart );
+						
+					},
+					error : function() {
+						alert('서버 에러');
+					}
+				});
+				$(this).html("<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-suit-heart-fill' viewBox='0 0 16 16'><path d='M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1z'/></svg>");
+				
+			} else if( $(this).children('svg').attr('class') == 'bi bi-suit-heart-fill' ) {
+				//꽉찬하트 클릭시
+				let no = $(this).attr('idx');
+				console.log("꽉찬하트 클릭" + no);
+				let menuName = $('.menu_name').attr('id');
+				let doName = menuName + 'removeHeart.do';
+				console.log("빈하트 클릭" + no + " / 메뉴이름" + menuName + " / do이름 " + doName );
+				
+				//빈하트로 만들기 전에 DB 하트테이블에 로우 삭제
+				$.ajax({
+					url : doName,
+					type : 'get',
+					data : {
+						no : no,
+					},
+					success : function(lto) {
+						console.log("하트삭제 성공");
+						
+						$('#heart'+no).text( lto.heart );
+					},
+					error : function() {
+						alert('서버 에러');
+					}
+				});
+				$(this).html('<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-suit-heart" viewBox="0 0 16 16"><path d="M8 6.236l-.894-1.789c-.222-.443-.607-1.08-1.152-1.595C5.418 2.345 4.776 2 4 2 2.324 2 1 3.326 1 4.92c0 1.211.554 2.066 1.868 3.37.337.334.721.695 1.146 1.093C5.122 10.423 6.5 11.717 8 13.447c1.5-1.73 2.878-3.024 3.986-4.064.425-.398.81-.76 1.146-1.093C14.446 6.986 15 6.131 15 4.92 15 3.326 13.676 2 12 2c-.777 0-1.418.345-1.954.852-.545.515-.93 1.152-1.152 1.595L8 6.236zm.392 8.292a.513.513 0 0 1-.784 0c-1.601-1.902-3.05-3.262-4.243-4.381C1.3 8.208 0 6.989 0 4.92 0 2.755 1.79 1 4 1c1.6 0 2.719 1.05 3.404 2.008.26.365.458.716.596.992a7.55 7.55 0 0 1 .596-.992C9.281 2.049 10.4 1 12 1c2.21 0 4 1.755 4 3.92 0 2.069-1.3 3.288-3.365 5.227-1.193 1.12-2.642 2.48-4.243 4.38z" /></svg>');
+			}
+		});
+	}
+	FuncHeart();
 	
 
 	
@@ -200,10 +220,25 @@ $(window).on("scroll",function(){
 	
 	console.log( scrollTop, windowHeight, documentHeight, isBottom );
 	
+	
+	console.log( $( '.menu_name' ).attr( 'id' ) );
+	//무한스크롤 컨트롤러에서 매핑할 이름 설정
+	let ajaxDoName = '';
+	let mName = $( '.menu_name' ).attr( 'id' );
+	if( mName == 'lanTrip_' ) {
+		ajaxDoName = './f_lantrip_list.do';
+	} else if( mName == '' ) {
+		ajaxDoName = './f_picture_list.do';
+	} else if( mName == 'shop_' ) {
+		ajaxDoName = './f_shop_list.do';
+	} else if( mName == 'accom_' ) {
+		ajaxDoName = './f_accom_list.do';
+	}
+	console.log( 'ajaxDoName: ' + ajaxDoName );
+	
 	if(isBottom){
 		//만일 현재 마지막 페이지라면
 		if( currentPage == ${ totalPageCount } || isLoading ) {
-			console.log( "이거 보이면 함수 끝 : " + currentPage );
 			return; //함수를 여기서 끝낸다.
 		}
 		//현재 로딩 중이라고 표시한다.
@@ -213,18 +248,19 @@ $(window).on("scroll",function(){
 		//요청할 페이지 번호를 1 증가시킨다.
 		currentPage++;
 		//currentPage = $('.currentPage').val( currentPage++ );
-		console.log( "여기까지됨 ajax들어간다? : " + currentPage );
+		
+		
 		//추가로 받아올 페이지를 서버에 ajax 요청을 하고
 		$.ajax({
-			url:"./f_lantrip_list.do",
+			url: ajaxDoName,
 			method:"GET",
 			//검색기능이 있는 경우 condition과 keyword를 함께 넘겨줘야한다. 안그러면 검색결과만 나와야하는데 다른것들이 덧붙여져 나온다.
 			data:"pageNum="+currentPage,
 			//ajax_page.jsp의 내용이 data로 들어온다.
 			success:function(data){
 				//console.log(data);
-				//응답된 문자열은 html 형식이다.(shopping/shop_ajax_page.jsp에 응답내용이 있다.)
-				//해당 문자열을 .card-list-container  div에 html로 해석하라고 추가한다.
+
+				//해당 문자열을 .menu_content div에 html로 해석하라고 추가한다.
 				$(".menu_content").append(data);
 				//로딩바를 숨긴다.
 				$(".back-drop").hide();

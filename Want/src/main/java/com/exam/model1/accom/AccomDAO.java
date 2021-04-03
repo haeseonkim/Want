@@ -76,7 +76,8 @@ public class AccomDAO {
 	public int accomDelete( AccomTO to ) {
 		
 		int flag = 1;	//delete 실패시
-		int result = sqlSession.delete( "accomDelete", to );
+
+		int result = sqlSession.delete( "accomDeleteOk", to );
 		
 		if( result == 0 ) {	}	//sql delete문 실패시
 		else if( result == 1 ) {	//sql delete문 성공시
@@ -99,4 +100,13 @@ public class AccomDAO {
 		
 		return flag;
 	}
+	
+	//마이페이지 즐겨찾기 쇼핑게시판 출력
+	public ArrayList<AccomTO> accom_favoriteList( AccomTO ato ) {
+		
+		ArrayList<AccomTO> list = (ArrayList)sqlSession.selectList( "accom_favoriteList", ato );
+		
+		return list;
+	}
+	
 }

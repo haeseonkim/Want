@@ -550,7 +550,6 @@ public class AccomController {
 		try {
 			request.setCharacterEncoding("utf-8");
 			
-			String cpage = request.getParameter( "cpage" );
 			String location = request.getParameter( "location" );
 			String no = request.getParameter( "no" );
 			String writer = request.getParameter( "writer" );
@@ -561,7 +560,6 @@ public class AccomController {
 			
 			int flag = accomDao.accomDelete( to );
 			
-			request.setAttribute( "cpage", cpage );
 			request.setAttribute( "location", location );
 			request.setAttribute( "flag", flag );
 			

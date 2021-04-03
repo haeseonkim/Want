@@ -326,17 +326,7 @@
 		order by heart desc
 		limit 5
 	</select>
-	
-	<select id="favoriteList" parameterType="com.exam.model1.lantrip.LanTripTO" resultType="com.exam.model1.lantrip.LanTripTO">
-		select b.no, b.subject, b.writer, date_format(b.wdate, '%Y-%m-%d') wdate, b.hit, b.location, b.video, b.reply, b.heart, h.hno, u.profile
-		from l_board b inner join l_heart h
-		on b.no = h.bno
-		inner join user u
-		on b.writer = u.nick
-		where h.userid like #{ nick }
-		order by b.no desc
-		limit #{startRowNum}, #{endRowNum}
-	</select>
+
 	
 	<!-- ================  랜선여행 신청하기  =================  -->
 	<!-- LanTripApplyList -->
@@ -1248,6 +1238,18 @@
 		where no = #{no}
 	</update>
 	
+	<!-- ======== 마이페이지의 즐겨찾기목록 관련 ======== -->
+	<!-- 랜선여행하기 글리스트 가져오는 sql -->
+	<select id="lantrip_favoriteList" parameterType="com.exam.model1.lantrip.LanTripTO" resultType="com.exam.model1.lantrip.LanTripTO">
+		select b.no, b.subject, b.writer, date_format(b.wdate, '%Y-%m-%d') wdate, b.hit, b.location, b.video, b.reply, b.heart, h.hno, u.profile
+		from l_board b inner join l_heart h
+		on b.no = h.bno
+		inner join user u
+		on b.writer = u.nick
+		where h.userid like #{ nick }
+		order by b.no desc
+		limit #{startRowNum}, #{endRowNum}
+	</select>
 	<!-- 랜선여행신청하기 댓글 -->
 	<!-- 댓글 테이블의 마지막 auto_increment 값을 가져옴 -->
 	<select id="with_reply_max_no" resultType="int">
@@ -1338,6 +1340,41 @@
 		where no=#{no}
 	</update>
 	
+	<!-- 사진자랑하기 글리스트 가져오는 sql -->
+	<select id="picture_favoriteList" parameterType="com.exam.model1.picture.PictureTO" resultType="com.exam.model1.picture.PictureTO">
+		select b.no, b.subject, b.writer, date_format(b.wdate, '%Y-%m-%d') wdate, b.hit, b.location, b.media, b.reply, b.heart, h.hno, u.profile
+		from p_board b inner join p_heart h
+		on b.no = h.bno
+		inner join user u
+		on b.writer = u.nick
+		where h.userid like #{ nick }
+		order by b.no desc
+		limit #{startRowNum}, #{endRowNum}
+	</select>
+	
+	<!-- 쇼핑 글리스트 가져오는 sql -->
+	<select id="shop_favoriteList" parameterType="com.exam.model1.shopping.ShoppingTO" resultType="com.exam.model1.shopping.ShoppingTO">
+		select b.no, b.subject, b.writer, date_format(b.wdate, '%Y-%m-%d') wdate, b.hit, b.location, b.picture, b.reply, b.heart, h.hno, u.profile
+		from s_board b inner join s_heart h
+		on b.no = h.bno
+		inner join user u
+		on b.writer = u.nick
+		where h.userid like #{ nick }
+		order by b.no desc
+		limit #{startRowNum}, #{endRowNum}
+	</select>
+	
+	<!-- 숙소 글리스트 가져오는 sql -->
+	<select id="accom_favoriteList" parameterType="com.exam.model1.accom.AccomTO" resultType="com.exam.model1.accom.AccomTO">
+		select b.no, b.subject, b.writer, date_format(b.wdate, '%Y-%m-%d') wdate, b.hit, b.location, b.picture, b.reply, b.heart, h.hno, u.profile
+		from a_board b inner join a_heart h
+		on b.no = h.bno
+		inner join user u
+		on b.writer = u.nick
+		where h.userid like #{ nick }
+		order by b.no desc
+		limit #{startRowNum}, #{endRowNum}
+	</select>
 	
 	<!-- ========================= 메세지 ======================= -->
 	
