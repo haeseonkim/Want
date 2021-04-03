@@ -138,4 +138,12 @@ public class PictureDAO {
 		}
 		return flag;
 	}
+	
+	// 마이페이지 - 즐겨찾기 목록 글목록 가져오는 함수
+	public ArrayList<PictureTO> picture_favoriteList( PictureTO pto ) {
+		
+		ArrayList<PictureTO> list = (ArrayList)sqlSession.selectList( "picture_favoriteList", pto );
+		
+		return list;
+	}
 }

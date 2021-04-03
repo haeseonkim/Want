@@ -326,17 +326,7 @@
 		order by heart desc
 		limit 5
 	</select>
-	
-	<select id="favoriteList" parameterType="com.exam.model1.lantrip.LanTripTO" resultType="com.exam.model1.lantrip.LanTripTO">
-		select b.no, b.subject, b.writer, date_format(b.wdate, '%Y-%m-%d') wdate, b.hit, b.location, b.video, b.reply, b.heart, h.hno, u.profile
-		from l_board b inner join l_heart h
-		on b.no = h.bno
-		inner join user u
-		on b.writer = u.nick
-		where h.userid like #{ nick }
-		order by b.no desc
-		limit #{startRowNum}, #{endRowNum}
-	</select>
+
 	
 	<!-- ================  랜선여행 신청하기  =================  -->
 	<!-- LanTripApplyList -->
@@ -344,6 +334,7 @@
 		resultType="com.exam.model1.lantripApply.LanTripApplyTO"> <!-- 파라메터가 없으므로 parameter Type 필요 없음 -->
 		select no, location, subject, writer, date_format(wdate, '%Y-%m-%d') wdate, hit, reply
 		from la_board
+		order by no desc
 	</select>
 
 	<!-- LanTripApplyWriteOk -->
@@ -386,6 +377,7 @@
 		where no = #{no}
 	</update>
 	
+	<!-- 랜선여행신청하기 댓글 -->
 	<!-- 댓글 테이블의 마지막 auto_increment 값을 가져옴 -->
 	<select id="la_reply_max_no" resultType="int">
 		select ifnull(max(no),0) from la_reply
@@ -415,7 +407,7 @@
 		values(0, #{bno}, #{grp}, 0, #{grpl}, #{writer}, #{content}, now())
 	</insert>
 	
-	<!-- p_board에 댓글수 증가 -->
+	<!-- la_board에 댓글수 증가 -->
 	<update id="la_reply_up" parameterType="com.exam.model1.lantripApply.LanTripApplyTO">
 		update la_board set reply=reply+1 
 		where no=#{no}
@@ -464,7 +456,13 @@
 		where no=#{no}
 	</update>
 	
-	<!-- p_board에 댓글수 감소 -->
+	<!-- 답글 삭제 -->
+	<delete id="la_rereply_delete" parameterType="com.exam.model1.lantripApplyReply.LaReplyTO">
+		delete from la_reply
+		where no=#{no} and grpl=1
+	</delete>
+	
+	<!-- la_board에 댓글수 감소 -->
 	<update id="la_reply_down" parameterType="com.exam.model1.lantripApplyReply.LaReplyTO">
 		update la_board set reply=reply-1
 		where no=#{no}
@@ -1211,19 +1209,21 @@
 		from w_board
 		where no = #{no}
 	</select>
-	<!-- 랜선여행신청하기 조회수 -->
+	
+	<!-- 동행구해요 조회수 -->
 	<update id="with_view_hit" parameterType="com.exam.model1.with.withTO">
 		update w_board
 		set hit=hit+1
 		where no = #{no}
 	</update>
-	<!-- LanTripApplyDeleteOk -->
+	
+	<!-- withDeleteOk -->
 	<delete id="with_delete_ok" parameterType="com.exam.model1.with.withTO">
 		delete from w_board
 		where no = #{no}
 	</delete>
 	
-	<!-- LanTripApplyModify -->
+	<!-- withModify -->
 	<select id="with_modify" parameterType="com.exam.model1.with.withTO" 
 	resultType="com.exam.model1.with.withTO">
 		select no, subject, content, writer, date_format(wdate, '%Y-%m-%d') wdate, hit, location, picture, reply
@@ -1231,14 +1231,150 @@
 		where no = #{no}
 	</select>
 	
-	<!-- LanTripApplyModifyOk -->
+	<!-- withModifyOk -->
 	<update id="with_modify_ok" parameterType="com.exam.model1.with.withTO">
 		update w_board
 		set subject = #{subject}, content = #{content}, location = #{location}, picture = #{picture}
 		where no = #{no}
 	</update>
 	
+	<!-- ======== 마이페이지의 즐겨찾기목록 관련 ======== -->
+	<!-- 랜선여행하기 글리스트 가져오는 sql -->
+	<select id="lantrip_favoriteList" parameterType="com.exam.model1.lantrip.LanTripTO" resultType="com.exam.model1.lantrip.LanTripTO">
+		select b.no, b.subject, b.writer, date_format(b.wdate, '%Y-%m-%d') wdate, b.hit, b.location, b.video, b.reply, b.heart, h.hno, u.profile
+		from l_board b inner join l_heart h
+		on b.no = h.bno
+		inner join user u
+		on b.writer = u.nick
+		where h.userid like #{ nick }
+		order by b.no desc
+		limit #{startRowNum}, #{endRowNum}
+	</select>
+	<!-- 랜선여행신청하기 댓글 -->
+	<!-- 댓글 테이블의 마지막 auto_increment 값을 가져옴 -->
+	<select id="with_reply_max_no" resultType="int">
+		select ifnull(max(no),0) from w_reply
+	</select>
 	
+	<!-- 댓글 쓰기 -->
+	<insert id="with_reply_write" parameterType="com.exam.model1.withReply.WithReplyTO">
+		insert into w_reply
+		values(0, #{bno}, #{grp}, 0, 0, #{writer}, #{content}, now())
+	</insert>
+	
+	<!-- 모댓글일경우 no, grp 일치하게 함 -->
+	<update id="with_reply_check" parameterType="com.exam.model1.withReply.WithReplyTO">
+		update w_reply set grp=#{grp}
+		where no != grp
+	</update>
+	
+	<!-- 모댓글이 삭제된 댓글일때 그에 딸린 답글들이 모두삭제되면 테이블에서 완전히 삭제한다 -->
+	<delete id="with_reply_delete_after_rereply_delete" parameterType="com.exam.model1.withReply.WithReplyTO">
+		delete from w_reply
+		where content="" and grp=#{grp}
+	</delete>
+	
+	<!-- 답글 쓰기 -->
+	<insert id="with_rereply_write" parameterType="com.exam.model1.withReply.WithReplyTO">
+		insert into w_reply
+		values(0, #{bno}, #{grp}, 0, #{grpl}, #{writer}, #{content}, now())
+	</insert>
+	
+	<!-- w_board에 댓글수 증가 -->
+	<update id="with_reply_up" parameterType="com.exam.model1.with.withTO">
+		update w_board set reply=reply+1 
+		where no=#{no}
+	</update>
+	
+	<!-- 댓글 리스트 가져오기 -->
+	<select id="with_replyList" parameterType="com.exam.model1.withReply.WithReplyTO" resultType="com.exam.model1.withReply.WithReplyTO">
+		select r.no, r.bno, r.grp, r.grpl, r.writer, r.content, date_format(wdate,'%Y-%m-%d') wdate, datediff(now(), wdate) wgap , u.profile
+		from w_reply r left outer join user u
+		on r.writer = u.nick
+		where r.bno = #{bno}
+		order by grp asc, grps desc
+	</select>
+	
+	<!-- 댓글 추가/삭제시 댓글 갯수 가져오기 -->
+	<select id="with_reply_count" parameterType="com.exam.model1.with.withTO" resultType="com.exam.model1.with.withTO">
+		select reply 
+		from w_board
+		where no=#{no}
+	</select>
+	
+	<!-- 모댓글의 답글수를 카운트 -->
+	<select id="with_count_rereply" parameterType="com.exam.model1.withReply.WithReplyTO" resultType="int">
+		select count(no)
+		from w_reply
+		where no != #{no} and grp = #{no}
+	</select>
+	
+	<!-- 답글수를 카운트 -->
+	<select id="with_count_rereply_fromrereply" parameterType="com.exam.model1.withReply.WithReplyTO" resultType="int">
+		select count(no)
+		from w_reply
+		where no != #{grp} and grp = #{grp}
+	</select>
+	
+	<!-- 모댓글 삭제 - 답글 없음 -->
+	<delete id="with_reply_delete" parameterType="com.exam.model1.withReply.WithReplyTO">
+		delete from w_reply
+		where no=#{no}
+	</delete>
+	
+	<!-- 모댓글 삭제 - 답글 있음 -->
+	<update id="with_reply_not_delete" parameterType="com.exam.model1.withReply.WithReplyTO">
+		update w_reply set content=""
+		where no=#{no}
+	</update>
+	
+	<!-- 답글 삭제 -->
+	<delete id="with_rereply_delete" parameterType="com.exam.model1.withReply.WithReplyTO">
+		delete from w_reply
+		where no=#{no} and grpl=1
+	</delete>
+	
+	<!-- la_board에 댓글수 감소 -->
+	<update id="with_reply_down" parameterType="com.exam.model1.withReply.WithReplyTO">
+		update w_board set reply=reply-1
+		where no=#{no}
+	</update>
+	
+	<!-- 사진자랑하기 글리스트 가져오는 sql -->
+	<select id="picture_favoriteList" parameterType="com.exam.model1.picture.PictureTO" resultType="com.exam.model1.picture.PictureTO">
+		select b.no, b.subject, b.writer, date_format(b.wdate, '%Y-%m-%d') wdate, b.hit, b.location, b.media, b.reply, b.heart, h.hno, u.profile
+		from p_board b inner join p_heart h
+		on b.no = h.bno
+		inner join user u
+		on b.writer = u.nick
+		where h.userid like #{ nick }
+		order by b.no desc
+		limit #{startRowNum}, #{endRowNum}
+	</select>
+	
+	<!-- 쇼핑 글리스트 가져오는 sql -->
+	<select id="shop_favoriteList" parameterType="com.exam.model1.shopping.ShoppingTO" resultType="com.exam.model1.shopping.ShoppingTO">
+		select b.no, b.subject, b.writer, date_format(b.wdate, '%Y-%m-%d') wdate, b.hit, b.location, b.picture, b.reply, b.heart, h.hno, u.profile
+		from s_board b inner join s_heart h
+		on b.no = h.bno
+		inner join user u
+		on b.writer = u.nick
+		where h.userid like #{ nick }
+		order by b.no desc
+		limit #{startRowNum}, #{endRowNum}
+	</select>
+	
+	<!-- 숙소 글리스트 가져오는 sql -->
+	<select id="accom_favoriteList" parameterType="com.exam.model1.accom.AccomTO" resultType="com.exam.model1.accom.AccomTO">
+		select b.no, b.subject, b.writer, date_format(b.wdate, '%Y-%m-%d') wdate, b.hit, b.location, b.picture, b.reply, b.heart, h.hno, u.profile
+		from a_board b inner join a_heart h
+		on b.no = h.bno
+		inner join user u
+		on b.writer = u.nick
+		where h.userid like #{ nick }
+		order by b.no desc
+		limit #{startRowNum}, #{endRowNum}
+	</select>
 	
 	<!-- ========================= 메세지 ======================= -->
 	

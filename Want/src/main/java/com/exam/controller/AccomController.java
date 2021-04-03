@@ -62,10 +62,10 @@ public class AccomController {
 		int maxFileSize = 1024 * 1024 * 6;
 		String encType = "utf-8";
       
-		//String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\accom";
-		//String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\accom";
+
+		String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\accom";
 		//String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\accom";
-		String uploadPath = "/Users/hyukjun/git/Want/Want/src/main/webapp/upload/acoom";
+		//String uploadPath = "/Users/hyukjun/git/Want/Want/src/main/webapp/upload/acoom";
     
 		MultipartRequest multi = null;
 
@@ -550,7 +550,6 @@ public class AccomController {
 		try {
 			request.setCharacterEncoding("utf-8");
 			
-			String cpage = request.getParameter( "cpage" );
 			String location = request.getParameter( "location" );
 			String no = request.getParameter( "no" );
 			String writer = request.getParameter( "writer" );
@@ -561,7 +560,6 @@ public class AccomController {
 			
 			int flag = accomDao.accomDelete( to );
 			
-			request.setAttribute( "cpage", cpage );
 			request.setAttribute( "location", location );
 			request.setAttribute( "flag", flag );
 			
@@ -618,9 +616,9 @@ public class AccomController {
 		int maxFileSize = 1024 * 1024 * 6;
 		String encType = "utf-8";
     
-//		String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\accom";
+		String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\accom";
 		//String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\accom";
-		String uploadPath = "/Users/hyukjun/git/Want/Want/src/main/webapp/upload/accom";
+		//String uploadPath = "/Users/hyukjun/git/Want/Want/src/main/webapp/upload/accom";
 
 		MultipartRequest multi = null;
 

@@ -2,18 +2,25 @@ package com.exam.controller;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.exam.model1.lantripApply.LanTripApplyTO;
+import com.exam.model1.lantripApplyReply.LaReplyTO;
 import com.exam.model1.with.withDAO;
 import com.exam.model1.with.withListTO;
 import com.exam.model1.with.withTO;
-import com.exam.model1.picture.PictureTO;
+import com.exam.model1.withReply.WithReplyDAO;
+import com.exam.model1.withReply.WithReplyTO;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
@@ -23,10 +30,13 @@ public class WithController {
 	
 	@Autowired
 	private withDAO dao;
+	
+	@Autowired
+	private WithReplyDAO wReplyDao;
   
-   //private String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\with";
+   private String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\with";
    //private String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\with";
-   private String uploadPath ="/Users/hyukjun/git/Want/Want/src/main/webapp/upload/with";
+   //private String uploadPath ="/Users/hyukjun/git/Want/Want/src/main/webapp/upload/with";
 
 	
 	// 랜선여행 신청 목록					
@@ -186,6 +196,122 @@ public class WithController {
 		}
 
 		return "with/with_modify_ok";
+	}
+	
+	// 모댓글 작성
+	@ResponseBody
+	@RequestMapping(value = "/with_write_reply.do")
+	public withTO write_reply(@RequestParam String bno, @RequestParam String content, HttpSession session) {
+
+		WithReplyTO to = new WithReplyTO();
+		// 게시물 번호 세팅
+		to.setBno(bno);
+		
+		// 댓글 내용 세팅
+		to.setContent(content);
+
+		// 댓글작성자 nick을 writer로 세팅
+		to.setWriter((String) session.getAttribute("nick"));
+		
+		//	값이 잘 넘어오는지 확인
+		/*
+		  System.out.println("controller bno: " + to.getBno());
+		  System.out.println("controller content: " + to.getContent());
+		  System.out.println("controller writer: " + to.getWriter());
+		 */
+		// +1된 댓글 갯수를 담아오기 위함
+		withTO wto = wReplyDao.WithWriteReply(to);
+
+		return wto;
+	}
+
+	// 답글 작성
+	@ResponseBody
+	@RequestMapping(value = "/with_write_rereply.do")
+	public withTO write_rereply(@RequestParam String no, @RequestParam String bno, @RequestParam String content,
+			HttpSession session) {
+
+		WithReplyTO to = new WithReplyTO();
+
+		// 게시물 번호 세팅
+		to.setBno(bno);
+		
+		// grp, grps, grpl 은 ReplyTO에 int로 정의되어 있기 때문에 String인 no를 int로 변환해서 넣어준다.
+		// 모댓글 번호 no를 grp으로 세팅한다.
+		to.setGrp(Integer.parseInt(no));
+
+		// 답글은 깊이가 1이되어야 하므로 grpl을 1로 세팅한다.
+		to.setGrpl(1);
+
+		// 답글 내용 세팅
+		to.setContent(content);
+
+		// 답글작성자 nick을 writer로 세팅
+		to.setWriter((String) session.getAttribute("nick"));
+
+		// +1된 댓글 갯수를 담아오기 위함
+		withTO wto = wReplyDao.WithWriteReReply(to);
+
+		return wto;
+	}
+
+	// 댓글 리스트
+	@ResponseBody
+	@RequestMapping(value = "/with_replyList.do")
+	public ArrayList<WithReplyTO> reply_list(@RequestParam String no, HttpSession session) {
+
+		WithReplyTO to = new WithReplyTO();
+
+		// 가져올 댓글 리스트의 게시물번호를 세팅
+		to.setBno(no);
+
+		ArrayList<WithReplyTO> replyList = new ArrayList();
+
+		replyList = wReplyDao.replyList(to);
+
+		return replyList;
+	}
+
+	// 모댓글 삭제
+	@ResponseBody
+	@RequestMapping(value = "/with_delete_reply.do")
+	public withTO delete_reply(@RequestParam String no, @RequestParam String bno) {
+
+		WithReplyTO to = new WithReplyTO();
+
+		// 모댓글 번호 세팅
+		to.setNo(no);
+//		System.out.println("컨트롤러 모댓글 no : "+no);
+		// 게시물 번호 세팅
+		to.setBno(bno);
+
+		// 갱신된 댓글 갯수를 담아오기 위함
+		withTO wto = wReplyDao.With_DeleteReply(to);
+
+		return wto;
+	}
+
+	// 답글 삭제
+	@ResponseBody
+	@RequestMapping(value = "/with_delete_rereply.do")
+	public withTO delete_rereply(@RequestParam String no, @RequestParam String bno, @RequestParam int grp) {
+
+		WithReplyTO to = new WithReplyTO();
+
+		// 답글 번호 세팅 - 답글 삭제하기 위해서 필요함
+		to.setNo(no);
+//		System.out.println("컨트롤러 답글 no : "+no);
+		// 게시물 번호 세팅 - p_board 의 reply+1하기 위해 필요함
+		to.setBno(bno);
+
+		// grp 세팅(모댓글이 뭔지) - 모댓글은 삭제를 해도 답글이 있으면 남아있게 되는데 답글이 모두 삭제되었을 때 모댓글도 삭제하기 위해
+		// 필요함
+		to.setGrp(grp);
+
+		// 갱신된 댓글 갯수를 담아오기 위함
+		withTO wto = wReplyDao.With_DeleteReReply(to);
+
+		return wto;
 	}
 
 }

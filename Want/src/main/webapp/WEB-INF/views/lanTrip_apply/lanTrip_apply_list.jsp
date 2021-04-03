@@ -1,9 +1,9 @@
-<%@page import="com.exam.model1.lantripApply.LanTripApplyListTO"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="com.exam.model1.lantripApply.LanTripApplyTO"%>
+<%@ page import="java.util.ArrayList"%>
+<%@ page import="com.exam.model1.lantripApply.LanTripApplyListTO"%>
+<%@ page import="com.exam.model1.lantripApply.LanTripApplyTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <%
 	LanTripApplyListTO listTO = (LanTripApplyListTO) request.getAttribute("listTO");
@@ -27,6 +27,7 @@
 		String wdate = to.getWdate();
 		String hit = to.getHit();
 		String location = to.getLocation();
+		String reply = to.getReply();
 			
 		sbHtml.append("<tr>");
 		sbHtml.append("   <td>&nbsp;</td>");
@@ -36,6 +37,13 @@
 		sbHtml.append("	 <th>&nbsp;</th>");
 		sbHtml.append("   <td>");
 		sbHtml.append("      <a href='./lanTrip_apply_view.do?cpage="+cpage+"&no=" + no + "'>" + subject + "</a>&nbsp;");
+		
+		if(Integer.parseInt(reply)==0){
+			sbHtml.append("");
+		} else {
+			sbHtml.append("<span style='color:#5fcf80;'>["+reply+"]</span>");
+		};
+		
 		sbHtml.append("   </td>");
 		sbHtml.append("   <td id='writer'>" + writer + "</td>");
 		sbHtml.append("   <td id='wdate'>" + wdate + "</td>");
@@ -76,18 +84,17 @@
 			<p>원하는 랜선여행을 신청하세요!</p>
 		</div>
 	</section>
-	<div class="con_txt" align="center">
+	<div class="con_txt" align="center" style="margin-top:10px;">
 		<div class="contents_sub">
 			<div class="board_top">
 				<div class="bold" align="left">
 					총 <span id="totalRecord"><%=totalRecord%></span>건
 				</div>
-			
-				<hr />
 			</div>
 
 			<!--게시판-->
 			<div class="board">
+			<hr />
 				<table>
 					<tr>
 						<th width="3%">&nbsp;</th>

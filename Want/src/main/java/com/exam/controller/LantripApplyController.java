@@ -32,9 +32,9 @@ public class LantripApplyController {
 	@Autowired
 	private LaReplyDAO laReplyDao;
 
-   //private String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\lanTrip_apply";
+   private String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\lanTrip_apply";
    //private String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\lanTrip_apply";
-   private String uploadPath ="/Users/hyukjun/git/Want/Want/src/main/webapp/upload/lanTrip_apply";
+   //private String uploadPath ="/Users/hyukjun/git/Want/Want/src/main/webapp/upload/lanTrip_apply";
   
 	// 랜선여행 신청 목록					
 	@RequestMapping(value = "/lanTrip_apply_list.do")
@@ -210,10 +210,12 @@ public class LantripApplyController {
 		// 댓글작성자 nick을 writer로 세팅
 		to.setWriter((String) session.getAttribute("nick"));
 		
-		System.out.println("controller bno: " + to.getBno());
-		System.out.println("controller content: " + to.getContent());
-		System.out.println("controller writer: " + to.getWriter());
-
+		//	값이 잘 넘어오는지 확인
+		/*
+		  System.out.println("controller bno: " + to.getBno());
+		  System.out.println("controller content: " + to.getContent());
+		  System.out.println("controller writer: " + to.getWriter());
+		 */
 		// +1된 댓글 갯수를 담아오기 위함
 		LanTripApplyTO lato = laReplyDao.LaWriteReply(to);
 
@@ -230,7 +232,7 @@ public class LantripApplyController {
 
 		// 게시물 번호 세팅
 		to.setBno(bno);
-
+		
 		// grp, grps, grpl 은 ReplyTO에 int로 정의되어 있기 때문에 String인 no를 int로 변환해서 넣어준다.
 		// 모댓글 번호 no를 grp으로 세팅한다.
 		to.setGrp(Integer.parseInt(no));
@@ -276,7 +278,7 @@ public class LantripApplyController {
 
 		// 모댓글 번호 세팅
 		to.setNo(no);
-
+//		System.out.println("컨트롤러 모댓글 no : "+no);
 		// 게시물 번호 세팅
 		to.setBno(bno);
 
@@ -295,7 +297,7 @@ public class LantripApplyController {
 
 		// 답글 번호 세팅 - 답글 삭제하기 위해서 필요함
 		to.setNo(no);
-
+//		System.out.println("컨트롤러 답글 no : "+no);
 		// 게시물 번호 세팅 - p_board 의 reply+1하기 위해 필요함
 		to.setBno(bno);
 

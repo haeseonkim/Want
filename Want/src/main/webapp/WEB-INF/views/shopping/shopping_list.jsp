@@ -146,6 +146,21 @@
 
 <script type="text/javascript">
 
+//페이지가 뒤로가기 하면 하트버튼과 하트수 갱신이 안된다. 이때 하트를 누르면 디비에 중복으로 값이 들어가진다.
+//방지하기 위해 페이지가 뒤로가기 할때마다 css로 클릭을 막고 새로고침을 통해 갱신된 하트버튼과 하트수가 나오도록 한다.
+$(window).bind("pageshow", function (event) {
+ //파이어폭스와 사파리에서는 persisted를 통해서 뒤로가기 감지가 가능하지만 익스와 크롬에서는 불가  ||뒤의 코드를 추가한다. 
+ if (event.originalEvent.persisted || (window.performance && window.performance.navigation.type == 2)) {
+    console.log('BFCahe로부터 복원됨');
+    $(".heart-click").css("pointer-events","none");
+    location.reload();//새로고침 
+ }
+ else {
+    console.log('새로 열린 페이지');
+ }
+});
+
+
 //페이지가 처음 로딩될 때 1page를 보여주기 때문에 초기값을 1로 지정한다.
 let currentPage=1;
 //현재 페이지가 로딩중인지 여부를 저장할 변수이다.
