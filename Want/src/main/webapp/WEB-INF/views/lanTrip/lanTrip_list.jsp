@@ -7,7 +7,7 @@
 <%@ page import="java.util.ArrayList"%>
 
 <%
-
+	request.setCharacterEncoding("utf-8");
 	String nick = (String)session.getAttribute( "nick" );	
 	
 	ArrayList<LanTripTO> boardLists = (ArrayList)request.getAttribute("lists");
@@ -238,7 +238,7 @@ $(document).ready( function() {
 	<section id="carousel-container" class="carousel-container" >
 		<div class="row row-carousel">
 			<div class="section-title">
-				<h2>Best5</h2>
+				<h2>Best5!</h2>
 			</div>
 				<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
 					<div class="carousel-indicators">

@@ -47,8 +47,8 @@ public class LanTripController {
 
    // 각자 맞는 upload 폴더 경로로 변경
   
-   //private String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\lanTrip";
-   private String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\lanTrip";
+   private String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\lanTrip";
+   //private String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\lanTrip";
    //private String uploadPath ="/Users/hyukjun/git/Want/Want/src/main/webapp/upload/lanTrip";
    
 
@@ -67,109 +67,117 @@ public class LanTripController {
 //         to.setNick( nick );
 //         listTO = dao.lanTripListLogin(listTO, to);
 //      }
-	   
-		// 한 페이지에 몇개씩 표시할 것인지
-		final int PAGE_ROW_COUNT = 12;
+	   	try {
+			request.setCharacterEncoding("utf-8");
+			// 한 페이지에 몇개씩 표시할 것인지
+			final int PAGE_ROW_COUNT = 12;
 
-		// 보여줄 페이지의 번호를 일단 1이라고 초기값 지정
-		int pageNum = 1;
-		// 페이지 번호가 파라미터로 전달되는지 읽어와 본다.
-		String strPageNum = request.getParameter("pageNum");
-		// 만일 페이지 번호가 파라미터로 넘어 온다면
-		if (strPageNum != null) {
-			// 숫자로 바꿔서 보여줄 페이지 번호로 지정한다.
-			pageNum = Integer.parseInt(strPageNum);
-		}
+			// 보여줄 페이지의 번호를 일단 1이라고 초기값 지정
+			int pageNum = 1;
+			// 페이지 번호가 파라미터로 전달되는지 읽어와 본다.
+			String strPageNum = request.getParameter("pageNum");
+			// 만일 페이지 번호가 파라미터로 넘어 온다면
+			if (strPageNum != null) {
+				// 숫자로 바꿔서 보여줄 페이지 번호로 지정한다.
+				pageNum = Integer.parseInt(strPageNum);
+			}
 
-		// 보여줄 페이지의 시작 ROWNUM - 0부터 시작
-		int startRowNum = 0 + (pageNum - 1) * PAGE_ROW_COUNT;
-		// 보여줄 페이지의 끝 ROWNUM
-		int endRowNum = pageNum * PAGE_ROW_COUNT;
+			// 보여줄 페이지의 시작 ROWNUM - 0부터 시작
+			int startRowNum = 0 + (pageNum - 1) * PAGE_ROW_COUNT;
+			// 보여줄 페이지의 끝 ROWNUM
+			int endRowNum = pageNum * PAGE_ROW_COUNT;
 
-		int rowCount = PAGE_ROW_COUNT;
+			int rowCount = PAGE_ROW_COUNT;
 
-		/*
-		 * 검색 키워드 관련된 처리 - 검색 키워드가 파라미터로 넘어올 수도 있고 안넘어올 수도 있다.
-		 */
-		String keyword = request.getParameter("keyword");
-		String condition = request.getParameter("condition");
-		// 만일 키워드가 넘어오지 않는다면
-		if (keyword == null) {
-			// 키워드와 검색 조건에 빈 문자열을 넣어준다.
-			keyword = "";
-			condition = "";
-		}
-		// 특수기호를 인코딩한 키워드를 미리 준비한다.
-		String encodedK = URLEncoder.encode(keyword);
+			/*
+			 * 검색 키워드 관련된 처리 - 검색 키워드가 파라미터로 넘어올 수도 있고 안넘어올 수도 있다.
+			 */
+			String keyword = request.getParameter("keyword");
+			String condition = request.getParameter("condition");
+			// 만일 키워드가 넘어오지 않는다면
+			if (keyword == null) {
+				// 키워드와 검색 조건에 빈 문자열을 넣어준다.
+				keyword = "";
+				condition = "";
+			}
+			// 특수기호를 인코딩한 키워드를 미리 준비한다.
+			String encodedK = URLEncoder.encode(keyword);
 
-		// startRowNum 과 rowCount 를  PictureTO 객체에 담는다.
-		LanTripTO to = new LanTripTO();
-		to.setStartRowNum(startRowNum);
-		to.setEndRowNum(endRowNum);
-		to.setRowCount(rowCount);
+			// startRowNum 과 rowCount 를  PictureTO 객체에 담는다.
+			LanTripTO to = new LanTripTO();
+			to.setStartRowNum(startRowNum);
+			to.setEndRowNum(endRowNum);
+			to.setRowCount(rowCount);
 
-		// ArrayList 객체의 참조값을 담을 지역변수를 미리 만든다.
-		ArrayList<LanTripTO> lists = null;
-		// 전체 row의 개수를 담을 지역변수를 미리 만든다. - 검색조건이 들어올 경우 '검색 결과 갯수'가 된다.
-		int totalRow = 0;
+			// ArrayList 객체의 참조값을 담을 지역변수를 미리 만든다.
+			ArrayList<LanTripTO> lists = null;
+			// 전체 row의 개수를 담을 지역변수를 미리 만든다. - 검색조건이 들어올 경우 '검색 결과 갯수'가 된다.
+			int totalRow = 0;
 
-		// 만일 검색 키워드가 넘어온다면
-		if (!keyword.equals("")) { // 검색 조건이 무엇이냐에 따라 분기하기
-			if (condition.equals("subject")) { // 제목 검색인 경우
-				// 검색 키워드를 PictureTO에 담아서 전달한다.
-				to.setSubject(keyword);
-			} else if (condition.equals("content")) { // 내용 검색인 경우
-				to.setContent(keyword);
-			} else if (condition.equals("writer")) { // 작성자 검색인 경우
-				to.setWriter(keyword);
-			} else if (condition.equals("location")) {	// 위치 검색인 경우
-				to.setLocation(keyword);
-			} // 다른검색 조건을 추가하고 싶다면 아래 else if()를 계속 추가하면 된다.
-		}
+			// 만일 검색 키워드가 넘어온다면
+			if (!keyword.equals("")) { // 검색 조건이 무엇이냐에 따라 분기하기
+				if (condition.equals("subject")) { // 제목 검색인 경우
+					// 검색 키워드를 PictureTO에 담아서 전달한다.
+					to.setSubject(keyword);
+				} else if (condition.equals("content")) { // 내용 검색인 경우
+					to.setContent(keyword);
+				} else if (condition.equals("writer")) { // 작성자 검색인 경우
+					to.setWriter(keyword);
+				} else if (condition.equals("location")) {	// 위치 검색인 경우
+					to.setLocation(keyword);
+				} // 다른검색 조건을 추가하고 싶다면 아래 else if()를 계속 추가하면 된다.
+			}
 
-		// 위의 분기에 따라 pto에 담기는 내용이 다르고
-		// 그 내용을 기준으로 조건이 다를때마다 다른 내용이 select 되도록 dynamic query를 구성한다.
-		// 글 목록 얻어오기
+			// 위의 분기에 따라 pto에 담기는 내용이 다르고
+			// 그 내용을 기준으로 조건이 다를때마다 다른 내용이 select 되도록 dynamic query를 구성한다.
+			// 글 목록 얻어오기
 
-		if (session.getAttribute("nick") == null) {
-			// 로그인 상태가 아닐때
-			System.out.println("로그인 상태가 아닐때 ");
-			// 사진 자랑 게시판 목록 가져오기
+			if (session.getAttribute("nick") == null) {
+				// 로그인 상태가 아닐때
+				System.out.println("로그인 상태가 아닐때 ");
+				// 사진 자랑 게시판 목록 가져오기
 
-			lists = dao.boardLists(to);
-		} else {
-			// 로그인 상태일때
-			System.out.println("로그인 상태일때 ");
+				lists = dao.boardLists(to);
+			} else {
+				// 로그인 상태일때
+				System.out.println("로그인 상태일때 ");
 
-			// 현재사용자의 nick을 세팅
-			to.setNick((String) session.getAttribute("nick"));
+				// 현재사용자의 nick을 세팅
+				to.setNick((String) session.getAttribute("nick"));
 
-			// 사진자랑 게시판 목록 가져오기
-			lists = dao.lanTripListLogin(to);
+				// 사진자랑 게시판 목록 가져오기
+				lists = dao.lanTripListLogin(to);
 
-		}
+			}
 
-		// 글의 개수
-		totalRow = dao.LanTripCount(to);
+			// 글의 개수
+			totalRow = dao.LanTripCount(to);
 
-		// 전체 페이지의 갯수 구하기
-		int totalPageCount = (int) Math.ceil(totalRow / (double) PAGE_ROW_COUNT);
+			// 전체 페이지의 갯수 구하기
+			int totalPageCount = (int) Math.ceil(totalRow / (double) PAGE_ROW_COUNT);
 
-		request.setAttribute("lists", lists);
-		request.setAttribute("totalPageCount", totalPageCount);
-		request.setAttribute("condition", condition);
-		request.setAttribute("keyword", keyword);
-		request.setAttribute("totalRow", totalRow);
-		// pageNum 도 추가로 담아주기
-		request.setAttribute("pageNum", pageNum);
-      
+			request.setAttribute("lists", lists);
+			request.setAttribute("totalPageCount", totalPageCount);
+			request.setAttribute("condition", condition);
+			request.setAttribute("keyword", keyword);
+			request.setAttribute("totalRow", totalRow);
+			// pageNum 도 추가로 담아주기
+			request.setAttribute("pageNum", pageNum);
+     
    // 랜선여행 좋아요(heart)순으로 상위5개 가져오기
-   		ArrayList<LanTripTO> bestList = new ArrayList();
-   		bestList = dao.bestList();
-   		
-   		
-   		model.addAttribute( "to", to );
-   		model.addAttribute( "bestList", bestList );
+			ArrayList<LanTripTO> bestList = new ArrayList();
+			bestList = dao.bestList();
+			
+			
+			model.addAttribute( "to", to );
+			model.addAttribute( "bestList", bestList );
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
       
       return "lanTrip/lanTrip_list";
    }
@@ -178,100 +186,110 @@ public class LanTripController {
 	// 랜선여행 목록 - 로딩으로 불러오는 게시물 리스트
 	@RequestMapping(value = "/lanTrip_ajax_page.do")
 	public String lanTrip_ajax_page(HttpServletRequest request, HttpSession session) {
-		// 한 페이지에 몇개씩 표시할 것인지
-		final int PAGE_ROW_COUNT = 12;
+		
+		try {
+			request.setCharacterEncoding("utf-8");
+			// 한 페이지에 몇개씩 표시할 것인지
+			final int PAGE_ROW_COUNT = 12;
 
-		// 보여줄 페이지의 번호를 일단 1이라고 초기값 지정
-		int pageNum = 1;
-		// 페이지 번호가 파라미터로 전달되는지 읽어와 본다.
-		String strPageNum = request.getParameter("pageNum");
-		// 만일 페이지 번호가 파라미터로 넘어 온다면
-		if (strPageNum != null) {
-			// 숫자로 바꿔서 보여줄 페이지 번호로 지정한다.
-			pageNum = Integer.parseInt(strPageNum);
+			// 보여줄 페이지의 번호를 일단 1이라고 초기값 지정
+			int pageNum = 1;
+			// 페이지 번호가 파라미터로 전달되는지 읽어와 본다.
+			String strPageNum = request.getParameter("pageNum");
+			// 만일 페이지 번호가 파라미터로 넘어 온다면
+			if (strPageNum != null) {
+				// 숫자로 바꿔서 보여줄 페이지 번호로 지정한다.
+				pageNum = Integer.parseInt(strPageNum);
+			}
+
+			// 보여줄 페이지의 시작 ROWNUM - 0부터 시작
+			int startRowNum = 0 + (pageNum - 1) * PAGE_ROW_COUNT;
+			// 보여줄 페이지의 끝 ROWNUM
+			int endRowNum = pageNum * PAGE_ROW_COUNT;
+
+			int rowCount = PAGE_ROW_COUNT;
+
+			/*
+			 * 검색 키워드 관련된 처리 -검색 키워드가 파라미터로 넘어올 수도 있고 안넘어올 수도 있다.
+			 */
+			String keyword = request.getParameter("keyword");
+			String condition = request.getParameter("condition");
+			// 만일 키워드가 넘어오지 않는다면
+			if (keyword == null) {
+				// 키워드와 검색 조건에 빈 문자열을 넣어준다.
+				keyword = "";
+				condition = "";
+			}
+			// 특수기호를 인코딩한 키워드를 미리 준비한다.
+			String encodedK = URLEncoder.encode(keyword);
+
+			// startRowNum 과 rowCount 를  PictureTO 객체에 담고
+			LanTripTO to = new LanTripTO();
+			to.setStartRowNum(startRowNum);
+			to.setEndRowNum(endRowNum);
+			to.setRowCount(rowCount);
+
+			// ArrayList 객체의 참조값을 담을 지역변수를 미리 만든다.
+			ArrayList<LanTripTO> list = null;
+			// 전체 row의 개수를 담을 지역변수를 미리 만든다.
+			int totalRow = 0;
+
+			// 만일 검색 키워드가 넘어온다면
+			if (!keyword.equals("")) { // 검색 조건이 무엇이냐에 따라 분기하기
+				if (condition.equals("subject")) { // 제목 검색인 경우
+					// 검색 키워드를 PictureTO에 담아서 전달한다.
+					to.setSubject(keyword);
+				} else if (condition.equals("content")) { // 내용 검색인 경우
+					to.setContent(keyword);
+				} else if (condition.equals("writer")) { // 작성자 검색인 경우
+					to.setWriter(keyword);
+				} else if (condition.equals("location")) {	// 위치 검색인 경우
+					to.setLocation(keyword);
+				} // 다른검색 조건을 추가하고 싶다면 아래 else if()를 계속 추가하면 된다.
+			}
+
+			// 위의 분기에 따라 pto에 담기는 내용이 다르고
+			// 그 내용을 기준으로 조건이 다를때마다 다른 내용이 select 되도록 dynamic query를 구성한다.
+			// 글 목록 얻어오기
+
+			if (session.getAttribute("nick") == null) {
+				// 로그인 상태가 아닐때
+				System.out.println("로그인 상태가 아닐때 ");
+				// 사진 자랑 게시판 목록 가져오기
+
+				list = dao.boardLists(to);
+			} else {
+				// 로그인 상태일때
+				System.out.println("로그인 상태일때 ");
+
+				// 현재사용자의 nick을 세팅
+				to.setNick((String) session.getAttribute("nick"));
+
+				// 사진자랑 게시판 목록 가져오기
+				list = dao.lanTripListLogin(to);
+
+			}
+
+			// 글의 개수
+			totalRow = dao.LanTripCount(to);
+
+			// 전체 페이지의 갯수 구하기
+			int totalPageCount = (int) Math.ceil(totalRow / (double) PAGE_ROW_COUNT);
+
+			request.setAttribute("list", list);
+			request.setAttribute("totalPageCount", totalPageCount);
+			request.setAttribute("condition", condition);
+			request.setAttribute("keyword", keyword);
+			request.setAttribute("totalRow", totalRow);
+			// pageNum 도 추가로 담아주기
+			request.setAttribute("pageNum", pageNum);
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-
-		// 보여줄 페이지의 시작 ROWNUM - 0부터 시작
-		int startRowNum = 0 + (pageNum - 1) * PAGE_ROW_COUNT;
-		// 보여줄 페이지의 끝 ROWNUM
-		int endRowNum = pageNum * PAGE_ROW_COUNT;
-
-		int rowCount = PAGE_ROW_COUNT;
-
-		/*
-		 * 검색 키워드 관련된 처리 -검색 키워드가 파라미터로 넘어올 수도 있고 안넘어올 수도 있다.
-		 */
-		String keyword = request.getParameter("keyword");
-		String condition = request.getParameter("condition");
-		// 만일 키워드가 넘어오지 않는다면
-		if (keyword == null) {
-			// 키워드와 검색 조건에 빈 문자열을 넣어준다.
-			keyword = "";
-			condition = "";
-		}
-		// 특수기호를 인코딩한 키워드를 미리 준비한다.
-		String encodedK = URLEncoder.encode(keyword);
-
-		// startRowNum 과 rowCount 를  PictureTO 객체에 담고
-		LanTripTO to = new LanTripTO();
-		to.setStartRowNum(startRowNum);
-		to.setEndRowNum(endRowNum);
-		to.setRowCount(rowCount);
-
-		// ArrayList 객체의 참조값을 담을 지역변수를 미리 만든다.
-		ArrayList<LanTripTO> list = null;
-		// 전체 row의 개수를 담을 지역변수를 미리 만든다.
-		int totalRow = 0;
-
-		// 만일 검색 키워드가 넘어온다면
-		if (!keyword.equals("")) { // 검색 조건이 무엇이냐에 따라 분기하기
-			if (condition.equals("subject")) { // 제목 검색인 경우
-				// 검색 키워드를 PictureTO에 담아서 전달한다.
-				to.setSubject(keyword);
-			} else if (condition.equals("content")) { // 내용 검색인 경우
-				to.setContent(keyword);
-			} else if (condition.equals("writer")) { // 작성자 검색인 경우
-				to.setWriter(keyword);
-			} else if (condition.equals("location")) {	// 위치 검색인 경우
-				to.setLocation(keyword);
-			} // 다른검색 조건을 추가하고 싶다면 아래 else if()를 계속 추가하면 된다.
-		}
-
-		// 위의 분기에 따라 pto에 담기는 내용이 다르고
-		// 그 내용을 기준으로 조건이 다를때마다 다른 내용이 select 되도록 dynamic query를 구성한다.
-		// 글 목록 얻어오기
-
-		if (session.getAttribute("nick") == null) {
-			// 로그인 상태가 아닐때
-			System.out.println("로그인 상태가 아닐때 ");
-			// 사진 자랑 게시판 목록 가져오기
-
-			list = dao.boardLists(to);
-		} else {
-			// 로그인 상태일때
-			System.out.println("로그인 상태일때 ");
-
-			// 현재사용자의 nick을 세팅
-			to.setNick((String) session.getAttribute("nick"));
-
-			// 사진자랑 게시판 목록 가져오기
-			list = dao.lanTripListLogin(to);
-
-		}
-
-		// 글의 개수
-		totalRow = dao.LanTripCount(to);
-
-		// 전체 페이지의 갯수 구하기
-		int totalPageCount = (int) Math.ceil(totalRow / (double) PAGE_ROW_COUNT);
-
-		request.setAttribute("list", list);
-		request.setAttribute("totalPageCount", totalPageCount);
-		request.setAttribute("condition", condition);
-		request.setAttribute("keyword", keyword);
-		request.setAttribute("totalRow", totalRow);
-		// pageNum 도 추가로 담아주기
-		request.setAttribute("pageNum", pageNum);
 		
 		/////////////////////////////////////////////////////// 여기까지 lanTrip_list와 동일
 		/////////////////////////////////////////////////////// ajax_page는 스크롤을 내릴때 추가되는 게시물들을 가져오기 떄문에 

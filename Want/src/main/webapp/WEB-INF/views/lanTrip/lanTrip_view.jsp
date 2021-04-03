@@ -40,6 +40,9 @@
 		if( replyTo.getGrpl() != 0 ) {
 			sbHtml.append( "&nbsp;&nbsp;&nbsp;&nbsp;");
 		}
+       	sbHtml.append( "<div class='row'> " );
+        
+       
 		sbHtml.append( "<div class='col-1 profile_img'> ");
 		sbHtml.append( "	<img class='cmt_profile img-circle' src='./upload/profile/" + replyTo.getProfile() + "'> ");
 		sbHtml.append( "</div> ");
@@ -53,6 +56,7 @@
        	sbHtml.append( "		<span><button type='button' class='btn_rdelete' id='reply_content"+ replyTo.getNo()+"d"+replyTo.getWriter()+"' onclick='reply_deleteOk(this.id)'>삭제</button></span> ");
    		sbHtml.append( " 	</div> ");
  		sbHtml.append( "</div> ");
+ 		sbHtml.append( "<div> " );
 		sbHtml.append( "<div class='row reply_div" + replyTo.getNo() + "' style='display: none;'> ");
     	sbHtml.append( "		<div> ");
     	sbHtml.append( "			<textarea style='width: 1100px' rows='3' cols='50' id='reply_content"+replyTo.getNo()+"' name='r_ccontent' placeholder='&nbsp;댓글을 입력하세요'></textarea> ");
@@ -224,9 +228,6 @@ $(document).ready( function() {
             <div class="cmt">
                <span><strong>댓글 | <%=reply %></strong></span>
             </div>
-            <div class="row">
-               
-            <div>
             <form action="./lanTrip_view_reply_ok.do" method="post" name="cfrm">
             <input type="hidden" name="cwriter" value="<%= nick %>" />
             <input type="hidden" name="bno" value="<%=no %>" />

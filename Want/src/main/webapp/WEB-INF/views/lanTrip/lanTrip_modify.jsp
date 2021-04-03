@@ -220,7 +220,7 @@
 								<div class="input-group js-input-file">
 									<input class="input-file" type="file" name="video" id="file">
 									<label class="label--file" for="file">파일 선택</label> <span
-										class="input-file__info">No file chosen</span>
+										class="input-file__info"><%=video %></span>
 								</div>
 								<div class="label--desc">여행 사진 or 동영상을 업로드하세요. 최대파일 크기는
 									00MB입니다.</div>
@@ -245,15 +245,6 @@
 		</div>
 	</div>
 	</form>
-	 <div class="btn_area">
-			<div class="align_left">
-				<input type="button" value="목록" class="btn_list btn_txt02" style="cursor: pointer;" onclick="location.href='lanTrip_list.do'" />
-			</div>
-			<div class="align_right">
-				<input type="button" value="삭제" class="btn_list btn_txt02" style="cursor: pointer;" onclick="location.href='lanTrip_delete_ok.do?no=<%=request.getParameter("no") %>'" />
-				<input type="button" value="쓰기" class="btn_write btn_txt01" style="cursor: pointer;" onclick="location.href='lanTrip_write.do'" />
-			
-			
-	</div>	
+
 </body>
 </html>

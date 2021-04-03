@@ -290,7 +290,7 @@
 				$(".write_reply").click(function(){
 					// 게시물 번호
 					let no = $(this).attr('idx');
-					
+					//책갈피
 					// 댓글 입력란의 내용을 가져온다.
 					let content = $("#input_reply" + no).val();
 					
