@@ -3,7 +3,9 @@
 body{
 	font_family :'Song Myung', sans-serif;
 }
-
+.table{
+	font-size: 14px;
+}
 
 #board_content {
 	background-color: white;
@@ -117,12 +119,29 @@ body{
 	}
 }
 
+#commentForm{
+	font-size:14px;
+}
+
 #comment{
 	border:solid;
 	border-width:1px;
 	border-radius:.5rem;
 	border-color: grey;
 	width:100px;
+}
+
+.re_comment{
+	border:solid;
+	border-width:1px;
+	border-radius:.5rem;
+	border-color: grey;
+	width:86%;
+	margin-left:30px;
+	margin-bottom:10px;
+}
+.btn_recomment{
+	margin-left:30px;
 }
 
 #modal-content{
@@ -216,8 +235,8 @@ button {
 body {
 	font-family: "Open Sans", "Arial", "Helvetica Neue", sans-serif;
 	font-weight: 400;
-	font-size: 14px;
-	line-height: 2.4;
+	
+
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -781,14 +800,60 @@ div.card-footer{
    	margin-top : 50px;   		
 }
 
-#lanTrip_apply_header {
-	text-align: center;
+#la-header {
+ 	position: relative;
 	background-image: url("../img/header.jpg");
-	height: 200px;
-	vertical-align: middle;
-	color:white;
+	height: 250px;
+	background-size: cover;
+	line-height: 2.4;
+}
+ 
+#la-header:before {
+	content: "";
+	background: rgba(0, 0, 0, 0.4);
+	position: absolute;
+	bottom: 0;
+	top: 0;
+	left: 0;
+	right: 0;
+}
+
+#la-header h1 {
+	text-align: center;
+	margin: 28px 0 10px 0;
+	font-size: 48px;
+	font-weight: 700;
+	line-height: 56px;
+	color: #fff;
 	text-shadow: 1.25px 1.25px 1.25px black;
-	
+}
+
+#la-header p {
+	text-align: center;
+	margin: 0 0 10px 0;
+	font-size: 20px;
+	font-weight: 700;
+	line-height: 56px;
+	color: #fff;
+	text-shadow: 1.25px 1.25px 1.25px black;
+}
+
+#la-header .la-header-container {
+	position: absolute;
+	bottom: 0;
+	top: 0;
+	left: 0;
+	right: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	text-align: center;
+	padding: 0 15px;
+}
+
+#info {
+	line-height: 2.4;
 }
 .cmt{
 	margin-bottom:10px;
