@@ -25,8 +25,8 @@ public class WithController {
 	private withDAO dao;
   
    //private String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\with";
-   private String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\with";
-   //private String uploadPath ="/Users/hyukjun/git/Want/Want/src/main/webapp/upload/with";
+   //private String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\with";
+   private String uploadPath ="/Users/hyukjun/git/Want/Want/src/main/webapp/upload/with";
 
 	
 	// 랜선여행 신청 목록					
