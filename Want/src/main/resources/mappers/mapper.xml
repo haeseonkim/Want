@@ -101,7 +101,7 @@
 	
 	<!--로그인 전 Lantriplist -->
 	<select id="lanTripList" resultType="com.exam.model1.lantrip.LanTripTO">
-		select no, subject, writer, date_format(wdate, '%Y-%m-%d') wdate, hit, location, video, reply, heart
+		select no, subject, writer, date_format(wdate, '%Y-%m-%d') wdate, hit, location, video, reply, heart, profile
 		from l_board b left outer join user u
 		on b.writer = u.nick
 		<choose>
@@ -128,7 +128,7 @@
 	
 	<!-- 로그인 후 lanTrip 리스트 -->
 	<select id="lanTrip_list_login" parameterType="com.exam.model1.lantrip.LanTripTO" resultType="com.exam.model1.lantrip.LanTripTO">
-		select b.no, b.subject, b.writer, hit, location, video, reply, heart, h.hno, f.fno
+		select b.no, b.subject, b.writer, hit, location, video, reply, heart, h.hno, f.fno, profile, date_format(wdate, '%Y-%m-%d') wdate
 		from l_board b left outer join l_heart h
 		on #{nick} = h.userid and b.no = h.bno
 		left outer join l_favorite f

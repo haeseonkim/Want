@@ -31,18 +31,17 @@
 	StringBuffer sbHtml = new StringBuffer();
 	
 	for( LanTripReplyTO replyTo : rLists ) {
-		sbHtml.append( "<form method='post' name='reply_content"+replyTo.getNo()+"' >" );
+		if( replyTo.getGrpl() == 1 ) {
+			sbHtml.append( "<form method='post' class='rereply' name='reply_content"+replyTo.getNo()+"' >" );
+		} else {
+			sbHtml.append( "<form method='post' class='reply' name='reply_content"+replyTo.getNo()+"' >" );
+		}
 		sbHtml.append( "<input type='hidden' name='no' value='"+replyTo.getNo()+"' />" );
 		sbHtml.append( "<input type='hidden' name='bno' value='"+no+"' />" );
 		sbHtml.append( "<input type='hidden' name='writer' value='"+nick+"' />" );
 		sbHtml.append( "<input type='hidden' name='cpage' value='"+cpage+"' />" );
 		sbHtml.append( "<input type='hidden' name='grp' value='"+replyTo.getGrp()+"' />" );
-		if( replyTo.getGrpl() != 0 ) {
-			sbHtml.append( "&nbsp;&nbsp;&nbsp;&nbsp;");
-		}
        	sbHtml.append( "<div class='row'> " );
-        
-       
 		sbHtml.append( "<div class='col-1 profile_img'> ");
 		sbHtml.append( "	<img class='cmt_profile img-circle' src='./upload/profile/" + replyTo.getProfile() + "'> ");
 		sbHtml.append( "</div> ");
@@ -236,7 +235,7 @@ $(document).ready( function() {
 	                	<td>
 	            	        <textarea style="width: 1100px" rows="3" cols="50" id="comment" name="ccontent" placeholder="&nbsp;댓글을 입력하세요"></textarea>
 	                        	<div id="btn_comment">
-	                                <button type="submit" onClick="replyOk()" class="btn btn--radius-2 btn--blue-2 btn-md">댓글등록</button>
+	                                <button type="button" onClick="replyOk()" class="btn btn--radius-2 btn--blue-2 btn-md">댓글등록</button>
 	                            </div>
 	                    </td>
 	                 </tr>
