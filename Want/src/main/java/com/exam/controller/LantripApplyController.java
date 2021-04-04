@@ -60,6 +60,76 @@ public class LantripApplyController {
 		return "lanTrip_apply/lanTrip_apply_list";
 	}
 
+	// 검색 결과
+	@RequestMapping(value = "/la_ajax_page.do")
+	public String la_ajax_page(HttpServletRequest request) {
+		try {
+			request.setCharacterEncoding("utf-8");
+			
+			System.out.println("컨트롤러 넘어옴");
+
+			System.out.println("condition: " + request.getParameter("condition"));
+			System.out.println("keyword: " + request.getParameter("keyword"));
+			
+			// 검색결과를 담아올 to
+			LanTripApplyListTO listTO = new LanTripApplyListTO();
+			LanTripApplyTO to = new LanTripApplyTO();
+			
+			// 전체 row의 개수를 담을 지역변수를 미리 만든다. - 검색조건이 들어올 경우 '검색 결과 갯수'가 된다.
+			int totalRow = 0;
+			
+			//검색 키워드 관련된 처리 - 검색 키워드가 파라미터로 넘어올 수도 있고 안넘어올 수도 있다.
+			String keyword = request.getParameter("keyword");
+			String condition = request.getParameter("condition");
+			
+			System.out.println("condition: " + condition);
+			System.out.println("keyword: " + keyword);
+			
+			// 책갈피 - 매퍼에 where 조건에 condition = keyword를 주자
+			listTO.setCpage(Integer
+					.parseInt(request.getParameter("cpage") == null || request.getParameter("cpage").equals("") ? "1"
+							: request.getParameter("cpage")));
+			listTO = dao.boardList(listTO);
+
+			
+			if (condition.equals("subject")) { // 제목 검색인 경우
+				// 검색 키워드를 PictureTO에 담아서 전달한다.
+				to.setSubject(keyword);
+			} else if (condition.equals("content")) { // 내용 검색인 경우
+				to.setContent(keyword);
+			} else if (condition.equals("writer")) { // 작성자 검색인 경우
+				to.setWriter(keyword);
+			} else if (condition.equals("location")) {	// 위치 검색인 경우
+				to.setLocation(keyword);
+			} // 다른검색 조건을 추가하고 싶다면 아래 else if()를 계속 추가하면 된다.
+			
+			// 검색 결과를 담아오는 배열
+			ArrayList<LanTripApplyTO> lists = dao.searchList(to);
+			
+			// 검색결과(lists)를 페이징 to (listTO)에 담는 과정
+			listTO.setBoardList(lists);
+			
+			// 검색결과 세팅
+			request.setAttribute("listTO", listTO);
+			
+			
+			totalRow = dao.laCount(to);
+			
+			request.setAttribute("totalRow", totalRow);
+			request.setAttribute("keyword", keyword);
+			request.setAttribute("condition", condition);
+
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return "lanTrip_apply/lanTrip_apply_list";
+	}
+	
 	// lanTrip_apply_write
 	@RequestMapping(value = "/lanTrip_apply_write.do")
 	public String lanTrip_apply_write(HttpServletRequest request, Model model) {

@@ -42,7 +42,7 @@
 			sbHtml.append("");
 		} else {
 			sbHtml.append("<span style='color:#5fcf80;'>["+reply+"]</span>");
-		};
+		}
 		
 		sbHtml.append("   </td>");
 		sbHtml.append("   <td id='writer'>" + writer + "</td>");
@@ -65,6 +65,27 @@
 	rel="stylesheet">
 <link href="./resources/css/navbar.css" rel="stylesheet">
 
+<script type="text/javascript">
+		
+		window.onload = function() {
+			
+			// 검색버튼을 눌렀을 때 검색내용 입력 검사
+			document.getElementById('submit').onclick = function() {
+				if (document.frm.keyword.value.trim() == "") {
+					alert('검색 내용을 입력하셔야 합니다.');
+					return false;
+				}
+				
+				console.log(document.frm.keyword.value.trim());
+				//console.log(document.frm.condition.isSelected);
+				
+				document.frm.submit();
+			};
+		}
+		
+	</script>
+
+
 </head>
 <body>
 	<!-- 메뉴바 
@@ -84,14 +105,44 @@
 			<p>원하는 랜선여행을 신청하세요!</p>
 		</div>
 	</section>
-	<div class="con_txt" align="center" style="margin-top:10px;">
-		<div class="contents_sub">
-			<div class="board_top">
-				<div class="bold" align="left">
-					총 <span id="totalRecord"><%=totalRecord%></span>건
+	
+	<br />
+		<!-- 검색 -->
+	<div id="card-search" class="card-search" >
+		<!-- 검색 버튼과 form -->
+		<form action="./la_ajax_page.do" name="frm" method="get">
+			<div class="row justify-content-md-center" id="search">
+				<div class="form-row col-1"></div>
+				<div class="col-1">
+					<div class="value">
+						<select id="condition" name="condition" class="form-select">
+							<option value="subject" ${condition eq 'subject' ? 'selected' : '' }>제목</option>
+							<option value="content" ${condition eq 'content' ? 'selected' : '' }>내용</option>
+							<option value="writer" ${condition eq 'writer' ? 'selected' : '' }>작성자</option>
+							<option value="location" ${condition eq 'location' ? 'selected' : '' }>위치</option>
+						</select>
+					</div>
 				</div>
+				<div class="col-md-6">
+					<input value="${keyword }" type="text" name="keyword" id="keyword" placeholder="검색어를 입력해주세요" class="form-control">
+				</div>
+				<div class="col-md-1" style="padding-left:0; vertical-align:middle;">
+					<button id="submit" class="btn btn--blue-2 btn--radius-2" type="submit">검색</button>
+				</div>
+				<div class="col-1"></div>
 			</div>
-
+		</form>
+	</div>
+	<%-- 만일 검색 키워드가 존재한다면 몇개의 글이 검색 되었는지 알려준다. --%>
+	<c:if test="${not empty keyword }">
+		<div class="alert text-center">
+			<strong>${totalRow }</strong> 개의 자료가 검색되었습니다.
+		</div>
+	</c:if>
+	<!-- 검색결과 -->
+	<div class="search-result">
+	
+	</div>
 			<!--게시판-->
 			<div class="board">
 			<hr />
@@ -159,8 +210,8 @@
 	}
 %>
 	</div>
-		</div>
-	</div>
+
+	
 
 </body>
 </html>

@@ -73,9 +73,9 @@ public class ShoppingController {
 		int maxFileSize = 1024 * 1024 * 6;
 		String encType = "utf-8";
     
-   //String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\shopping";
+   String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\shopping";
    //String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\shopping";
-   String uploadPath ="/Users/hyukjun/git/Want/Want/src/main/webapp/upload/shopping";
+//   String uploadPath ="/Users/hyukjun/git/Want/Want/src/main/webapp/upload/shopping";
     
 		MultipartRequest multi = null;
 
@@ -630,9 +630,9 @@ public class ShoppingController {
 		int maxFileSize = 1024 * 1024 * 6;
 		String encType = "utf-8";
     
-   //String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\shopping";
+   String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\shopping";
    //String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\shopping";
-   String uploadPath ="/Users/hyukjun/git/Want/Want/src/main/webapp/upload/shopping";
+   //String uploadPath ="/Users/hyukjun/git/Want/Want/src/main/webapp/upload/shopping";
     
 		MultipartRequest multi = null;
 
