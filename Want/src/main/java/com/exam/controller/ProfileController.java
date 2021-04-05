@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.exam.model1.message.MessageDAO;
 import com.exam.model1.message.MessageTO;
+import com.exam.model1.picture.PictureTO;
+import com.exam.model1.pictureReply.ReplyTO;
 import com.exam.model1.lantrip.LanTripDAO;
 import com.exam.model1.lantrip.LanTripTO;
 import com.exam.model1.lantripReply.LanTripReplyDAO;
@@ -35,8 +37,8 @@ public class ProfileController {
 	@Autowired
 	private LanTripReplyDAO l_replyDao;
 
-   //private String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\profile";
-   private String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\profile";
+   private String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\profile";
+   //private String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\profile";
    //private String uploadPath ="/Users/hyukjun/git/Want/Want/src/main/webapp/upload/profile";
 	
 	// 내 프로필
@@ -132,11 +134,9 @@ public class ProfileController {
 			totalRow = lantripDao.profileLanTripCount( lto );
 			
 			int totalPageCount = (int)Math.ceil( totalRow / (double)recordNum );
-			System.out.println( "전체 페이지 수는 ? : " + totalPageCount );
 			
 			//랜선여행 글리스트 결과를 리턴받는다.
 			ArrayList<LanTripTO> list = lantripDao.lantrip_MyProfileList(lto);
-			System.out.println( "글목록 가져오니 ? : " + list );
 			
 			//jsp로 to가 담긴 arrayList넘겨준다.
 			request.setAttribute( "totalPageCount", totalPageCount );
@@ -170,23 +170,67 @@ public class ProfileController {
 		return "profile/profile_lantripReply_ajax_page";
 	}
 	
-	
-	
-	// 남이 보는 내 프로필
-	@RequestMapping(value = "/other_profile.do")
-	public String other_profile(HttpServletRequest request) {
+	//랜선여행 모댓글 작성
+	@ResponseBody
+	@RequestMapping( value= "/lantrip_write_reply.do" )
+	public LanTripTO lantrip_write_reply(@RequestParam String bno, @RequestParam String content, HttpSession session ) {
 		
-		UserTO to = new UserTO();
+		LanTripReplyTO to = new LanTripReplyTO();
+		//게시물번호 세팅
+		to.setBno(bno);
 		
-		to.setNick(request.getParameter("other_nick"));
-		to = userDao.OtherProfile(to);
+		//댓글 내용 세팅
+		to.setContent(content);
 		
-		System.out.println(to);
+		//댓글 작성자 nick을 writer로 세팅
+		to.setWriter( (String)session.getAttribute( "nick" ) );
 		
-		request.setAttribute("to", to);
+		LanTripTO lto = l_replyDao.lantripWriteReply( to );
 		
-		return "other_profile/other_profile";
+		return lto;
 	}
+	
+	// 모댓글 삭제
+	@ResponseBody
+	@RequestMapping(value = "/lantrip_delete_reply.do")
+	public LanTripTO lantrip_delete_reply(@RequestParam String no, @RequestParam String bno) {
+
+		LanTripReplyTO to = new LanTripReplyTO();
+
+		// 모댓글 번호 세팅
+		to.setNo(no);
+
+		// 게시물 번호 세팅
+		to.setBno(bno);
+
+		// 갱신된 댓글 갯수를 담아오기 위함
+		LanTripTO lto = l_replyDao.lantripDeleteReply(to);
+
+		return lto;
+	}
+	
+	// 자식댓글 삭제
+	@ResponseBody
+	@RequestMapping(value = "/lantrip_delete_rereply.do")
+	public LanTripTO lantrip_delete_reply(@RequestParam String no, @RequestParam String bno, @RequestParam String grp) {
+
+		LanTripReplyTO to = new LanTripReplyTO();
+
+		// 모댓글 번호 세팅
+		to.setNo(no);
+
+		// 게시물 번호 세팅
+		to.setBno(bno);
+		
+		//grp세팅
+		to.setGrp(grp);
+
+		// 갱신된 댓글 갯수를 담아오기 위함
+		LanTripTO lto = l_replyDao.lantripDeleteReply(to);
+
+		return lto;
+	}
+	
 	
 	// 메세지 목록 가져오기
 	@RequestMapping(value = "/message_content_list_inprofile.do")

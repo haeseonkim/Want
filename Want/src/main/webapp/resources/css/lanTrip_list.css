@@ -1,8 +1,9 @@
 @charset "UTF-8";
 
 
+
 body {
-	font_family: 'Song Myung', sans-serif;
+	font-family: 'Nanum Pen Script', cursive;
 }
 
 .carousel-container {
@@ -73,7 +74,7 @@ body {
 	-moz-transition: all 0.4s ease;
 	transition: all 0.4s ease;
 	cursor: pointer;
-	font-size: 15px;
+	font-size: 20px;
 	text-transform: capitalize;
 	font-weight: 700;
 	color: #fff;
@@ -163,7 +164,7 @@ section {
 }
 
 .section-title h2 {
-	font-size: 32px;
+	font-size: 100px;
 	font-weight: bold;
 	text-transform: uppercase;
 	margin-top: 30px;

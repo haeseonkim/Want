@@ -137,6 +137,10 @@
 <!-- 내 피드 관련 자바스크립트 -->
 <script>
 	
+
+	
+	//============= 글리스트 가져오기 함수 =============
+		
 	//페이지가 처음 로딩될 때 1page를 보여주기 때문에 초기값을 1로 지정한다.
 	let currentPage=1;
 	//현재 페이지가 로딩중인지 여부를 저장할 변수이다.
@@ -151,9 +155,8 @@
 		//console.log( 'divName : ' + divName );
 		
 		//하트 컨트롤러 이름 만들어주기
-		let heartUrl = 'lantrip';
+		let heartUrl = 'lanTrip_';
 		if( divName = 'lantrip' ) {
-			break;
 		} else if( divName = 'picture' ) {
 			heartUrl = '';
 		} else if( divName = 'shop' ) {
@@ -168,9 +171,6 @@
 			data:"pageNum="+currentPage,
 			//ajax_page.jsp의 내용이 jspPage로 들어온다.
 			success:function( jspPage ){
-				//console.log(jspPage);
-				//console.log( divName );
-				//console.log( $('#'+divName ).attr('class')  );
 				//응답된 문자열은 jsp 형식이다.(profile/게시판명_ajax_page.jsp에 응답내용이 있다.)
 				//해당 문자열을 특정div 태그에 붙여준다.
 				$( '#'+divName ).append(jspPage);
@@ -178,19 +178,18 @@
 				$(".back-drop").hide();
 				//로딩중이 아니라고 표시한다.
 				isLoading=false;
-				console.log("ajax");
+				
+				
 				
 				// 로그인 한 상태에서 하트를 클릭했을 때 (로그인한 상태인 하트의 <a></a> class명: heart-click)
 				$(".heart-click").unbind('click');
 				$(".heart-click").click(function() {
-				
+					
 					// 게시물 번호(no)를 idx로 전달받아 저장합니다.
 					let no = $(this).attr('idx');
-					console.log("heart-click");
 					
 					// 빈하트를 눌렀을때
 					if($(this).children('svg').attr('class') == "bi bi-suit-heart"){
-						console.log("빈하트 클릭" + no);
 						
 						$.ajax({
 							url : heartUrl+'saveHeart.do',
@@ -253,7 +252,7 @@
 					}
 					
 					
-
+	
 				});
 				
 				
@@ -285,8 +284,6 @@
 					// 앞뒤 공백을 제거한다.(띄어쓰기만 입력했을때 댓글작성안되게 처리하기위함)
 					content = content.trim();
 					
-					console.log(content);
-					
 					if(content == ""){	// 입력된게 없을때
 						alert("글을 입력하세요!");
 					}else{	
@@ -295,15 +292,15 @@
 						
 						// reply+1 하고 그 값을 가져옴
 						$.ajax({
-							url : 'picture_write_reply.do',
+							url : divName+'_write_reply.do',
 							type : 'get',
 							data : {
-								no : no,
-								content: content
+								bno : no,
+								content: content,
+								key: 'profile'
 							},
-							success : function(pto) {
-								
-								let reply = pto.reply;
+							success : function(to) {
+								let reply = to.reply;
 								// 페이지, 모달창에 댓글수 갱신
 								$('#m_reply'+no).text(reply);
 								$('#reply'+no).text(reply);
@@ -330,10 +327,11 @@
 	$(document).ready(function(){
 		//현재페이지번호, 컨트롤러명, ajax결과 붙일 div태그명 넘겨준다.
 		GetList( currentPage, "profile_lanTrip_ajax_page.do", "lantrip" );
+		
+		
 	});
 	
-	// [댓글]
-	// 게시물의 댓글 목록을 불러오는 함수입니다.
+	//============= 댓글 리스트 가져오는 함수 =============
 	const ReplyList = function( no, divName ) {
 		
 		$.ajax({
@@ -343,11 +341,6 @@
 				no : no
 			},
 			success : function( jspPage ) {
-				
-				console.log("댓글 리스트 가져오기 성공");
-				
-				
-				
 				///////////// 동적으로 넣어준 html에 대한 이벤트 처리는 같은 함수내에서 다 해줘야한다.
 				///////////// $(document).ready(function(){}); 안에 써주면 안된다.
 				
@@ -359,14 +352,14 @@
 				//	$('#input_rereply'+ $(this).attr('no')).val("@"+$(this).attr('writer')+" ");
 				//});
 				
+
 				//답글을 작성한 후 답글달기 버튼을 눌렀을 때 그 click event를 아래처럼 jquery로 처리한다.
 				$('button.btn.btn-success.mb-1.write_rereply').on( 'click', function() {
 					console.log( 'no', $(this).attr('no') );
 					console.log( 'bno', $(this).attr('bno') );
 					let bno = $(this).attr('bno');
 					let no = $(this).attr('no');
-					
-					
+
 					// 답글을 DB에 저장하는 함수를 호출한다. bno와 no를 같이 넘겨주어야한다.
 					WriteReReply( bno, no, divName );
 				});
@@ -375,16 +368,15 @@
 				$('.reply_delete').on('click', function(){
 					// 모댓글 삭제일때
 					if($(this).attr('grpl') == 0){	
-						DeleteReply($(this).attr('no'), $(this).attr('bno'));
-					
+						DeleteReply( $(this).attr('no'), $(this).attr('bno'), divName );
+
 					// 답글 삭제일때
 					}else{
-						DeleteReReply($(this).attr('no'), $(this).attr('bno'), $(this).attr('grp'));
+						DeleteReReply( $(this).attr('no'), $(this).attr('bno'), $(this).attr('grp'), divName );
 					}
 					
 				})
-				
-				
+
 			},
 			error : function() {
 				alert('서버 에러');
@@ -395,10 +387,10 @@
 	// 답글 달기 버튼 클릭시  실행 - 답글 저장, 댓글 갯수 가져오기
 	const WriteReReply = function( bno, no, divName ) {
 		
-		console.log(bno);
-		console.log(no);
+		console.log( "1. bno : " + bno);
+		console.log( "2. no : " + no);
 		
-		console.log($("#input_rereply" + no).val());
+		console.log( "3. 댓글 번호 : " + $("#input_rereply" + no).val() );
 		
 		// 댓글 입력란의 내용을 가져온다. 
 		// ||"" 를 붙인 이유  => 앞뒤 공백을 제거한다.(띄어쓰기만 입력했을때 댓글작성안되게 처리하기위함)
@@ -411,7 +403,7 @@
 		}else{	
 			// 입력란 비우기
 			$("#input_rereply" + no).val("");
-	
+			
 			// reply+1 하고 그 값을 가져옴
 			$.ajax({
 				url : divName+'_write_rereply.do',
@@ -441,7 +433,94 @@
 		};
 	};
 	
+	// 모댓글 삭제일때
+	const DeleteReply = function( no, bno, divName ){
+		// grp이 no인 댓글이 있는 경우 content에 null을 넣고 없으면 삭제한다.
+		$.ajax({
+			url : divName+'_delete_reply.do',
+			type : 'get',
+			data : {
+				no : no,
+				bno : bno
+			},
+			success : function(to) {
+				
+				let reply = to.reply;
+				
+				// 페이지, 모달창에 댓글수 갱신
+				$('#m_reply'+bno).text(reply);
+				$('#reply'+bno).text(reply);
+				
+				console.log("모댓글 삭제 성공");
+				
+				// 게시물 번호(bno)에 해당하는 댓글리스트를 새로 받아오기
+				ReplyList( bno, divName );
+			},
+			error : function() {
+				alert('서버 에러');
+			}
+		});
+	};
 	
+	//답글 삭제일때
+	const DeleteReReply = function( no, bno, grp, divName ){
+		
+		//console.log("grp : " + grp);
+		
+		// 답글을 삭제한다.
+		$.ajax({
+			url : divName+'_delete_rereply.do',
+			type : 'get',
+			data : {
+				no : no,
+				bno : bno,
+				grp : grp
+			},
+			success : function(to) {
+				
+				let reply = to.reply;
+				
+				// 페이지, 모달창에 댓글수 갱신
+				$('#m_reply'+bno).text(reply);
+				$('#reply'+bno).text(reply);
+				
+				console.log("답글 삭제 성공");
+				
+				// 게시물 번호(bno)에 해당하는 댓글리스트를 새로 받아오기
+				ReplyList( bno, divName );
+			},
+			error : function() {
+				alert('서버 에러');
+			}
+		});
+		
+	};
+	
+	//게시글 삭제하기
+	const BoardDelete = function( no, divName ){
+		//alert("함수들어왔다!");
+		
+		$.ajax({
+			url : divName+'_delete_ok.do',
+			type : 'get',
+			data : {
+				no : no,
+			},
+			success : function(to) {
+				
+				document.location.reload();
+				alert("삭제되었습니다!");
+				
+				
+			},
+			error : function() {
+				alert('서버 에러');
+			}
+		});
+	}
+	
+	
+	//============= 무한스크롤 함수 =============
 	//웹브라우저의 창을 스크롤 할 때 마다 호출되는 함수 등록
 	$(window).on("scroll",function(){
 		//위로 스크롤된 길이
@@ -458,21 +537,17 @@
 		
 		
 		let ajaxDoName = '';
-		switch( divName ) {
-		case 'lantrip':
+		if( divName == 'lantrip' ) {
 			ajaxDoName = 'profile_lanTrip_ajax_page.do';
-			break;
-		case 'picture':
+		} else if( divName == 'picture' ) {
 			ajaxDoName = 'profile_picture_ajax_page.do';
-			break;
-		case 'shop':
+		} else if( divName == 'shop' ) {
 			ajaxDoName = 'profile_shop_ajax_page.do';
-			break;
-		case 'accom':
+		} else {
 			ajaxDoName = 'profile_accom_ajax_page.do';
-			break;
 		}
-		
+
+		 
 		if(isBottom) {
 			//만일 현재 마지막 페이지라면
 			if(currentPage == ${totalPageCount} || isLoading){

@@ -1,13 +1,24 @@
+<%@page import="com.exam.model1.user.UserTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-	int flag = (Integer)request.getAttribute( "flag" );
+	request.setCharacterEncoding("utf-8");
 	
+
+	String id = (String)request.getAttribute("id");
+	String pwd = (String)request.getAttribute("pwd");
+	
+/* 	System.out.println(request.getAttribute("flag"));
+	System.out.println(id);
+	System.out.println(pwd); */
+	
+	int flag = (Integer)request.getAttribute( "flag" );
 	out.println( " <script type='text/javascript'> " );
+
 	if( flag == 0 ) {	// 아이디, 메일 일치
+		out.println( " alert('비밀번호는"+pwd+"입니다.')" );
+		out.println( " location.href='./loginForm.do'" );
 		
-		out.println( " alert('메일로 임시 비밀번호가 전송되었습니다.'); " );
-		out.println( " location.href='./lanTrip_list.do'" );
 	} else if( flag == 1 ) {	//메일 틀림
 		out.println( " alert('메일을 다시 확인해주세요.'); " );
 		out.println( " history.back(); " );

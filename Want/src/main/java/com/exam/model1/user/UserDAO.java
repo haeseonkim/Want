@@ -155,9 +155,28 @@ public class UserDAO {
 	    return new String(decryptedTextBytes);
 	}
 
+	//회원있는지 여부 확인
+	public Integer pwFind_Lookup( UserTO userTo ) {
+		int result = sqlSession.selectOne( "pwFind_lookup", userTo );
+		return result;
+	}
 	
+	//회원 메일 있는지 확인
+	public int pwFind_ok( UserTO userTo ) {
+		int result = sqlSession.selectOne( "pwFind_ok", userTo );
+		return result;
+	}
 	
-	
+	//회원 비번 닉네임 가져오기
+	public UserTO pwFind_select( UserTO userTo ) {
+		UserTO to = sqlSession.selectOne("pwFind_select", userTo);
+		return to;
+	}
+	//회원 비밀번호 디코딩해서 비번비교하기
+	public UserTO pwFindDecry( UserTO userTo ) {
+		userTo = sqlSession.selectOne( "pwFind_decry", userTo );
+		return userTo;
+	}
 	
 	// writer - dao 통과 안해도됨
 	public void boardWrite( UserTO userTo ) {

@@ -68,7 +68,7 @@ public class MessageDAO {
 				int max_room = sqlSession.selectOne("max_room", to);
 				to.setRoom(max_room+1);
 			}else {		// 메세지 내역이 있다면 해당 room 번호를 가져온다.
-				int room = Integer.parseInt(sqlSession.selectOne("select_room", to));
+				int room = Integer.parseInt(sqlSession.selectOne("select_room", to) );
 				to.setRoom(room);
 			}
 		}
