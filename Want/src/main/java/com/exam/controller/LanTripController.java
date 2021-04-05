@@ -360,16 +360,15 @@ public class LanTripController {
    }
    
 	// 랜선여행 view reply ok
-	@RequestMapping(value = "/lanTrip_view_reply_ok.do")
-	public String lanTrip_view_reply_ok(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value = "/lanTrip_view_reply_ok.do" )
+	public String lanTrip_view_reply_ok(HttpServletRequest request, HttpSession session) {
 		try {
 			request.setCharacterEncoding("utf-8");
 			
-			String cpage = request.getParameter( "cpage" );
 			//System.out.println(request.getParameter( "bno" ));
 			
+			String writer = (String)session.getAttribute( "nick" );
 			String bno = request.getParameter( "bno" );
-			String writer = request.getParameter( "cwriter" );
 			String content = request.getParameter( "ccontent" );
 			LanTripReplyTO replyTo = new LanTripReplyTO();
 			replyTo.setBno(bno);
@@ -378,7 +377,6 @@ public class LanTripController {
 
 			int flag = lantripReplyDao.lanTripReplyOk(replyTo);
 			request.setAttribute( "flag", flag );
-			request.setAttribute( "cpage", cpage );
 			request.setAttribute( "no", bno );
 			
 		} catch (NumberFormatException e) {
@@ -388,9 +386,11 @@ public class LanTripController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		
 		return "lanTrip/lanTrip_view_reply_ok";
 	}
+	
+
 	
 	// 랜선여행 rereply_ok
 		@RequestMapping(value = "/lanTrip_rereply_ok.do")
@@ -573,7 +573,8 @@ public class LanTripController {
    @ResponseBody
    @RequestMapping(value = "/lanTrip_saveHeart.do")
    public LanTripTO save_heart(@RequestParam String no, HttpSession session) {
-      
+      System.out.println( "여기까지 들어오냐? ");
+	   
       LantripHeartTO to = new LantripHeartTO();
       
       // 게시물 번호 세팅

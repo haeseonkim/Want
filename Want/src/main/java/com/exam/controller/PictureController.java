@@ -442,25 +442,6 @@ public class PictureController {
 		return replyList;
 	}
 
-	// 모댓글 삭제
-	@ResponseBody
-	@RequestMapping(value = "/picture_delete_reply.do")
-	public PictureTO delete_reply(@RequestParam String no, @RequestParam String bno) {
-
-		ReplyTO to = new ReplyTO();
-
-		// 모댓글 번호 세팅
-		to.setNo(no);
-
-		// 게시물 번호 세팅
-		to.setBno(bno);
-
-		// 갱신된 댓글 갯수를 담아오기 위함
-		PictureTO pto = replyDao.pictureDeleteReply(to);
-
-		return pto;
-	}
-
 	// 답글 삭제
 	@ResponseBody
 	@RequestMapping(value = "/picture_delete_rereply.do")

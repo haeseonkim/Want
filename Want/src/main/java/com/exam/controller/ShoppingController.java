@@ -3,7 +3,6 @@ package com.exam.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,15 +17,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
-import com.exam.model1.picture.PictureTO;
 import com.exam.model1.shopHeart.ShopHeartDAO;
 import com.exam.model1.shopHeart.ShopHeartTO;
 import com.exam.model1.shopping.ShoppingDAO;
-import com.exam.model1.shopping.ShoppingListTO;
 import com.exam.model1.shopping.ShoppingTO;
 import com.exam.model1.shoppingComment.ShoppingCommentDAO;
 import com.exam.model1.shoppingComment.ShoppingCommentTO;
-import com.exam.model1.user.UserDAO;
 
 //import com.exam.model1.BoardListTO;
 //import com.exam.model1.CommentDAO;
@@ -452,7 +448,6 @@ public class ShoppingController {
 		try {
 			request.setCharacterEncoding("utf-8");
 			
-			String cpage = request.getParameter( "cpage" );
 			String no = request.getParameter( "no" );
 			String bno = request.getParameter("bno");
 			String writer = request.getParameter("writer");
@@ -479,7 +474,6 @@ public class ShoppingController {
 			}
 			
 			request.setAttribute( "flag", flag );
-			request.setAttribute( "cpage", cpage );
 			request.setAttribute( "no", bno );
 			
 		} catch (UnsupportedEncodingException e) {
@@ -496,7 +490,6 @@ public class ShoppingController {
 		try {
 			request.setCharacterEncoding("utf-8");
 			
-			String cpage = request.getParameter( "cpage" );
 			String bno = request.getParameter( "bno" );	//게시글번호 bno
 			String no = request.getParameter( "no" );	//댓글 번호 no
 			String grp = request.getParameter( "grp" );	//그룹번호 grp
@@ -506,8 +499,7 @@ public class ShoppingController {
 			cto.setGrp(grp);
 			
 			int flag = shopCommentDao.shopping_reply_deleteOk( cto );
-			
-			request.setAttribute( "cpage", cpage );
+
 			request.setAttribute( "no", bno );
 			request.setAttribute( "flag", flag );
 			

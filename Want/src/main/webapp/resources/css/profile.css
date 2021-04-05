@@ -104,6 +104,12 @@ a.heart-click, a.heart-notlogin :hover {
 	/*border: 1px solid #cecece;*/
 	border-radius: 50%;
 }
+.reply-right {
+	text-align: right;
+}
+.replyrow, .rereply_write {
+	padding: 10px 0;
+}
 /* 모달 관련 끝 */
 
 h1 {
