@@ -28,8 +28,8 @@ public class UserController {
 	// 각자 맞는 upload 폴더 경로로 변경
   
 	//private String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\profile";
-	//private String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\";
-	private String uploadPath = "/Users/hyukjun/git/Want/Want/src/main/webapp/upload/";
+	private String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\";
+	//private String uploadPath = "/Users/hyukjun/git/Want/Want/src/main/webapp/upload/";
 
 	
 	//private String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\profile";
@@ -192,8 +192,8 @@ public class UserController {
 		String encType = "utf-8";
     
    //String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\profile";
-   //String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\profile";
-   String uploadPath ="/Users/hyukjun/git/Want/Want/src/main/webapp/upload/profile";
+   String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\profile";
+   //String uploadPath ="/Users/hyukjun/git/Want/Want/src/main/webapp/upload/profile";
 
 		MultipartRequest multi = null;
 

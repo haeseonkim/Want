@@ -9,7 +9,7 @@
 		values( #{id}, #{pwd}, #{name}, #{birth}, #{mail}, #{phone}, #{nick}, now(),
 		ifnull( #{profile}, profile ), ifnull( #{greet}, greet ) )
 	</insert>
-
+ 
 	<select id="nick_lookup" parameterType="com.exam.model1.user.UserTO"
 		resultType="Int">
 		select count( nick )
@@ -1332,7 +1332,7 @@
 	<!-- ======== 마이페이지의 즐겨찾기목록 관련 ======== -->
 	<!-- 랜선여행하기 글리스트 가져오는 sql -->
 	<select id="lantrip_favoriteList" parameterType="com.exam.model1.lantrip.LanTripTO" resultType="com.exam.model1.lantrip.LanTripTO">
-		select b.no, b.subject, b.writer, date_format(b.wdate, '%Y-%m-%d') wdate, b.hit, b.location, b.video, b.reply, b.heart, h.hno, u.profile
+		select b.no, b.subject, b.content, b.writer, date_format(b.wdate, '%Y-%m-%d') wdate, b.hit, b.location, b.video, b.reply, b.heart, h.hno, u.profile
 		from l_board b inner join l_heart h
 		on b.no = h.bno
 		inner join user u
@@ -1341,6 +1341,7 @@
 		order by b.no desc
 		limit #{startRowNum}, #{endRowNum}
 	</select>
+	
 	<!-- 랜선여행신청하기 댓글 -->
 	<!-- 댓글 테이블의 마지막 auto_increment 값을 가져옴 -->
 	<select id="with_reply_max_no" resultType="int">
@@ -1519,6 +1520,32 @@
 	
 	
 	<!-- =============== 프로필 정보 ================= -->
+	<!-- 내 프로필 정보 가져오기 -->
+	<select id="myProfile" parameterType="com.exam.model1.user.UserTO" resultType="com.exam.model1.user.UserTO">
+		select id, name, birth, mail, phone, nick, rdate, profile, greet
+		from user
+		where nick=#{nick}
+	</select>
+	
+	<!-- 랜선여행하기 글리스트 가져오는 sql -->
+	<select id="lantrip_MyProfileList" parameterType="com.exam.model1.lantrip.LanTripTO" resultType="com.exam.model1.lantrip.LanTripTO">
+		select b.no, b.subject, b.content, b.writer, date_format(b.wdate, '%Y-%m-%d') wdate, b.hit, b.location, b.video, b.reply, b.heart, h.hno, u.profile
+		from l_board b inner join user u
+		on b.writer = u.nick
+		left outer join l_heart h
+		on #{ writer } = h.userid and b.no = h.bno
+		where b.writer like #{ writer }
+		order by b.no desc
+		limit #{startRowNum}, #{endRowNum}
+	</select>
+	
+	<select id="profileLanTripCount" parameterType="com.exam.model1.lantrip.LanTripTO" resultType="int">
+		select count(*) 
+		from l_board
+		where writer like #{ writer }
+	</select>
+	
+	
 	<!-- 다른 사람 프로필 정보 가져오기 -->
 	<select id="otherProfile" parameterType="com.exam.model1.user.UserTO" resultType="com.exam.model1.user.UserTO">
 		select id, name, birth, mail, phone, nick, rdate, profile, greet

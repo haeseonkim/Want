@@ -265,6 +265,15 @@ public class UserDAO {
 	
 	
 	// -------------------------- 프로필 정보 -----------------------------
+	// 내 프로필 
+	public UserTO myProfile( UserTO uto ) {
+		
+		//컨트롤러에서 받은 uto를 sql매퍼를 호출한 뒤 그 결과를 return_uto에 저장
+		//그리고 리턴값으로 return_uto를 넘겨줌
+		UserTO return_uto = sqlSession.selectOne( "myProfile", uto );
+		
+		return return_uto;
+	}
 	
 	// 다른 사람 프로필 정보 가져오기
 	public UserTO OtherProfile(UserTO to) {
