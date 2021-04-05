@@ -134,13 +134,13 @@ public class LanTripController {
 
 			if (session.getAttribute("nick") == null) {
 				// 로그인 상태가 아닐때
-				System.out.println("로그인 상태가 아닐때 ");
+//				System.out.println("로그인 상태가 아닐때 ");
 				// 사진 자랑 게시판 목록 가져오기
 
 				lists = dao.boardLists(to);
 			} else {
 				// 로그인 상태일때
-				System.out.println("로그인 상태일때 ");
+//				System.out.println("로그인 상태일때 ");
 
 				// 현재사용자의 nick을 세팅
 				to.setNick((String) session.getAttribute("nick"));
@@ -254,13 +254,13 @@ public class LanTripController {
 
 			if (session.getAttribute("nick") == null) {
 				// 로그인 상태가 아닐때
-				System.out.println("로그인 상태가 아닐때 ");
+//				System.out.println("로그인 상태가 아닐때 ");
 				// 사진 자랑 게시판 목록 가져오기
 
 				list = dao.boardLists(to);
 			} else {
 				// 로그인 상태일때
-				System.out.println("로그인 상태일때 ");
+//				System.out.println("로그인 상태일때 ");
 
 				// 현재사용자의 nick을 세팅
 				to.setNick((String) session.getAttribute("nick"));
@@ -310,7 +310,7 @@ public class LanTripController {
 	    String encType = "utf-8";
 	    int maxFileSize = 4096 * 4096 * 6;
 	    
-	    System.out.println("controller");
+//	    System.out.println("controller");
 	    
 	    MultipartRequest multi = null;
 		
@@ -326,7 +326,7 @@ public class LanTripController {
 			to.setWdate(multi.getParameter("wdate"));
 	
 			int flag = dao.boardWriteOk(to);
-			System.out.println(flag);
+//			System.out.println(flag);
 			
 			request.setAttribute("flag", flag);
 			

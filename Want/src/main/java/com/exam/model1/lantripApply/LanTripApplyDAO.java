@@ -28,44 +28,57 @@ public class LanTripApplyDAO {
 	}
 
 	// list
-	   public LanTripApplyListTO boardList(LanTripApplyListTO listTO) {
+	public LanTripApplyListTO boardList(LanTripApplyListTO listTO) {
 
-	      int cpage = listTO.getCpage();
-	      int recordPerPage = listTO.getRecordPerPage();
-	      int blockPerPage = listTO.getBlockPerPage();
-	      
-	      // LanTripApplyTO의 내용을 배열로 가져옴 										mapper의 id, SqlMapper 변수명(?)과 동일
-	      ArrayList<LanTripApplyTO> lists = (ArrayList)sqlSession.selectList("LanTripApplyList");
-	      
-	      listTO.setTotalRecord(lists.size());
-	      listTO.setTotalPage(((listTO.getTotalRecord() - 1) / recordPerPage) + 1);
+		int cpage = listTO.getCpage();
+		int recordPerPage = listTO.getRecordPerPage();
+		int blockPerPage = listTO.getBlockPerPage();
 
-	      int skip = (cpage - 1) * recordPerPage;
-	      
-	      ArrayList<LanTripApplyTO> boardLists = new ArrayList();
-	      
-	      int cnt = 0;
-	      for (int i = skip; i < lists.size(); i++) {
-	         if(cnt == recordPerPage) {
-	            break;
-	         }
-	         if (lists.get(i) != null) {
-	        	 LanTripApplyTO to = lists.get(i);
-	            boardLists.add(to);
-	         }
-	         cnt++;
-	      }
+		// LanTripApplyTO의 내용을 배열로 가져옴 mapper의 id, SqlMapper 변수명(?)과 동일
+		ArrayList<LanTripApplyTO> lists = (ArrayList) sqlSession.selectList("LanTripApplyList");
 
-	      listTO.setBoardList(boardLists);
+		listTO.setTotalRecord(lists.size());
+		listTO.setTotalPage(((listTO.getTotalRecord() - 1) / recordPerPage) + 1);
 
-	      listTO.setStartBlock(((cpage - 1) / blockPerPage) * blockPerPage + 1);
-	      listTO.setEndBlock(((cpage - 1) / blockPerPage) * blockPerPage + blockPerPage);
-	      if (listTO.getEndBlock() >= listTO.getTotalPage()) {
-	         listTO.setEndBlock(listTO.getTotalPage());
-	      }
+		int skip = (cpage - 1) * recordPerPage;
 
-	      return listTO;
-	   }
+		ArrayList<LanTripApplyTO> boardLists = new ArrayList();
+
+		int cnt = 0;
+		for (int i = skip; i < lists.size(); i++) {
+			if (cnt == recordPerPage) {
+				break;
+			}
+			if (lists.get(i) != null) {
+				LanTripApplyTO to = lists.get(i);
+				boardLists.add(to);
+			}
+			cnt++;
+		}
+
+		listTO.setBoardList(boardLists);
+
+		listTO.setStartBlock(((cpage - 1) / blockPerPage) * blockPerPage + 1);
+		listTO.setEndBlock(((cpage - 1) / blockPerPage) * blockPerPage + blockPerPage);
+		if (listTO.getEndBlock() >= listTO.getTotalPage()) {
+			listTO.setEndBlock(listTO.getTotalPage());
+		}
+
+		return listTO;
+	}
+	
+	// 검색 결과
+	public ArrayList<LanTripApplyTO> searchList(LanTripApplyTO to){
+		ArrayList<LanTripApplyTO> lists = (ArrayList)sqlSession.selectList("la_searchList",to);
+		return lists;
+	}
+
+	// 게시물 갯수
+	public int laCount(LanTripApplyTO to) {
+		int result = sqlSession.selectOne("la_count", to);
+
+		return result;
+	}
 	   
 	// view
 	public LanTripApplyTO lanTrip_apply_View(LanTripApplyTO to) {

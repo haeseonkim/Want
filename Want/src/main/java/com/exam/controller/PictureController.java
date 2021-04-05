@@ -119,13 +119,13 @@ public class PictureController {
 
 		if (session.getAttribute("nick") == null) {
 			// 로그인 상태가 아닐때
-			System.out.println("로그인 상태가 아닐때 ");
+//			System.out.println("로그인 상태가 아닐때 ");
 			// 사진 자랑 게시판 목록 가져오기
 
 			list = pictureDao.boardList(pto);
 		} else {
 			// 로그인 상태일때
-			System.out.println("로그인 상태일때 ");
+//			System.out.println("로그인 상태일때 ");
 
 			// 현재사용자의 nick을 세팅
 			pto.setNick((String) session.getAttribute("nick"));

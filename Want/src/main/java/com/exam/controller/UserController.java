@@ -46,9 +46,9 @@ public class UserController {
 		} else if (request.getParameter("login_ok").equals("1") && !request.getParameter("id").equals("")) {
 
 			// ================= 일반 로그인 =================
-			System.out.println("일반로그인");
-			System.out.println(request.getParameter("id"));
-			System.out.println(request.getParameter("kakaoemail"));
+//			System.out.println("일반로그인");
+//			System.out.println(request.getParameter("id"));
+//			System.out.println(request.getParameter("kakaoemail"));
 
 			int flag = 2;
 			String key = "secret Key";
@@ -106,11 +106,11 @@ public class UserController {
 		} else if (request.getParameter("login_ok").equals("1") && !request.getParameter("kakaoemail").equals("")) {
 
 			// ==================== 카카오 로그인 ========================
-			System.out.println("카카오로그인");
-			System.out.println(request.getParameter("id"));
-			System.out.println(request.getParameter("kakaoemail"));
-			System.out.println(request.getParameter("kakaoname"));
-			System.out.println(request.getParameter("kakaobirth"));
+//			System.out.println("카카오로그인");
+//			System.out.println(request.getParameter("id"));
+//			System.out.println(request.getParameter("kakaoemail"));
+//			System.out.println(request.getParameter("kakaoname"));
+//			System.out.println(request.getParameter("kakaobirth"));
 
 			String kakaoid = request.getParameter("kakaoemail");
 
@@ -132,7 +132,7 @@ public class UserController {
 				userTo.setProfile(null);
 				userTo.setGreet(null);
 
-				System.out.println(userTo.getName());
+//				System.out.println(userTo.getName());
 				int flag = userDao.signup_ok(userTo);
 
 				request.setAttribute("flag", flag);

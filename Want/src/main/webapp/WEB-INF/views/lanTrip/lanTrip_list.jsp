@@ -115,7 +115,7 @@ $(window).on("scroll",function(){
 	   //바닥까지 스크롤 되었는 지 여부를 알아낸다.
 	   let isBottom=scrollTop+windowHeight + 10 >= documentHeight;
 	   
-	   console.log( scrollTop, windowHeight, documentHeight, isBottom );
+	   /* console.log( scrollTop, windowHeight, documentHeight, isBottom ); */
 	   
 	   if(isBottom){
 	      //만일 현재 마지막 페이지라면
@@ -136,7 +136,7 @@ $(window).on("scroll",function(){
 	         data:"pageNum="+currentPage+"&condition=${condition}&keyword=${keyword}",
 	         //ajax_page.jsp의 내용이 data로 들어온다.
 	         success:function(data){
-	            console.log(data);
+	           /*  console.log(data); */
 	            //응답된 문자열은 html 형식이다.(shopping/shop_ajax_page.jsp에 응답내용이 있다.)
 	            //해당 문자열을 .card-list-container  div에 html로 해석하라고 추가한다.
 	            $(".card-container").append(data);
