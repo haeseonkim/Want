@@ -81,6 +81,10 @@
 <link href="./resources/css/lanTrip_view.css?1111" rel="stylesheet">
 <link href="./resources/css/navbar.css" rel="stylesheet">
 
+<!-- font -->
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+
 <script type="text/javascript">
 
 //페이지가 뒤로가기 하면 하트버튼과 하트수 갱신이 안된다. 이때 하트를 누르면 디비에 중복으로 값이 들어가진다.

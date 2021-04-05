@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 .container > h1 > a{
-	font-family: "Open Sans", sans-serif;
+	font-family: 'Nanum Pen Script', cursive;
 }
 
 h1, li, span, a{
@@ -23,14 +23,14 @@ h1, li, span, a{
 }
 
 #header .logo {
-  font-size: 30px;
+  font-size: 50px;
   margin: 0;
   padding: 0;
   line-height: 1;
   font-weight: 600;
   letter-spacing: 1px;
   text-transform: uppercase;
-  font-family: "Poppins", sans-serif;
+  font-family: 'Nanum Pen Script', cursive;
 }
 
 #header .logo a {
@@ -52,8 +52,9 @@ h1, li, span, a{
   padding: 8px 25px;
   white-space: nowrap;
   transition: 0.3s;
-  font-size: 14px;
+  font-size: 20px;
   display: inline-block;
+  font-family: 'Nanum Pen Script', cursive;
 }
 
 .get-started-btn:hover {
@@ -95,8 +96,8 @@ h1, li, span, a{
   align-items: center;
   justify-content: space-between;
   padding: 10px 0 10px 30px;
-  font-family: "Poppins", sans-serif;
-  font-size: 15px;
+  font-family: 'Nanum Pen Script', cursive;
+  font-size: 25px;
   font-weight: 500;
   color: #37423b;
   white-space: nowrap;
@@ -104,7 +105,7 @@ h1, li, span, a{
 }
 
 .navbar a i {
-  font-size: 12px;
+  font-size: 20px;
   line-height: 0;
   margin-left: 5px;
 }
@@ -135,7 +136,7 @@ h1, li, span, a{
 
 .navbar .dropdown ul a {
   padding: 10px 20px;
-  font-size: 14px;
+  font-size: 20px;
   text-transform: none;
   font-weight: 500;
 }
