@@ -30,9 +30,6 @@ public class UserController {
 	//private String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\profile";
 	private String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\profile";
 	//private String uploadPath = "/Users/hyukjun/git/Want/Want/src/main/webapp/upload/";
-
-	
-	//private String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\profile";
 	 
 	// ---------------------- 로그인 관련 ----------------------
 	@RequestMapping(value = "/loginForm.do")
@@ -45,9 +42,9 @@ public class UserController {
 		} else if (request.getParameter("login_ok").equals("1") && !request.getParameter("id").equals("")) {
 
 			// ================= 일반 로그인 =================
-			System.out.println("일반로그인");
-			System.out.println(request.getParameter("id"));
-			System.out.println(request.getParameter("kakaoemail"));
+//			System.out.println("일반로그인");
+//			System.out.println(request.getParameter("id"));
+//			System.out.println(request.getParameter("kakaoemail"));
 
 			int flag = 2;
 			String key = "secret Key";

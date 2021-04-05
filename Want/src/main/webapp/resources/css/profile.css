@@ -2,31 +2,109 @@
 
 
 body{
-	font_family :'Song Myung', sans-serif;
+	font-family :'Song Myung', sans-serif;
 	font-size: 12pt;
 }
 
 #profile {
 	/* background-color:black; */
 	width:100%;
-	margin-top:8%;
-	margin-left:15%;
+	margin-top:6%;
 }
 
 #my-feed {
 	/* background-color:black; */
 	width:100%;
-	margin-top:8%;
-	margin-left:15%;
+	margin-top:6%;
 }
 
 #profile-img {
 	height: 250px;
 }
 
-#profile-info {
-	
+/* 회원정보 관련 */
+.div_modify_profile {
+	text-align:right;
 }
+.btn_modify_profile {
+	margin-top: 30px;
+}
+.img-circle {
+	margin-left: 25px;
+	width: 300px;
+	height: 300px;
+	border: 0px;
+	border-radius: 50%;
+}
+#profileImage {
+   width: 40px;
+   height: 40px;
+   border: 0px;
+   /*border: 1px solid #cecece;*/
+   border-radius: 50%;
+}
+#write_reply_profileImage {/*사용자의 댓글 입력란 프로필 사진을 둥글게*/
+	width: 40px;
+	height: 40px;
+	border: 0px;
+	/*border: 1px solid #cecece;*/
+	border-radius: 50%;
+}
+/* 회원정보 관련 끝 */
+
+/* 카드 관련 */
+.card-img-top {
+	height: 20rem;
+	object-fit: cover;
+}
+.card-inner{
+	float: left;
+	padding: 20px;
+	width: 33%;
+}
+	/* 마우스 후버시 효과 */
+.thumb {
+	display: inline-blick;
+	position: relative;
+}
+.thumb:hover .card-img {
+	opacity: 0.7;
+}
+.thumb:hover .links {
+	opacity: 1;
+}
+.links { 
+	opacity: 0; 
+	position: absolute;
+	text-align: center;
+	top: 50%; 
+	left: 50%; 
+	transform: translate(-50%, -50%);
+	 -ms-transform: translate(-50%, -50%);
+	transition: .5s ease;
+	z-index: 1; 
+	color: white;
+	font-weight: 800;
+}
+/* 카드 관련 끝 */
+
+/* 모달 관련 */
+.heart-click, .heart-notlogin {
+   color: red;
+}
+
+a.heart-click, a.heart-notlogin :hover {
+   color: red;
+}
+	/* 댓글 프로필사진 */
+.reply_list_profileImage {
+	width: 40px;
+	height: 40px;
+	border: 0px;
+	/*border: 1px solid #cecece;*/
+	border-radius: 50%;
+}
+/* 모달 관련 끝 */
 
 h1 {
 	line-height:1.5;
@@ -100,26 +178,14 @@ table {
 }
 
 
+/* 인사말 관련 */
 #greeting {
 	border : solid 1px;
 	border-color: #5fcf80;
 	height : 140px;
 }
-
 #greet {
 	font-size : 20px;
 	margin-top: 5px;
 }
-
-.card {
-	width:18rem;
-	margin:12px;
-}
-
-.card-img-top {
-	margin-top: 8px;
-}
-
-#view {
-	text-align:right;
-}
+/* 인사말 관련 끝 */

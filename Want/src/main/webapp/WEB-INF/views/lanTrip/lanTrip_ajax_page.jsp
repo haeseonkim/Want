@@ -23,6 +23,7 @@
 		String location = to.getLocation();
 		String reply = to.getReply();
 		String hit = to.getHit();
+		String profile = to.getProfile();
 	
 		if (rowCount % 4 == 0) {
 			sbHtml.append("<div class='row'>");
@@ -32,9 +33,8 @@
 		sbHtml.append( "	<div class='card'>");
 		sbHtml.append( "		<a href='./lanTrip_view.do?no=" + no + "'><video src='" + video + "' class='card-img-top' controls></video></a>");
 		sbHtml.append( "			<div class='card-body'>");
-		sbHtml.append( "				<h3 class='card-title'>" + writer + "</h3>");
-		sbHtml.append( "				<p class='card-text'>" + subject + "</p>");
-		sbHtml.append( "			</div>");
+		sbHtml.append( "				<h3 class='card-title'>" + subject + "</h3>");
+		sbHtml.append( " 				<img id='profileImage' src='./upload/profile/"+ to.getProfile() +"' />&nbsp;&nbsp;<span class='small text-muted mb-0'>"+ to.getWriter()+" | "+ to.getWdate() +"</span>" );
 		sbHtml.append( "			<div class='lan-heart'>");
 		 // 로그인 상태아닐 때 하트 클릭안됨
 	      if( nick == null ) {
@@ -65,6 +65,7 @@
 	      sbHtml.append( "            "+ to.getHit()+ "" );
 		sbHtml.append( "			</div>");
 		sbHtml.append( "	</div>");
+		sbHtml.append( "			</div>");
 		sbHtml.append( "</div>");
 		
 	

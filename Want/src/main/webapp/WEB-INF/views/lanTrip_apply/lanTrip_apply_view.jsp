@@ -84,11 +84,18 @@
 				rows="5" style="resize: none" disabled="disabled"><%=content%></div>
 		</div>
 	</section>
-	<section id="section-picture" class="container">
-		<div class="picture">
-			<img src="./upload/lanTrip_apply/<%=picture%>" width="600px"></img>
-		</div>
-	</section>
+		<c:choose>
+			<c:when test="${empty to.picture }">
+				<div></div>
+			</c:when>
+			<c:otherwise>
+				<section id="section-picture" class="container">
+					<div class="picture">
+						<img src="./upload/lanTrip_apply/<%=picture%>" width="600px"></img>
+					</div>
+				</section>
+			</c:otherwise>
+		</c:choose>
 <!-- 본문 끝 -->
 
 <!-- 댓글 시작 -->
