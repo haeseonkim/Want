@@ -10,12 +10,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.exam.model1.lantrip.LanTripDAO;
 import com.exam.model1.lantrip.LanTripTO;
 import com.exam.model1.lantripReply.LanTripReplyDAO;
 import com.exam.model1.lantripReply.LanTripReplyTO;
 import com.exam.model1.picture.PictureDAO;
+import com.exam.model1.pictureReply.ReplyTO;
 import com.exam.model1.user.UserDAO;
 import com.exam.model1.user.UserTO;
 
@@ -35,7 +38,6 @@ public class ProfileController {
    private String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\profile";
    //private String uploadPath ="/Users/hyukjun/git/Want/Want/src/main/webapp/upload/profile";
 	
-   
 	// 내 프로필
 	@RequestMapping(value = "/profile.do")
 	public String profile(HttpServletRequest request, HttpSession session) {
@@ -148,6 +150,25 @@ public class ProfileController {
 		
 		return "profile/profile_lanTrip_ajax_page";
 	}
+	
+	//랜선여행하기 댓글리스트
+	@RequestMapping(value = "/lantrip_replyList.do")
+	public String lantrip_replyList(HttpServletRequest request, HttpSession session) {
+
+		LanTripReplyTO to = new LanTripReplyTO();
+		
+		// 가져올 댓글 리스트의 게시물번호를 세팅
+		to.setBno( request.getParameter( "no" ) );
+
+		ArrayList<LanTripReplyTO> replyList = new ArrayList();
+
+		replyList = l_replyDao.lantripReplyList(to);
+			
+		request.setAttribute( "rlist", replyList );
+		
+		return "profile/profile_lantripReply_ajax_page";
+	}
+	
 	
 	
 	// 남이 보는 내 프로필

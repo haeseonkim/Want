@@ -67,7 +67,7 @@
 											<c:when test="${empty tmp.hno}">
 												<%-- 빈 하트일때 --%>
 												<a idx="${tmp.no}" href="javascript:"
-													class="heart-click heart_icon${tmp.no }"><svg
+													class="heart-click heart_icon${ tmp.no }"><svg
 														xmlns="http://www.w3.org/2000/svg" width="16" height="16"
 														fill="currentColor" class="bi bi-suit-heart"
 														viewBox="0 0 16 16">
@@ -211,7 +211,7 @@
 	<!-- modify Modal 끝 -->
 
 	<!-- delete Modal -->
-	<div class="modal fade" id="deleteModal${tmp.no}" tabindex="-1"
+	<div class="modal fade" id="deleteModal${ tmp.no }" tabindex="-1"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
