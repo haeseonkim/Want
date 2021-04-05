@@ -141,7 +141,7 @@ body{
 }
 
 .rereply{
-   margin-top:10px;
+   margin-left:50px;
 }
 /* ==========================================================================
    #BOX-SIZING
@@ -822,4 +822,14 @@ div.card-footer{
 	display : block;
    	text-align: center;   	
    	margin-top : 50px;   		
+}
+
+svg.heart1 {
+	cursor: pointer;
+	color: red;
+}
+
+svg.heart2 {
+	cursor: pointer;
+	color: red;
 }

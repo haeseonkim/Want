@@ -24,6 +24,7 @@ body {
 	align-items: center;
 }
 #div1 {
+	float: left;
 	width: 400px;
 	height: 350px;
 	margin-right:20px;
@@ -31,6 +32,7 @@ body {
 	background: url("../img/shopping.png");
 }
 #div2 {
+	float: right;
 	width: 400px;
 	height: 350px;
 	margin-right:20px;

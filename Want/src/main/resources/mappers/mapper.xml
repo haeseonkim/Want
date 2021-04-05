@@ -101,7 +101,7 @@
 	
 	<!--로그인 전 Lantriplist -->
 	<select id="lanTripList" resultType="com.exam.model1.lantrip.LanTripTO">
-		select no, subject, writer, date_format(wdate, '%Y-%m-%d') wdate, hit, location, video, reply, heart
+		select no, subject, writer, date_format(wdate, '%Y-%m-%d') wdate, hit, location, video, reply, heart, profile
 		from l_board b left outer join user u
 		on b.writer = u.nick
 		<choose>
@@ -128,7 +128,7 @@
 	
 	<!-- 로그인 후 lanTrip 리스트 -->
 	<select id="lanTrip_list_login" parameterType="com.exam.model1.lantrip.LanTripTO" resultType="com.exam.model1.lantrip.LanTripTO">
-		select b.no, b.subject, b.writer, hit, location, video, reply, heart, h.hno, f.fno
+		select b.no, b.subject, b.writer, hit, location, video, reply, heart, h.hno, f.fno, profile, date_format(wdate, '%Y-%m-%d') wdate
 		from l_board b left outer join l_heart h
 		on #{nick} = h.userid and b.no = h.bno
 		left outer join l_favorite f
@@ -158,7 +158,6 @@
 	</select>
 
 	<!-- lanTrip write_ok -->
-	 
 	<insert id="lanTrip_write_ok" parameterType="com.exam.model1.lantrip.LanTripTO">
 		insert into l_board
 		values(0, #{ subject }, #{ content }, #{ writer }, now(), 0, #{ location }, #{ video }, 0, 0 )
@@ -468,7 +467,52 @@
 		where no=#{no}
 	</update>
 
-
+	<!-- 게시물 갯수 가져오기  - 검색기능이 추가되었을 때 sql문이 바껴야한다. -->
+	<select id="la_count" parameterType="com.exam.model1.lantripApply.LanTripApplyTO" resultType="int">
+		select count(no) 
+		from la_board
+		<choose>
+			<!-- if문과 비슷한 구조임, subject가 둘 null이 아니라면, 제목 검색 -->
+		 	<when test="subject != null">
+		 		where subject like CONCAT('%',#{subject},'%')
+		 	</when>
+			<!--content가 null이 아니라면-->
+		 	<when test="content != null">
+		 		where content like CONCAT('%',#{content},'%')
+		 	</when>
+			<!--writer가 null이 아니라면-->
+		 	<when test="writer != null">
+		 		where writer like CONCAT('%',#{writer},'%')
+		 	</when>
+		 	<!--location이  null이 아니라면-->
+		 	<when test="location != null">
+		 		where location like CONCAT('%',#{location},'%')
+		 	</when>
+		</choose>
+	</select>
+	
+	<!-- 검색결과 게시물 가져오기 -->
+	<select id="la_searchList" parameterType="com.exam.model1.lantripApply.LanTripApplyTO" resultType="com.exam.model1.lantripApply.LanTripApplyTO">
+		select * from la_board
+		<choose>
+			<!-- if문과 비슷한 구조임, subject가 둘 null이 아니라면, 제목 검색 -->
+		 	<when test="subject != null">
+		 		where (subject like CONCAT('%',#{subject},'%'))
+		 	</when>
+			<!--content가 null이 아니라면-->
+		 	<when test="content != null">
+		 		where (content like CONCAT('%',#{content},'%'))
+		 	</when>
+			<!--writer가 null이 아니라면-->
+		 	<when test="writer != null">
+		 		where (writer like CONCAT('%',#{writer},'%'))
+		 	</when>
+		 	<!--location이 null이 아니라면-->
+		 	<when test="location != null">
+		 		where (location like CONCAT('%',#{location},'%'))
+		 	</when>
+		</choose>
+	</select>
 
 	<!--  =================  사진자랑하기   =================  -->
 	<!-- 사진자랑 글쓰기  -->
@@ -1237,6 +1281,53 @@
 		set subject = #{subject}, content = #{content}, location = #{location}, picture = #{picture}
 		where no = #{no}
 	</update>
+	
+	<!-- 게시물 갯수 가져오기  - 검색기능이 추가되었을 때 sql문이 바껴야한다. -->
+	<select id="with_count" parameterType="com.exam.model1.with.withTO" resultType="int">
+		select count(no) 
+		from w_board
+		<choose>
+			<!-- if문과 비슷한 구조임, subject가 둘 null이 아니라면, 제목 검색 -->
+		 	<when test="subject != null">
+		 		where subject like CONCAT('%',#{subject},'%')
+		 	</when>
+			<!--content가 null이 아니라면-->
+		 	<when test="content != null">
+		 		where content like CONCAT('%',#{content},'%')
+		 	</when>
+			<!--writer가 null이 아니라면-->
+		 	<when test="writer != null">
+		 		where writer like CONCAT('%',#{writer},'%')
+		 	</when>
+		 	<!--location이  null이 아니라면-->
+		 	<when test="location != null">
+		 		where location like CONCAT('%',#{location},'%')
+		 	</when>
+		</choose>
+	</select>
+	
+	<!-- 검색결과 게시물 가져오기 -->
+	<select id="with_searchList" parameterType="com.exam.model1.with.withTO" resultType="com.exam.model1.with.withTO">
+		select * from w_board
+		<choose>
+			<!-- if문과 비슷한 구조임, subject가 둘 null이 아니라면, 제목 검색 -->
+		 	<when test="subject != null">
+		 		where (subject like CONCAT('%',#{subject},'%'))
+		 	</when>
+			<!--content가 null이 아니라면-->
+		 	<when test="content != null">
+		 		where (content like CONCAT('%',#{content},'%'))
+		 	</when>
+			<!--writer가 null이 아니라면-->
+		 	<when test="writer != null">
+		 		where (writer like CONCAT('%',#{writer},'%'))
+		 	</when>
+		 	<!--location이 null이 아니라면-->
+		 	<when test="location != null">
+		 		where (location like CONCAT('%',#{location},'%'))
+		 	</when>
+		</choose>
+	</select>
 	
 	<!-- ======== 마이페이지의 즐겨찾기목록 관련 ======== -->
 	<!-- 랜선여행하기 글리스트 가져오는 sql -->

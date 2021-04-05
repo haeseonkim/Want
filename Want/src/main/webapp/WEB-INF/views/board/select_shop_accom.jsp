@@ -44,16 +44,32 @@ function accom_btn() {
       <div class="row">
         	<div class="col-8 offset-3">
 				<h2>선택해주세요!</h2>
-			</div>	
+			</div>
+
 			<div class="s_div con-sm-e text-center btn-group" >
-				<div id="div1" style="float:left;">
-					<button class="btn btn-primary btn-block" type="button" onclick="shop_btn();">쇼핑 정보
+				<div id="div1" class="nav-tabs">
+					<button class="btn btn-primary btn-block nab-link" type="button" 
+					 		data-bs-toggle="tab" data-bs-target="#shopping" role="tab"
+							aria-controls="shop" aria-selected="true" onclick="shop_btn();">쇼핑 정보
 					</button>
 				</div>
-				<div id="div2" style="float:right;">
-					<button class="btn btn-primary btn-block" type="button" onclick="accom_btn();">숙소 정보
+				<div id="div2" >
+					<button class="btn btn-primary btn-block nab-link" type="button" 
+					 		data-bs-toggle="tab" data-bs-target="#accom" role="tab"
+							aria-controls="accom" aria-selected="true" onclick="accom_btn();">숙소 정보
 					</button>
 				</div>
+				
+				<div class="tab-content" id="myTabContent">
+					<div class="tab-pane fade show active" id="lantrip" role="tabpanel" aria-labelledby="home-tab">
+					
+					
+					</div>
+					<div class="tab-pane fade" id="picture" role="tabpanel" aria-labelledby="profile-tab">
+					</div>
+				</div>
+				
+				
 			</div>
       </div>			
 	</div>
