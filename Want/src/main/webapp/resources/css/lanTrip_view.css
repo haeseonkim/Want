@@ -823,3 +823,13 @@ div.card-footer{
    	text-align: center;   	
    	margin-top : 50px;   		
 }
+
+svg.heart1 {
+	cursor: pointer;
+	color: red;
+}
+
+svg.heart2 {
+	cursor: pointer;
+	color: red;
+}
