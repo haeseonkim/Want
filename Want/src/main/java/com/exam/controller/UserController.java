@@ -27,9 +27,9 @@ public class UserController {
 
 	// 각자 맞는 upload 폴더 경로로 변경
   
-	//private String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\profile";
+	private String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\profile";
 	//private String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\profile";
-	private String uploadPath = "/Users/hyukjun/git/Want/Want/src/main/webapp/upload/";
+	//private String uploadPath = "/Users/hyukjun/git/Want/Want/src/main/webapp/upload/";
 	 
 	// ---------------------- 로그인 관련 ----------------------
 	@RequestMapping(value = "/loginForm.do")
@@ -47,7 +47,7 @@ public class UserController {
 //			System.out.println(request.getParameter("kakaoemail"));
 
 			int flag = 2;
-			String key = "secret Key";
+			
 
 			UserTO userTo = new UserTO();
 
@@ -56,6 +56,7 @@ public class UserController {
 			
 			userTo.setId(id);
 			
+			String key = "secret Key";
 			String realPwd = "";
 			String decryPwd = "";
 			
@@ -63,7 +64,7 @@ public class UserController {
 				realPwd = userDao.loginDecry(userTo).getPwd();
 				decryPwd = userDao.decryptAES(realPwd, key);
 			}
-
+			
 			int result_lookup = userDao.loginLookup(userTo);
 			if (result_lookup == 1) { // 회원있음
 
@@ -96,10 +97,6 @@ public class UserController {
 				flag = 3;
 			}
 			request.setAttribute("flag", flag);
-
-			
-
-
 
 		} else if (request.getParameter("login_ok").equals("1") && !request.getParameter("kakaoemail").equals("")) {
 
@@ -147,7 +144,6 @@ public class UserController {
 				System.out.println("nick : " + userTo.getNick());
 				System.out.println("profile : " + userTo.getProfile());
 			}
-			
 
 		}
 
@@ -181,8 +177,8 @@ public class UserController {
 		int maxFileSize = 1024 * 1024 * 6;
 		String encType = "utf-8";
     
-   //String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\profile";
-   String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\profile";
+   String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\profile";
+   //String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\profile";
    //String uploadPath ="/Users/hyukjun/git/Want/Want/src/main/webapp/upload/profile";
 
 		MultipartRequest multi = null;
@@ -233,9 +229,9 @@ public class UserController {
 		int maxFileSize = 1024 * 1024 * 6;
 		String encType = "utf-8";
     
-	   //String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\profile";
+	   String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\profile";
 	   //String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\profile";
-	   String uploadPath ="/Users/hyukjun/git/Want/Want/src/main/webapp/upload/profile";
+	   //String uploadPath ="/Users/hyukjun/git/Want/Want/src/main/webapp/upload/profile";
 
 		MultipartRequest multi = null;
 
@@ -327,15 +323,81 @@ public class UserController {
 
 	// 비밀번호찾기
 	@RequestMapping(value = "/pwFindForm.do")
-	public String pwFindForm(HttpServletRequest request, HttpServletResponse response) {
-		try {
-			request.setCharacterEncoding("utf-8");
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+	public String pwFindForm(HttpServletRequest request, Model model) throws Exception{
 		return "user/pwFindForm";
+	}
+	
+	// 비번찾기ok
+	@RequestMapping(value = "/pwFindForm_ok.do")
+	public String pwFindForm_ok(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		int flag = 2;
+		
+		UserTO userTo = new UserTO();
+
+		String id = request.getParameter("id");
+		String mail = request.getParameter("mail");
+		
+		userTo.setId(id);
+		userTo.setMail(mail);
+		
+		int result_lookup = userDao.pwFind_Lookup(userTo);
+		if (result_lookup == 1) { // 회원있음
+//			System.out.println("lookup : " + result_lookup);
+			
+			//메일확인
+			int pwFind_ok = userDao.pwFind_ok(userTo);
+//			System.out.println("pwFind_ok : " + pwFind_ok);
+		
+			if (pwFind_ok == 1) { // 메일 일치
+				userTo = userDao.pwFind_select(userTo);
+				
+				// 암호화 된 비밀번호 풀어주는 작업
+				String key = "secret Key";
+				String realPwd = userDao.pwFindDecry(userTo).getPwd();
+				String decryPwd = userDao.decryptAES(realPwd, key);
+				
+				// 비밀번호 길이를 2로 나누어서
+				int pwdSize = decryPwd.length()/2;
+				System.out.println( pwdSize );
+				
+				String resultPwd_1 = decryPwd.substring(0, pwdSize );
+				
+				// 뒤의 절반은 *로 표시
+				String tmp = "";
+				if (pwdSize%2 ==1) { // 홀수인 경우 * 한개 더 추가
+					for( int i=0; i<pwdSize+1; i++ ) {
+						tmp += "*";
+					}
+				} else {
+					for( int i=0; i<pwdSize; i++ ) {
+						tmp += "*";
+					}
+				}
+				String resultPwd = resultPwd_1 + tmp;
+				
+				flag = 0;
+				
+				// 표시될 비밀번호를 pwd에 담음
+				userTo.setPwd(resultPwd);
+//				System.out.println("getPwd : " + userTo.getPwd());
+				
+				request.setAttribute("pwd", userTo.getPwd());
+				request.setAttribute("id", id);
+				
+			} else if(pwFind_ok==0) { // 메일x
+				flag = 1;
+				
+			} else {	// 기타오류
+				flag = 3;
+			}
+		} else if (result_lookup == 0) { // 회원없음
+			flag = 2;
+		} else { // 기타오류
+			flag = 3;
+		}
+		request.setAttribute("flag", flag);
+
+		return "user/pwFindForm_ok";
 	}
 
 }
