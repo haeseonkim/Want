@@ -35,7 +35,7 @@
 	<select id="login_ok_nick" parameterType="com.exam.model1.user.UserTO" resultType="com.exam.model1.user.UserTO">
 		select id, nick, profile
 		from user
-		where id like #{id} and pwd like #{pwd}
+		where id like #{id}
 	</select>
 
 	<select id="login_decry" parameterType="com.exam.model1.user.UserTO"
@@ -1410,21 +1410,60 @@
 		select m.no, m.room, m.send_nick, m.recv_nick, date_format(m.send_time, '%Y-%m-%d %H:%i') send_time, m.read_time, m.content, m.read_chk, u.profile
 		from message m left outer join user u
 		on m.send_nick = u.nick
-		where room=#{room}
+		<choose>
+			<when test="room != 0">
+				where room=#{room}
+			</when>
+			<otherwise>
+				where (recv_nick = #{recv_nick} and send_nick = #{nick}) or (send_nick = #{recv_nick} and recv_nick = #{nick})
+			</otherwise>
+		</choose>
+		
 	</select>
 	
 	<!-- 메세지 읽음 처리 -->
 	<update id="message_read_chk" parameterType="com.exam.model1.message.MessageTO">
 		update message set read_chk=1
-		where room=#{room} and read_chk=0 and recv_nick=#{nick}
+		<choose>
+			<when test="room != 0">
+				where room=#{room} and read_chk=0 and recv_nick=#{nick}
+			</when>
+			<otherwise>
+				where send_nick=#{recv_nick} and read_chk=0 and recv_nick=#{nick}
+			</otherwise>
+		</choose>
+		
 	</update>
 	
 	<!-- 메세지리스트에서 메세지 보내기 -->
 	<insert id="messageSendInlist" parameterType="com.exam.model1.message.MessageTO">
-		insert into message values(0, #{room}, #{send_nick}, #{recv_nick}, now(), now(), #{content}, 0);
+		<choose>
+			<when test="room != 0">
+				insert into message values(0, #{room}, #{send_nick}, #{recv_nick}, now(), now(), #{content}, 0);
+			</when>
+			<otherwise>
+				insert into message values(0, #{room}, #{send_nick}, #{recv_nick}, now(), now(), #{content}, 0);
+			</otherwise>
+		</choose>
 	</insert>
 	
+	<!-- room 번호 최댓값 구하기 -->
+	<select id="max_room"  parameterType="com.exam.model1.message.MessageTO" resultType="Int">
+		select max(room) from message
+	</select>
 	
+	<!-- 메세지 이력이 있는지 검색 -->
+	<select id="exist_chat" parameterType="com.exam.model1.message.MessageTO" resultType="Int">
+		select count(no) from message 
+		where (recv_nick = #{recv_nick} and send_nick=#{send_nick}) or (send_nick = #{recv_nick} and recv_nick=#{send_nick})
+	</select>
+	
+	<!-- 기존 메세지 내역의 room 번호를 가져옴 -->
+	<select id="select_room"  parameterType="com.exam.model1.message.MessageTO" resultType="String">
+		select room from message
+		where (recv_nick = #{recv_nick} and send_nick=#{send_nick}) or (send_nick = #{recv_nick} and recv_nick=#{send_nick})
+		limit 0,1
+	</select>
 	
 	
 	<!-- =============== 프로필 정보 ================= -->
@@ -1434,6 +1473,73 @@
 		from user
 		where nick=#{nick}
 	</select>
+	
+	
+	
+	
+	
+	<!-- ================= home 페이지 best3 게시물 ==================== -->
+	<!-- 랜선여행 게시판 best3 -->
+	<select id="l_best3" resultType="com.exam.model1.lantrip.LanTripTO" >
+		select no, subject, content, writer, wdate, hit, location, video, reply, heart, u.profile
+		from l_board l left outer join user u 
+		on l.writer = u.nick
+		order by heart desc
+		limit 3
+	</select>
+	
+	<!-- 사진자랑 게시판 best3 -->
+	<select id="p_best3" resultType="com.exam.model1.picture.PictureTO" >
+		select no, subject, content, writer, wdate, hit, location, media, reply, heart, u.profile
+		from p_board p left outer join user u
+		on p.writer = u.nick
+		order by heart desc
+		limit 3
+	</select>
+	
+	<!-- 쇼핑정보 게시판 best3 -->
+	<select id="s_best3" resultType="com.exam.model1.shopping.ShoppingTO" >
+		select no, subject, content, writer, wdate, hit, location, picture, reply, heart, u.profile
+		from s_board s left outer join user u
+		on s.writer = u.nick
+		order by heart desc
+		limit 3
+	</select>
+	
+	<!-- 숙소정보 게시판 best3 -->
+	<select id="a_best3" resultType="com.exam.model1.accom.AccomTO" >
+		select no, subject, content, writer, wdate, hit, location, picture, reply, heart, u.profile
+		from a_board a left outer join user u
+		on a.writer = u.nick
+		order by heart desc
+		limit 3
+	</select>
+	
+	<!-- 오늘 방문자수 가져오기 -->
+	<select id="getVisit" resultType="Int">
+		select visit from visit
+		where date_format(date,"%Y-%m-%d") = current_date
+	</select>
+	
+	
+	
+	<!-- ================== 방문자수 카운트 ================== -->
+	<!-- 오늘날짜로 된 데이터가 있는지 확인 -->
+	<select id="firstCount" resultType="Int">
+		select count(*) from visit
+		where date_format(date,"%Y-%m-%d") = current_date
 
+	</select>
+	
+	<!-- 첫방문자면 데이터를 넣는다. -->
+	<insert id="firstVisit">
+		insert into visit values(now(), 1);
+	</insert>
+	
+	<!-- 첫방문자가아니면 오늘날짜 데이터에  +1 한다. -->
+	<update id="plusVisit">
+		update visit set visit = visit + 1
+		where date_format(date,"%Y-%m-%d") = current_date
+	</update>
 </mapper>
 

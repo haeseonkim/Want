@@ -174,6 +174,7 @@
 	const GetList = function(currentPage){
 		console.log("inGetList"+currentPage);
 		
+		// 무한 스크롤
 		$.ajax({
 			url:"ajax_page.do",
 			method:"GET",

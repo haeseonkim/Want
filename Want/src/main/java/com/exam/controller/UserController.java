@@ -27,8 +27,8 @@ public class UserController {
 
 	// 각자 맞는 upload 폴더 경로로 변경
   
-	private String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\profile";
-	//private String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\";
+	//private String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\profile";
+	private String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\profile";
 	//private String uploadPath = "/Users/hyukjun/git/Want/Want/src/main/webapp/upload/";
 
 	
@@ -42,7 +42,6 @@ public class UserController {
 		request.setCharacterEncoding("utf-8");
 
 		if (request.getParameter("login_ok") == null) {
-
 		} else if (request.getParameter("login_ok").equals("1") && !request.getParameter("id").equals("")) {
 
 			// ================= 일반 로그인 =================
@@ -80,7 +79,14 @@ public class UserController {
 						userTo = userDao.loginOkNick(userTo);
 						// id를 세션에 저장
 						session.setAttribute("id", userTo.getId());
+						// nick을 세션에 저장
 						session.setAttribute("nick", userTo.getNick());
+						// 프로필 사진 (profile)을 세션에 저장
+						session.setAttribute("profile", userTo.getProfile());
+						
+						System.out.println("id : " + userTo.getId());
+						System.out.println("nick : " + userTo.getNick());
+						System.out.println("profile : " + userTo.getProfile());
 					} else { // 기타오류
 						flag = 3;
 					}
@@ -94,12 +100,7 @@ public class UserController {
 			}
 			request.setAttribute("flag", flag);
 
-			// id를 세션에 저장
-			session.setAttribute("id", userTo.getId());
-			// nick을 세션에 저장
-			session.setAttribute("nick", userTo.getNick());
-			// 프로필 사진 (profile)을 세션에 저장
-			session.setAttribute("profile", userTo.getProfile());
+			
 
 
 
@@ -107,62 +108,54 @@ public class UserController {
 
 			// ==================== 카카오 로그인 ========================
 			System.out.println("카카오로그인");
-			System.out.println(request.getParameter("id"));
 			System.out.println(request.getParameter("kakaoemail"));
 			System.out.println(request.getParameter("kakaoname"));
 			System.out.println(request.getParameter("kakaobirth"));
-
+			
+			// kakaoemail을 kakaoid에 저장
 			String kakaoid = request.getParameter("kakaoemail");
 
 			UserTO userTo = new UserTO();
 
+			// kakaoid를 to의 id로 세팅
 			userTo.setId(kakaoid);
 
+			// 카카오계정으로 로그인한 적이 있는지 없는지 
 			int result_lookup = userDao.loginLookup(userTo);
 
-			if (result_lookup == 0) { // 회원이 아닌경우 (카카오 계정으로 처음 방문한 경우)
+			if (result_lookup == 0) { // 회원이 아닌경우 (카카오 계정으로 처음 방문한 경우) 카카오 회원정보 설정 창으로 이동
+				System.out.println("카카오 회원 정보 설정");
 
-				userTo.setPwd("kakaopwd");
-				userTo.setName(request.getParameter("kakaoname"));
-				userTo.setBirth(request.getParameter("kakaobirth"));
-				userTo.setMail(request.getParameter("kakaoemail"));
-				userTo.setPhone("번호를 수정해주세요");
-				userTo.setNick(null);
-
-				userTo.setProfile(null);
-				userTo.setGreet(null);
-
-				System.out.println(userTo.getName());
-				int flag = userDao.signup_ok(userTo);
-
-				request.setAttribute("flag", flag);
+				request.setAttribute("kakaoid",request.getParameter("kakaoemail"));
+				request.setAttribute("kakaoname",request.getParameter("kakaoname"));
+				request.setAttribute("kakaobirth",request.getParameter("kakaobirth"));
+				request.setAttribute("kakaoemail",request.getParameter("kakaoemail"));
+				
+				// 회원가입창으로 이동
+				return "user/kakaoLogin_editForm";
 
 			} else { // 이미 카카오로 로그인한 적이 있을 때 (최초 1회 로그인때 회원가입된 상태)
+				// id, nick, profile을 가져와서
+				userTo = userDao.loginOkNick(userTo);
+				// id를 세션에 저장
+				session.setAttribute("kakaoid", userTo.getId());
+				// nick을 세션에 저장
+				session.setAttribute("nick", userTo.getNick());
+				// 프로필 사진 (profile)을 세션에 저장
+				session.setAttribute("profile", userTo.getProfile());
+				
 				request.setAttribute("flag", 0);
+				
+				System.out.println("kakaoid : " + userTo.getId());
+				System.out.println("nick : " + userTo.getNick());
+				System.out.println("profile : " + userTo.getProfile());
 			}
-			// kakaoid를 세션에 저장
-			session.setAttribute("kakaoid", kakaoid);
+			
 
 		}
 
 		return "user/loginForm";
 	}
-
-	// ---------------------- 카카오 로그인 ----------------------
-//   @RequestMapping(value = "/kakaologin.do")
-//   public String kakaoLogin(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
-//      
-//      String kakaoid = request.getParameter("kakaoemail");
-//      
-//      System.out.println(kakaoid);
-//      
-//      request.setAttribute("flag", 0);
-//      
-//      // kakaoid를 세션에 저장
-//      session.setAttribute("kakaoid", kakaoid);
-//      
-//      return "user/loginForm";
-//   }
 
 	// ---------------------- 로그아웃 ----------------------
 	@RequestMapping(value = "/logout.do")
@@ -191,8 +184,8 @@ public class UserController {
 		int maxFileSize = 1024 * 1024 * 6;
 		String encType = "utf-8";
     
-   String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\profile";
-   //String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\profile";
+   //String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\profile";
+   String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\profile";
    //String uploadPath ="/Users/hyukjun/git/Want/Want/src/main/webapp/upload/profile";
 
 		MultipartRequest multi = null;
@@ -234,6 +227,62 @@ public class UserController {
 		}
 
 		return "user/signup_ok";
+	}
+	
+	// 카카오로그인 회원정보 설정
+	@RequestMapping(value = "/kakaoLogin_editForm_ok.do")
+	public String kakaoLogin_editForm_ok(HttpServletRequest request, Model model, HttpSession session) throws Exception {
+
+		int maxFileSize = 1024 * 1024 * 6;
+		String encType = "utf-8";
+    
+	   //String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\profile";
+	   String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\profile";
+	   //String uploadPath ="/Users/hyukjun/git/Want/Want/src/main/webapp/upload/profile";
+
+		MultipartRequest multi = null;
+
+		try {
+			request.setCharacterEncoding("utf-8");
+
+			multi = new MultipartRequest(request, uploadPath, maxFileSize, encType, new DefaultFileRenamePolicy());
+
+			UserTO to = new UserTO();
+			to.setId(multi.getParameter("id"));
+
+			// 카카오로그인은 비밀번호가 따로 필요없기때문에 공백으로 세팅
+			to.setPwd("");
+			
+			to.setName(multi.getParameter("name"));
+			to.setBirth(multi.getParameter("birth"));
+			to.setMail(multi.getParameter("mail"));
+			to.setPhone(multi.getParameter("phone"));
+			to.setNick(multi.getParameter("nick"));
+
+			to.setProfile(multi.getFilesystemName("profile"));
+			File file = multi.getFile("profile");
+			if (multi.getParameter("greet").equals("")) {
+				to.setGreet(null);
+			} else {
+				to.setGreet(multi.getParameter("greet"));
+			}
+
+			int flag = userDao.signup_ok(to);
+			
+			// kakaoid를 세션에 저장
+			session.setAttribute("kakaoid", to.getId());
+			// nick을 세션에 저장
+			session.setAttribute("nick", to.getNick());
+			// 프로필 사진 (profile)을 세션에 저장
+			session.setAttribute("profile", to.getProfile());
+
+			model.addAttribute("flag", flag);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return "user/kakaoLogin_editForm_ok";
 	}
 
 	// signup에서 id중복조회

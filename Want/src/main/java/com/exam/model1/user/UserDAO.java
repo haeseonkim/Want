@@ -67,6 +67,7 @@ public class UserDAO {
 		if (result == 1) {
 			flag = 0;
 		}
+		System.out.println("flag가  0이면 성공 " + flag);
 		return flag;
 	}
 		

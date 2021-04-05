@@ -79,7 +79,7 @@
 
 	<section id="la-header">
 		<br />
-		<div class="la-header-container" data-aos="fade-up">
+		<div class="la-header-container">
 			<h1> 랜선여행 신청하기</h1>
 			<p>원하는 랜선여행을 신청하세요!</p>
 		</div>

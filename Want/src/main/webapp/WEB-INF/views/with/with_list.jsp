@@ -79,7 +79,7 @@
 
 	<section id="with-header">
 		<br />
-		<div class="with-header-container" data-aos="fade-up">
+		<div class="with-header-container">
 			<h1> 동행 구하기 </h1>
 			<p>함께 여행할 동행을 구해보세요!</p>
 		</div>

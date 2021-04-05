@@ -23,9 +23,23 @@
     <div class="hero-container" data-aos="fade-up">
       <h1>Want</h1>
       <h2>What A Nice Trip</h2>
-      <a href="./lanTrip_list.do" class="btn-get-started scrollto">Get Started</a>
+      <a href="./home.do" class="btn-get-started scrollto">Get Started</a>
     </div>
   </section><!-- End Hero -->
-
+	<script>
+	$(".btn-get-started").on('click', function(){
+		$.ajax({
+			url: 'visitCount.do',
+			type: 'get',
+			success:function(flag){
+				if(flag == 1){
+					console.log("visitCount++ 성공");
+				}else{
+					console.log("visitCount++ 실패");
+				}
+			}
+		});
+	})
+	</script>
 </body>
 </html>

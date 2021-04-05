@@ -7,12 +7,15 @@
 	<div class="container d-flex align-items-center">
 
 		<h1 class="logo me-auto">
-			<a href="./lanTrip_list.do">Want</a>
+			<a href="./home.do">Want</a>
 		</h1>
 		<!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
 		<nav id="navbar" class="navbar order-last order-lg-0">
 			<ul>
+				<li><a
+					class="${param.thisPage eq 'home' ? 'active':''}"
+					href="./home.do">Home</a></li>
 				<li class="dropdown"><a href="./lanTrip_list.do"><span>랜선여행</span>
 						<i class="bi bi-chevron-down"></i></a>
 					<ul>
