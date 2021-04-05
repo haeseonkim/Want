@@ -40,11 +40,11 @@
 				return false;
 			}
 			// 파일 업로드 확인 메세지
-			if (document.wfrm.picture.value.trim() == "") {
+			if (document.wfrm.picture.value.trim() != "") {
 				const extension = document.wfrm.picture.value.split('.').pop();
 				if (extension != 'png' && extension != 'jpg' && extension != 'gif' && extension != 'jpeg' 
 						&& extension != 'PNG'&& extension != 'JPG'&& extension != 'GIF'&& extension != 'JPEG') {
-					alert('이미지 파일을 입력하셔야 합니다.');
+					alert('동영상 파일은 게시할 수 없습니다.');
 					return false;
 				}
 			}

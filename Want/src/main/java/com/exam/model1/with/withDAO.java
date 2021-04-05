@@ -6,6 +6,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.exam.model1.lantripApply.LanTripApplyTO;
+
 @Repository
 public class withDAO {
 
@@ -28,45 +30,58 @@ public class withDAO {
 	}
 
 	// list
-	   public withListTO boardList(withListTO listTO) {
+	public withListTO boardList(withListTO listTO) {
 
-	      int cpage = listTO.getCpage();
-	      int recordPerPage = listTO.getRecordPerPage();
-	      int blockPerPage = listTO.getBlockPerPage();
-	      
-	      // withTO의 내용을 배열로 가져옴 										mapper의 id, SqlMapper 변수명(?)과 동일
-	      ArrayList<withTO> lists = (ArrayList)sqlSession.selectList("withList");
-	      
-	      listTO.setTotalRecord(lists.size());
-	      listTO.setTotalPage(((listTO.getTotalRecord() - 1) / recordPerPage) + 1);
+		int cpage = listTO.getCpage();
+		int recordPerPage = listTO.getRecordPerPage();
+		int blockPerPage = listTO.getBlockPerPage();
 
-	      int skip = (cpage - 1) * recordPerPage;
-	      
-	      ArrayList<withTO> boardLists = new ArrayList();
-	      
-	      int cnt = 0;
-	      for (int i = skip; i < lists.size(); i++) {
-	         if(cnt == recordPerPage) {
-	            break;
-	         }
-	         if (lists.get(i) != null) {
-	        	 withTO to = lists.get(i);
-	            boardLists.add(to);
-	         }
-	         cnt++;
-	      }
+		// withTO의 내용을 배열로 가져옴 mapper의 id, SqlMapper 변수명(?)과 동일
+		ArrayList<withTO> lists = (ArrayList) sqlSession.selectList("withList");
 
-	      listTO.setBoardList(boardLists);
+		listTO.setTotalRecord(lists.size());
+		listTO.setTotalPage(((listTO.getTotalRecord() - 1) / recordPerPage) + 1);
 
-	      listTO.setStartBlock(((cpage - 1) / blockPerPage) * blockPerPage + 1);
-	      listTO.setEndBlock(((cpage - 1) / blockPerPage) * blockPerPage + blockPerPage);
-	      if (listTO.getEndBlock() >= listTO.getTotalPage()) {
-	         listTO.setEndBlock(listTO.getTotalPage());
-	      }
+		int skip = (cpage - 1) * recordPerPage;
 
-	      return listTO;
-	   }
-	   
+		ArrayList<withTO> boardLists = new ArrayList();
+
+		int cnt = 0;
+		for (int i = skip; i < lists.size(); i++) {
+			if (cnt == recordPerPage) {
+				break;
+			}
+			if (lists.get(i) != null) {
+				withTO to = lists.get(i);
+				boardLists.add(to);
+			}
+			cnt++;
+		}
+
+		listTO.setBoardList(boardLists);
+
+		listTO.setStartBlock(((cpage - 1) / blockPerPage) * blockPerPage + 1);
+		listTO.setEndBlock(((cpage - 1) / blockPerPage) * blockPerPage + blockPerPage);
+		if (listTO.getEndBlock() >= listTO.getTotalPage()) {
+			listTO.setEndBlock(listTO.getTotalPage());
+		}
+
+		return listTO;
+	}
+
+	// 검색 결과
+	public ArrayList<withTO> searchList(withTO to) {
+		ArrayList<withTO> lists = (ArrayList) sqlSession.selectList("with_searchList", to);
+		return lists;
+	}
+
+	// 게시물 갯수
+	public int withCount(withTO to) {
+		int result = sqlSession.selectOne("with_count", to);
+
+		return result;
+	}
+
 	// view
 	public withTO with_View(withTO to) {
 		sqlSession.update("with_view_hit", to);

@@ -66,10 +66,10 @@ public class LantripApplyController {
 		try {
 			request.setCharacterEncoding("utf-8");
 			
-			System.out.println("컨트롤러 넘어옴");
-
-			System.out.println("condition: " + request.getParameter("condition"));
-			System.out.println("keyword: " + request.getParameter("keyword"));
+//			System.out.println("컨트롤러 넘어옴");
+//
+//			System.out.println("condition: " + request.getParameter("condition"));
+//			System.out.println("keyword: " + request.getParameter("keyword"));
 			
 			// 검색결과를 담아올 to
 			LanTripApplyListTO listTO = new LanTripApplyListTO();
@@ -82,10 +82,9 @@ public class LantripApplyController {
 			String keyword = request.getParameter("keyword");
 			String condition = request.getParameter("condition");
 			
-			System.out.println("condition: " + condition);
-			System.out.println("keyword: " + keyword);
+//			System.out.println("condition: " + condition);
+//			System.out.println("keyword: " + keyword);
 			
-			// 책갈피 - 매퍼에 where 조건에 condition = keyword를 주자
 			listTO.setCpage(Integer
 					.parseInt(request.getParameter("cpage") == null || request.getParameter("cpage").equals("") ? "1"
 							: request.getParameter("cpage")));

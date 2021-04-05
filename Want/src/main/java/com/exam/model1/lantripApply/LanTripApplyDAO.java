@@ -67,6 +67,7 @@ public class LanTripApplyDAO {
 		return listTO;
 	}
 	
+	// 검색 결과
 	public ArrayList<LanTripApplyTO> searchList(LanTripApplyTO to){
 		ArrayList<LanTripApplyTO> lists = (ArrayList)sqlSession.selectList("la_searchList",to);
 		return lists;

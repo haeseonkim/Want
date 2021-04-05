@@ -100,14 +100,12 @@
 
 	<section id="la-header">
 		<br />
-		<div class="la-header-container" data-aos="fade-up">
+		<div class="la-header-container">
 			<h1> 랜선여행 신청하기</h1>
 			<p>원하는 랜선여행을 신청하세요!</p>
 		</div>
 	</section>
-	
 	<br />
-		<!-- 검색 -->
 	<div id="card-search" class="card-search" >
 		<!-- 검색 버튼과 form -->
 		<form action="./la_ajax_page.do" name="frm" method="get">
@@ -133,10 +131,13 @@
 			</div>
 		</form>
 	</div>
+	
+	<!-- 검색 -->
+
 	<%-- 만일 검색 키워드가 존재한다면 몇개의 글이 검색 되었는지 알려준다. --%>
 	<c:if test="${not empty keyword }">
 		<div class="alert text-center">
-			<strong>${totalRow }</strong> 개의 자료가 검색되었습니다.
+			<span style="color:#5fcf80;"><strong>${totalRow }</strong> </span>개의 자료가 검색되었습니다.
 		</div>
 	</c:if>
 	<!-- 검색결과 -->
@@ -161,8 +162,7 @@
 					</tr>
 					<!-- 행 시작 -->
 					<%=sbHtml%>
-
-
+					
 					<!-- 행 끝 -->
 				</table>
 			</div>
