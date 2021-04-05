@@ -50,7 +50,7 @@
 		parameterType="com.exam.model1.user.UserTO" resultType="Int">
 		select count( id )
 		from user
-		where id like #{ id };
+		where id = #{ id };
 	</select>
 
 	<!-- 메일 일치 여부 확인 -->
@@ -61,13 +61,20 @@
 		where id = #{id} and mail = #{mail}
 	</select>
 
-	<!-- 전송을 위한 비밀번호 조회 -->
-	<select id="pwdFind_update"
+	<!-- 비밀번호 조회 -->
+	<select id="pwFind_select"
 		parameterType="com.exam.model1.user.UserTO"
+		resultType="com.exam.model1.user.UserTO">
+		select id, mail, pwd
+		from user
+		where id = #{id} and mail = #{mail}
+	</select>
+	
+	<select id="pwFind_decry" parameterType="com.exam.model1.user.UserTO"
 		resultType="com.exam.model1.user.UserTO">
 		select pwd
 		from user
-		where id = #{id} and mail = #{mail}
+		where id like #{id} and mail = #{mail}
 	</select>
 
 
