@@ -24,7 +24,8 @@
 		String location = to.getLocation();
 		String reply = to.getReply();
 		String hit = to.getHit();
-	
+		String profile = to.getProfile();
+		
 		if (rowCount % 4 == 0) {
 			sbHtml.append("<div class='row'>");
 		}
@@ -33,10 +34,9 @@
 		sbHtml.append( "	<div class='card'>");
 		sbHtml.append( "		<a href='./lanTrip_view.do?no=" + no + "'><video src='" + video + "' class='card-img-top' controls></video></a>");
 		sbHtml.append( "			<div class='card-body'>");
-		sbHtml.append( "				<h3 class='card-title'>" + writer + "</h3>");
-		sbHtml.append( "				<p class='card-text'>" + subject + "</p>");
-		sbHtml.append( "			</div>");
-		sbHtml.append( "			<div class='lan-heart'>");
+		sbHtml.append( "				<h3 class='card-title'>" + subject + "</h3>");
+		sbHtml.append( " 				<img id='profileImage' src='./upload/profile/"+ to.getProfile() +"' />&nbsp;&nbsp;<span class='small text-muted mb-0'>"+ to.getWriter()+" | "+ to.getWdate() +"</span>" );
+		sbHtml.append( " 			<div class='lan-heart'>" );
 		 // 로그인 상태아닐 때 하트 클릭안됨
 	      if( nick == null ) {
 	         sbHtml.append( "         <svg class='heart3' xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-suit-heart' viewBox='0 0 16 16'>" );
@@ -68,6 +68,7 @@
 	      sbHtml.append( "               <path d='M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z' />" );
 	      sbHtml.append( "            </svg>" );
 	      sbHtml.append( "            "+ to.getHit()+ "" );
+		sbHtml.append( "			</div>");
 		sbHtml.append( "			</div>");
 		sbHtml.append( "	</div>");
 		sbHtml.append( "</div>");
@@ -238,7 +239,9 @@ $(document).ready( function() {
 	<section id="carousel-container" class="carousel-container" >
 		<div class="row row-carousel">
 			<div class="section-title">
-				<h2>Best5!</h2>
+				<h2>
+					<strong>Best 5!</strong>
+				</h2>
 			</div>
 				<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
 					<div class="carousel-indicators">

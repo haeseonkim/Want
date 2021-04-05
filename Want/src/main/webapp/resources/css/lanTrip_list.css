@@ -52,6 +52,18 @@ body {
 	margin-top: 60px;
 }
 
+#profileImage {
+   width: 30px;
+   height: 30px;
+   border: 0px;
+   /*border: 1px solid #cecece;*/
+   border-radius: 50%;
+}
+
+.lan-heart {
+	text-align: right;
+}
+
 .btn {
 	display: inline-block;
 	line-height: 30px;	/* 수정 */
