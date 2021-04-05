@@ -107,28 +107,22 @@ window.onload = function() {
     <div class="row active-with-click">
     
         <div class="col-md-3 col-sm-6 col-xs-12">
-            <article id="france" class="material-card Red">
-                <h2>
-                    <span>프랑스</span>
-                    <strong>
-                        <i class="fa fa-fw fa-star"></i>
-                    </strong>
-                </h2>
-                <div class="mc-content">
-                    <div class="img-container">
-                        <img class="img-responsive" src="./resources/img/파리.jpg">
-                    </div>
-                </div>
-            </article>
-        </div>
+			<article id="france" class="material-card Red">
+				<h2>
+					<span>프랑스</span>
+				</h2>
+				<div class="mc-content">
+					<div class="img-container">
+						<img class="img-responsive" src="./resources/img/파리.jpg">
+					</div>
+				</div>
+			</article>
+		</div>
         
         <div class="col-md-3 col-sm-6 col-xs-12">
             <article id="greece" class="material-card Pink">
                 <h2>
                     <span>그리스</span>
-                    <strong>
-                        <i class="fa fa-fw fa-star"></i>
-                    </strong>
                 </h2>
                 <div class="mc-content">
                     <div class="img-container">
@@ -142,9 +136,6 @@ window.onload = function() {
             <article id="italy" class="material-card Purple">
                 <h2>
                     <span>이탈리아</span>
-                    <strong>
-                        <i class="fa fa-fw fa-star"></i>
-                    </strong>
                 </h2>
                 <div class="mc-content">
                     <div class="img-container">
@@ -158,9 +149,6 @@ window.onload = function() {
             <article id="spain" class="material-card Deep-Purple">
                 <h2>
                     <span>스페인</span>
-                    <strong>
-                        <i class="fa fa-fw fa-star"></i>
-                    </strong>
                 </h2>
                 <div class="mc-content">
                     <div class="img-container">                    	
@@ -174,9 +162,6 @@ window.onload = function() {
             <article id="czech" class="material-card Indigo">
                 <h2>
                     <span>체코</span>
-                    <strong>
-                        <i class="fa fa-fw fa-star"></i>
-                    </strong>
                 </h2>
                 <div class="mc-content">
                     <div class="img-container">
@@ -190,9 +175,6 @@ window.onload = function() {
             <article id="uk" class="material-card Blue">
                 <h2>
                     <span>영국</span>
-                    <strong>
-                        <i class="fa fa-fw fa-star"></i>
-                    </strong>
                 </h2>
                 <div class="mc-content">
                     <div class="img-container">
@@ -206,9 +188,6 @@ window.onload = function() {
             <article id="swizerland" class="material-card Green">
                 <h2>
                     <span>스위스</span>
-                    <strong>
-                        <i class="fa fa-fw fa-star"></i>
-                    </strong>
                 </h2>
                 <div class="mc-content">
                     <div class="img-container">
@@ -222,9 +201,6 @@ window.onload = function() {
             <article id="portugal" class="material-card portugal">
                 <h2>
                     <span>포르투갈</span>
-                    <strong>
-                        <i class="fa fa-fw fa-star"></i>
-                    </strong>
                 </h2>
                 <div class="mc-content">
                     <div class="img-container">
@@ -238,9 +214,6 @@ window.onload = function() {
             <article id="hungary" class="material-card hungary">
                 <h2>
                     <span>헝가리</span>
-                    <strong>
-                        <i class="fa fa-fw fa-star"></i>
-                    </strong>
                 </h2>
                 <div class="mc-content">
                     <div class="img-container">
@@ -255,9 +228,6 @@ window.onload = function() {
             <article id="osterria" class="material-card osterria">
                 <h2>
                     <span>오스트리아</span>
-                    <strong>
-                        <i class="fa fa-fw fa-star"></i>
-                    </strong>
                 </h2>
                 <div class="mc-content">
                     <div class="img-container">
@@ -270,8 +240,7 @@ window.onload = function() {
 		<div class="col-md-3 col-sm-6 col-xs-12">
 			<article id="sweden" class="material-card sweden">
 				<h2>
-					<span>스웨덴</span> <strong> <i class="fa fa-fw fa-star"></i>
-					</strong>
+					<span>스웨덴</span>
 				</h2>
 				<div class="mc-content">
 					<div class="img-container">
@@ -284,8 +253,7 @@ window.onload = function() {
 		<div class="col-md-3 col-sm-6 col-xs-12">
 			<article id="finland" class="material-card finland">
 				<h2>
-					<span>핀란드</span> <strong> <i class="fa fa-fw fa-star"></i>
-					</strong>
+					<span>핀란드</span>
 				</h2>
 				<div class="mc-content">
 					<div class="img-container">
@@ -298,8 +266,7 @@ window.onload = function() {
 		<div class="col-md-3 col-sm-6 col-xs-12">
 			<article id="poland" class="material-card poland">
 				<h2>
-					<span>폴란드</span> <strong> <i class="fa fa-fw fa-star"></i>
-					</strong>
+					<span>폴란드</span>
 				</h2>
 				<div class="mc-content">
 					<div class="img-container">

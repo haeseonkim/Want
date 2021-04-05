@@ -30,7 +30,7 @@
 				<li><a
 					class="${param.thisPage eq 'picture_list' ? 'active':''}"
 					href="./picture_list.do">사진 자랑</a></li>
-				<li class="dropdown"><a href="./select_shop_accom.do"><span>여행지
+				<li class="dropdown"><a href="./select_city.do?sa=s"><span>여행지
 							정보</span> <i class="bi bi-chevron-down"></i></a>
 					<ul>
 						<li><a
@@ -88,5 +88,6 @@
 		</c:choose>
 
 	</div>
+
 </header>
 <!-- End Header -->

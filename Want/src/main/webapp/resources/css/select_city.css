@@ -9,6 +9,7 @@ body {
 	width: 530px;
 	margin: 0 auto;
 	padding: 30px 0;
+	font-family: 'Nanum Pen Script', cursive;
 }
 .select-form h2 {
 	color: #333;
@@ -16,42 +17,15 @@ body {
 	display: inline-block;
 	padding: 0 20px 10px 20px;
 	border-bottom: 3px solid #5cd3b4!important;
+	font-family: 'Nanum Pen Script', cursive;
 }
 img {
 	width: 400px;
 	height: 384px;
+	
+
 }
 
-
-@import "https://fonts.googleapis.com/css?family=Raleway:400,300,200,500,600,700";
-.fa-spin-fast {
-  -webkit-animation: fa-spin-fast 0.2s infinite linear;
-  animation: fa-spin-fast 0.2s infinite linear;
-}
-@-webkit-keyframes fa-spin-fast {
-  0% {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(359deg);
-    transform: rotate(359deg);
-  }
-}
-@keyframes fa-spin-fast {
-  0% {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(359deg);
-    transform: rotate(359deg);
-  }
-}
-
-.material-card:hover {
-  transform: rotatey(45deg) translatex(0px) translatey(0px);
-}
 .material-card {
   position: relative;
   height: 0;
@@ -61,20 +35,25 @@ img {
 }
 .material-card h2 {
   position: absolute;
-  top: calc(100% - 16px);
+  top: calc(45% - 30px);
   left: 0;
   width: 100%;
   padding: 10px 16px;
   color: #fff;
-  font-size: 1.4em;
+  font-size: 3em;
   line-height: 1.6em;
   margin: 0;
   z-index: 10;
-  -webkit-transition: all 0.3s;
-  -moz-transition: all 0.3s;
-  -ms-transition: all 0.3s;
-  -o-transition: all 0.3s;
-  transition: all 0.3s;
+}
+
+.material-card h2:hover:before {
+	content: "";
+	position: absolute;
+	bottom: 0;
+	top: 0;
+	left: 0;
+	right: 0;
+	opacity: 1;
 }
 .material-card h2 span {
   display: block;
@@ -84,35 +63,12 @@ img {
   display: block;
   font-size: 0.8em;
 }
-.material-card h2:before,
-.material-card h2:after {
-  content: ' ';
-  position: absolute;
-  left: 0;
-  top: -16px;
-  width: 0;
-  border: 8px solid;
-  -webkit-transition: all 0.3s;
-  -moz-transition: all 0.3s;
-  -ms-transition: all 0.3s;
-  -o-transition: all 0.3s;
-  transition: all 0.3s;
-}
-.material-card h2:after {
-  top: auto;
-  bottom: 0;
-}
 .material-card .mc-content {
   position: absolute;
   right: 0;
   top: 0;
   bottom: 16px;
   left: 16px;
-  -webkit-transition: all 0.3s;
-  -moz-transition: all 0.3s;
-  -ms-transition: all 0.3s;
-  -o-transition: all 0.3s;
-  transition: all 0.3s;
 }
 .material-card .img-container {
   overflow: hidden;
@@ -122,221 +78,45 @@ img {
   width: 100%;
   height: 100%;
   z-index: 3;
-  -webkit-transition: all 0.3s;
-  -moz-transition: all 0.3s;
-  -ms-transition: all 0.3s;
-  -o-transition: all 0.3s;
-  transition: all 0.3s;
   background-size: cover;
 }
-.material-card.Red h2 {
-  background-color: #F44336;
-}
-.material-card.Red h2:after {
-  border-top-color: #F44336;
-  border-right-color: #F44336;
-  border-bottom-color: transparent;
-  border-left-color: transparent;
-}
-.material-card.Red h2:before {
-  border-top-color: transparent;
-  border-right-color: #B71C1C;
-  border-bottom-color: #B71C1C;
-  border-left-color: transparent;
-}
-.material-card.Pink h2 {
-  background-color: #E91E63;
-}
-.material-card.Pink h2:after {
-  border-top-color: #E91E63;
-  border-right-color: #E91E63;
-  border-bottom-color: transparent;
-  border-left-color: transparent;
-}
-.material-card.Pink h2:before {
-  border-top-color: transparent;
-  border-right-color: #880E4F;
-  border-bottom-color: #880E4F;
-  border-left-color: transparent;
+
+.material-card .img-container:hover:before {
+	content: "";
+	background: rgba(0, 0, 0, 0.4);
+	position: absolute;
+	bottom: 0;
+	top: 0;
+	left: 0;
+	right: 0;
+	opacity: 1;
 }
 
-.material-card.Purple h2 {
-  background-color: #9C27B0;
-}
-.material-card.Purple h2:after {
-  border-top-color: #9C27B0;
-  border-right-color: #9C27B0;
-  border-bottom-color: transparent;
-  border-left-color: transparent;
-}
-.material-card.Purple h2:before {
-  border-top-color: transparent;
-  border-right-color: #4A148C;
-  border-bottom-color: #4A148C;
-  border-left-color: transparent;
+/* 카드에 마우스를 올리면 이미지가 확대 */
+.material-card .img-container {
+	-webkit-transform: scale(1);
+	-moz-transform: scale(1);
+	-ms-transform: scale(1);
+	-o-transform: scale(1);
+	transform: scale(1);
+	-webkit-transition: .3s;
+	-moz-transition: .3s;
+	-ms-transition: .3s;
+	-o-transition: .3s;
+	transition: .3s;
 }
 
-.material-card.Deep-Purple h2 {
-  background-color: #673AB7;
-}
-.material-card.Deep-Purple h2:after {
-  border-top-color: #673AB7;
-  border-right-color: #673AB7;
-  border-bottom-color: transparent;
-  border-left-color: transparent;
-}
-.material-card.Deep-Purple h2:before {
-  border-top-color: transparent;
-  border-right-color: #311B92;
-  border-bottom-color: #311B92;
-  border-left-color: transparent;
+.material-card .img-container:hover{
+	-webkit-transform: scale(1.1);
+	-moz-transform: scale(1.1);
+	-ms-transform: scale(1.1);
+	-o-transform: scale(1.1);
+	transform: scale(1.1);
 }
 
-.material-card.Indigo h2 {
-  background-color: #3F51B5;
+.material-card {
+   overflow: hidden;
 }
-.material-card.Indigo h2:after {
-  border-top-color: #3F51B5;
-  border-right-color: #3F51B5;
-  border-bottom-color: transparent;
-  border-left-color: transparent;
-}
-.material-card.Indigo h2:before {
-  border-top-color: transparent;
-  border-right-color: #1A237E;
-  border-bottom-color: #1A237E;
-  border-left-color: transparent;
-}
-
-.material-card.Blue h2 {
-  background-color: #2196F3;
-}
-.material-card.Blue h2:after {
-  border-top-color: #2196F3;
-  border-right-color: #2196F3;
-  border-bottom-color: transparent;
-  border-left-color: transparent;
-}
-.material-card.Blue h2:before {
-  border-top-color: transparent;
-  border-right-color: #0D47A1;
-  border-bottom-color: #0D47A1;
-  border-left-color: transparent;
-}
-
-.material-card.Green h2 {
-  background-color: #54BD54;
-}
-.material-card.Green h2:after {
-  border-top-color: #54BD54;
-  border-right-color: #54BD54;
-  border-bottom-color: transparent;
-  border-left-color: transparent;
-}
-.material-card.Green h2:before {
-  border-top-color: transparent;
-  border-right-color: #8AE634;
-  border-bottom-color: #8AE634;
-  border-left-color: transparent;
-}
-
-.material-card.portugal h2 {
-  background-color: #32B2B2;
-}
-.material-card.portugal h2:after {
-  border-top-color: #32B2B2;
-  border-right-color: #32B2B2;
-  border-bottom-color: transparent;
-  border-left-color: transparent;
-}
-.material-card.portugal h2:before {
-  border-top-color: transparent;
-  border-right-color: #008080;
-  border-bottom-color: #008080;
-  border-left-color: transparent;
-}
-
-
-.material-card.hungary h2 {
-  background-color: #9C8CCD;
-}
-.material-card.hungary h2:after {
-  border-top-color: #9C8CCD;
-  border-right-color: #9C8CCD;
-  border-bottom-color: transparent;
-  border-left-color: transparent;
-}
-.material-card.hungary h2:before {
-  border-top-color: transparent;
-  border-right-color: #6A5ACD;
-  border-bottom-color: #6A5ACD;
-  border-left-color: transparent;
-}
-
-.material-card.osterria h2 {
-  background-color: #F088B1;
-}
-.material-card.osterria h2:after {
-  border-top-color: #F088B1;
-  border-right-color: #F088B1;
-  border-bottom-color: transparent;
-  border-left-color: transparent;
-}
-.material-card.osterria h2:before {
-  border-top-color: transparent;
-  border-right-color: #DC6089;
-  border-bottom-color: #DC6089;
-  border-left-color: transparent;
-}
-
-.material-card.sweden h2 {
-  background-color: #FFB432;
-}
-.material-card.sweden h2:after {
-  border-top-color: #FFB432;
-  border-right-color: #FFB432;
-  border-bottom-color: transparent;
-  border-left-color: transparent;
-}
-.material-card.sweden h2:before {
-  border-top-color: transparent;
-  border-right-color: #FF8200;
-  border-bottom-color: #FF8200;
-  border-left-color: transparent;
-}
-
-.material-card.finland h2 {
-  background-color: #EB6464;
-}
-.material-card.finland h2:after {
-  border-top-color: #EB6464;
-  border-right-color: #EB6464;
-  border-bottom-color: transparent;
-  border-left-color: transparent;
-}
-.material-card.finland h2:before {
-  border-top-color: transparent;
-  border-right-color: #EB0000;
-  border-bottom-color: #EB0000;
-  border-left-color: transparent;
-}
-
-.material-card.poland h2 {
-  background-color: #9A7745;
-}
-.material-card.poland h2:after {
-  border-top-color: #9A7745;
-  border-right-color: #9A7745;
-  border-bottom-color: transparent;
-  border-left-color: transparent;
-}
-.material-card.poland h2:before {
-  border-top-color: transparent;
-  border-right-color: #8B4513;
-  border-bottom-color: #8B4513;
-  border-left-color: transparent;
-}
-
 
 body {
   background-color: #ECEFF1;
@@ -349,4 +129,6 @@ h1,
 h2,
 h3 {
   font-weight: 200;
+  font-family: 'Nanum Pen Script', cursive;
+  text-align: center;
 }
