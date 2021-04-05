@@ -1639,6 +1639,35 @@
 		where date_format(date,"%Y-%m-%d") = current_date
 	</select>
 	
+	<!-- 회원수 가져오기 -->
+	<select id="getMember" resultType="Int">
+		select count(id) from user
+	</select>
+	
+	<!-- 총 게시물 수 가져오기  -->
+	<select id="getContents" parameterType="String" resultType="Int">
+		select count(no) 
+		<choose>
+			<when test='tableName.equals("lantrip")'>
+				from l_board
+			</when>
+			<when test='tableName.equals("lantripApply")'>
+				from la_board
+			</when>
+			<when test='tableName.equals("picture")'>
+				from p_board
+			</when>
+			<when test='tableName.equals("shopping")'>
+				from s_board
+			</when>
+			<when test='tableName.equals("accom")'>
+				from a_board
+			</when>
+			<when test='tableName.equals("with")'>
+				from w_board
+			</when>
+		</choose>
+	</select>
 	
 	
 	<!-- ================== 방문자수 카운트 ================== -->

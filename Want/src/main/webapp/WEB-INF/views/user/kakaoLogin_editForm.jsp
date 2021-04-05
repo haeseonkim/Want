@@ -192,7 +192,7 @@ function agree() {
 <div class="signup-form">
     <form action="./kakaoLogin_editForm_ok.do" method="post" name="sfrm" class="form-horizontal" enctype="multipart/form-data">
       	<div class="row">
-        	<div class="col-8 signuptitle">
+        	<div class="col-10 signuptitle">
 				<h2>카카오 회원 정보 설정</h2>
 			</div>	
       	</div>			

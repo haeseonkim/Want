@@ -122,7 +122,7 @@
 	<section id="card-list" class="card-list">
 		<div class="container">
 
-			<div class="row card-list-container thumbnails" data-aos="fade-up">
+			<div class="row card-list-container thumbnails">
 			</div>
 		</div>
 

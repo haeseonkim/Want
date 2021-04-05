@@ -28,8 +28,11 @@
 	  <!-- ======= Hero Section ======= -->
   <section id="hero" class="d-flex justify-content-center align-items-center">
     <div class="container position-relative" data-aos="zoom-in" data-aos-delay="100">
-      <h1>Learning Today,<br>Leading Tomorrow</h1>
-      <h2>We are team of talented designers making websites with Bootstrap</h2>
+		<div class="want">
+			<h1>여행을</h1>
+			<h1>WANT 하다</h1>
+		</div>  
+      <h2>What A Nice Trip !</h2>
       <a href="./lanTrip_list.do" class="btn-get-started">랜선여행 시작</a>
     </div>
   </section><!-- End Hero -->
@@ -77,12 +80,12 @@
           </div>
 
           <div class="col-lg-4 col-6 text-center">
-            <span data-purecounter-start="0" data-purecounter-end="64" data-purecounter-duration="1" class="purecounter"></span>
+            <span data-purecounter-start="0" data-purecounter-end="${member }" data-purecounter-duration="1" class="purecounter"></span>
             <p>회원수</p>
           </div>
 
           <div class="col-lg-4 col-6 text-center">
-            <span data-purecounter-start="0" data-purecounter-end="42" data-purecounter-duration="1" class="purecounter"></span>
+            <span data-purecounter-start="0" data-purecounter-end="${boards_contents }" data-purecounter-duration="1" class="purecounter"></span>
             <p>게시물수</p>
           </div>
 
@@ -101,7 +104,7 @@
             <div class="content">
               <h3>왜 Want여야 할까요?</h3>
               <p>
-                Want는 일반 사용자부터 가이드까지 다양한 회원층을 기반으로 여유가 없는 일상속에서 쉽게 여행을 통한 만족감을 느낄수 있는 서비스를 제공합니다. 저희의 비전은 다음과 같습니다.
+                Want는 일반 사용자부터 가이드까지 다양한 회원층을 기반으로 다양한 여행정보 제공, 랜선여행 서비스를 지원합니다. 저희의 비전은 다음과 같습니다.
               </p>
               <div class="text-center">
                 <a href="about.html" class="more-btn">Learn More <i class="bx bx-chevron-right"></i></a>
@@ -149,10 +152,10 @@
           <div class="col-10">
           	<p>BEST3</p>
           </div>
-          <div class="col-2">
-          	<button class="btn" onclick="location.href='./lanTrip_list.do'"><strong>보러가기<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+          <div class="col-2 btnclass">
+          	<button class="btn" onclick="location.href='./lanTrip_list.do'">보러가기<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
   <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"/>
-</svg></strong></button>
+</svg></button>
           	
           </div>
         </div>
@@ -165,7 +168,7 @@
           
             <div class="course-item">
 	          <div class="box1">
-	              <video src="./upload/lanTrip/${tmp.video }" class="img-fluid" autoplay loop></video>
+	              <video src="./upload/lanTrip/${tmp.video }" class="img-fluid" autoplay loop muted></video>
               </div>
               <div class="course-content">
                 <div class="d-flex justify-content-between align-items-center mb-3">
@@ -208,10 +211,10 @@
           <div class="col-10">
           	<p>BEST3</p>
           </div>
-          <div class="col-2">
-          	<button class="btn" onclick="location.href='./picture_list.do'"><strong>보러가기<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+          <div class="col-2 btnclass">
+          	<button class="btn" onclick="location.href='./picture_list.do'">보러가기<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
   <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"/>
-</svg></strong></button>
+</svg></button>
           	
           </div>
         </div>
@@ -266,10 +269,10 @@
           <div class="col-10">
           	<p>BEST3</p>
           </div>
-          <div class="col-2">
-          	<button class="btn" onclick="location.href='./select_shop_accom.do'"><strong>보러가기<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+          <div class="col-2 btnclass">
+          	<button class="btn" onclick="location.href='./select_shop_accom.do'">보러가기<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
   <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"/>
-</svg></strong></button>
+</svg></button>
           	
           </div>
         </div>
@@ -325,10 +328,10 @@
           <div class="col-10">
           	<p>BEST3</p>
           </div>
-          <div class="col-2">
-          	<button class="btn" onclick="location.href='./select_shop_accom.do'"><strong>보러가기<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+          <div class="col-2 btnclass">
+          	<button class="btn" onclick="location.href='./select_shop_accom.do'">보러가기<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
   <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"/>
-</svg></strong></button>
+</svg></button>
           	
           </div>
         </div>

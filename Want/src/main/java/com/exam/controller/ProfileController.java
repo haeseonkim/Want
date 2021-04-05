@@ -185,7 +185,7 @@ public class ProfileController {
 		
 		request.setAttribute("to", to);
 		
-		return "profile/other_profile";
+		return "other_profile/other_profile";
 	}
 	
 	// 메세지 목록 가져오기
@@ -227,5 +227,32 @@ public class ProfileController {
 		return flag;
 	}
 	
+	
+	// 회원정보 수정을 위해 회원정보 가져오기
+	@RequestMapping(value = "/edit_profile.do")
+	public String edit_profile(HttpServletRequest request, HttpSession session) {
+		try {
+			request.setCharacterEncoding("utf-8");
+
+			// ======= 유저 정보가져오기 =======
+			// 세션에 저장된 nick값을 to에 저장
+			UserTO uto = new UserTO();
+			String nick = (String) session.getAttribute("nick");
+			uto.setNick(nick);
+
+			// 저장된 nick값을 userDao함수 매개변수로 넘겨줌
+			// userDao에서 myProfile함수를 실행시켜서 유저 정보를 다시 uto에 저장
+			uto = userDao.myProfile(uto);
+
+			// jsp로 uto값을 넘겨줌
+			request.setAttribute("uto", uto);
+
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return "profile/edit_profile";
+	}
 
 }

@@ -29,7 +29,7 @@
 				<h1><b>내 프로필</b></h1>
 			</div>
 			<div class="col-6 div_modify_profile">
-				<button type="button" class="btn btn--blue-2 btn--radius-2 btn_modify_profile">내 프로필 수정</button>
+				<button type="button" class="btn btn--blue-2 btn--radius-2 btn_modify_profile" onclick="location.href='./edit_profile.do'">내 프로필 수정</button>
 			</div>
 		</div>
 		

@@ -48,8 +48,9 @@ public class HomeController {
 		// 오늘 방문자수
 		int visit = homeDao.getVisit();
 		// 회원수
-
+		int member = homeDao.getMember();
 		// 게시물 수
+		int boards_contents = homeDao.getBoardsContents();
 
 		request.setAttribute("lanList", lanList);
 		request.setAttribute("picList", picList);
@@ -57,6 +58,9 @@ public class HomeController {
 		request.setAttribute("accomList", accomList);
 		
 		request.setAttribute("visit", visit);
+		request.setAttribute("member", member);
+		request.setAttribute("boards_contents", boards_contents);
+		
 
 		return "home";
 	}

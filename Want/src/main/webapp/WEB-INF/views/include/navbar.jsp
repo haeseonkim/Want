@@ -50,16 +50,11 @@
 					<li class="dropdown"><a href="./my_list.do"><span>마이페이지</span>
 							<i class="bi bi-chevron-down"></i></a>
 						<ul>
-							<li><a class="${param.thisPage eq 'my_list' ? 'active':''}"
-								href="./my_list.do">내 피드</a></li>
 							<li><a class="${param.thisPage eq 'profile' ? 'active':''}"
 								href="./profile.do">내 프로필</a></li>
 							<li><a
 								class="${param.thisPage eq 'favorite_list' ? 'active':''}"
-								href="./favorite_list.do">즐겨찾기 목록</a></li>
-							<li><a
-								class="${param.thisPage eq 'follow_list' ? 'active':''}"
-								href="./fallow_list">팔로우</a></li>
+								href="./favorite_list.do">좋아요한 목록</a></li>
 						</ul></li>
 				</c:if>
 			</ul>

@@ -59,4 +59,30 @@ public class HomeDAO {
 		return visit;
 	}
 	
+	public int getMember() {
+		int member = sqlSession.selectOne("getMember");
+		return member;
+	}
+	
+	public int getBoardsContents() {
+		int contents = 0;
+		
+		String tableName = "lantrip";
+		int lantrip = sqlSession.selectOne("getContents", tableName);
+		tableName = "lantripApply";
+		int lantripApply = sqlSession.selectOne("getContents", tableName);
+		tableName = "picture";
+		int picture = sqlSession.selectOne("getContents", tableName);
+		tableName = "shopping";
+		int shopping = sqlSession.selectOne("getContents", tableName);
+		tableName = "accom";
+		int accom = sqlSession.selectOne("getContents", tableName);
+		tableName = "with";
+		int with = sqlSession.selectOne("getContents", tableName);
+		
+		contents = lantrip + lantripApply + picture + shopping + accom + with;
+		
+		return contents;
+	}
+	
 }
