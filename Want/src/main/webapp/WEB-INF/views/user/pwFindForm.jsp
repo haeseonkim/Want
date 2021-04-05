@@ -1,33 +1,13 @@
+<%@page import="com.exam.model1.user.UserTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
-<%
-	if( request.getAttribute( "flag" ) != null && !request.getAttribute( "flag" ).equals( "" ) ) {
-		int flag = (Integer)request.getAttribute( "flag" );
-		
-		out.println( " <script type='text/javascript'> " );
-		if( flag == 0 ) {	//로그인성공
-			out.println( " alert('로그인에 성공했습니다.'); " );
-			out.println( " location.href='./lanTrip_list.do'" );
-		} else if( flag == 1 ) {	//비번틀림
-			out.println( " alert('없는 메일주소입니다.'); " );
-			out.println( " location.href='./loginForm.do' " );
-		} else if( flag == 2 ) {	//회원정보없음
-			out.println( " alert('회원정보가 없습니다. 회원가입해주세요.'); " );
-			out.println( " location.href='./loginForm.do' " );
-		} else {					//기타 에러났을 때 또는 맨처음 시작
-			out.println( " location.href='./loginForm.do' " );
-		}
-		out.println( " </script> " );
-	}
-%>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>비밀번호 찾기</title>
 	
 <jsp:include page="../include/index.jsp"></jsp:include>
 
@@ -41,15 +21,15 @@
 	window.onload = function() {
 		document.getElementById('submit').onclick = function() {
 			
-			if ( document.wfrm.id.value.trim() == '' ) {
+			if ( document.pfrm.id.value.trim() == '' ) {
 				alert( 'ID를 입력해주세요' );
 				return false;
 			}
-			if ( document.wfrm.mail.value.trim() == '' ) {
+			if ( document.pfrm.mail.value.trim() == '' ) {
 				alert( '메일을 입력해주세요' );
 				return false;
 			}
-			document.pwFind_frm.submit();
+			document.pfrm.submit();
 		}
 	}
 </script>
@@ -63,9 +43,12 @@
 	</jsp:include>
 	
 	<br /><br /><br /><br />
-
+	
 <div class="login-form">
-    <form action="pwFindForm_ok.do" method="post" class="form-horizontal">
+    <form action="pwFindForm_ok.do" method="post" class="form-horizontal" name="pfrm">
+   <!--  <input type="hidden" name="id" value="" />
+	<input type="hidden" name="mail" value="" /> -->
+	
       	<div class="row">
         	<div align="center">
 				<h2>비밀번호 찾기</h2>
@@ -93,4 +76,3 @@
 </div>
 </body>
 </html>
-		
