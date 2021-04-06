@@ -317,4 +317,8 @@ constraint m_recv_nick_fk foreign key(recv_nick) references user(nick)
 on delete cascade on update cascade
 );
 
-
+#######방문자 관련 DDL#########
+CREATE TABLE visit (
+  date datetime primary key,
+  visit int(11) NOT NULL,
+);

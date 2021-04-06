@@ -2,7 +2,7 @@
 
 body {
 	background: #f4f4f4;
-	font-family: 'Roboto', sans-serif;
+	font-family: 'Nanum Pen Script', cursive;
 }
 
 
@@ -19,10 +19,10 @@ body {
 .p_subject {
 	font-size: 40px;
 	padding-bottom: 10px;
-	border-bottom: 3px solid #5cd3b4;
+	border-bottom: 3px solid #5fcf80;
 }
 .p_subject_content {
-	font-size: 20px;
+	font-size: 25px;
 }
 
 /* 제목 밑에 메뉴 누르는 부분  */
@@ -45,7 +45,7 @@ body {
 
 /* 메뉴 나타내는 좋아요 목록리스트 div */
 .div_menu_content {
-	margin-top: 90px;
+	margin-top: 30px;
 	width: 92%;
 	margin-left: auto;
 	margin-right: auto;
@@ -134,3 +134,23 @@ body {
 	margin-bottom: 15px;
 	margin-top: 15px;
 }*/
+
+b {
+	font-size: 88px;
+}
+
+.small, small {
+	font-size: 20px;
+}
+
+.d-flex {
+	font-size: 20px;
+}
+
+h5 {
+	font-size: 30px;
+}
+
+.card-body {
+	font-size: 30px;
+}

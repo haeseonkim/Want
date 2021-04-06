@@ -25,9 +25,14 @@
 }
 
 .carousel-container {
-   background-color: #e3f0d9;
-}
+  	background: url("../img/frame.png") center center;
+	background-size:cover;
+/* 	background-color: #F2F2F2*/
+ }
 
+/* .carousel-container:before{
+	opacity: 0.6;
+} */
 
 /*
 .carousel-container::before{
@@ -39,7 +44,7 @@
         right: 0px;
         bottom: 0px;
         background-color: #000;
-}
+
 */
 .carousel {
    padding: 0 20px 0 20px;
@@ -156,11 +161,13 @@ a.open_reply_list:hover{
 }
 
 #m_writer {
-   font-size: 1.2rem;
+   font-size: 20px;
 }
 
 .modal-section {
    padding: 10px 10px;
+   font-family: 'Nanum Pen Script', cursive;
+   font-size: 20px;
 }
 
 .modal-section-media {
@@ -287,4 +294,12 @@ section {
 strong {
 	font-family: 'Nanum Pen Script', cursive;
 	font-size: 100px;
+}
+
+.modal-footer {
+	font-family: 'Nanum Pen Script', cursive;
+}
+
+.btn.btn-secondary, .btn.btn-dark {
+	font-size: 20px;
 }

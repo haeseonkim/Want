@@ -10,7 +10,7 @@
 		<div class="thumb">
 			<div class="card-img" type="button" idx="${tmp.no }"
 				data-bs-toggle="modal" data-bs-target="#viewModal${tmp.no }">
-				<div class="video-box">
+				<div class="img-box">
 					<video src="./upload/lanTrip/${ tmp.video }" class="card-img-top" muted>
 					</video>
 				</div>
