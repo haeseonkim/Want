@@ -292,9 +292,9 @@ public class PictureController {
 
 		try {
       
-   //String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\picture";
+   String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\picture";
    //String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\picture";
-   String uploadPath ="/Users/hyukjun/git/Want/Want/src/main/webapp/upload/picture";
+   //String uploadPath ="/Users/hyukjun/git/Want/Want/src/main/webapp/upload/picture";
       
 			multi = new MultipartRequest(request, uploadPath, maxFileSize, encType, new DefaultFileRenamePolicy());
 
@@ -496,9 +496,9 @@ public class PictureController {
 
 		try {
       
-   //String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\picture";
+   String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\picture";
    //String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\picture";
-   String uploadPath ="/Users/hyukjun/git/Want/Want/src/main/webapp/upload/picture";
+//   String uploadPath ="/Users/hyukjun/git/Want/Want/src/main/webapp/upload/picture";
       
 			multi = new MultipartRequest(request, uploadPath, maxFileSize, encType, new DefaultFileRenamePolicy());
 

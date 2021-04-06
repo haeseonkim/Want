@@ -122,11 +122,9 @@
 	<section id="card-list" class="card-list">
 		<div class="container">
 
-<<<<<<< HEAD
+
 			<div class="row card-list-container thumbnails">
-=======
-			<div class="row card-list-container thumbnails" >
->>>>>>> branch 'main' of https://github.com/haeseonkim/Want.git
+
 			</div>
 		</div>
 

@@ -25,6 +25,7 @@ import org.springframework.stereotype.Repository;
 
 import com.exam.model1.lantrip.LanTripListTO;
 import com.exam.model1.lantrip.LanTripTO;
+import com.exam.model1.lantripApply.LanTripApplyTO;
 
 @Repository
 public class UserDAO {
@@ -67,7 +68,7 @@ public class UserDAO {
 		if (result == 1) {
 			flag = 0;
 		}
-		System.out.println("flag가  0이면 성공 " + flag);
+		
 		return flag;
 	}
 		
@@ -178,113 +179,7 @@ public class UserDAO {
 		return userTo;
 	}
 	
-	// writer - dao 통과 안해도됨
-	public void boardWrite( UserTO userTo ) {
-		
-	}
-
-	// writer_ok - flag 값있어야함
-	public int boardWriteOk(LanTripTO to) {
-		int flag = 1;
-
-		int result = sqlSession.insert("write_ok", to);
-		if (result == 1) {
-			flag = 0;
-		}
-		return flag;
-	}
-
-	// list
-	public LanTripListTO boardList(LanTripListTO listTO) {
-
-		int cpage = listTO.getCpage();
-		int recordPerPage = listTO.getRecordPerPage();
-		int blockPerPage = listTO.getBlockPerPage();
-
-		ArrayList<LanTripTO> lists = (ArrayList)sqlSession.selectList("list");
-
-		listTO.setTotalRecord(lists.size());
-		listTO.setTotalPage(((listTO.getTotalRecord() - 1) / recordPerPage) + 1);
-
-		int skip = (cpage - 1) * recordPerPage;
-		
-		ArrayList<LanTripTO> boardLists = new ArrayList();
-		
-		int cnt = 0;
-		for (int i = skip; i < lists.size(); i++) {
-			if(cnt == recordPerPage) {
-				break;
-			}
-			if (lists.get(i) != null) {
-				LanTripTO to = lists.get(i);
-				boardLists.add(to);
-			}
-			cnt++;
-		}
-
-		listTO.setBoardList(boardLists);
-
-		listTO.setStartBlock(((cpage - 1) / blockPerPage) * blockPerPage + 1);
-		listTO.setEndBlock(((cpage - 1) / blockPerPage) * blockPerPage + blockPerPage);
-		if (listTO.getEndBlock() >= listTO.getTotalPage()) {
-			listTO.setEndBlock(listTO.getTotalPage());
-		}
-
-		return listTO;
-	}
-
-	// view
-	public LanTripTO boardView(LanTripTO to) {
-		sqlSession.update("view_hit", to);
-		to = sqlSession.selectOne("view", to);
-
-		return to;
-	}
-
-	// delete
-	public LanTripTO boardDelete(LanTripTO to) {
-		LanTripTO board = sqlSession.selectOne("delete", to);
-
-		return board;
-	}
-
-	// delete_ok
-	public int boardDeleteOk(LanTripTO to) {
-		int flag = 2;
-
-		int result = sqlSession.delete("delete_ok", to);
-		if (result == 1) {
-			flag = 0;
-		} else if (result == 0) {
-			flag = 1;
-		}
-
-		return flag;
-	}
-
-	// modify
-	public LanTripTO boardModify(LanTripTO to) {
-		LanTripTO board = sqlSession.selectOne("modify", to);
-
-		return board;
-	}
-
-	// modify_ok
-	public int boardModifyOk(LanTripTO to) {
-		int flag = 2;
-		int result = sqlSession.update("modify_ok", to);
-		if (result == 1) {
-			flag = 0;
-		} else if (result == 0) {
-			flag = 1;
-		}
-
-		return flag;
-	}
-	
-	
-	
-	// -------------------------- 프로필 정보 -----------------------------
+// -------------------------- 프로필 정보 -----------------------------
 	// 내 프로필 
 	public UserTO myProfile( UserTO uto ) {
 		
@@ -303,5 +198,140 @@ public class UserDAO {
 		return pto;
 	}
 	
+	// 프로필 수정
+	public int edit_profile_ok(UserTO to) {
+		int result = sqlSession.update("edit_profile", to);
+		
+		return result;
+	}
 	
+	// 프로필 사진 수정
+	public int edit_img_ok(UserTO to) {
+		int flag = 2;
+		int result = sqlSession.update("edit_img", to);
+		if (result == 1) {
+			flag = 0;
+		} else if (result == 0) {
+			flag = 1;
+		}
+		return flag;
+	}
+	// 프로필 사진 삭제
+	public int delete_img_ok(UserTO to) {
+		int flag = 2;
+		int result = sqlSession.update("delete_img", to);
+		if (result == 1) {
+			flag = 0;
+		} else if (result == 0) {
+			flag = 1;
+		}
+		return flag;
+	}
+		
 }
+
+//	// writer - dao 통과 안해도됨
+//	public void boardWrite( UserTO userTo ) {
+//		
+//	}
+//
+//	// writer_ok - flag 값있어야함
+//	public int boardWriteOk(LanTripTO to) {
+//		int flag = 1;
+//
+//		int result = sqlSession.insert("write_ok", to);
+//		if (result == 1) {
+//			flag = 0;
+//		}
+//		return flag;
+//	}
+//
+//	// list
+//	public LanTripListTO boardList(LanTripListTO listTO) {
+//
+//		int cpage = listTO.getCpage();
+//		int recordPerPage = listTO.getRecordPerPage();
+//		int blockPerPage = listTO.getBlockPerPage();
+//
+//		ArrayList<LanTripTO> lists = (ArrayList)sqlSession.selectList("list");
+//
+//		listTO.setTotalRecord(lists.size());
+//		listTO.setTotalPage(((listTO.getTotalRecord() - 1) / recordPerPage) + 1);
+//
+//		int skip = (cpage - 1) * recordPerPage;
+//		
+//		ArrayList<LanTripTO> boardLists = new ArrayList();
+//		
+//		int cnt = 0;
+//		for (int i = skip; i < lists.size(); i++) {
+//			if(cnt == recordPerPage) {
+//				break;
+//			}
+//			if (lists.get(i) != null) {
+//				LanTripTO to = lists.get(i);
+//				boardLists.add(to);
+//			}
+//			cnt++;
+//		}
+//
+//		listTO.setBoardList(boardLists);
+//
+//		listTO.setStartBlock(((cpage - 1) / blockPerPage) * blockPerPage + 1);
+//		listTO.setEndBlock(((cpage - 1) / blockPerPage) * blockPerPage + blockPerPage);
+//		if (listTO.getEndBlock() >= listTO.getTotalPage()) {
+//			listTO.setEndBlock(listTO.getTotalPage());
+//		}
+//
+//		return listTO;
+//	}
+//
+//	// view
+//	public LanTripTO boardView(LanTripTO to) {
+//		sqlSession.update("view_hit", to);
+//		to = sqlSession.selectOne("view", to);
+//
+//		return to;
+//	}
+//
+//	// delete
+//	public LanTripTO boardDelete(LanTripTO to) {
+//		LanTripTO board = sqlSession.selectOne("delete", to);
+//
+//		return board;
+//	}
+//
+//	// delete_ok
+//	public int boardDeleteOk(LanTripTO to) {
+//		int flag = 2;
+//
+//		int result = sqlSession.delete("delete_ok", to);
+//		if (result == 1) {
+//			flag = 0;
+//		} else if (result == 0) {
+//			flag = 1;
+//		}
+//
+//		return flag;
+//	}
+//
+//	// modify
+//	public LanTripTO boardModify(LanTripTO to) {
+//		LanTripTO board = sqlSession.selectOne("modify", to);
+//
+//		return board;
+//	}
+//
+//	// modify_ok
+//	public int boardModifyOk(LanTripTO to) {
+//		int flag = 2;
+//		int result = sqlSession.update("modify_ok", to);
+//		if (result == 1) {
+//			flag = 0;
+//		} else if (result == 0) {
+//			flag = 1;
+//		}
+//
+//		return flag;
+//	}
+//	
+//	
