@@ -87,42 +87,41 @@
 	<div id="card-search" class="card-search" >
 		<!-- 검색 버튼과 form -->
 		<form action="./picture_list.do" method="get">
-			<div class="row justify-content-md-center" id="search">
-				<div class="form-row col-2">
-					<div class="value">
+		<div class="row justify-content-md-center" id="search">
+			<div class="col-1"></div>
+				<div class="col-1">
+					<div class="value" id="condition_pick" style="text-align:right;">
 						<select id="condition" name="condition" class="form-select">
-							<option value="subject"
-								${condition eq 'subject' ? 'selected' : '' }>제목</option>
-							<option value="content"
-								${condition eq 'content' ? 'selected' : '' }>내용</option>
-							<option value="writer"
-								${condition eq 'writer' ? 'selected' : '' }>작성자</option>
-							<option value="location"
-								${condition eq 'location' ? 'selected' : '' }>위치</option>
+							<option value="subject" ${condition eq 'subject' ? 'selected' : '' }>제목</option>
+							<option value="content" ${condition eq 'content' ? 'selected' : '' }>내용</option>
+							<option value="writer" ${condition eq 'writer' ? 'selected' : '' }>작성자</option>
+							<option value="location" ${condition eq 'location' ? 'selected' : '' }>위치</option>
 						</select>
 					</div>
 				</div>
-				<div class="col-md-6">
-					<input value="${keyword }" type="text" name="keyword"
-						placeholder="검색어를 입력해주세요" class="form-control">
-
+				<div class="col-md-8" style="padding-left:0px; text-align:left;">
+					<input value="${keyword }" type="text" name="keyword" placeholder="검색어를 입력해주세요" class="form-control"
+					style="padding-left:0px;">
+					
 				</div>
-				<div class="col-md-1">
-					<button class="btn btn-success" type="submit">검색</button>
-				</div>
-				<div class="col-md-1">
-					<div id="writebox">
-						<c:choose>
-							<c:when test="${empty sessionScope.nick}">
-								<button type="button" class="btn btn--radius-2 btn--blue-2"
-									onclick="javascript:alert('로그인을 하셔야합니다.')">글쓰기</button>
-							</c:when>
-							<c:otherwise>
-								<button type="button" class="btn btn--radius-2 btn--blue-2"
-									onclick="location.href='./picture_write.do'">글쓰기</button>
-							</c:otherwise>
-						</c:choose>
-					</div>
+				<div class="col-md-2" style="padding:0px; text-align:left;">
+					<span><button class="btn btn-success" type="submit">검색</button></span>
+					<span id="writebox">
+						<c:if test="${!empty sessionScope.nick}">
+							<c:choose>
+								<c:when test="${empty sessionScope.nick}">
+									<button type="button"
+										class="btn btn--radius-2 btn--blue-2"
+										onclick="javascript:alert('로그인을 하셔야합니다.')">글쓰기</button>
+								</c:when>
+								<c:otherwise>
+									<button type="button"
+										class="btn btn--radius-2 btn--blue-2"
+										onclick="location.href='./picture_write.do'">글쓰기</button>
+								</c:otherwise>
+							</c:choose>
+						</c:if>
+					</span>
 				</div>
 			</div>
 		</form>
@@ -140,12 +139,7 @@
 	<section id="card-list" class="card-list">
 		<div class="container">
 			<div class="row card-list-container thumbnails"></div>
-
 		</div>
-
-	
-
-
 	</section>
 	<!-- ======= card Section 끝 ======= -->
 

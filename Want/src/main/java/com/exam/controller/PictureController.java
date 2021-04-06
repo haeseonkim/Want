@@ -239,7 +239,7 @@ public class PictureController {
 			list = pictureDao.boardList(pto);
 		} else {
 			// 로그인 상태일때
-			System.out.println("로그인 상태일때 ");
+//			System.out.println("로그인 상태일때 ");
 
 			// 현재사용자의 nick을 세팅
 			pto.setNick((String) session.getAttribute("nick"));
@@ -518,7 +518,6 @@ public class PictureController {
 
 		try {
       
-
    //String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\picture";
    //String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\picture";
    String uploadPath ="/Users/hyukjun/git/Want/Want/src/main/webapp/upload/picture";

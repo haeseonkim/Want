@@ -80,7 +80,6 @@ public class ProfileController {
    public String profile(HttpServletRequest request, HttpSession session) {
       try {
 
-    	  	
     	  // 그냥 들어왔을때 0, 프로필 사진 수정 후 1
     	  // profil.jsp의 jsp문 실행 조건
     	  int result= 0;

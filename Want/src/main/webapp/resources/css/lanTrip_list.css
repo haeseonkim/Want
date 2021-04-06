@@ -64,7 +64,18 @@
    /*border: 1px solid #cecece;*/
    border-radius: 50%;
 }
-
+#condition{
+	padding-left:0px;
+	padding-right:0px;
+}
+#condition_pick{
+	padding-left:0px;
+	padding-right:0px;
+}
+.form-control{
+	padding-left:0px;
+	padding-right:0px;
+}
 .lan-heart {
 	text-align: right;
 }

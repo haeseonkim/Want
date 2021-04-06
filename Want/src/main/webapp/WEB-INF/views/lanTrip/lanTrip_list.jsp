@@ -101,7 +101,6 @@
 
 <script type="text/javascript">
 
-
 //페이지가 뒤로가기 하면 하트버튼과 하트수 갱신이 안된다. 이때 하트를 누르면 디비에 중복으로 값이 들어가진다.
 //방지하기 위해 페이지가 뒤로가기 할때마다 css로 클릭을 막고 새로고침을 통해 갱신된 하트버튼과 하트수가 나오도록 한다.
 $(window).bind("pageshow", function (event) {
@@ -371,8 +370,9 @@ $(document).ready( function() {
 		<!-- 검색 버튼과 form -->
 		<form action="./lanTrip_list.do" method="get">
 			<div class="row justify-content-md-center" id="search">
-				<div class="form-row col-2">
-					<div class="value">
+			<div class="col-1"></div>
+				<div class="col-1">
+					<div class="value" id="condition_pick" style="text-align:right;">
 						<select id="condition" name="condition" class="form-select">
 							<option value="subject" ${condition eq 'subject' ? 'selected' : '' }>제목</option>
 							<option value="content" ${condition eq 'content' ? 'selected' : '' }>내용</option>
@@ -381,15 +381,14 @@ $(document).ready( function() {
 						</select>
 					</div>
 				</div>
-				<div class="col-md-6">
-					<input value="${keyword }" type="text" name="keyword" placeholder="검색어를 입력해주세요" class="form-control">
+				<div class="col-md-8" style="padding-left:0px; text-align:left;">
+					<input value="${keyword }" type="text" name="keyword" placeholder="검색어를 입력해주세요" class="form-control"
+					style="padding-left:0px;">
 					
 				</div>
-				<div class="col-md-1">
-					<button class="btn btn-success" type="submit">검색</button>
-				</div>
-				<div class="col-1">
-					<div id="writebox">
+				<div class="col-md-2" style="padding:0px; text-align:left;">
+					<span><button class="btn btn-success" type="submit">검색</button></span>
+					<span id="writebox">
 						<c:if test="${!empty sessionScope.nick}">
 							<c:choose>
 								<c:when test="${empty sessionScope.nick}">
@@ -404,7 +403,7 @@ $(document).ready( function() {
 								</c:otherwise>
 							</c:choose>
 						</c:if>
-					</div>
+					</span>
 				</div>
 			</div>
 		</form>
@@ -418,12 +417,15 @@ $(document).ready( function() {
 	</c:if>
 
 	<%-- card --%>
-	<section id="card">
-		<div class="card-container">
-
-			<%--<div class="row"> --%>
-			<%=sbHtml%>
+	<section id="card" class="row">
+		<div class="col-1"></div>
+		<div class="col-10">
+			<div class="card-container">
+				<%--<div class="row"> --%>
+				<%=sbHtml%>
+			</div>
 		</div>
+		<div class="col-1"></div>
 	</section>
 	
 </body>

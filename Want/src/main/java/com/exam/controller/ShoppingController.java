@@ -292,7 +292,7 @@ public class ShoppingController {
 				list = shopDao.shopList(sto);
 			} else {
 				// 로그인 상태일때
-				System.out.println("로그인 상태일때 ");
+//				System.out.println("로그인 상태일때 ");
 
 				// 현재사용자의 nick을 세팅
 				sto.setNick((String) session.getAttribute("nick"));

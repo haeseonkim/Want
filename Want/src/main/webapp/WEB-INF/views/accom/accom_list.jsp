@@ -146,7 +146,7 @@
 <jsp:include page="../include/index.jsp"></jsp:include>
 	
 <!-- CSS File -->
-<link href="./resources/css/accom_list.css?sd" rel="stylesheet">
+<link href="./resources/css/shopping_list.css?sd" rel="stylesheet">
 <link href="./resources/css/navbar.css" rel="stylesheet">
 
 <script type="text/javascript">

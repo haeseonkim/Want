@@ -25,7 +25,7 @@
 <link rel="stylesheet" href="./summernote/summernote-lite.css">
 
 <!-- CSS File -->
-<link href="./resources/css/accom_write.css" rel="stylesheet">
+<link href="./resources/css/shopping_write.css" rel="stylesheet">
 <link href="./resources/css/navbar.css" rel="stylesheet">
 
 
