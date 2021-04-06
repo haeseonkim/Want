@@ -28,7 +28,7 @@ button.btn:hover{
 # General
 --------------------------------------------------------------*/
 body {
-	font-family: "Open Sans", sans-serif;
+	font-family: 'Noto Sans KR', sans-serif;
 	color: #444444;
 }
 
@@ -42,11 +42,22 @@ a:hover {
 	text-decoration: none;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6, b {
 	/*font-family: "Raleway", sans-serif;*/
 	font-family: 'Nanum Pen Script', cursive;
 }
 
+b {
+	font-size: 22px;
+}
+
+p {
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+li {
+	font-family: 'Noto Sans KR', sans-serif;
+}
 /*--------------------------------------------------------------
 # Back to top button
 --------------------------------------------------------------*/
@@ -84,60 +95,47 @@ h1, h2, h3, h4, h5, h6 {
 # Preloader
 --------------------------------------------------------------*/
 #preloader {
-	position: fixed;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	z-index: 9999;
-	overflow: hidden;
-	background: #fff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  overflow: hidden;
+  background: #fff;
 }
 
 #preloader:before {
-	content: "";
-	position: fixed;
-	top: calc(50% - 30px);
-	left: calc(50% - 30px);
-	border: 6px solid #5fcf80;
-	border-top-color: #fff;
-	border-bottom-color: #fff;
-	border-radius: 50%;
-	width: 60px;
-	height: 60px;
-	-webkit-animation: animate-preloader 1s linear infinite;
-	animation: animate-preloader 1s linear infinite;
+  content: "";
+  position: fixed;
+  top: calc(50% - 30px);
+  left: calc(50% - 30px);
+  border: 6px solid #5fcf80;
+  border-top-color: #fff;
+  border-bottom-color: #fff;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  -webkit-animation: animate-preloader 1s linear infinite;
+  animation: animate-preloader 1s linear infinite;
 }
 
-@
--webkit-keyframes animate-preloader { 0% {
-	transform: rotate(0deg);
+@-webkit-keyframes animate-preloader {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
-100
-%
-{
-transform
-:
-rotate(
-360deg
-);
-}
-}
-@
-keyframes animate-preloader { 0% {
-	transform: rotate(0deg);
-}
-
-100
-%
-{
-transform
-:
-rotate(
-360deg
-);
-}
+@keyframes animate-preloader {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /*--------------------------------------------------------------
@@ -469,7 +467,7 @@ rotate(
 }
 
 #hero .btn-get-started {
-	font-family: "Raleway", sans-serif;
+	font-family: 'Noto Sans KR', sans-serif;
 	font-weight: 500;
 	font-size: 15px;
 	letter-spacing: 1px;
@@ -547,10 +545,10 @@ section {
 .section-title p {
 	margin: 0;
 	margin: 0;
-	font-size: 36px;
+	font-size: 50px;
 	font-weight: 700;
 	text-transform: uppercase;
-	font-family: "Poppins", sans-serif;
+	font-family: 'Nanum Pen Script', cursive;
 	color: #37423b;
 }
 
@@ -602,6 +600,7 @@ section {
 }
 
 .about .content .learn-more-btn {
+	font-family: 'Noto Sans KR', sans-serif;
 	background: #5fcf80;
 	color: #fff;
 	border-radius: 50px;
@@ -775,6 +774,7 @@ section {
 .courses .course-content h3 a {
 	color: #37423b;
 	transition: 0.3s;
+	font-family: "Raleway", sans-serif;
 }
 
 .courses .course-content h3 a:hover {
@@ -782,8 +782,9 @@ section {
 }
 
 .courses .course-content p {
-	font-size: 14px;
+	font-size: 25px;
 	color: #777777;
+	font-family: 'Nanum Pen Script', cursive;
 }
 
 .courses .course-content h4 {
@@ -856,6 +857,7 @@ section {
 	font-weight: 600;
 	font-size: 16px;
 	color: #5a6c60;
+	font-family: 'Nanum Pen Script', cursive;
 }
 
 /* 카드의 사진들이 비율 변함 없이 사이즈 맞춰지도록  함 --- 끝 */
@@ -1286,7 +1288,7 @@ section {
 	transition: none;
 	font-size: 14px;
 	font-weight: 400;
-	font-family: "Raleway", sans-serif;
+	font-family: 'Noto Sans KR', sans-serif;
 	font-weight: 600;
 	transition: 0.3s;
 }
@@ -1313,170 +1315,6 @@ section {
 	color: #fff;
 }
 
-/*--------------------------------------------------------------
-# Contact
---------------------------------------------------------------*/
-.contact {
-	padding-top: 5px;
-}
-
-.contact .info {
-	width: 100%;
-	background: #fff;
-}
-
-.contact .info i {
-	font-size: 20px;
-	color: #5fcf80;
-	float: left;
-	width: 44px;
-	height: 44px;
-	background: #ecf9f0;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	border-radius: 50px;
-	transition: all 0.3s ease-in-out;
-}
-
-.contact .info h4 {
-	padding: 0 0 0 60px;
-	font-size: 22px;
-	font-weight: 600;
-	margin-bottom: 5px;
-	color: #37423b;
-}
-
-.contact .info p {
-	padding: 0 0 0 60px;
-	margin-bottom: 0;
-	font-size: 14px;
-	color: #657a6d;
-}
-
-.contact .info .email, .contact .info .phone {
-	margin-top: 40px;
-}
-
-.contact .info .email:hover i, .contact .info .address:hover i, .contact .info .phone:hover i
-	{
-	background: #5fcf80;
-	color: #fff;
-}
-
-.contact .php-email-form {
-	width: 100%;
-	background: #fff;
-}
-
-.contact .php-email-form .form-group {
-	padding-bottom: 8px;
-}
-
-.contact .php-email-form .error-message {
-	display: none;
-	color: #fff;
-	background: #ed3c0d;
-	text-align: left;
-	padding: 15px;
-	font-weight: 600;
-}
-
-.contact .php-email-form .error-message br+br {
-	margin-top: 25px;
-}
-
-.contact .php-email-form .sent-message {
-	display: none;
-	color: #fff;
-	background: #18d26e;
-	text-align: center;
-	padding: 15px;
-	font-weight: 600;
-}
-
-.contact .php-email-form .loading {
-	display: none;
-	background: #fff;
-	text-align: center;
-	padding: 15px;
-}
-
-.contact .php-email-form .loading:before {
-	content: "";
-	display: inline-block;
-	border-radius: 50%;
-	width: 24px;
-	height: 24px;
-	margin: 0 10px -6px 0;
-	border: 3px solid #18d26e;
-	border-top-color: #eee;
-	-webkit-animation: animate-loading 1s linear infinite;
-	animation: animate-loading 1s linear infinite;
-}
-
-.contact .php-email-form input, .contact .php-email-form textarea {
-	border-radius: 4px;
-	box-shadow: none;
-	font-size: 14px;
-}
-
-.contact .php-email-form input:focus, .contact .php-email-form textarea:focus
-	{
-	border-color: #5fcf80;
-}
-
-.contact .php-email-form input {
-	height: 44px;
-}
-
-.contact .php-email-form textarea {
-	padding: 10px 12px;
-}
-
-.contact .php-email-form button[type="submit"] {
-	background: #5fcf80;
-	border: 0;
-	padding: 10px 35px;
-	color: #fff;
-	transition: 0.4s;
-	border-radius: 50px;
-}
-
-.contact .php-email-form button[type="submit"]:hover {
-	background: #3ac162;
-}
-
-@
--webkit-keyframes animate-loading { 0% {
-	transform: rotate(0deg);
-}
-
-100
-%
-{
-transform
-:
-rotate(
-360deg
-);
-}
-}
-@
-keyframes animate-loading { 0% {
-	transform: rotate(0deg);
-}
-
-100
-%
-{
-transform
-:
-rotate(
-360deg
-);
-}
-}
 
 /*--------------------------------------------------------------
 # Footer

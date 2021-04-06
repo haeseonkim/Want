@@ -97,7 +97,7 @@
 <link href="./resources/css/navbar.css" rel="stylesheet">
 
 <script type="text/javascript">
-<script type="text/javascript">
+
 
 //페이지가 처음 로딩될 때 1page를 보여주기 때문에 초기값을 1로 지정한다.
 let currentPage=1;
@@ -306,19 +306,23 @@ $(document).ready( function() {
 				<div class="col-md-1">
 					<button class="btn btn-success" type="submit">검색</button>
 				</div>
-				<div class="col-md-1">
-				<div id="writebox">
-					<c:if test="${!empty sessionScope.nick}">
-						<c:choose>
-							<c:when test="${empty sessionScope.nick}">
-								<button type="button" class="btn btn--radius-2 btn--blue-2 btn-md" onclick="javascript:alert('로그인을 하셔야합니다.')">등록하기</button>
-							</c:when>
-							<c:otherwise>
-								<button type="button" class="btn btn--radius-2 btn--blue-2 btn-md" onclick="location.href='./lanTrip_write.do'">등록하기</button>	
-							</c:otherwise>
-					</c:choose>
-					</c:if>
-				</div>
+				<div class="col-1">
+					<div id="writebox">
+						<c:if test="${!empty sessionScope.nick}">
+							<c:choose>
+								<c:when test="${empty sessionScope.nick}">
+									<button type="button"
+										class="btn btn--radius-2 btn--blue-2"
+										onclick="javascript:alert('로그인을 하셔야합니다.')">글쓰기</button>
+								</c:when>
+								<c:otherwise>
+									<button type="button"
+										class="btn btn--radius-2 btn--blue-2"
+										onclick="location.href='./lanTrip_write.do'">글쓰기</button>
+								</c:otherwise>
+							</c:choose>
+						</c:if>
+					</div>
 				</div>
 			</div>
 		</form>

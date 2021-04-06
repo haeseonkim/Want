@@ -2,9 +2,9 @@
 
 
 
-body {
+/* body {
 	font-family: 'Nanum Pen Script', cursive;
-}
+} */
 
 .carousel-container {
 	padding: 15px;
@@ -78,7 +78,7 @@ body {
 	text-transform: capitalize;
 	font-weight: 700;
 	color: #fff;
-	font-family: inherit;
+	font-family: 'Nanum Pen Script', cursive;
 }
 
 .btn--radius {
@@ -187,4 +187,16 @@ a.heart-click:hover {
 
 .writebox {
 	padding: 0px;
+}
+
+#search{
+   margin-top: 15px;
+}
+
+h2, h3, .lan-heart {
+	font-family: 'Nanum Pen Script', cursive;
+}
+
+.small, small {
+	font-family: 'Noto Sans KR', sans-serif;
 }
