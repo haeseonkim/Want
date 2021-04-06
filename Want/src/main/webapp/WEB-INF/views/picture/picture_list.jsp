@@ -122,7 +122,6 @@
 	<section id="card-list" class="card-list">
 		<div class="container">
 
-
 			<div class="row card-list-container thumbnails">
 
 			</div>
@@ -412,7 +411,9 @@
 					}else {
 						if(grpl == 0){	// 모댓글일때
 							listHtml += "	<div class='col-1'>";
-							listHtml += "		<img class='reply_list_profileImage' src='./upload/profile/"+ profile +"'/>";
+							listHtml += "		<a href='other_profile.do?other_nick="+writer+"'> ";
+							listHtml += "			<img class='reply_list_profileImage' src='./upload/profile/"+ profile +"'/>";
+							listHtml += "		</a> ";
 							listHtml += "	</div>";
 							listHtml += "	<div class='rereply-content col-8'>";
 							listHtml += "		<div>";
@@ -481,7 +482,9 @@
 						listHtml += "		<div class='col-1'>"
 						listHtml += "		</div>"
 						listHtml += "		<div class='col-1'>"
-						listHtml += "			<img id='write_reply_profileImage' src='./upload/profile/${profile}'/>"
+						listHtml += "			<a href='other_profile.do?other_nick="+writer+"'> ";
+						listHtml += "				<img id='write_reply_profileImage' src='./upload/profile/${profile}'/>"
+						listHtml += "			</a> ";
 						listHtml += "		</div>"
 						listHtml += "		<div class='col-7'>"
 						listHtml +=  "  		<input class='w-100 input_rereply_div form-control' id='input_rereply"+ no +"' type='text' placeholder='댓글입력...'>"

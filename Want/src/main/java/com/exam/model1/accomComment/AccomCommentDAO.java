@@ -6,6 +6,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.exam.model1.accom.AccomTO;
+import com.exam.model1.shopping.ShoppingTO;
 import com.exam.model1.shoppingComment.ShoppingCommentTO;
 
 @Repository
@@ -88,5 +90,97 @@ public class AccomCommentDAO {
 		}
 		return flag;
 	}		
+	
+	// ==========================내 프로필 숙소 부분 ===========================
+	//  댓글 list
+	public ArrayList<AccomCommentTO> accomReplyList(AccomCommentTO to) {
+		ArrayList<AccomCommentTO> commentLists = (ArrayList)sqlSession.selectList("accomListComment", to);
+		return commentLists;
+	}
+	
+	//내프로필 - 댓글 추가하기
+	public AccomTO accomWriteReply(AccomCommentTO to) {
+		AccomTO ato = new AccomTO();
+		ato.setNo( to.getBno() );
+		
+		// grp뺴고 나머지 컬럼값 저장
+		int result = sqlSession.insert( "accomReplyOk", to );
+		
+		if( result == 1 ) {
+			//현재 테이블에서 가장 높은 no값 가져오기
+			String no = sqlSession.selectOne( "accom_noSelect" );
+			to.setNo(no);
+			to.setGrp(no);
+			
+			// 위에서 가져온 최근에 no값을 해당 no댓글의 grp에 update시켜주는 문장
+			int result_grp = sqlSession.update( "accom_grpUpdate", to );
+			
+			if( result_grp == 1 ) {
+				sqlSession.update( "accomViewReply", ato );
+				ato = sqlSession.selectOne( "accom_reply_count", ato );
+			}
+		}
+		return ato;
+	}
+	
+	// 답글 작성
+	public AccomTO accomWriteReReply(AccomCommentTO to) {
+		AccomTO ato = new AccomTO();
+		ato.setNo(to.getBno());
+		
+		// l_reply 테이블에 답글 내용 추가
+		int result = sqlSession.insert("accomRereplyOk", to);
+		
+		if (result == 1) {	// l_reply 테이블에 새로운 댓글 추가가 성공한다면..
+			// 갱신된 댓글 갯수를 가져옴
+			sqlSession.update( "accomViewReply", ato );
+			ato = sqlSession.selectOne("accom_reply_count", ato);
+		}
+		return ato;
+	}
+	
+	// 댓글 삭제하는 메서드(부모댓글 지우기)
+	public AccomTO accomDeleteReply(AccomCommentTO to) {
+		
+		AccomTO ato = new AccomTO();
+		String no = to.getBno();
+		String grp = to.getGrp();
+		ato.setNo(no);
+		
+		int result = 0;
+		// 부모 댓글과 그 밑에 있는 자식댓글까지 모두 삭제
+		result = sqlSession.delete("accom_reply_deleteOk_parent", to);
+
+		System.out.println( "1. 댓글삭제 no확인중 : " + ato.getNo() );
+		if (result != 0) {
+			sqlSession.update( "accomViewReply", ato );
+			ato = sqlSession.selectOne( "accom_reply_count", ato );
+		}
+		return ato;
+	}
+	
+	// 댓글 삭제하는 메서드(자식댓글 지우기)
+	public AccomTO accomDeleteRereply(AccomCommentTO to) {
+		
+		AccomTO ato = new AccomTO();
+		String no = to.getBno();
+		String grp = to.getGrp();
+		ato.setNo(no);
+		
+		int result = 0;
+		// 부모 댓글과 그 밑에 있는 자식댓글까지 모두 삭제
+		System.out.println( "자식 지우기" );
+		result = sqlSession.delete("accom_reply_deleteOk_child", to);
+
+		
+		if (result != 0) {
+			sqlSession.update( "accomViewReply", ato );
+			ato = sqlSession.selectOne( "accom_reply_count", ato );
+		}
+		return ato;
+	}			
+	
+	
+
 	
 }

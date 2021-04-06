@@ -9,9 +9,15 @@ public class AccomCommentTO {
 	private String grp;
 	private String grps;
 	private int grpl;
-	
+	private String profile;	// 작성자의 프로필 사진 가져오기.
 	
 
+	public String getProfile() {
+		return profile;
+	}
+	public void setProfile(String profile) {
+		this.profile = profile;
+	}
 	public String getGrp() {
 		return grp;
 	}

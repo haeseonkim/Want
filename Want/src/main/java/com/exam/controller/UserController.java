@@ -27,8 +27,8 @@ public class UserController {
 
 	// 각자 맞는 upload 폴더 경로로 변경
   
-	private String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\profile";
-	//private String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\profile";
+	//private String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\profile";
+	private String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\profile";
 	//private String uploadPath = "/Users/hyukjun/git/Want/Want/src/main/webapp/upload/";
 	 
 	// ---------------------- 로그인 관련 ----------------------
@@ -175,8 +175,8 @@ public class UserController {
 		int maxFileSize = 1024 * 1024 * 6;
 		String encType = "utf-8";
     
-   String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\profile";
-   //String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\profile";
+   //String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\profile";
+   String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\profile";
    //String uploadPath ="/Users/hyukjun/git/Want/Want/src/main/webapp/upload/profile";
 
 		MultipartRequest multi = null;
@@ -227,8 +227,8 @@ public class UserController {
 		int maxFileSize = 1024 * 1024 * 6;
 		String encType = "utf-8";
     
-	   String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\profile";
-	   //String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\profile";
+	   //String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\profile";
+	   String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\profile";
 	   //String uploadPath ="/Users/hyukjun/git/Want/Want/src/main/webapp/upload/profile";
 
 		MultipartRequest multi = null;
