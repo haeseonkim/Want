@@ -8,7 +8,11 @@
 
 .carousel-container {
 	padding: 15px;
+	background: url("../img/frame.png") center center;
+	background-size:cover;
+	/* background-color: #F2F2F2 */
 }
+
 
 /*
 .carousel-container::before{
