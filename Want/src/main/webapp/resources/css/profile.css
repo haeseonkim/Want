@@ -1,8 +1,18 @@
 @charset "UTF-8";
 
 body {
-	font-family: 'Song Myung', sans-serif;
+	font-family: 'Nanum Pen Script', cursive;
+
 	font-size: 12pt;
+
+}
+
+btn {
+	font-size: 20px!important;
+}
+
+.nick-div {
+	text-align: center;
 }
 
 #profile {
@@ -15,6 +25,10 @@ body {
 	/* background-color:black; */
 	width: 100%;
 	margin-top: 6%;
+}
+
+#my-feed h1 {
+	font-size: 45px;
 }
 
 #profile-img {
@@ -30,11 +44,17 @@ body {
 	margin-top: 30px;
 }
 
+.box {
+	width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
 .img-circle {
-	margin-left: 25px;
-	height: 300px;
-	border: 0px;
-	border-radius: 50%;
+	width: 70%;
+    height: 70%; 
+    border-radius: 70%;
+    overflow: hidden;
 }
 
 #profileImage {
@@ -52,6 +72,9 @@ body {
 	/*border: 1px solid #cecece;*/
 	border-radius: 50%;
 }
+.profile_d_m {
+	margin-top: 20px;
+}
 
 
 
@@ -60,6 +83,13 @@ body {
 /* 카드 관련 */
 .video-box {
 	height: 20rem;
+}
+
+.img-box {
+	width: 100%;
+	height: 220px;
+	overflow: hidden;
+	margin-top:8px;
 }
 
 .card-img-top {
@@ -149,12 +179,6 @@ table {
 }
 
 
-.img-circle {
-	height:350px;
-	width: 350px;
-	margin:0px;
-}
-
 #btns{
 	text-align:center;
 }
@@ -173,7 +197,7 @@ table {
 	-moz-transition: all 0.4s ease;
 	transition: all 0.4s ease;
 	cursor: pointer;
-	font-size: 15px;
+	font-size: 20px;
 	text-transform: capitalize;
 	font-weight: 700;
 	/* color: #fff; */

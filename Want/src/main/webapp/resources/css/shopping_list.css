@@ -5,12 +5,522 @@ body {
 	background: #f4f4f4;
 	font-family: 'Roboto', sans-serif;
 }
-.banner {
-  background: #a770ef;
-  background: -webkit-linear-gradient(to right, #a770ef, #cf8bf3, #fdb99b);
-  background: linear-gradient(to right, #a770ef, #cf8bf3, #fdb99b);
-  overflow: auto;
+/* 프랑스 */
+#banner-프랑스 {
+	background:url("../img/에펠탑.jpg");
+	background-repeat:no-repeat;
+	background-size:cover;
+	background-attachment: scroll;
+	position:relative;
+	height:500px;
 }
+#banner-프랑스:before{
+	content: "";
+	background: rgba(0, 0, 0, 0.4);
+	position: absolute;
+	bottom: 0;
+	top: 0;
+	left: 0;
+	right: 0;
+}
+#banner-프랑스 .banner-container {
+	position: absolute;
+	bottom: 0;
+	top: 200px;
+	left: 0;
+	right: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	text-align: center;
+	padding: 0 15px;
+}
+
+/* 그리스 */
+#banner-그리스 {
+	background:url("../img/산토리니.jpg");
+	background-repeat:no-repeat;
+	background-size:cover;
+	background-attachment: scroll;
+	position:relative;
+	height:500px;
+}
+#banner-그리스:before{
+	content: "";
+	background: rgba(0, 0, 0, 0.4);
+	position: absolute;
+	bottom: 0;
+	top: 0;
+	left: 0;
+	right: 0;
+}
+#banner-그리스 .banner-container {
+	position: absolute;
+	bottom: 0;
+	top: 200px;
+	left: 0;
+	right: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	text-align: center;
+	padding: 0 15px;
+}
+
+/* 이탈리아 */
+#banner-이탈리아 {
+	background:url("../img/피렌체.jpg") center;
+	background-repeat:no-repeat;
+	background-size:cover;
+	background-attachment: scroll;
+	position:relative;
+	height:500px;
+}
+#banner-이탈리아:before{
+	content: "";
+	background: rgba(0, 0, 0, 0.4);
+	position: absolute;
+	bottom: 0;
+	top: 0;
+	left: 0;
+	right: 0;
+}
+#banner-이탈리아 .banner-container {
+	position: absolute;
+	bottom: 0;
+	top: 200px;
+	left: 0;
+	right: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	text-align: center;
+	padding: 0 15px;
+}
+
+/* 스페인 */
+#banner-스페인 {
+	background:url("../img/사그라다파밀리아.jpg") center;
+	background-repeat:no-repeat;
+	background-size:cover;
+	background-attachment: scroll;
+	position:relative;
+	height:500px;
+}
+#banner-스페인:before{
+	content: "";
+	background: rgba(0, 0, 0, 0.4);
+	position: absolute;
+	bottom: 0;
+	top: 0;
+	left: 0;
+	right: 0;
+}
+#banner-스페인 .banner-container {
+	position: absolute;
+	bottom: 0;
+	top: 200px;
+	left: 0;
+	right: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	text-align: center;
+	padding: 0 15px;
+}
+/* 체코 */
+#banner-체코 {
+	background:url("../img/프라하.jpg");
+	background-repeat:no-repeat;
+	background-size:cover;
+	background-attachment: scroll;
+	position:relative;
+	height:500px;
+}
+#banner-체코:before{
+	content: "";
+	background: rgba(0, 0, 0, 0.4);
+	position: absolute;
+	bottom: 0;
+	top: 0;
+	left: 0;
+	right: 0;
+}
+#banner-체코 .banner-container {
+	position: absolute;
+	bottom: 0;
+	top: 200px;
+	left: 0;
+	right: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	text-align: center;
+	padding: 0 15px;
+}
+/* 영국 */
+#banner-영국 {
+	background:url("../img/런던.jpeg") center;
+	background-repeat:no-repeat;
+	background-size:cover;
+	background-attachment: scroll;
+	position:relative;
+	height:500px;
+}
+#banner-영국:before{
+	content: "";
+	background: rgba(0, 0, 0, 0.4);
+	position: absolute;
+	bottom: 0;
+	top: 0;
+	left: 0;
+	right: 0;
+}
+#banner-영국 .banner-container {
+	position: absolute;
+	bottom: 0;
+	top: 200px;
+	left: 0;
+	right: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	text-align: center;
+	padding: 0 15px;
+}
+/* 스위스 */
+#banner-스위스 {
+	background:url("../img/엔젤베르그.jpg");
+	background-repeat:no-repeat;
+	background-size:cover;
+	background-attachment: scroll;
+	position:relative;
+	height:500px;
+}
+#banner-스위스:before{
+	content: "";
+	background: rgba(0, 0, 0, 0.4);
+	position: absolute;
+	bottom: 0;
+	top: 0;
+	left: 0;
+	right: 0;
+}
+#banner-스위스 .banner-container {
+	position: absolute;
+	bottom: 0;
+	top: 200px;
+	left: 0;
+	right: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	text-align: center;
+	padding: 0 15px;
+}
+/* 포르투갈 */
+#banner-포르투갈 {
+	background:url("../img/리스본.jpg");
+	background-repeat:no-repeat;
+	background-size:cover;
+	background-attachment: scroll;
+	position:relative;
+	height:500px;
+}
+#banner-포르투갈:before{
+	content: "";
+	background: rgba(0, 0, 0, 0.4);
+	position: absolute;
+	bottom: 0;
+	top: 0;
+	left: 0;
+	right: 0;
+}
+#banner-포르투갈 .banner-container {
+	position: absolute;
+	bottom: 0;
+	top: 200px;
+	left: 0;
+	right: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	text-align: center;
+	padding: 0 15px;
+}
+/* 헝가리 */
+#banner-헝가리 {
+	background:url("../img/부다페스트2.jpg");
+	background-repeat:no-repeat;
+	background-size:cover;
+	background-attachment: scroll;
+	position:relative;
+	height:500px;
+}
+#banner-헝가리:before{
+	content: "";
+	background: rgba(0, 0, 0, 0.4);
+	position: absolute;
+	bottom: 0;
+	top: 0;
+	left: 0;
+	right: 0;
+}
+#banner-헝가리 .banner-container {
+	position: absolute;
+	bottom: 0;
+	top: 200px;
+	left: 0;
+	right: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	text-align: center;
+	padding: 0 15px;
+}
+
+/* 오스트리아 */
+#banner-오스트리아 {
+	background:url("../img/잘츠부르크.jpg");
+	background-repeat:no-repeat;
+	background-size:cover;
+	background-attachment: scroll;
+	position:relative;
+	height:500px;
+}
+#banner-오스트리아:before{
+	content: "";
+	background: rgba(0, 0, 0, 0.4);
+	position: absolute;
+	bottom: 0;
+	top: 0;
+	left: 0;
+	right: 0;
+}
+#banner-오스트리아 .banner-container {
+	position: absolute;
+	bottom: 0;
+	top: 200px;
+	left: 0;
+	right: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	text-align: center;
+	padding: 0 15px;
+}
+/* 스웨덴 */
+#banner-스웨덴 {
+	background:url("../img/마리아베르제.jpg");
+	background-repeat:no-repeat;
+	background-size:cover;
+	background-attachment: scroll;
+	position:relative;
+	height:500px;
+}
+#banner-스웨덴:before{
+	content: "";
+	background: rgba(0, 0, 0, 0.4);
+	position: absolute;
+	bottom: 0;
+	top: 0;
+	left: 0;
+	right: 0;
+}
+#banner-스웨덴 .banner-container {
+	position: absolute;
+	bottom: 0;
+	top: 200px;
+	left: 0;
+	right: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	text-align: center;
+	padding: 0 15px;
+}
+/* 핀란드 */
+#banner-핀란드 {
+	background:url("../img/탐페레.jpg") center;
+	background-repeat:no-repeat;
+	background-size:cover;
+	background-attachment: scroll;
+	position:relative;
+	height:500px;
+}
+#banner-핀란드:before{
+	content: "";
+	background: rgba(0, 0, 0, 0.4);
+	position: absolute;
+	bottom: 0;
+	top: 0;
+	left: 0;
+	right: 0;
+}
+#banner-핀란드 .banner-container {
+	position: absolute;
+	bottom: 0;
+	top: 200px;
+	left: 0;
+	right: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	text-align: center;
+	padding: 0 15px;
+}
+/* 폴란드 */
+#banner-폴란드 {
+	background:url("../img/폴란드2.jpeg") center;
+	background-repeat:no-repeat;
+	background-size:cover;
+	background-attachment: scroll;
+	position:relative;
+	height:500px;
+}
+#banner-폴란드:before{
+	content: "";
+	background: rgba(0, 0, 0, 0.4);
+	position: absolute;
+	bottom: 0;
+	top: 0;
+	left: 0;
+	right: 0;
+}
+#banner-폴란드 .banner-container {
+	position: absolute;
+	bottom: 0;
+	top: 200px;
+	left: 0;
+	right: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	text-align: center;
+	padding: 0 15px;
+}
+
+
+.weather-container{
+	position:relative;
+}
+button.btn-write{
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: 500;
+	font-size: 15px;
+	letter-spacing: 1px;
+	display: inline-block;
+	padding: 10px 35px;
+	border-radius: 50px;
+	transition: 0.5s;
+	border: 2px solid #fff;
+	color: #fff;
+}
+
+button.btn-write:hover{
+	background: #5fcf80;
+	border: 2px solid #5fcf80;
+	color:white;
+}
+.btn-search{
+	background-color: #5FCF80;
+	color:white;
+	opacity:0.9;
+}
+.btn-search:hover{
+	background-color: #35b35a;
+	color:white;
+}
+
+a.heart-click:hover {
+   color: red;
+}
+
+.weather_div1 {
+	width: 270px;
+	height: 250px;
+	float: right;
+	color: white;
+	text-align: center;
+	margin-right: 5px;
+	overflow: hidden;
+}
+
+.weather_table {
+	width: 100%;
+}
+
+.weather_i {
+	font-size: 55px;
+}
+
+.weather_name {
+	font-weight: bold;
+	font-size: 20px;
+}
+
+.weather_tr1 {
+	background-color: black;
+	opacity:0.7;
+}
+
+.weather_tr2 {
+	background-color: #E8F5FF;
+	opacity:0.7;
+}
+.weather_tr1:hover {
+	background-color: black;
+	opacity:1.0;
+}
+.weather_tr2:hover {
+	background-color: #E8F5FF;
+	opacity: 1.0;
+}
+.weather_bottom {
+	color: black;
+}
+.weather_p{
+	margin:5px 0px 5px 0px;	
+}
+
+/* top-left border-radius */
+.weather_table tr:first-child th:first-child {
+  border-top-left-radius: 6px;
+}
+
+/* top-right border-radius */
+.weather_table tr:first-child td:last-child {
+  border-top-right-radius: 6px;
+}
+
+/* bottom-left border-radius */
+.weather_table tr:last-child td:first-child {
+  border-bottom-left-radius: 10px;
+  
+}
+.weather_table tr:last-child td:last-child {
+  border-bottom-right-radius: 10px;
+}
+#card-search{
+	position:relative;
+}
+#info-container{
+	margin-top:150px;
+}
+
 .select-form {
 	width: 500px;
 	/* margin: 0 auto; */
@@ -93,64 +603,6 @@ img:hover {
    color: red;
 }
 
-a.heart-click:hover {
-   color: red;
-}
-
-.weather_div1 {
-	width: 270px;
-	height: 250px;
-	float: right;
-	color: white;
-	text-align: center;
-	margin-right: 5px;
-	overflow: hidden;
-}
-
-.weather_table {
-	width: 100%;
-}
-
-.weather_i {
-	font-size: 55px;
-}
-
-.weather_name {
-	font-weight: bold;
-	font-size: 20px;
-}
-
-.weather_tr1 {
-	background-color: #0A6EFF;
-}
-
-.weather_tr2 {
-	background-color: #E8F5FF;
-}
-
-.weather_bottom {
-	color: #0A6EFF;
-}
-
-
-/* top-left border-radius */
-.weather_table tr:first-child th:first-child {
-  border-top-left-radius: 6px;
-}
-
-/* top-right border-radius */
-.weather_table tr:first-child td:last-child {
-  border-top-right-radius: 6px;
-}
-
-/* bottom-left border-radius */
-.weather_table tr:last-child td:first-child {
-  border-bottom-left-radius: 10px;
-  
-}
-.weather_table tr:last-child td:last-child {
-  border-bottom-right-radius: 10px;
-}
 
 /* 로딩관련 css */
 .back-drop{
@@ -206,8 +658,9 @@ a.heart-click:hover {
 }
  */
  
- h1 {
+ h1{
  	font-family: 'Nanum Pen Script', cursive;
+ 	font-size:72px;
  }
  
 

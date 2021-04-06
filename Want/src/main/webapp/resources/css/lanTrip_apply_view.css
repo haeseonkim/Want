@@ -486,6 +486,7 @@ h6 {
 
 .btn--silver:hover{
 	background: #808080;
+	color:white;
 }
 
 #btn_comment {
@@ -806,6 +807,7 @@ div.card-footer{
 	height: 250px;
 	background-size: cover;
 	line-height: 2.4;
+	font-family: 'Nanum Pen Script', cursive;
 }
  
 #la-header:before {
@@ -821,17 +823,18 @@ div.card-footer{
 #la-header h1 {
 	text-align: center;
 	margin: 28px 0 10px 0;
-	font-size: 48px;
+	font-size: 60px;
 	font-weight: 700;
 	line-height: 56px;
 	color: #fff;
 	text-shadow: 1.25px 1.25px 1.25px black;
+	
 }
 
 #la-header p {
 	text-align: center;
 	margin: 0 0 10px 0;
-	font-size: 20px;
+	font-size: 30px;
 	font-weight: 700;
 	line-height: 56px;
 	color: #fff;

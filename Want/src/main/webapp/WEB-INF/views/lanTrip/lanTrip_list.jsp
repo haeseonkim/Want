@@ -100,10 +100,21 @@
 <link href="./resources/css/navbar.css" rel="stylesheet">
 
 <script type="text/javascript">
-<<<<<<< HEAD
 
-=======
->>>>>>> branch 'main' of https://github.com/haeseonkim/Want.git
+//페이지가 뒤로가기 하면 하트버튼과 하트수 갱신이 안된다. 이때 하트를 누르면 디비에 중복으로 값이 들어가진다.
+//방지하기 위해 페이지가 뒤로가기 할때마다 css로 클릭을 막고 새로고침을 통해 갱신된 하트버튼과 하트수가 나오도록 한다.
+$(window).bind("pageshow", function (event) {
+//파이어폭스와 사파리에서는 persisted를 통해서 뒤로가기 감지가 가능하지만 익스와 크롬에서는 불가  ||뒤의 코드를 추가한다. 
+if (event.originalEvent.persisted || (window.performance && window.performance.navigation.type == 2)) {
+  console.log('BFCahe로부터 복원됨');
+  $(".heart-click").css("pointer-events","none");
+  location.reload();//새로고침 
+}
+else {
+  console.log('새로 열린 페이지');
+}
+});
+
 
 //페이지가 처음 로딩될 때 1page를 보여주기 때문에 초기값을 1로 지정한다.
 let currentPage=1;
@@ -151,6 +162,69 @@ $(window).on("scroll",function(){
 	            $(".back-drop").hide();
 	            //로딩중이 아니라고 표시한다.
 	            isLoading=false;
+	            
+            	// 로그인 한 상태에서 하트를 클릭했을 때 (로그인한 상태인 하트의 <a></a> class명: heart-click)
+            	$('.heart-click').unbind('click');
+            	$(".heart-click").click(function() {
+            		// 게시물 번호(no)를 idx로 전달받아 저장합니다.
+            		let no = $(this).attr('idx');
+            		
+            		// 빈하트를 눌렀을때
+            		if($(this).children('svg').attr('class') == "bi bi-suit-heart"){
+            			console.log("빈하트 클릭" + no);
+            			
+            			$.ajax({
+            				url : 'lanTrip_saveHeart.do',
+            				type : 'get',
+            				data : {
+            					no : no,
+            				},
+            				success : function(lto) {
+            					
+            					let heart = lto.heart;
+            					
+            					// 페이지 하트수 갱신
+            					$('#m_heart'+no).text(heart);
+            					
+            					console.log("하트추가 성공");
+            				},
+            				error : function() {
+            					alert('서버 에러');
+            				}
+            			});
+            			
+            			// 꽉찬하트로 바꾸기
+            			$(this).html("<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-suit-heart-fill' viewBox='0 0 16 16'><path d='M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1z'/></svg>");
+            			$('.heart_icon'+no).html("<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-suit-heart-fill' viewBox='0 0 16 16'><path d='M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1z'/></svg>");
+            			
+            		// 꽉찬 하트를 눌렀을 때
+            		}else if($(this).children('svg').attr('class') == "bi bi-suit-heart-fill"){
+            			console.log("꽉찬하트 클릭" + no);
+            			
+            			$.ajax({
+            				url : 'lanTrip_removeHeart.do',
+            				type : 'get',
+            				data : {
+            					no : no,
+            				},
+            				success : function(lto) {
+            					
+            					let heart = lto.heart;
+            					// 페이지 하트수 갱신
+            					$('#m_heart'+no).text(heart);
+            					
+            					console.log("하트삭제 성공");
+            				},
+            				error : function() {
+            					alert('서버 에러');
+            				}
+            			});
+            			// 빈하트로 바꾸기
+            			$(this).html('<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-suit-heart" viewBox="0 0 16 16"><path d="M8 6.236l-.894-1.789c-.222-.443-.607-1.08-1.152-1.595C5.418 2.345 4.776 2 4 2 2.324 2 1 3.326 1 4.92c0 1.211.554 2.066 1.868 3.37.337.334.721.695 1.146 1.093C5.122 10.423 6.5 11.717 8 13.447c1.5-1.73 2.878-3.024 3.986-4.064.425-.398.81-.76 1.146-1.093C14.446 6.986 15 6.131 15 4.92 15 3.326 13.676 2 12 2c-.777 0-1.418.345-1.954.852-.545.515-.93 1.152-1.152 1.595L8 6.236zm.392 8.292a.513.513 0 0 1-.784 0c-1.601-1.902-3.05-3.262-4.243-4.381C1.3 8.208 0 6.989 0 4.92 0 2.755 1.79 1 4 1c1.6 0 2.719 1.05 3.404 2.008.26.365.458.716.596.992a7.55 7.55 0 0 1 .596-.992C9.281 2.049 10.4 1 12 1c2.21 0 4 1.755 4 3.92 0 2.069-1.3 3.288-3.365 5.227-1.193 1.12-2.642 2.48-4.243 4.38z" /></svg>');
+            			$('.heart_icon'+no).html('<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-suit-heart" viewBox="0 0 16 16"><path d="M8 6.236l-.894-1.789c-.222-.443-.607-1.08-1.152-1.595C5.418 2.345 4.776 2 4 2 2.324 2 1 3.326 1 4.92c0 1.211.554 2.066 1.868 3.37.337.334.721.695 1.146 1.093C5.122 10.423 6.5 11.717 8 13.447c1.5-1.73 2.878-3.024 3.986-4.064.425-.398.81-.76 1.146-1.093C14.446 6.986 15 6.131 15 4.92 15 3.326 13.676 2 12 2c-.777 0-1.418.345-1.954.852-.545.515-.93 1.152-1.152 1.595L8 6.236zm.392 8.292a.513.513 0 0 1-.784 0c-1.601-1.902-3.05-3.262-4.243-4.381C1.3 8.208 0 6.989 0 4.92 0 2.755 1.79 1 4 1c1.6 0 2.719 1.05 3.404 2.008.26.365.458.716.596.992a7.55 7.55 0 0 1 .596-.992C9.281 2.049 10.4 1 12 1c2.21 0 4 1.755 4 3.92 0 2.069-1.3 3.288-3.365 5.227-1.193 1.12-2.642 2.48-4.243 4.38z" /></svg>');
+            		}
+            	});
+
 	         }
 	         
 	      });
@@ -158,9 +232,11 @@ $(window).on("scroll",function(){
 });
 
 
+
 $(document).ready( function() {
-   
+	
 	// 로그인 한 상태에서 하트를 클릭했을 때 (로그인한 상태인 하트의 <a></a> class명: heart-click)
+	$('.heart-click').unbind('click');
 	$(".heart-click").click(function() {
 		// 게시물 번호(no)를 idx로 전달받아 저장합니다.
 		let no = $(this).attr('idx');
@@ -220,7 +296,6 @@ $(document).ready( function() {
 			$('.heart_icon'+no).html('<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-suit-heart" viewBox="0 0 16 16"><path d="M8 6.236l-.894-1.789c-.222-.443-.607-1.08-1.152-1.595C5.418 2.345 4.776 2 4 2 2.324 2 1 3.326 1 4.92c0 1.211.554 2.066 1.868 3.37.337.334.721.695 1.146 1.093C5.122 10.423 6.5 11.717 8 13.447c1.5-1.73 2.878-3.024 3.986-4.064.425-.398.81-.76 1.146-1.093C14.446 6.986 15 6.131 15 4.92 15 3.326 13.676 2 12 2c-.777 0-1.418.345-1.954.852-.545.515-.93 1.152-1.152 1.595L8 6.236zm.392 8.292a.513.513 0 0 1-.784 0c-1.601-1.902-3.05-3.262-4.243-4.381C1.3 8.208 0 6.989 0 4.92 0 2.755 1.79 1 4 1c1.6 0 2.719 1.05 3.404 2.008.26.365.458.716.596.992a7.55 7.55 0 0 1 .596-.992C9.281 2.049 10.4 1 12 1c2.21 0 4 1.755 4 3.92 0 2.069-1.3 3.288-3.365 5.227-1.193 1.12-2.642 2.48-4.243 4.38z" /></svg>');
 		}
 	});
-   
    
 })
 
@@ -295,8 +370,9 @@ $(document).ready( function() {
 		<!-- 검색 버튼과 form -->
 		<form action="./lanTrip_list.do" method="get">
 			<div class="row justify-content-md-center" id="search">
-				<div class="form-row col-2">
-					<div class="value">
+			<div class="col-1"></div>
+				<div class="col-1">
+					<div class="value" id="condition_pick" style="text-align:right;">
 						<select id="condition" name="condition" class="form-select">
 							<option value="subject" ${condition eq 'subject' ? 'selected' : '' }>제목</option>
 							<option value="content" ${condition eq 'content' ? 'selected' : '' }>내용</option>
@@ -305,15 +381,14 @@ $(document).ready( function() {
 						</select>
 					</div>
 				</div>
-				<div class="col-md-6">
-					<input value="${keyword }" type="text" name="keyword" placeholder="검색어를 입력해주세요" class="form-control">
+				<div class="col-md-8" style="padding-left:0px; text-align:left;">
+					<input value="${keyword }" type="text" name="keyword" placeholder="검색어를 입력해주세요" class="form-control"
+					style="padding-left:0px;">
 					
 				</div>
-				<div class="col-md-1">
-					<button class="btn btn-success" type="submit">검색</button>
-				</div>
-				<div class="col-1">
-					<div id="writebox">
+				<div class="col-md-2" style="padding:0px; text-align:left;">
+					<span><button class="btn btn-success" type="submit">검색</button></span>
+					<span id="writebox">
 						<c:if test="${!empty sessionScope.nick}">
 							<c:choose>
 								<c:when test="${empty sessionScope.nick}">
@@ -328,7 +403,7 @@ $(document).ready( function() {
 								</c:otherwise>
 							</c:choose>
 						</c:if>
-					</div>
+					</span>
 				</div>
 			</div>
 		</form>
@@ -342,12 +417,15 @@ $(document).ready( function() {
 	</c:if>
 
 	<%-- card --%>
-	<section id="card">
-		<div class="card-container">
-
-			<%--<div class="row"> --%>
-			<%=sbHtml%>
+	<section id="card" class="row">
+		<div class="col-1"></div>
+		<div class="col-10">
+			<div class="card-container">
+				<%--<div class="row"> --%>
+				<%=sbHtml%>
+			</div>
 		</div>
+		<div class="col-1"></div>
 	</section>
 	
 </body>

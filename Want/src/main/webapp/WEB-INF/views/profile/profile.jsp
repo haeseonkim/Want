@@ -41,7 +41,7 @@
 <jsp:include page="../include/index.jsp"></jsp:include>
 	
 <!-- CSS File -->
-<link href="./resources/css/profile.css?dd" rel="stylesheet">
+<link href="./resources/css/profile.css?sa" rel="stylesheet">
 <link href="./resources/css/navbar.css" rel="stylesheet">
 
 </head>
@@ -52,7 +52,95 @@
 		<jsp:param value="profile" name="thisPage" />
 	</jsp:include>
 	
-	<section id="profile" class="container">
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+	
+	<div class="container bootstrap snippet">
+		<div class="row">
+
+			<div class="col-sm-3">
+				<!--left col-->
+				<div class="nick-div">
+					<h5><b><span style="color:#5fcf80;">${uto.nick }</span>님의 프로필</b></h5>
+				</div>
+				<div class="text-center row">
+					<div class="box col-1">
+						<img src="./upload/profile/${uto.profile }"
+							class="avatar img-circle img-profile" alt="avatar">
+					</div>
+					<div class="col-0 profile_d_m" style="text-align:center; padding:0px; width:350px;">
+						<button type="button" class="btn btn--blue-2 btn--radius-2" data-bs-toggle="modal" data-bs-target="#edit_img">수정</button>
+						<button type="button" class="btn btn--blue-2 btn--radius-2" data-bs-toggle="modal" data-bs-target="#delete_img">삭제</button>
+					</div>
+				</div>
+				<br>
+
+				<ul class="list-group">
+					<li class="list-group-item text-muted">PROFILE&nbsp;&nbsp;</li>
+					<li class="list-group-item text-right"><span class="pull-left"><strong>ID&nbsp;&nbsp;</strong></span>
+						${uto.id }</li>
+					<li class="list-group-item text-right"><span class="pull-left"><strong>Eamil&nbsp;&nbsp;</strong></span>
+						${uto.mail }</li>
+					<li class="list-group-item text-right"><span class="pull-left"><strong>BirthDay&nbsp;&nbsp;</strong></span>
+						${uto.birth }</li>
+					<li class="list-group-item text-right"><span class="pull-left"><strong>Introduction&nbsp;&nbsp;</strong></span>
+						${uto.greet }</li>
+				</ul>
+				<div class="col-6 offset-2 div_modify_profile">
+					<button type="button" class="btn btn--blue-2 btn--radius-2 btn_modify_profile" onclick="location.href='./edit_profile.do'">내 프로필 수정</button>
+				</div>
+
+			</div>
+			<!--/col-3-->
+			<div class="col-sm-9">
+				<ul class="nav nav-tabs" id="myTab" role="tablist">
+					<li class="nav-item" role="presentation">
+						<button class="nav-link active" id="lan" data-bs-toggle="tab"
+							data-bs-target="#lantrip" type="button" role="tab"
+							aria-controls="home" aria-selected="true">랜선여행</button>
+					</li>
+					<li class="nav-item" role="presentation">
+						<button class="nav-link" id="pic" data-bs-toggle="tab"
+							data-bs-target="#Picture" type="button" role="tab"
+							aria-controls="profile" aria-selected="false">사진자랑</button>
+					</li>
+					<li class="nav-item" role="presentation">
+						<button class="nav-link" id="sho" data-bs-toggle="tab"
+							data-bs-target="#shop" type="button" role="tab"
+							aria-controls="contact" aria-selected="false">쇼핑정보</button>
+					</li>
+					<li class="nav-item" role="presentation">
+						<button class="nav-link" id="acc" data-bs-toggle="tab"
+							data-bs-target="#accom" type="button" role="tab"
+							aria-controls="contact" aria-selected="false">숙소정보</button>
+					</li>
+				</ul>
+
+
+				<div class="tab-content" id="myTabContent">
+					<div class="tab-pane fade show active" id="lantrip" role="tabpanel" aria-labelledby="home-tab">
+					</div>
+					<div class="tab-pane fade" id="Picture" role="tabpanel" aria-labelledby="profile-tab">
+					</div>
+					<div class="tab-pane fade" id="shop" role="tabpanel" aria-labelledby="contact-tab">
+					</div>
+					<div class="tab-pane fade" id="accom" role="tabpanel" aria-labelledby="contact-tab">
+				</div>
+				</div>
+
+			</div>
+			<!--/col-9-->
+		</div>
+		<!--/row-->
+
+	</div>
+	
+	
+	
+	<%-- <section id="profile" class="container">
 		<div class="row">
 			<div class="col-6">
 				<h1><b><span style="color:#5fcf80;">${uto.nick }</span>님의 프로필</b></h1>
@@ -120,7 +208,8 @@
 			<div class="col-1"></div>
 			<div class="col-7"></div>
 		</div>
-		
+		 --%>
+		 
 		<form action="edit_img_ok.do" name="efrm" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="ex-profile" value="${uto.profile }">
 			<div class="modal fade" id="edit_img" aria-hidden="true">
@@ -166,6 +255,8 @@
 			</div>
 		</div>
 		</form>
+		
+<%--
 	</section>
 	
 	
@@ -212,13 +303,13 @@
 			</div>
 		</div>
 
-		
+		 
 
 			
 		
 	</section>
 	<!-- 내 피드 섹션 끝 -->	
-	
+	--%>
 <!-- 내 피드 관련 자바스크립트 -->
 <script>
 
@@ -271,10 +362,10 @@
 	
 	//============= 글리스트 가져오기 함수 =============
 	//페이지가 처음 로딩될 때 1page를 보여주기 때문에 초기값을 1로 지정한다.
-	let currentPage=1;
+	//let currentPage=1;
 	//현재 페이지가 로딩중인지 여부를 저장할 변수이다.
-	let isLoading=false;
 	
+	let currentPage = 1;
 	//currentPage는 무한스크롤에 필요한 현재 페이지
 	//doName은 클릭한 게시판의 컨트롤러명
 	//divName은 ajax로 받은 데이터를 append시킬 div명
@@ -284,7 +375,7 @@
 		//console.log( 'divName : ' + divName );
 		
 		
-		console.log("inGetList의 페이지번호 : "+currentPage + ' / divName ? : ' + divName );
+		console.log("2. inGetList의 페이지번호 : "+currentPage + ' / divName ? : ' + divName );
 		//하트 컨트롤러 이름 만들어주기
 		let heartUrl = 'lanTrip_';
 		if( divName == 'lantrip' ) {
@@ -309,27 +400,27 @@
 				//해당 문자열을 특정div 태그에 붙여준다.
 				
 				
-				console.log( '성공안에서 divname은 ? : ' + divName );
+				console.log( '3. 성공안에서 현재페이지는 ? : ' + currentPage  );
 				
 				if( divName == 'lantrip' ) {
-					$('#Picture' ).empty('');
-					$('#shop' ).empty('');
-					$('#accom' ).empty('');
+					$('#Picture' ).empty();
+					$('#shop' ).empty();
+					$('#accom' ).empty();
 					
 				} else if( divName == 'Picture' ) {
-					$('#lantrip' ).empty('');
-					$('#shop' ).empty('');
-					$('#accom' ).empty('');
+					$('#lantrip' ).empty();
+					$('#shop' ).empty();
+					$('#accom' ).empty();
 					
 				} else if( divName == 'shop' ) {
-					$('#lantrip' ).empty('');
-					$('#Picture' ).empty('');
-					$('#accom' ).empty('');
+					$('#lantrip' ).empty();
+					$('#Picture' ).empty();
+					$('#accom' ).empty();
 					
 				} else if( divName == 'accom' ) {
-					$('#lantrip' ).empty('');
-					$('#Picture' ).empty('');
-					$('#shop' ).empty('');
+					$('#lantrip' ).empty();
+					$('#Picture' ).empty();
+					$('#shop' ).empty();
 
 				}
 
@@ -574,8 +665,6 @@
 					$('#m_reply'+no).text(reply);
 					$('.span_reply'+no).text(reply);
 					
-					
-					
 					alert("답글 작성 성공");
 					
 					// 게시물 번호(bno)에 해당하는 댓글리스트를 새로 받아오기
@@ -712,6 +801,7 @@
 		if(isBottom) {
 			//만일 현재 마지막 페이지라면
 			if(currentPage == ${totalPageCount} || isLoading){
+				
 				return; //함수를 여기서 끝낸다.
 			}
 			//현재 로딩 중이라고 표시한다.
@@ -721,8 +811,6 @@
 			//요청할 페이지 번호를 1 증가시킨다.
 			currentPage++;
 			//추가로 받아올 페이지를 서버에 ajax 요청을 하고
-			console.log("inscroll"+currentPage);
-			
 			
 			//추가로 불러올 글목록 가져오기
 			GetList( currentPage, ajaxDoName, divName );
@@ -731,6 +819,36 @@
 	});
 
 	
+	$('.nav-item').on('click', function() {
+		let ajaxName = $( '.nav-item' ).children('.active').attr('id');
+		let divName = '';
+		currentPage = 1;
+		
+		if( ajaxName == 'lan' ) {
+			ajaxDoName = 'profile_lanTrip_ajax_page.do';
+			divName = 'lantrip';
+			$('#lantrip' ).empty();
+			
+		} else if( ajaxName == 'pic' ) {
+			ajaxDoName = 'profile_picture_ajax_page.do';
+			divName = 'Picture';
+			$('#Picture' ).empty();
+			
+		} else if( ajaxName == 'sho' ) {
+			ajaxDoName = 'profile_shop_ajax_page.do';
+			divName = 'shop';
+			$('#shop' ).empty();
+			
+		} else if( ajaxName == 'acc' ) {
+			ajaxDoName = 'profile_accom_ajax_page.do';
+			divName = 'accom';
+			$('#accom' ).empty();
+			
+		}
+		
+		//현재페이지번호, 컨트롤러명, ajax결과 붙일 div태그명 넘겨준다.
+		GetList( currentPage, ajaxDoName, divName );
+	});
 	
 	
 	//맨처음 페이지 입장시 실행
@@ -739,32 +857,7 @@
 		//현재페이지번호, 컨트롤러명, ajax결과 붙일 div태그명 넘겨준다.
 		GetList( currentPage, 'profile_lanTrip_ajax_page.do', 'lantrip' );
 		
-		$('.nav-item').on('click', function() {
-			let ajaxName = $( '.nav-item' ).children('.active').attr('id');
-			let divName = '';
-			if( ajaxName == 'lan' ) {
-				ajaxDoName = 'profile_lanTrip_ajax_page.do';
-				divName = 'lantrip';
-				
-			} else if( ajaxName == 'pic' ) {
-				ajaxDoName = 'profile_picture_ajax_page.do';
-				divName = 'Picture';
-				
-			} else if( ajaxName == 'sho' ) {
-				ajaxDoName = 'profile_shop_ajax_page.do';
-				divName = 'shop';
-				
-			} else if( ajaxName == 'acc' ) {
-				ajaxDoName = 'profile_accom_ajax_page.do';
-				divName = 'accom';
-				
-			}
-			
-			let currentPage=1;
-			
-			//현재페이지번호, 컨트롤러명, ajax결과 붙일 div태그명 넘겨준다.
-			GetList( currentPage, ajaxDoName, divName );
-		});
+		
 	});
 
 

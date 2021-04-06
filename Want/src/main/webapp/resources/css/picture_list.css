@@ -33,9 +33,14 @@
 }
 
 .carousel-container {
-   background-color: #e3f0d9;
-}
+  	background: url("../img/frame.png") center center;
+	background-size:cover;
+/* 	background-color: #F2F2F2*/
+ }
 
+/* .carousel-container:before{
+	opacity: 0.6;
+} */
 
 /*
 .carousel-container::before{
@@ -47,7 +52,7 @@
         right: 0px;
         bottom: 0px;
         background-color: #000;
-}
+
 */
 .carousel {
    padding: 0 20px 0 20px;
@@ -167,11 +172,13 @@ a.open_reply_list:hover{
 }
 
 #m_writer {
-   font-size: 1.2rem;
+   font-size: 20px;
 }
 
 .modal-section {
    padding: 10px 10px;
+   font-family: 'Nanum Pen Script', cursive;
+   font-size: 20px;
 }
 
 .modal-section-media {
@@ -260,14 +267,50 @@ section {
    margin-bottom: 0;
 }
 
+.btn {
+	display: inline-block;
+	line-height: 30px;	/* 수정 */
+	padding: 0 20px;	/* 수정 */
+	-webkit-transition: all 0.4s ease;
+	-o-transition: all 0.4s ease;
+	-moz-transition: all 0.4s ease;
+	transition: all 0.4s ease;
+	cursor: pointer;
+	font-size: 20px;
+	text-transform: capitalize;
+	font-weight: 700;
+	color: #fff;
+	font-family: 'Nanum Pen Script', cursive;
+}
+
+
 .btn--blue-2 {
 	background: #5fcf80;
 	color: #fff;
 	font-family: 'Nanum Pen Script', cursive;
 	font-size: 20px;
 }
+.btn--blue-2:hover {
+	background: #008040;
+	color: #ffffff;
+}
+
+.btn--radius-2 {
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+
 
 strong {
 	font-family: 'Nanum Pen Script', cursive;
 	font-size: 100px;
+}
+
+.modal-footer {
+	font-family: 'Nanum Pen Script', cursive;
+}
+
+.btn.btn-secondary, .btn.btn-dark {
+	font-size: 20px;
 }
