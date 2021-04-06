@@ -10,8 +10,8 @@
 		<div class="thumb">
 			<div class="card-img" type="button" idx="${tmp.no }"
 				data-bs-toggle="modal" data-bs-target="#viewModal${tmp.no }">
-				<img src="./upload/picture/${tmp.media }" class="card-img-top  img-wrapper"
-					alt="...">
+					<img src="./upload/picture/${tmp.media }" class="card-img-top  img-wrapper"
+						alt="...">
 			</div>
 			<div class="card-body">
 				<div class="row">
@@ -104,8 +104,10 @@
 						<!-- 글쓴이 프로필 사진이 원형으로 나오는 부분 -->
 						<div class="row">
 							<div class="col-10">
-								<span id="m_writer_profile"> <img id="profileImage"
-									src='./upload/profile/${tmp.profile }' />
+								<span id="m_writer_profile">
+									<a href="other_profile.do?other_nick=${tmp.writer }">
+										<img id="profileImage" src='./upload/profile/${tmp.profile }' />
+									</a>
 								</span>&nbsp;&nbsp;<span id="m_writer">${tmp.writer }</span>
 							</div>
 							<div class="col-2">${tmp.wdate }</div>
@@ -208,8 +210,10 @@
 								<c:if test="${not empty sessionScope.nick }">
 									<div class="row reply_write">
 										<div class="col-1">
-											<img id="write_reply_profileImage"
-												src="./upload/profile/${sessionScope.profile }" />
+											<a href="other_profile.do?other_nick=${tmp.writer }">
+												<img id="write_reply_profileImage"
+													src="./upload/profile/${sessionScope.profile }" />
+											</a>
 										</div>
 										<div class="col-8" class="input_reply_div">
 											<input class="w-100 form-control" id="input_reply${tmp.no}"

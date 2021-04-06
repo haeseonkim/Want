@@ -32,6 +32,9 @@ window.onload = function() {
 	//폰번호 적합여부 검사
 	let phone_val = /^01(?:0|1|[6-9])-(?:\d{3}|\d{4})-\d{4}$/
 	
+	//닉네임 유효성 검사
+	let nick_val = /^[a-zA-Z0-9ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{4,15}$/	
+	
 	//형식검사하는 메서드
 	function check( val, target ) {
 		if( val.test( target ) ) {
@@ -81,7 +84,7 @@ window.onload = function() {
 	$( "#nick_id" ).blur( function() {
 		var user_nick = $( "#nick_id" ).val();
 		if( user_nick != '' ) {
-			if( check( val, user_nick ) ) {
+			if( check( nick_val, user_nick ) ) {
 				$.ajax({
 					url: './usingNick_chk.do?user_nick='+user_nick,
 					type: 'GET',
@@ -91,11 +94,14 @@ window.onload = function() {
 							$( "#usingNick_chk" ).text( "사용할 수 있는 닉네임입니다." );
 							$( "#usingNick_chk" ).css( "margin-left", "155px" );
 							$( "#usingNick_chk" ).css( "color", "blue" );
+							$( "#user_nick" ).val( "" );
 							$( "#submit1" ).attr( "disabled", false );
+							
 						} else if( data == "1"  ) {
 							$( "#usingNick_chk" ).text( "사용중인 닉네임입니다." );
 							$( "#usingNick_chk" ).css( "margin-left", "155px" );
 							$( "#usingNick_chk" ).css( "color", "red" );
+							$( "#user_nick" ).val( "" );
 							$( "#submit1" ).attr( "disabled", true );
 						}
 					},
@@ -112,7 +118,11 @@ window.onload = function() {
 			}
 			
 		} else {
-			$( "#usingNick_chk" ).text( "" );
+			$( "#usingNick_chk" ).text( "닉네임을 입력해주세요." );
+			$( "#usingNick_chk" ).css( "margin-left", "155px" );
+			$( "#usingNick_chk" ).css( "color", "red" );
+			$( "#user_nick" ).val( "" );
+			$( "#submit1" ).attr( "disabled", true );
 		}
 	})
 	//패스워드 유효성 검사
@@ -359,7 +369,7 @@ function agree() {
         <div class="form-group row">
 			<label class="col-form-label col-4">닉네임</label>
 			<div class="col-8">
-                <input type="text" class="form-control" id="nick_id" name="nick" placeholder="4~12, 영어대소문자, 숫자가능">
+                <input type="text" class="form-control" id="nick_id" name="nick" placeholder="4~12, 한글, 영어대소문자, 숫자가능">
             </div>        	
             <div id="usingNick_chk"></div>
         </div>

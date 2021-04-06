@@ -64,8 +64,8 @@ public class AccomController {
       
 
 		//String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\accom";
-		//String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\accom";
-		String uploadPath = "/Users/hyukjun/git/Want/Want/src/main/webapp/upload/accom";
+		String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\accom";
+		//String uploadPath = "/Users/hyukjun/git/Want/Want/src/main/webapp/upload/acoom";
     
 		MultipartRequest multi = null;
 
@@ -617,8 +617,8 @@ public class AccomController {
 		String encType = "utf-8";
     
 		//String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\accom";
-		//String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\accom";
-		String uploadPath = "/Users/hyukjun/git/Want/Want/src/main/webapp/upload/accom";
+		String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\accom";
+		//String uploadPath = "/Users/hyukjun/git/Want/Want/src/main/webapp/upload/accom";
 
 		MultipartRequest multi = null;
 

@@ -35,7 +35,10 @@
 		sbHtml.append( "		<a href='./lanTrip_view.do?no=" + no + "'><video src='" + video + "' class='card-img-top' controls></video></a>");
 		sbHtml.append( "			<div class='card-body'>");
 		sbHtml.append( "				<h3 class='card-title'>" + subject + "</h3>");
-		sbHtml.append( " 				<img id='profileImage' src='./upload/profile/"+ to.getProfile() +"' />&nbsp;&nbsp;<span class='small text-muted mb-0'>"+ to.getWriter()+" | "+ to.getWdate() +"</span>" );
+		sbHtml.append( "				<a href='other_profile.do?other_nick="+ to.getWriter() +"'> " );
+		sbHtml.append( " 					<img id='profileImage' src='./upload/profile/"+ to.getProfile() +"' />" );
+		sbHtml.append( "				</a> " );
+		sbHtml.append( " 					&nbsp;&nbsp;<span class='small text-muted mb-0'>"+ to.getWriter()+" | "+ to.getWdate() +"</span>" );
 		sbHtml.append( " 			<div class='lan-heart'>" );
 		 // 로그인 상태아닐 때 하트 클릭안됨
 	      if( nick == null ) {
@@ -97,7 +100,6 @@
 <link href="./resources/css/navbar.css" rel="stylesheet">
 
 <script type="text/javascript">
-
 
 //페이지가 처음 로딩될 때 1page를 보여주기 때문에 초기값을 1로 지정한다.
 let currentPage=1;

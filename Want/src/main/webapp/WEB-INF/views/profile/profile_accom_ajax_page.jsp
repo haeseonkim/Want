@@ -4,16 +4,14 @@
 
 
 
-<c:forEach var="tmp" items="${list }">
+<c:forEach var="tmp" items="${ list }">
 	
 	<div class="card-inner">
 		<div class="thumb">
-			<div class="card-img" type="button" idx="${tmp.no }"
-				data-bs-toggle="modal" data-bs-target="#viewModal${tmp.no }">
-				<div class="video-box">
-					<video src="./upload/lanTrip/${ tmp.video }" class="card-img-top" muted>
-					</video>
-				</div>
+			<div class="card-img" type="button" idx="${ tmp.no }"
+				data-bs-toggle="modal" data-bs-target="#viewModal${ tmp.no }">
+				<img src="./upload/accom/${ tmp.picture }" class="card-img-top  img-wrapper"
+					alt="...">
 				<!-- 마우스 오버시 보여지는 부분 --> 
 				<div class="links" style="text-align:center;" type="button" idx="${ tmp.no }"
 					data-bs-toggle="modal" data-bs-target="#viewModal${tmp.no }"> ${ tmp.subject }<br> 
@@ -31,7 +29,7 @@
 	</div>
 
 	<!-- view Modal -->
-	<div class="modal fade" id="viewModal${tmp.no }" tabindex="-1"
+	<div class="modal fade" id="viewModal${ tmp.no }" tabindex="-1"
 		aria-labelledby="exampleModalLabel" aria-hidden="true" role="dialog">
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
@@ -56,11 +54,12 @@
 					</section>
 					<section class="modal-section-media">
 						<div class="container" id="m_media">
-							<video src="./upload/lanTrip/${ tmp.video }" width="600px" controls></video>
+							<img class="w-100" id="media-image"
+								src='./upload/accom/${ tmp.picture }' />
 						</div>
 					</section>
 					<section class="modal-section">
-						<div id="m_content">${tmp.content }</div>
+						<div id="m_content">${ tmp.content }</div>
 					</section>
 					<br/>
 					<section class="modal-section">
