@@ -100,9 +100,7 @@
 			<div class='col-1'>
 			</div>
 			<div class='col-1'>
-				<a href="other_profile.do?other_nick=${tmp.writer }">
-					<img id='write_reply_profileImage' src='./upload/profile/${profile}'/>
-				</a>
+				<img id='write_reply_profileImage' src='./upload/profile/${profile}'/>
 			</div>
 			<div class='col-7'>
 				<input class='w-100 input_rereply_div form-control' id='input_rereply${ tmp.no }' type='text' placeholder='댓글입력...'>

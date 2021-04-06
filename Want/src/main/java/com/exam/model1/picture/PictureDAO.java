@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.exam.model1.lantrip.LanTripTO;
 import com.exam.model1.picture.PictureListTO;
 import com.exam.model1.picture.PictureTO;
 import com.exam.model1.pictureReply.ReplyTO;
@@ -43,9 +44,6 @@ public class PictureDAO {
 
 	// 로그인 후 게시판 list
 	public ArrayList<PictureTO> boardListLogin(PictureTO to) {
-
-		
-		System.out.println("location : " + to.getLocation());
 		
 		//게시물 리스트 가져오기 - 현재사용자의 nick이 nick에 세팅된 to를 넘긴다.
 		ArrayList<PictureTO> list = (ArrayList) sqlSession.selectList("picture_list_login", to);
@@ -143,6 +141,24 @@ public class PictureDAO {
 	public ArrayList<PictureTO> picture_favoriteList( PictureTO pto ) {
 		
 		ArrayList<PictureTO> list = (ArrayList)sqlSession.selectList( "picture_favoriteList", pto );
+		
+		return list;
+	}
+	
+	//내프로필 -  게시물 갯수 가져오기
+	public int profileCount(PictureTO pto) {
+		
+		// 게시물 갯수를 구한다.
+		// 검색 키워드가 들어온 경우 검색결과의 게시물갯수가 된다.
+		int result = sqlSession.selectOne("profilePictureCount", pto);
+		
+		return result;
+	}
+	
+	//내프로필 사진자랑하기 글목록
+	public ArrayList<PictureTO> picture_MyProfileList( PictureTO to ) {
+		
+		ArrayList<PictureTO> list = (ArrayList)sqlSession.selectList( "picture_MyProfileList", to ); 
 		
 		return list;
 	}
