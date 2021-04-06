@@ -1257,6 +1257,7 @@
 		resultType="com.exam.model1.with.withTO"> <!-- 파라메터가 없으므로 parameter Type 필요 없음 -->
 		select no, location, subject, writer, date_format(wdate, '%Y-%m-%d') wdate, hit, reply
 		from w_board
+		order by no desc
 	</select>
 
 	<!-- withWriteOk -->
@@ -1645,9 +1646,26 @@
 		where nick=#{nick}
 	</select>
 	
-
+	<!-- 내 프로필 수정 -->
+	<update id="edit_profile" parameterType="com.exam.model1.user.UserTO">
+		update user
+		set name=#{name}, birth=#{birth}, mail=#{mail}, phone=#{phone}, nick=#{nick}, greet=#{greet}
+		where nick=#{session_nick}
+	</update>
 	
+	<!-- 프로필 사진 수정 -->
+	<update id="edit_img" parameterType="com.exam.model1.user.UserTO">
+		update user
+		set profile = #{profile}
+		where nick=#{nick}
+	</update>
 	
+	<!-- 프로필 사진 삭제 -->
+	<update id="delete_img" parameterType="com.exam.model1.user.UserTO">
+		update user
+		set profile = 'default_profile.png'
+		where nick = #{nick}
+	</update>
 	
 	<!-- ================= home 페이지 best3 게시물 ==================== -->
 	<!-- 랜선여행 게시판 best3 -->

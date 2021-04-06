@@ -140,6 +140,17 @@
 	<section id="card-list" class="card-list">
 		<div class="container">
 			<div class="row card-list-container thumbnails"></div>
+
+
+
+			<div class="row card-list-container thumbnails">
+
+			</div>
+		</div>
+
+	
+
+
 	</section>
 	<!-- ======= card Section 끝 ======= -->
 

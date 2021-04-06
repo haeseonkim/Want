@@ -280,13 +280,13 @@ public class AccomController {
 			// 글 목록 얻어오기
 			if (session.getAttribute("nick") == null) {
 				// 로그인 상태가 아닐때
-				System.out.println("로그인 상태가 아닐때 ");
+//				System.out.println("로그인 상태가 아닐때 ");
 				// 사진 자랑 게시판 목록 가져오기
 
 				list = accomDao.accomList(ato);
 			} else {
 				// 로그인 상태일때
-				System.out.println("로그인 상태일때 ");
+//				System.out.println("로그인 상태일때 ");
 
 				// 현재사용자의 nick을 세팅
 				ato.setNick((String) session.getAttribute("nick"));
