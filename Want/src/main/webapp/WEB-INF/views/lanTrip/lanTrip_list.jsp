@@ -100,10 +100,7 @@
 <link href="./resources/css/navbar.css" rel="stylesheet">
 
 <script type="text/javascript">
-<<<<<<< HEAD
 
-=======
->>>>>>> branch 'main' of https://github.com/haeseonkim/Want.git
 
 //페이지가 처음 로딩될 때 1page를 보여주기 때문에 초기값을 1로 지정한다.
 let currentPage=1;

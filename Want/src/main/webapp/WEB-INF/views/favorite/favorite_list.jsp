@@ -477,7 +477,7 @@ $(document).ready(function() {
          $( '.menu_name' ).attr( 'id', 'lanTrip_' );
          
          //현재 클릭된 버튼의 색깔만 바꿔준다.
-         $(this).css( 'background-color', '#C8FAC8' );
+         $(this).css( 'background-color', '#5FCF80' );
          
          
          $.ajax({
@@ -495,7 +495,7 @@ $(document).ready(function() {
          $( '.menu_name' ).attr( 'id', '' );
          
          //현재 클릭된 버튼의 색깔만 바꿔준다.
-         $(this).css( 'background-color', '#C8FAC8' );
+         $(this).css( 'background-color', '#5FCF80' );
          
          $.ajax({
             url: doName,
@@ -564,7 +564,7 @@ $(document).ready(function() {
          $( '.menu_name' ).attr( 'id', 'shop_' );
          
          //현재 클릭된 버튼의 색깔만 바꿔준다.
-         $(this).css( 'background-color', '#C8FAC8' );
+         $(this).css( 'background-color', '#5FCF80' );
          
          $.ajax({
             url: doName,
@@ -581,7 +581,7 @@ $(document).ready(function() {
          $( '.menu_name' ).attr( 'id', 'accom_' );
          
          //현재 클릭된 버튼의 색깔만 바꿔준다.
-         $(this).css( 'background-color', '#C8FAC8' );
+         $(this).css( 'background-color', '#5FCF80' );
          
          $.ajax({
             url: doName,
@@ -871,7 +871,7 @@ $(window).on("scroll",function(){
       </div>
       <div class="div_menu1">
          <!-- 버튼안에 id값으로 컨트롤러에 ajax로 넘겨줄 매핑이름을 저장 -->
-         <button type="button" id="./f_lantrip_list.do" class="btn btn-default btn_menu1_1" style="background-color: #C8FAC8;">랜선여행하기</button>
+         <button type="button" id="./f_lantrip_list.do" class="btn btn-default btn_menu1_1" style="background-color: #5FCF80;">랜선여행하기</button>
          <button type="button" id="./f_picture_list.do" class="btn btn-default btn_menu1_1">사진자랑하기</button>
          <button type="button" id="./f_shop_list.do" class="btn btn-default btn_menu1_1">쇼핑정보</button>
          <button type="button" id="./f_accom_list.do" class="btn btn-default btn_menu1_1">숙소정보</button>
