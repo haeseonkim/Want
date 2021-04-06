@@ -1,8 +1,8 @@
 @charset "UTF-8";
 
 body {
-	font-family: 'Song Myung', sans-serif;
-	font-size: 12pt;
+	font-family: 'Nanum Pen Script', cursive;
+	font-size: 20px;
 }
 
 #profile {
@@ -15,6 +15,10 @@ body {
 	/* background-color:black; */
 	width: 100%;
 	margin-top: 6%;
+}
+
+#my-feed h1 {
+	font-size: 45px;
 }
 
 #profile-img {
@@ -173,7 +177,7 @@ table {
 	-moz-transition: all 0.4s ease;
 	transition: all 0.4s ease;
 	cursor: pointer;
-	font-size: 15px;
+	font-size: 20px;
 	text-transform: capitalize;
 	font-weight: 700;
 	/* color: #fff; */

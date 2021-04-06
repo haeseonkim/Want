@@ -22,7 +22,7 @@
 <link rel="stylesheet" href="./summernote/summernote-lite.css">
 
 <!-- CSS File -->
-<link href="./resources/css/with_write.css" rel="stylesheet">
+<link href="./resources/css/lanTrip_apply_write.css?21321" rel="stylesheet">
 <link href="./resources/css/navbar.css" rel="stylesheet">
 
 
