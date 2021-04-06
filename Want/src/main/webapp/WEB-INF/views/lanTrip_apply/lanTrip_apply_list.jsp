@@ -149,15 +149,15 @@
 			<hr />
 				<table>
 					<tr>
+						<th width="3%" class="latable">&nbsp;</th>
+						<th width="5%" id="no" class="latable">번호</th>
 						<th width="3%">&nbsp;</th>
-						<th width="5%" id="no">번호</th>
+						<th width="5%" id="loc" class="latable">지역</th>
 						<th width="3%">&nbsp;</th>
-						<th width="5%" id="loc">지역</th>
-						<th width="3%">&nbsp;</th>
-						<th id="subject">제목</th>
-						<th width="10%" id="writer">글쓴이</th>
-						<th width="17%" id="wdate">등록일</th>
-						<th width="5%" id="hit">조회</th>
+						<th id="subject" class="latable">제목</th>
+						<th width="10%" id="writer" class="latable">글쓴이</th>
+						<th width="17%" id="wdate" class="latable">등록일</th>
+						<th width="5%" id="hit" class="latable">조회</th>
 						<th width="3%">&nbsp;</th>
 					</tr>
 					<!-- 행 시작 -->

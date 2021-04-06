@@ -109,4 +109,23 @@ public class AccomDAO {
 		return list;
 	}
 	
+	
+	// 내프로필 랜선여행하기 글목록
+	public ArrayList<AccomTO> accom_MyProfileList(AccomTO to) {
+
+		ArrayList<AccomTO> list = (ArrayList) sqlSession.selectList("accom_MyProfileList", to);
+
+		return list;
+	}
+
+	// 내프로필 - 게시물 갯수 가져오기
+	public int profileAccomCount(AccomTO ato) {
+
+		// 게시물 갯수를 구한다.
+		// 검색 키워드가 들어온 경우 검색결과의 게시물갯수가 된다.
+		int result = sqlSession.selectOne("profileAccomCount", ato);
+
+		return result;
+	}
+	
 }

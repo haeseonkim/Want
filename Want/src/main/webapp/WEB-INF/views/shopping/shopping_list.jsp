@@ -92,7 +92,10 @@
 		sbHtml.append( " 		<img src='./upload/shopping/" + to.getPicture() + "' alt='' class='img-fluid card-img-top'>" );
 		sbHtml.append( " 		<div class='p-4'>" );
 		sbHtml.append( " 			<h5><a href='./shopping_view.do?no="+to.getNo()+"&location="+ location +"' class='text-dark'>" + to.getSubject() + "</a></h5>" );
-		sbHtml.append( " 			<img id='profileImage' src='./upload/profile/"+ to.getProfile() +"' />&nbsp;&nbsp;<span class='small text-muted mb-0'>"+ to.getWriter()+" | "+ to.getWdate() +"</span>" );
+		sbHtml.append( "			<a href='other_profile.do?other_nick="+ to.getWriter() +"'> " );
+		sbHtml.append( " 				<img id='profileImage' src='./upload/profile/"+ to.getProfile() +"' /> " );
+		sbHtml.append( "			</a> " );
+		sbHtml.append( " 				&nbsp;&nbsp;<span class='small text-muted mb-0'>"+ to.getWriter()+" | "+ to.getWdate() +"</span>" );
 		sbHtml.append( " 			<div class='d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4 boardItem'>" );
 		if( nick == null ) {
 			sbHtml.append( "			<svg class='heart3' xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-suit-heart' viewBox='0 0 16 16'>" );

@@ -40,7 +40,7 @@ public class HomeDAO {
 	public int visitCount() {
 		int exist = sqlSession.selectOne("firstCount");
 		
-		System.out.println("exist : " + exist);
+//		System.out.println("exist : " + exist);
 		int flag = 0;
 		
 		// 첫방문자인지 아닌지

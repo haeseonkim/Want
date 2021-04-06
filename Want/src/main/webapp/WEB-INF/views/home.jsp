@@ -45,22 +45,21 @@
 
         <div class="row">
           <div class="col-lg-6 order-1 order-lg-2" data-aos="fade-left" data-aos-delay="100">
-            <img src="assets/img/about.jpg" class="img-fluid" alt="">
+            <img src="resources/img/kickic.jpeg" class="img-fluid" alt="">
           </div>
           <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 content">
-            <h3>Voluptatem dignissimos provident quasi corporis voluptates sit assumenda.</h3>
-            <p class="font-italic">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-              magna aliqua.
-            </p>
+            <h3>안녕하세요! WANT 제작팀 KICKIC 입니다. </h3><br /><br />
+            <span style="font-family: 'Nanum Gothic', sans-serif">
+              WANT는 언택트시대를 맞이해 여행의 새로운 패러다임을 지향합니다.<br /><br />
+            </span>
             <ul>
-              <li><i class="bi bi-check-circle"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
-              <li><i class="bi bi-check-circle"></i> Duis aute irure dolor in reprehenderit in voluptate velit.</li>
-              <li><i class="bi bi-check-circle"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate trideta storacalaperda mastiro dolore eu fugiat nulla pariatur.</li>
+              <li><i class="bi bi-check-circle"></i> 우리 KICKIC은 여행에 진심인 개발자 4명이 모여 구성된 팀 입니다!</li>
+              <li><i class="bi bi-check-circle"></i> 우리 KICKIC은 시대흐름에 맞게 새로운 여행법을 제시합니다!</li>
+              <li><i class="bi bi-check-circle"></i> 우리 KICKIC은 여러분의 여행을 항상 응원합니다!</li>
             </ul>
-            <p>
-              Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-            </p>
+            <span>
+              WANT와 함께 Nice한 여행을 즐겨볼까요?<br />
+            </span>
 
           </div>
         </div>
@@ -95,55 +94,62 @@
       </div>
     </section><!-- End Counts Section -->
 
-    <!-- ======= Why Us Section ======= -->
-    <section id="why-us" class="why-us">
-      <div class="container" data-aos="fade-up">
+		<!-- ======= Why Us Section ======= -->
+		<section id="why-us" class="why-us">
+			<div class="container" data-aos="fade-up">
 
-        <div class="row">
-          <div class="col-lg-4 d-flex align-items-stretch">
-            <div class="content">
-              <h3>왜 Want여야 할까요?</h3>
-              <p>
-                Want는 일반 사용자부터 가이드까지 다양한 회원층을 기반으로 다양한 여행정보 제공, 랜선여행 서비스를 지원합니다. 저희의 비전은 다음과 같습니다.
-              </p>
-              <div class="text-center">
-                <a href="about.html" class="more-btn">Learn More <i class="bx bx-chevron-right"></i></a>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-8 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
-            <div class="icon-boxes d-flex flex-column justify-content-center">
-              <div class="row">
-                <div class="col-xl-4 d-flex align-items-stretch">
-                  <div class="icon-box mt-4 mt-xl-0">
-                    <i class="bx bx-receipt"></i>
-                    <h4>Corporis voluptates sit</h4>
-                    <p>Consequuntur sunt aut quasi enim aliquam quae harum pariatur laboris nisi ut aliquip</p>
-                  </div>
-                </div>
-                <div class="col-xl-4 d-flex align-items-stretch">
-                  <div class="icon-box mt-4 mt-xl-0">
-                    <i class="bx bx-cube-alt"></i>
-                    <h4>Ullamco laboris ladore pan</h4>
-                    <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt</p>
-                  </div>
-                </div>
-                <div class="col-xl-4 d-flex align-items-stretch">
-                  <div class="icon-box mt-4 mt-xl-0">
-                    <i class="bx bx-images"></i>
-                    <h4>Labore consequatur</h4>
-                    <p>Aut suscipit aut cum nemo deleniti aut omnis. Doloribus ut maiores omnis facere</p>
-                  </div>
-                </div>
-              </div>
-            </div><!-- End .content-->
-          </div>
-        </div>
+				<div class="row">
+					<div class="col-lg-4 d-flex align-items-stretch">
+						<div class="content">
+							<h3>왜 WANT여야 할까요?</h3>
+							<p>WANT는 일반 사용자부터 가이드까지 다양한 회원층을 기반으로 다양한 여행정보 제공, 랜선여행 서비스를
+								지원합니다. 저희의 비전은 다음과 같습니다.</p>
+							<h3>WANT에서는 무엇들을 할 수 있을까요?</h3>
+							<p>WANT의 자랑인 랜선여행! 그리고 또 다른 컨텐츠인 사진자랑을 통해 여러분의 사진찍는 실력을 자랑하고 유저들과 놀아보세요!</p>
+							<div class="text-center">
+								<a href="./picture_list.do" class="more-btn">Learn More <i
+									class="bx bx-chevron-right"></i></a>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-8 d-flex align-items-stretch" data-aos="zoom-in"
+						data-aos-delay="100">
+						<div class="icon-boxes d-flex flex-column justify-content-center">
+							<div class="row">
+								<div class="col-xl-4 d-flex align-items-stretch">
+									<div class="icon-box mt-4 mt-xl-0">
+										<i class="bx bx-cube-alt"></i>
+										<h4>새로운 여행 WANT!</h4>
+										<p>
+											여행가고싶은데 시간은 없고 <br />경비도 걱정인 사람들을 위한<br /><b>"랜선여행!"</b>
+										</p>
+									</div>
+								</div>
+								<div class="col-xl-4 d-flex align-items-stretch">
+									<div class="icon-box mt-4 mt-xl-0">
+										<i class="bx bx-cube-alt"></i>
+										<h4>Young한 놀이터 WANT!</h4>
+										<p>내가 찍은<br /><b>"여행영상" or "여행사진"</b><br />을 공유하며 놀자!!</p>
+									</div>
+								</div>
+								<div class="col-xl-4 d-flex align-items-stretch">
+									<div class="icon-box mt-4 mt-xl-0">
+										<i class="bx bx-cube-alt"></i>
+										<h4>Win-Win 플랫폼 WANT!</h4>
+										<p>20대는<br /><b>"비용감소!"</b><br />여행사 또는 현지가이드분들은 <br /><b>"새로운 수익창출!"</b></p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!--End .content -->
+					</div>
+				</div>
 
-      </div>
-    </section><!-- End Why Us Section -->
+			</div>
+		</section>
+		<!-- End Why Us Section -->
 
-    <!-- ======= 랜선여행 BEST ======= -->
+		<!-- ======= 랜선여행 BEST ======= -->
     <section id="popular-courses" class="courses">
       <div class="container" data-aos="fade-up">
 

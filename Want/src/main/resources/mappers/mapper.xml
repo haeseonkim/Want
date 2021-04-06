@@ -171,11 +171,23 @@
 	</insert>
 	
 	<!-- lanTrip view -->
-	<select id="lanTrip_view" parameterType="com.exam.model1.lantrip.LanTripTO" resultType="com.exam.model1.lantrip.LanTripTO">
-		select no, subject, writer, date_format(wdate, '%Y-%m-%d') wdate, content, hit, location, video, reply, heart
-		from l_board
-		where no=#{no}
-	</select>
+   <!-- lanTrip view -->
+   <select id="lanTrip_view" parameterType="com.exam.model1.lantrip.LanTripTO" resultType="com.exam.model1.lantrip.LanTripTO">
+      select no, subject, writer, date_format(wdate, '%Y-%m-%d') wdate, content, hit, location, video, reply, heart
+      from l_board
+      where no=#{no}
+   </select>
+   
+   <!-- 로그인일 때 lantrip view -->
+   <select id="lanTrip_view_login" parameterType="com.exam.model1.lantrip.LanTripTO" 
+         resultType="com.exam.model1.lantrip.LanTripTO">
+      select s.no, s.subject, s.content, s.writer, s.wdate, s.hit, s.location, s.video, s.reply, s.heart, h.hno, f.fno
+      from l_board s left outer join l_heart h
+      on #{nick} = h.userid and s.no = h.bno
+      left outer join l_favorite f
+      on #{nick} = f.userid and s.no = f.bno
+      where s.no = #{no}
+   </select>
 	<update id="view_hit" parameterType="com.exam.model1.lantrip.LanTripTO">
 		update l_board set hit=hit+1
 		where no=#{no}
@@ -197,7 +209,7 @@
 		from l_reply r inner join user u
 		on r.writer = u.nick
 		where bno = #{bno}
-		order by grp asc, grps desc, grpl asc
+		order by grp asc, grps desc, wdate asc, grpl asc
 	</select>
 	
 	<!-- 랜선여행 comment write ok -->
@@ -935,10 +947,11 @@
 	<!-- 쇼핑 comment list -->
 	<select id="shopListComment" parameterType="com.exam.model1.shoppingComment.ShoppingCommentTO"
 		resultType="com.exam.model1.shoppingComment.ShoppingCommentTO">
-		select no, bno, writer, content, wdate, grp, grps, grpl
-		from s_reply
+		select no, bno, writer, content, wdate, grp, grps, grpl, u.profile
+		from s_reply r inner join user u
+		on r.writer = u.nick
 		where bno = #{bno}
-		order by grp asc, grps desc
+		order by grp asc, grps desc, wdate asc, grpl asc
 	</select>
 	
 	<!-- 쇼핑 comment write ok -->
@@ -1161,10 +1174,11 @@
 	<!-- 숙소 comment list -->
 	<select id="accomListComment" parameterType="com.exam.model1.accomComment.AccomCommentTO"
 		resultType="com.exam.model1.accomComment.AccomCommentTO">
-		select no, bno, writer, content, wdate, grp, grps, grpl
-		from a_reply
+		select no, bno, writer, content, wdate, grp, grps, grpl, u.profile
+		from a_reply r inner join user u
+		on r.writer = u.nick
 		where bno = #{bno}
-		order by grp asc, grps desc
+		order by grp asc, grps desc, wdate asc, grpl asc
 	</select>
 	
 	<!-- 숙소 comment write ok -->
@@ -1208,16 +1222,16 @@
 	</insert>
 	
 	<!--  숙소 reply_deleteOk_parent -->
-	<delete id="accom_reply_deleteOk_parent" parameterType="com.exam.model1.accomComment.AccomCommentTO">
+<!-- 	<delete id="accom_reply_deleteOk_parent" parameterType="com.exam.model1.accomComment.AccomCommentTO">
 		delete from a_reply
 		where grp = #{ no }
 	</delete>
 	
-	<!--  숙소 reply_deleteOk_child -->
+	 숙소 reply_deleteOk_child
 	<delete id="accom_reply_deleteOk_child" parameterType="com.exam.model1.accomComment.AccomCommentTO">
 		delete from a_reply
 		where no = #{ no }
-	</delete>
+	</delete> -->
 	
 	<!--  숙소 reply_modifyOk -->
 	<update id="accom_reply_modifyOk" parameterType="com.exam.model1.accomComment.AccomCommentTO">
@@ -1245,6 +1259,7 @@
 		resultType="com.exam.model1.with.withTO"> <!-- 파라메터가 없으므로 parameter Type 필요 없음 -->
 		select no, location, subject, writer, date_format(wdate, '%Y-%m-%d') wdate, hit, reply
 		from w_board
+		order by no desc
 	</select>
 
 	<!-- withWriteOk -->
@@ -1565,7 +1580,9 @@
 	</select>
 	
 	
-	<!-- =============== 프로필 정보 ================= -->
+	
+	<!-- ======================================= 내 프로필 ================================================= -->
+	
 	<!-- 내 프로필 정보 가져오기 -->
 	<select id="myProfile" parameterType="com.exam.model1.user.UserTO" resultType="com.exam.model1.user.UserTO">
 		select id, name, birth, mail, phone, nick, rdate, profile, greet
@@ -1573,6 +1590,7 @@
 		where nick=#{nick}
 	</select>
 	
+	<!-- =============== 랜선여행관련 ================= -->
 	<!-- 랜선여행하기 글리스트 가져오는 sql -->
 	<select id="lantrip_MyProfileList" parameterType="com.exam.model1.lantrip.LanTripTO" resultType="com.exam.model1.lantrip.LanTripTO">
 		select b.no, b.subject, b.content, b.writer, date_format(b.wdate, '%Y-%m-%d') wdate, b.hit, b.location, b.video, b.reply, b.heart, h.hno, u.profile
@@ -1624,11 +1642,142 @@
 		where no != #{no} and grp = #{no}
 	</select>
 	
+	<!-- 답글 쓰기 -->
+	<insert id="lanTripRereplyOk" parameterType="com.exam.model1.lantripReply.LanTripReplyTO">
+		insert into l_reply
+		values(0, #{bno}, #{writer}, #{content}, now(), #{grp}, 0, #{grpl} )
+	</insert>
+	
+	
+
+	<!-- =============== 사진관련 ================= -->
+	<!-- 내프로필에서 유저의 작성한 글 전체 수 가져오기 -->
+	<select id="profilePictureCount" parameterType="com.exam.model1.picture.PictureTO" resultType="int">
+		select count(*) 
+		from p_board
+		where writer like #{ writer }
+	</select>
+	
+	<!--  글리스트 가져오는 sql -->
+	<select id="picture_MyProfileList" parameterType="com.exam.model1.picture.PictureTO" resultType="com.exam.model1.picture.PictureTO">
+		select b.no, b.subject, b.content, b.writer, date_format(b.wdate, '%Y-%m-%d') wdate, b.hit, b.location, b.media, b.reply, b.heart, h.hno, u.profile
+		from p_board b inner join user u
+		on b.writer = u.nick
+		left outer join p_heart h
+		on #{ writer } = h.userid and b.no = h.bno
+		where b.writer like #{ writer }
+		order by b.no desc
+		limit #{startRowNum}, #{endRowNum}
+	</select>
+	
+	
+	
+	<!-- =============== 쇼핑관련 ================= -->
+	<!-- 랜선여행하기 글리스트 가져오는 sql -->
+	<select id="shop_MyProfileList" parameterType="com.exam.model1.shopping.ShoppingTO" resultType="com.exam.model1.shopping.ShoppingTO">
+		select b.no, b.subject, b.content, b.writer, date_format(b.wdate, '%Y-%m-%d') wdate, b.hit, b.location, b.picture, b.reply, b.heart, h.hno, u.profile
+		from s_board b inner join user u
+		on b.writer = u.nick
+		left outer join s_heart h
+		on #{ writer } = h.userid and b.no = h.bno
+		where b.writer like #{ writer }
+		order by b.no desc
+		limit #{startRowNum}, #{endRowNum}
+	</select>
+	
+	<!-- 내프로필에서 유저의 작성한 글 전체 수 가져오기 -->
+	<select id="profileShopCount" parameterType="com.exam.model1.shopping.ShoppingTO" resultType="int">
+		select count(*) 
+		from s_board
+		where writer like #{ writer }
+	</select>
+	<!-- comment write ok -->
+	<insert id="shopReplyOk" parameterType="com.exam.model1.shoppingComment.ShoppingCommentTO">
+		insert into s_reply
+		values( 0, #{bno}, #{writer}, #{content}, now(), 0, 999, 0 )
+	</insert>
+	
+	<!--  댓글 추가/삭제시 댓글 갯수 가져오기 -->
+	<select id="shop_reply_count" parameterType="com.exam.model1.shopping.ShoppingTO" resultType="com.exam.model1.shopping.ShoppingTO">
+		select reply 
+		from s_board
+		where no=#{no}
+	</select>
+	
+	<!--  reply_deleteOk_parent -->
+	<delete id="shop_reply_deleteOk_parent" parameterType="com.exam.model1.shoppingComment.ShoppingCommentTO">
+		delete from s_reply
+		where grp = #{ no }
+	</delete>
+	
+	<!--  reply_deleteOk_child -->
+	<delete id="shop_reply_deleteOk_child" parameterType="com.exam.model1.shoppingComment.ShoppingCommentTO">
+		delete from s_reply
+		where no = #{ no }
+	</delete>
+	
+	<!-- 답글 쓰기 -->
+	<insert id="shopRereplyOk" parameterType="com.exam.model1.shoppingComment.ShoppingCommentTO">
+		insert into s_reply
+		values(0, #{bno}, #{writer}, #{content}, now(), #{grp}, 0, #{grpl} )
+	</insert>
+	
+	<!-- =============== 숙소관련 ================= -->
+	<!-- 랜선여행하기 글리스트 가져오는 sql -->
+	<select id="accom_MyProfileList" parameterType="com.exam.model1.accom.AccomTO" resultType="com.exam.model1.accom.AccomTO">
+		select b.no, b.subject, b.content, b.writer, date_format(b.wdate, '%Y-%m-%d') wdate, b.hit, b.location, b.picture, b.reply, b.heart, h.hno, u.profile
+		from a_board b inner join user u
+		on b.writer = u.nick
+		left outer join a_heart h
+		on #{ writer } = h.userid and b.no = h.bno
+		where b.writer like #{ writer }
+		order by b.no desc
+		limit #{startRowNum}, #{endRowNum}
+	</select>
+	
+	<!-- 내프로필에서 유저의 작성한 글 전체 수 가져오기 -->
+	<select id="profileAccomCount" parameterType="com.exam.model1.accom.AccomTO" resultType="int">
+		select count(*) 
+		from a_board
+		where writer like #{ writer }
+	</select>
+	<!-- comment write ok -->
+	<insert id="accomReplyOk" parameterType="com.exam.model1.accomComment.AccomCommentTO">
+		insert into a_reply
+		values( 0, #{bno}, #{writer}, #{content}, now(), 0, 999, 0 )
+	</insert>
+	
+	<!--  댓글 추가/삭제시 댓글 갯수 가져오기 -->
+	<select id="accom_reply_count" parameterType="com.exam.model1.accom.AccomTO" resultType="com.exam.model1.accom.AccomTO">
+		select reply 
+		from a_board
+		where no=#{no}
+	</select>
+	
+	<!--  reply_deleteOk_parent -->
+	<delete id="accom_reply_deleteOk_parent" parameterType="com.exam.model1.accomComment.AccomCommentTO">
+		delete from a_reply
+		where grp = #{ no }
+	</delete>
+	
+	<!--  reply_deleteOk_child -->
+	<delete id="accom_reply_deleteOk_child" parameterType="com.exam.model1.accomComment.AccomCommentTO">
+		delete from a_reply
+		where no = #{ no }
+	</delete>
+	
+	<!-- 답글 쓰기 -->
+	<insert id="accomRereplyOk" parameterType="com.exam.model1.accomComment.AccomCommentTO">
+		insert into a_reply
+		values(0, #{bno}, #{writer}, #{content}, now(), #{grp}, 0, #{grpl} )
+	</insert>
+	
+	
 	
 	
 	
 	<!-- ========================== 다른 사람 프로필 ========================== -->
-		
+	
 	<!-- 다른 사람 프로필 정보 가져오기 -->
 	<select id="otherProfile" parameterType="com.exam.model1.user.UserTO" resultType="com.exam.model1.user.UserTO">
 		select id, name, birth, mail, phone, nick, rdate, profile, greet
@@ -2016,13 +2165,31 @@
 		select ifnull(max(no),0) 
 		from a_reply
 	</select>
+
+
+
+	<!-- ================================== 프로필 수정 ================================ -->
+	<!-- 내 프로필 수정 -->
+	<update id="edit_profile" parameterType="com.exam.model1.user.UserTO">
+		update user
+		set name=#{name}, birth=#{birth}, mail=#{mail}, phone=#{phone}, nick=#{nick}, greet=#{greet}
+		where nick=#{session_nick}
+	</update>
 	
-	<!-- 댓글 추가/삭제시 댓글 갯수 가져오기 -->
-	<select id="accom_reply_count" parameterType="com.exam.model1.accom.AccomTO" resultType="com.exam.model1.accom.AccomTO">
-		select reply 
-		from a_board
-		where no=#{no}
-	</select>
+	<!-- 프로필 사진 수정 -->
+	<update id="edit_img" parameterType="com.exam.model1.user.UserTO">
+		update user
+		set profile = #{profile}
+		where nick=#{nick}
+	</update>
+	
+	<!-- 프로필 사진 삭제 -->
+	<update id="delete_img" parameterType="com.exam.model1.user.UserTO">
+		update user
+		set profile = 'default_profile.png'
+		where nick = #{nick}
+	</update>
+	
 	
 	
 	

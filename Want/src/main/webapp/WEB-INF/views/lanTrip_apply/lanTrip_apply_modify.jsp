@@ -28,7 +28,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, intial-scale=1.0">
-<title>Insert title here</title>
+<title>랜선여행 신청 수정페이지</title>
 	
 <jsp:include page="../include/index.jsp"></jsp:include>
 

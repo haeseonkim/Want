@@ -111,6 +111,7 @@
   }
 }
 
+
 /* ==========================================================================
    #BOX-SIZING
    ========================================================================== */
@@ -363,6 +364,7 @@ h6 {
   font-weight: 700;
   color: #fff;
   font-family: inherit;
+  font-size: 25px;
 }
 
 .btn--radius {
@@ -615,11 +617,12 @@ textarea {
    #TITLE
    ========================================================================== */
 .title {
-  font-size: 36px;
+  font-size: 58px;
   font-weight: 700;
   text-align: left;
   color: #5c5c5c;
   margin-bottom: 24px;
+  font-family: 'Nanum Pen Script', cursive;
 }
 
 @media (max-width: 767px) {
@@ -687,7 +690,10 @@ textarea {
   -webkit-border-bottom-right-radius: 3px;
   -moz-border-radius-bottomright: 3px;
   border-bottom-right-radius: 3px;
-  padding: 50px 55px;
+  /* padding: 50px 55px; */
+  text-align: right;
+  font-family: 'Nanum Pen Script', cursive;
+  
 }
 
 @media (max-width: 767px) {

@@ -47,8 +47,8 @@ public class LanTripController {
 
    // 각자 맞는 upload 폴더 경로로 변경
   
-   private String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\lanTrip";
-//   private String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\lanTrip";
+   //private String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\lanTrip";
+   private String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\lanTrip";
    //private String uploadPath ="/Users/hyukjun/git/Want/Want/src/main/webapp/upload/lanTrip";
    
 
@@ -339,23 +339,31 @@ public class LanTripController {
    
    // 랜선여행 게시물 view
    @RequestMapping(value = "/lanTrip_view.do")
-   public String lanTrip_view(HttpServletRequest request) {
-	   
-	   String no = request.getParameter("no");
-	   LanTripTO to = new LanTripTO();
-	   to.setNo(no);
-	   
-	   to = dao.boardView(to);
-	   
-	   LanTripReplyTO replyTo = new LanTripReplyTO();
-	   replyTo.setBno(no);
-	   ArrayList<LanTripReplyTO> rLists = lantripReplyDao.lantripReplyList(replyTo);
-	   
-	   
-	   request.setAttribute("to", to);
-	   request.setAttribute("no", no);
-	   request.setAttribute("rLists", rLists);
-	   
+   public String lanTrip_view(HttpServletRequest request, HttpSession session) {
+      
+      String no = request.getParameter("no");
+      String nick = (String) session.getAttribute("nick");
+
+      LanTripTO to = new LanTripTO();
+      to.setNo(no);
+
+      // 글 내용 가져오기
+      if (nick == null) { // 로그인아닐 때
+         to = dao.lanTripView(to);
+      } else { // 로그인일 때
+         to.setNick(nick);
+         to = dao.lanTripViewLogin(to);
+      }
+
+      // 해당 글에 대한 댓글 list가져오기
+      LanTripReplyTO replyTo = new LanTripReplyTO();
+      replyTo.setBno(no);
+      ArrayList<LanTripReplyTO> rLists = lantripReplyDao.lantripReplyList(replyTo);
+
+      request.setAttribute("to", to);
+      request.setAttribute("no", no);
+      request.setAttribute("rLists", rLists);
+
       return "lanTrip/lanTrip_view";
    }
    
@@ -573,7 +581,6 @@ public class LanTripController {
    @ResponseBody
    @RequestMapping(value = "/lanTrip_saveHeart.do")
    public LanTripTO save_heart(@RequestParam String no, HttpSession session) {
-      System.out.println( "여기까지 들어오냐? ");
 	   
       LantripHeartTO to = new LantripHeartTO();
       

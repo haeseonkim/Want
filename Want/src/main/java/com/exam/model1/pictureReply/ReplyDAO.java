@@ -36,7 +36,7 @@ public class ReplyDAO {
 		
 		
 		int result = sqlSession.insert("picture_reply_write", to);
-
+		
 		int check = sqlSession.selectOne("p_reply_max_no");
 		// grp를 현재 가장 큰 no 즉 방금 넣은 데이터의 no값로 세팅함
 		to.setGrp(check);
@@ -136,5 +136,39 @@ public class ReplyDAO {
 		}
 		return pto;
 	}
+	
+	
+	// 댓글 작성
+	public PictureTO profile_pictureWriteReply(ReplyTO to) {
+		// p_board 테이블에 해당 게시물의 reply수를 +1 하기위한 to세팅
+		PictureTO pto = new PictureTO();
+		pto.setNo(to.getBno());
+		
+		// 해당 게시물의 reply를 +1 한다.
+		sqlSession.update("picture_reply_up", pto);
+		
+		// 현재 p_reply 테이블의 가장 큰 no값을 가져온다.
+		int grp = sqlSession.selectOne("p_reply_max_no");
+		
+		// grp 세팅
+		to.setGrp(grp+1);
+		
+		
+		int result = sqlSession.insert("picture_reply_write", to);
+		
+		int check = sqlSession.selectOne("p_reply_max_no");
+		// grp를 현재 가장 큰 no 즉 방금 넣은 데이터의 no값로 세팅함
+		to.setGrp(check);
+		
+		// no 와 grp가 다르면 grp를 no로 없데이트
+		//int check_update = sqlSession.update("picture_reply_check", to);
+		
+		if (result == 1) {	// p_reply 테이블에 새로운 댓글 추가가 성공한다면..
+			// 갱신된 댓글 갯수를 가져옴
+			pto = sqlSession.selectOne("picture_reply_count", pto);
+		}
+		return pto;
+	}
+	
 	
 }

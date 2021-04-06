@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page import="com.exam.model1.lantrip.LanTripTO"%>
 <%@ page import="com.exam.model1.lantrip.LanTripListTO"%>
@@ -34,7 +34,10 @@
 		sbHtml.append( "		<a href='./lanTrip_view.do?no=" + no + "'><video src='" + video + "' class='card-img-top' controls></video></a>");
 		sbHtml.append( "			<div class='card-body'>");
 		sbHtml.append( "				<h3 class='card-title'>" + subject + "</h3>");
-		sbHtml.append( " 				<img id='profileImage' src='./upload/profile/"+ to.getProfile() +"' />&nbsp;&nbsp;<span class='small text-muted mb-0'>"+ to.getWriter()+" | "+ to.getWdate() +"</span>" );
+		sbHtml.append( "				<a href='other_profile.do?other_nick="+ to.getWriter() +"'> " );
+		sbHtml.append( " 					<img id='profileImage' src='./upload/profile/"+ to.getProfile() +"' />" );
+		sbHtml.append( "				</a> " );
+		sbHtml.append( " 					&nbsp;&nbsp;<span class='small text-muted mb-0'>"+ to.getWriter()+" | "+ to.getWdate() +"</span>" );
 		sbHtml.append( "			<div class='lan-heart'>");
 		 // 로그인 상태아닐 때 하트 클릭안됨
 	      if( nick == null ) {

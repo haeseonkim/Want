@@ -35,7 +35,10 @@
 		sbHtml.append( "		<a href='./lanTrip_view.do?no=" + no + "'><video src='" + video + "' class='card-img-top' controls></video></a>");
 		sbHtml.append( "			<div class='card-body'>");
 		sbHtml.append( "				<h3 class='card-title'>" + subject + "</h3>");
-		sbHtml.append( " 				<img id='profileImage' src='./upload/profile/"+ to.getProfile() +"' />&nbsp;&nbsp;<span class='small text-muted mb-0'>"+ to.getWriter()+" | "+ to.getWdate() +"</span>" );
+		sbHtml.append( "				<a href='other_profile.do?other_nick="+ to.getWriter() +"'> " );
+		sbHtml.append( " 					<img id='profileImage' src='./upload/profile/"+ to.getProfile() +"' />" );
+		sbHtml.append( "				</a> " );
+		sbHtml.append( " 					&nbsp;&nbsp;<span class='small text-muted mb-0'>"+ to.getWriter()+" | "+ to.getWdate() +"</span>" );
 		sbHtml.append( " 			<div class='lan-heart'>" );
 		 // 로그인 상태아닐 때 하트 클릭안됨
 	      if( nick == null ) {
@@ -97,7 +100,10 @@
 <link href="./resources/css/navbar.css" rel="stylesheet">
 
 <script type="text/javascript">
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch 'main' of https://github.com/haeseonkim/Want.git
 
 //페이지가 처음 로딩될 때 1page를 보여주기 때문에 초기값을 1로 지정한다.
 let currentPage=1;
@@ -306,19 +312,23 @@ $(document).ready( function() {
 				<div class="col-md-1">
 					<button class="btn btn-success" type="submit">검색</button>
 				</div>
-				<div class="col-md-1">
-				<div id="writebox">
-					<c:if test="${!empty sessionScope.nick}">
-						<c:choose>
-							<c:when test="${empty sessionScope.nick}">
-								<button type="button" class="btn btn--radius-2 btn--blue-2 btn-md" onclick="javascript:alert('로그인을 하셔야합니다.')">등록하기</button>
-							</c:when>
-							<c:otherwise>
-								<button type="button" class="btn btn--radius-2 btn--blue-2 btn-md" onclick="location.href='./lanTrip_write.do'">등록하기</button>	
-							</c:otherwise>
-					</c:choose>
-					</c:if>
-				</div>
+				<div class="col-1">
+					<div id="writebox">
+						<c:if test="${!empty sessionScope.nick}">
+							<c:choose>
+								<c:when test="${empty sessionScope.nick}">
+									<button type="button"
+										class="btn btn--radius-2 btn--blue-2"
+										onclick="javascript:alert('로그인을 하셔야합니다.')">글쓰기</button>
+								</c:when>
+								<c:otherwise>
+									<button type="button"
+										class="btn btn--radius-2 btn--blue-2"
+										onclick="location.href='./lanTrip_write.do'">글쓰기</button>
+								</c:otherwise>
+							</c:choose>
+						</c:if>
+					</div>
 				</div>
 			</div>
 		</form>

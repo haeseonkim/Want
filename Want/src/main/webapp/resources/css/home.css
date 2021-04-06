@@ -28,7 +28,7 @@ button.btn:hover{
 # General
 --------------------------------------------------------------*/
 body {
-	font-family: "Open Sans", sans-serif;
+	font-family: 'Noto Sans KR', sans-serif;
 	color: #444444;
 }
 
@@ -42,11 +42,22 @@ a:hover {
 	text-decoration: none;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6, b {
 	/*font-family: "Raleway", sans-serif;*/
 	font-family: 'Nanum Pen Script', cursive;
 }
 
+b {
+	font-size: 22px;
+}
+
+p {
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+li {
+	font-family: 'Noto Sans KR', sans-serif;
+}
 /*--------------------------------------------------------------
 # Back to top button
 --------------------------------------------------------------*/
@@ -456,7 +467,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #hero .btn-get-started {
-	font-family: "Raleway", sans-serif;
+	font-family: 'Noto Sans KR', sans-serif;
 	font-weight: 500;
 	font-size: 15px;
 	letter-spacing: 1px;
@@ -534,10 +545,10 @@ section {
 .section-title p {
 	margin: 0;
 	margin: 0;
-	font-size: 36px;
+	font-size: 50px;
 	font-weight: 700;
 	text-transform: uppercase;
-	font-family: "Poppins", sans-serif;
+	font-family: 'Nanum Pen Script', cursive;
 	color: #37423b;
 }
 
@@ -589,6 +600,7 @@ section {
 }
 
 .about .content .learn-more-btn {
+	font-family: 'Noto Sans KR', sans-serif;
 	background: #5fcf80;
 	color: #fff;
 	border-radius: 50px;
@@ -762,6 +774,7 @@ section {
 .courses .course-content h3 a {
 	color: #37423b;
 	transition: 0.3s;
+	font-family: "Raleway", sans-serif;
 }
 
 .courses .course-content h3 a:hover {
@@ -769,8 +782,9 @@ section {
 }
 
 .courses .course-content p {
-	font-size: 14px;
+	font-size: 25px;
 	color: #777777;
+	font-family: 'Nanum Pen Script', cursive;
 }
 
 .courses .course-content h4 {
@@ -843,6 +857,7 @@ section {
 	font-weight: 600;
 	font-size: 16px;
 	color: #5a6c60;
+	font-family: 'Nanum Pen Script', cursive;
 }
 
 /* 카드의 사진들이 비율 변함 없이 사이즈 맞춰지도록  함 --- 끝 */
@@ -1273,7 +1288,7 @@ section {
 	transition: none;
 	font-size: 14px;
 	font-weight: 400;
-	font-family: "Raleway", sans-serif;
+	font-family: 'Noto Sans KR', sans-serif;
 	font-weight: 600;
 	transition: 0.3s;
 }
@@ -1300,7 +1315,10 @@ section {
 	color: #fff;
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch 'main' of https://github.com/haeseonkim/Want.git
 
 /*--------------------------------------------------------------
 # Footer

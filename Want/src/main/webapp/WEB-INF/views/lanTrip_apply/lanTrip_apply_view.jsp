@@ -279,7 +279,9 @@
 					} else {
 						if(grpl == 0 ){	// 모댓글일 때
 							listHtml += "	<div class='col-1 profile_img'>";	// div 3
-							listHtml += "		<img class='cmt_profile img-circle' src='./upload/profile/"+profile+"'/>";
+							listHtml += "		<a href='other_profile.do?other_nick="+writer+"'> ";
+							listHtml += "			<img class='cmt_profile img-circle' src='./upload/profile/"+profile+"'/>";
+							listHtml += "		</a> ";
 							listHtml += "	</div>";							// div 3 닫음
 							listHtml += "	<div class='col-10'>";				// div 4
 							listHtml += "		<h6>";
@@ -303,7 +305,9 @@
 							// row rereply 줄까말까 고민중
 							listHtml += "	<div class='col-1 space'></div>";	// div 4-2-1 닫음
 							listHtml += "	<div class='col-1 profile_img'>";	// div 4-2-2
-							listHtml += "		<img class='cmt_profile img-circle' src='./upload/profile/"+profile+"'/>";
+							listHtml += "		<a href='other_profile.do?other_nick="+writer+"'> ";
+							listHtml += "			<img class='cmt_profile img-circle' src='./upload/profile/"+profile+"'/>";
+							listHtml += "		</a> ";
 							listHtml += "	</div>";							// div 4-2-2 닫음
 							listHtml += "	<div class='col-10 rereply-content"+no+"'>";	// div 4-2-3
 							listHtml += "		<h6>";
@@ -314,8 +318,6 @@
 							listHtml += "		</div>";									// div 4-2-3-1 닫음
 							listHtml += "		<div class='rereply_box'>";					// div 4-2-3-2
 							listHtml += "			<span class='cdate'>"+wdate+"&nbsp;</span>";
-							
-							
 							
 						}
 						// 현재 로그인 상태이고

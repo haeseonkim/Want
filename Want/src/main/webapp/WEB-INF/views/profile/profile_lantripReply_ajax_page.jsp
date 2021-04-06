@@ -16,7 +16,9 @@
 		<c:choose>
 			<c:when test="${ tmp.grpl eq 0 }"> 
 			<div class='col-1'>
-				<img class='reply_list_profileImage' src='./upload/profile/${ tmp.profile }'/>
+				<a href="other_profile.do?other_nick=${tmp.writer }">
+					<img class='reply_list_profileImage' src='./upload/profile/${ tmp.profile }'/>
+				</a>
 			</div>
 			<div class='rereply-content col-8'>
 				<div>
@@ -61,7 +63,9 @@
 				<div class='col-1'>
 				</div>
 				<div class='col-1'>
-					<img class='reply_list_profileImage' src='./upload/profile/${ tmp.profile }'/>
+					<a href="other_profile.do?other_nick=${tmp.writer }">
+						<img class='reply_list_profileImage' src='./upload/profile/${ tmp.profile }'/>
+					</a>
 				</div>
 				<div class='rereply-content${ tmp.no } col-7'>
 					<div>
@@ -73,21 +77,32 @@
 						</span>
 					</div>
 				</div>
+				<div class='col-3 reply-right'>
+					<div>${ tmp.wdate }</div>
+					<c:choose>
+					<c:when test="${ sessionScope.nick eq tmp.writer }"> 
+						<div>
+							<%-- 수정할 댓글의 no를 grpl과 함께 넘긴다. 
+							모댓글 수정칸과 답글 수정칸을 화면에 다르게 나타내야하기 때문에 모댓글과 답글을 구분하는 grpl을 함께 넘겨주어야한다. --%>
+							<%-- 삭제는 no만 넘겨주면 된다.--%> 
+							<a href='javascript:' no='${ tmp.no }' grpl='${ tmp.grpl }' bno='${ tmp.bno }' grp='${ tmp.grp }' class='reply_delete'>삭제</a>
+						</div>
+					</c:when>
+				</c:choose>
+				</div>
 			</c:otherwise>
 		</c:choose>
 		<%--2.끝 --%>
-		<div class='col-3 reply-right'>
-			<div>
-				${ tmp.wdate }
-			</div>
-		</div>
+
 		<%-- 댓글에 답글달기를 누르면 답글입력란이 나온다.
 		---- 답글입력란 --%>
 		<div class='collapse row rereply_write' id='re_reply${ tmp.no }'>
 			<div class='col-1'>
 			</div>
 			<div class='col-1'>
-				<img id='write_reply_profileImage' src='./upload/profile/${profile}'/>
+				<a href="other_profile.do?other_nick=${tmp.writer }">
+					<img id='write_reply_profileImage' src='./upload/profile/${profile}'/>
+				</a>
 			</div>
 			<div class='col-7'>
 				<input class='w-100 input_rereply_div form-control' id='input_rereply${ tmp.no }' type='text' placeholder='댓글입력...'>
