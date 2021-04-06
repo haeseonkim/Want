@@ -573,7 +573,6 @@ public class LanTripController {
    @ResponseBody
    @RequestMapping(value = "/lanTrip_saveHeart.do")
    public LanTripTO save_heart(@RequestParam String no, HttpSession session) {
-      System.out.println( "여기까지 들어오냐? ");
 	   
       LantripHeartTO to = new LantripHeartTO();
       

@@ -315,8 +315,6 @@
 							listHtml += "		<div class='rereply_box'>";					// div 4-2-3-2
 							listHtml += "			<span class='cdate'>"+wdate+"&nbsp;</span>";
 							
-							
-							
 						}
 						// 현재 로그인 상태이고
 						if("${nick}"!=""){
