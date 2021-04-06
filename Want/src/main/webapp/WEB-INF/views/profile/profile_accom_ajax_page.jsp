@@ -10,8 +10,10 @@
 		<div class="thumb">
 			<div class="card-img" type="button" idx="${ tmp.no }"
 				data-bs-toggle="modal" data-bs-target="#viewModal${ tmp.no }">
-				<img src="./upload/accom/${ tmp.picture }" class="card-img-top  img-wrapper"
-					alt="...">
+				<div class="img-box">
+					<img src="./upload/accom/${ tmp.picture }" class="card-img-top  img-wrapper"
+						alt="...">
+				</div>
 				<!-- 마우스 오버시 보여지는 부분 --> 
 				<div class="links" style="text-align:center;" type="button" idx="${ tmp.no }"
 					data-bs-toggle="modal" data-bs-target="#viewModal${tmp.no }"> ${ tmp.subject }<br> 

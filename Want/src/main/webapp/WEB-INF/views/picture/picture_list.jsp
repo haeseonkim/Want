@@ -141,16 +141,6 @@
 		<div class="container">
 			<div class="row card-list-container thumbnails"></div>
 
-<<<<<<< HEAD
-=======
-
->>>>>>> branch 'main' of https://github.com/haeseonkim/Want.git
-			<div class="row card-list-container thumbnails">
-<<<<<<< HEAD
-=======
-
->>>>>>> branch 'main' of https://github.com/haeseonkim/Want.git
-			</div>
 		</div>
 
 	
