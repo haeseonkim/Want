@@ -615,11 +615,12 @@ textarea {
    #TITLE
    ========================================================================== */
 .title {
-  font-size: 36px;
+  font-size: 58px;
   font-weight: 700;
   text-align: left;
   color: #5c5c5c;
   margin-bottom: 24px;
+  font-family: 'Nanum Pen Script', cursive;
 }
 
 @media (max-width: 767px) {
@@ -677,7 +678,7 @@ textarea {
   border-width: 10px;
 }
 
-.card-6 .card-footer {
+.card-footer {
   background: #fff;
   border: 1px solid #e5e5e5;
   border-top: none;
@@ -687,7 +688,8 @@ textarea {
   -webkit-border-bottom-right-radius: 3px;
   -moz-border-radius-bottomright: 3px;
   border-bottom-right-radius: 3px;
-  padding: 50px 55px;
+  /* padding: 50px 55px; */
+  text-align: right;
 }
 
 @media (max-width: 767px) {

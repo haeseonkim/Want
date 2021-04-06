@@ -16,15 +16,18 @@
    text-overflow: ellipsis;
    white-space: nowrap;
    text-align: left;
+   font-family: 'Noto Sans KR', sans-serif;
 }
 
 .card-heart {
 	text-align: right;
+	font-family: 'Nanum Pen Script', cursive;
 }
 
 .carousel-container {
    background-color: #e3f0d9;
 }
+
 
 /*
 .carousel-container::before{
@@ -244,4 +247,16 @@ section {
 
 .section-title p {
    margin-bottom: 0;
+}
+
+.btn--blue-2 {
+	background: #5fcf80;
+	color: #fff;
+	font-family: 'Nanum Pen Script', cursive;
+	font-size: 20px;
+}
+
+strong {
+	font-family: 'Nanum Pen Script', cursive;
+	font-size: 100px;
 }

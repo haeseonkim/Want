@@ -23,6 +23,24 @@ body{
    font-family: "Open Sans", "Arial", "Helvetica Neue", sans-serif;
 }
 
+table {
+	font-family: 'Nanum Pen Script', cursive;
+	font-size: 20px;
+}
+
+p {
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+b{
+	font-family: 'Nanum Pen Script', cursive;
+}
+
+strong {
+	font-family: 'Nanum Pen Script', cursive;
+	font-size: 25px;
+}
+
 /* ==========================================================================
    #GRID
    ========================================================================== */
@@ -204,6 +222,7 @@ button {
    outline: none;
    background: none;
    border: none;
+   font-family: 'Nanum Pen Script', cursive;
 }
 
 /* ==========================================================================
@@ -214,7 +233,7 @@ button {
 }
 
 body {
-   font-family: "Open Sans", "Arial", "Helvetica Neue", sans-serif;
+   font-family: 'Noto Sans KR', sans-serif;
    font-weight: 400;
    font-size: 14px;
 }
@@ -413,6 +432,7 @@ h6 {
    -moz-border-radius: 3px;
    border-radius: 3px;
    background-color:aqua;
+   font-family: 'Nanum Pen Script', cursive;
 }
 
 .btn--radius-2 {
@@ -441,6 +461,8 @@ h6 {
 
 .btn--blue-2 {
    background: #5fcf80;
+   font-family: 'Nanum Pen Script', cursive;
+   font-size: 20px;
 }
 
 .btn--blue-2:hover {
@@ -458,6 +480,8 @@ h6 {
 
 .btn--silver{
    background: silver;
+   font-family: 'Nanum Pen Script', cursive;
+   font-size: 20px;
 }
 
 .btn--silver:hover{
@@ -545,8 +569,8 @@ input, textarea {
    -moz-box-shadow: none;
    box-shadow: none;
    width: 100%;
-   font-size: 14px;
-   font-family: inherit;
+   font-size: 20px;
+  font-family: 'Nanum Pen Script', cursive;
 }
 
 textarea {
@@ -578,6 +602,7 @@ textarea {
    {
    /* WebKit, Blink, Edge */
    color: #999;
+   
 }
 
 .input--style-6:-moz-placeholder, .textarea--style-6:-moz-placeholder {
@@ -788,6 +813,7 @@ div.card-footer{
    margin-bottom:10px;
    font-size:12pt;
    margin-left:10px;
+   font-family: 'Nanum Pen Script', cursive;
 }
 .profile_img{
    width:60px;
@@ -801,6 +827,7 @@ div.card-footer{
 .btn_rereply{
    color:#5fcf80;
    height:10px;
+   font-family: 'Nanum Pen Script', cursive;
 }
 .btn_rereply:hover{
    color:#2eb82e;
@@ -833,3 +860,4 @@ svg.heart2 {
 	cursor: pointer;
 	color: red;
 }
+

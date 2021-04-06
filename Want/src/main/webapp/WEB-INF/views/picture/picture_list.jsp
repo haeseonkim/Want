@@ -37,7 +37,7 @@
 	<section id="carousel-container" class="carousel-container" >
 		<div class="row row-carousel">
 			<div class="section-title">
-				<h2>Best5</h2>
+				<strong>Best 5!</strong>
 			</div>
 			<div class="col-3"></div>
 			<div class="col-6">
@@ -91,21 +91,39 @@
 				<div class="form-row col-2">
 					<div class="value">
 						<select id="condition" name="condition" class="form-select">
-							<option value="subject" ${condition eq 'subject' ? 'selected' : '' }>제목</option>
-							<option value="content" ${condition eq 'content' ? 'selected' : '' }>내용</option>
-							<option value="writer" ${condition eq 'writer' ? 'selected' : '' }>작성자</option>
-							<option value="location" ${condition eq 'location' ? 'selected' : '' }>위치</option>
+							<option value="subject"
+								${condition eq 'subject' ? 'selected' : '' }>제목</option>
+							<option value="content"
+								${condition eq 'content' ? 'selected' : '' }>내용</option>
+							<option value="writer"
+								${condition eq 'writer' ? 'selected' : '' }>작성자</option>
+							<option value="location"
+								${condition eq 'location' ? 'selected' : '' }>위치</option>
 						</select>
 					</div>
 				</div>
 				<div class="col-md-6">
-					<input value="${keyword }" type="text" name="keyword" placeholder="검색어를 입력해주세요" class="form-control">
-					
+					<input value="${keyword }" type="text" name="keyword"
+						placeholder="검색어를 입력해주세요" class="form-control">
+
 				</div>
 				<div class="col-md-1">
 					<button class="btn btn-success" type="submit">검색</button>
 				</div>
-				
+				<div class="col-md-1">
+					<div id="writebox">
+						<c:choose>
+							<c:when test="${empty sessionScope.nick}">
+								<button type="button" class="btn btn--radius-2 btn--blue-2"
+									onclick="javascript:alert('로그인을 하셔야합니다.')">글쓰기</button>
+							</c:when>
+							<c:otherwise>
+								<button type="button" class="btn btn--radius-2 btn--blue-2"
+									onclick="location.href='./picture_write.do'">글쓰기</button>
+							</c:otherwise>
+						</c:choose>
+					</div>
+				</div>
 			</div>
 		</form>
 	</div>
@@ -121,6 +139,8 @@
 	<!-- ======= card Section ======= -->
 	<section id="card-list" class="card-list">
 		<div class="container">
+			<div class="row card-list-container thumbnails"></div>
+
 
 			<div class="row card-list-container thumbnails">
 
@@ -129,21 +149,11 @@
 
 	
 
+
 	</section>
 	<!-- ======= card Section 끝 ======= -->
 
 
-	<c:choose>
-		<c:when test="${empty sessionScope.nick}">
-			<button type="button" class="btn btn-primary"
-				onclick="javascript:alert('로그인을 하셔야합니다.')">글쓰기</button>
-		</c:when>
-		<c:otherwise>
-			<button type="button" class="btn btn-primary"
-				onclick="location.href='./picture_write.do'">글쓰기</button>
-		</c:otherwise>
-	</c:choose>
-	
 
 	<div class="back-drop">
 		<!-- cpath/ 에서 '/'는 webapp을 의미한다. 웹앱 폴더의 svg폴더 안에 spinner-solid.svg가 들어있다.  -->

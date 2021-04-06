@@ -353,7 +353,7 @@ h6 {
 	-moz-transition: all 0.4s ease;
 	transition: all 0.4s ease;
 	cursor: pointer;
-	font-size: 15px;
+	font-size: 25px;
 	text-transform: capitalize;
 	font-weight: 700;
 	color: #fff;
@@ -604,11 +604,12 @@ textarea {
    #TITLE
    ========================================================================== */
 .title {
-	font-size: 36px;
+	font-size: 58px;
 	font-weight: 700;
 	text-align: left;
 	color: #5c5c5c;
 	margin-bottom: 24px;
+	font-family: 'Nanum Pen Script', cursive;
 }
 
 @media ( max-width : 767px) {
@@ -676,8 +677,9 @@ textarea {
 	-webkit-border-bottom-right-radius: 3px;
 	-moz-border-radius-bottomright: 3px;
 	border-bottom-right-radius: 3px;
-	padding: 50px 55px;
+	/* padding: 50px 55px; */
 	text-align: right;
+	font-family: 'Nanum Pen Script', cursive;
 }
 
 @media ( max-width : 767px) {

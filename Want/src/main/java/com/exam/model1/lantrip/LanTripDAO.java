@@ -121,24 +121,35 @@ public class LanTripDAO {
 	}
 	
 	
-	// 게시물 갯수 가져오기
-	public int LanTripCount(LanTripTO to) {
-		
-		// 게시물 갯수를 구한다.
-		// 검색 키워드가 들어온 경우 검색결과의 게시물갯수가 된다.
-		int result = sqlSession.selectOne("lantrip_count", to);
-		
-		return result;
-	}
-	
-	// view
-	public LanTripTO boardView(LanTripTO to) {
-		sqlSession.update("view_hit", to);
-		sqlSession.update("lanViewReply", to);
-		to = sqlSession.selectOne("lanTrip_view", to);
-
-		return to;
-	}
+	   // 게시물 갯수 가져오기
+	   public int LanTripCount(LanTripTO to) {
+	      
+	      // 게시물 갯수를 구한다.
+	      // 검색 키워드가 들어온 경우 검색결과의 게시물갯수가 된다.
+	      int result = sqlSession.selectOne("lantrip_count", to);
+	      
+	      return result;
+	   }
+	   
+	   //로그인 아닐 때 lantrip view
+	   public LanTripTO lanTripView( LanTripTO to ) {
+	      
+	      sqlSession.update("view_hit", to);
+	      sqlSession.update("lanViewReply", to);
+	      to = sqlSession.selectOne( "lanTrip_view", to );
+	      
+	      return to;
+	   }
+	   
+	   //로그인일 때 lantrip view
+	   public LanTripTO lanTripViewLogin( LanTripTO to ) {
+	      
+	      sqlSession.update("view_hit", to);
+	      sqlSession.update("lanViewReply", to);
+	      to = sqlSession.selectOne( "lanTrip_view_login", to );
+	      
+	      return to;
+	   }
 
 	// delete
 	public LanTripTO boardDelete(LanTripTO to) {

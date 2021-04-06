@@ -171,11 +171,23 @@
 	</insert>
 	
 	<!-- lanTrip view -->
-	<select id="lanTrip_view" parameterType="com.exam.model1.lantrip.LanTripTO" resultType="com.exam.model1.lantrip.LanTripTO">
-		select no, subject, writer, date_format(wdate, '%Y-%m-%d') wdate, content, hit, location, video, reply, heart
-		from l_board
-		where no=#{no}
-	</select>
+   <!-- lanTrip view -->
+   <select id="lanTrip_view" parameterType="com.exam.model1.lantrip.LanTripTO" resultType="com.exam.model1.lantrip.LanTripTO">
+      select no, subject, writer, date_format(wdate, '%Y-%m-%d') wdate, content, hit, location, video, reply, heart
+      from l_board
+      where no=#{no}
+   </select>
+   
+   <!-- 로그인일 때 lantrip view -->
+   <select id="lanTrip_view_login" parameterType="com.exam.model1.lantrip.LanTripTO" 
+         resultType="com.exam.model1.lantrip.LanTripTO">
+      select s.no, s.subject, s.content, s.writer, s.wdate, s.hit, s.location, s.video, s.reply, s.heart, h.hno, f.fno
+      from l_board s left outer join l_heart h
+      on #{nick} = h.userid and s.no = h.bno
+      left outer join l_favorite f
+      on #{nick} = f.userid and s.no = f.bno
+      where s.no = #{no}
+   </select>
 	<update id="view_hit" parameterType="com.exam.model1.lantrip.LanTripTO">
 		update l_board set hit=hit+1
 		where no=#{no}
