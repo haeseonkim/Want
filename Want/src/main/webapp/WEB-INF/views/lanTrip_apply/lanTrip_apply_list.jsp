@@ -29,7 +29,7 @@
 		String location = to.getLocation();
 		String reply = to.getReply();
 			
-		sbHtml.append("<tr>");
+		sbHtml.append("<tr class='fonted-table'>");
 		sbHtml.append("   <td>&nbsp;</td>");
 		sbHtml.append("   <td id='no'>" + no + "</td>");
 		sbHtml.append("	 <th>&nbsp;</th>");
@@ -176,7 +176,7 @@
 				</c:otherwise>
 			</c:choose>   
 			</div>
-	<div class="align-center">
+	<div class="align-center paging">
 <%
 	if(startBlock == 1) {
         out.println("&lt;&lt;&nbsp;&nbsp;");

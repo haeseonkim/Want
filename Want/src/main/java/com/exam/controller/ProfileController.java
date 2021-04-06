@@ -71,9 +71,8 @@ public class ProfileController {
    @Autowired
    private AccomCommentDAO a_replyDao;
    
-   //private String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\profile";
-   private String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\profile";
-
+   private String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\profile";
+   //private String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\profile";
    //private String uploadPath ="/Users/hyukjun/git/Want/Want/src/main/webapp/upload/profile";
    
    // 내 프로필
@@ -81,7 +80,6 @@ public class ProfileController {
    public String profile(HttpServletRequest request, HttpSession session) {
       try {
 
-    	  	
     	  // 그냥 들어왔을때 0, 프로필 사진 수정 후 1
     	  // profil.jsp의 jsp문 실행 조건
     	  int result= 0;

@@ -125,7 +125,7 @@
 <jsp:include page="../include/index.jsp"></jsp:include>
 
 <!-- CSS File -->
-<link href="./resources/css/accom_view.css?wasdf" rel="stylesheet">
+<link href="./resources/css/shopping_view.css?wasdf" rel="stylesheet">
 <link href="./resources/css/navbar.css" rel="stylesheet">
 
 <script type="text/javascript">

@@ -32,7 +32,7 @@
 <link rel="stylesheet" href="./summernote/summernote-lite.css">
 
 <!-- CSS File -->
-<link href="./resources/css/accom_modify.css?asa" rel="stylesheet">
+<link href="./resources/css/shopping_modify.css?asa" rel="stylesheet">
 <link href="./resources/css/navbar.css" rel="stylesheet">
 
 

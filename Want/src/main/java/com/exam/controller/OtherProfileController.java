@@ -186,7 +186,7 @@ public class OtherProfileController {
 				list = otherProfileDao.lantripList(lto);
 			} else {
 				// 로그인 상태일때
-				System.out.println("로그인 상태일때 ");
+//				System.out.println("로그인 상태일때 ");
 
 				// 현재사용자의 nick을 세팅
 				lto.setNick((String) session.getAttribute("nick"));
@@ -387,7 +387,7 @@ public class OtherProfileController {
 					list = otherProfileDao.pictureList(pto);
 				} else {
 					// 로그인 상태일때
-					System.out.println("로그인 상태일때 ");
+//					System.out.println("로그인 상태일때 ");
 
 					// 현재사용자의 nick을 세팅
 					pto.setNick((String) session.getAttribute("nick"));
@@ -589,7 +589,7 @@ public class OtherProfileController {
 					list = otherProfileDao.shoppingList(sto);
 				} else {
 					// 로그인 상태일때
-					System.out.println("로그인 상태일때 ");
+//					System.out.println("로그인 상태일때 ");
 
 					// 현재사용자의 nick을 세팅
 					sto.setNick((String) session.getAttribute("nick"));
@@ -791,7 +791,7 @@ public class OtherProfileController {
 					list = otherProfileDao.accomList(sto);
 				} else {
 					// 로그인 상태일때
-					System.out.println("로그인 상태일때 ");
+//					System.out.println("로그인 상태일때 ");
 
 					// 현재사용자의 nick을 세팅
 					sto.setNick((String) session.getAttribute("nick"));

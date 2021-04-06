@@ -249,12 +249,40 @@ section {
    margin-bottom: 0;
 }
 
+.btn {
+	display: inline-block;
+	line-height: 30px;	/* 수정 */
+	padding: 0 20px;	/* 수정 */
+	-webkit-transition: all 0.4s ease;
+	-o-transition: all 0.4s ease;
+	-moz-transition: all 0.4s ease;
+	transition: all 0.4s ease;
+	cursor: pointer;
+	font-size: 20px;
+	text-transform: capitalize;
+	font-weight: 700;
+	color: #fff;
+	font-family: 'Nanum Pen Script', cursive;
+}
+
+
 .btn--blue-2 {
 	background: #5fcf80;
 	color: #fff;
 	font-family: 'Nanum Pen Script', cursive;
 	font-size: 20px;
 }
+.btn--blue-2:hover {
+	background: #008040;
+	color: #ffffff;
+}
+
+.btn--radius-2 {
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+
 
 strong {
 	font-family: 'Nanum Pen Script', cursive;
