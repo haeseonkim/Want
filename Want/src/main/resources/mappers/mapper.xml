@@ -1873,6 +1873,7 @@
 		where no=#{no}
 	</update>
 	
+	
 	<!-- ======= 사진자랑 ====== -->
 	<!-- 로그인 전 다른사람 프로필 랜선여행 리스트 -->
 	<select id="other_picture_list_notlogin" parameterType="com.exam.model1.picture.PictureTO"  resultType="com.exam.model1.picture.PictureTO">
@@ -1954,6 +1955,8 @@
 		delete from p_reply
 		where content="" and grp=#{grp}
 	</delete>
+	
+	
 	
 	
 	<!-- ======= 쇼핑정보 ====== -->
@@ -2064,6 +2067,8 @@
 		where no=#{no}
 	</select>
 	
+
+	
 	
 	<!-- ======= 숙소정보 ====== -->
 	<!-- 로그인 전 다른사람 프로필 쇼핑정보 리스트 -->
@@ -2165,6 +2170,7 @@
 		select ifnull(max(no),0) 
 		from a_reply
 	</select>
+	
 
 
 
@@ -2189,6 +2195,8 @@
 		set profile = 'default_profile.png'
 		where nick = #{nick}
 	</update>
+	
+	
 	
 	
 	

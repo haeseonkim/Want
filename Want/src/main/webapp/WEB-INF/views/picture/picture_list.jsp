@@ -141,16 +141,6 @@
 		<div class="container">
 			<div class="row card-list-container thumbnails"></div>
 
-<<<<<<< HEAD
-=======
-
->>>>>>> branch 'main' of https://github.com/haeseonkim/Want.git
-			<div class="row card-list-container thumbnails">
-<<<<<<< HEAD
-=======
-
->>>>>>> branch 'main' of https://github.com/haeseonkim/Want.git
-			</div>
 		</div>
 
 	
@@ -755,6 +745,13 @@
 		
 		
 	});
+	
+	// 창 크기가 변할 때마다 가로세로 길이를 맞춰준다.
+	$(window).resize(function(){
+		$('.box').each(function(){
+			$(this).height($(this).width());
+		});
+	}).resize();
 	
 </script>
 

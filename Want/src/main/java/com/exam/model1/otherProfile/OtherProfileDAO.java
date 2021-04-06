@@ -7,10 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.exam.model1.accom.AccomTO;
+import com.exam.model1.accomHeart.AccomHeartTO;
 import com.exam.model1.lantrip.LanTripTO;
+import com.exam.model1.lantripHeart.LantripHeartTO;
 import com.exam.model1.lantripReply.LanTripReplyTO;
 import com.exam.model1.picture.PictureTO;
+import com.exam.model1.pictureHeart.PictureHeartTO;
 import com.exam.model1.pictureReply.ReplyTO;
+import com.exam.model1.shopHeart.ShopHeartTO;
 import com.exam.model1.shopping.ShoppingTO;
 
 @Repository
@@ -156,6 +160,44 @@ public class OtherProfileDAO {
 		return lto;
 	}
 	
+	// 좋아요 추가
+	public LanTripTO lantripSaveHeart(LantripHeartTO to) {
+		// p_board 테이블에 해당 게시물의 heart수를 +1 하기위한 to세팅
+		LanTripTO pto = new LanTripTO();
+		pto.setNo(to.getBno());
+		
+		// 해당 게시물의 heart를 +1 한다.
+		sqlSession.update("lanTrip_heart_up", pto);
+		
+		// p_heart 테이블에 추가 
+		int result = sqlSession.insert("lanTrip_heart_save", to);
+		
+		if (result == 1) {	// p_heart 테이블에 새로운 좋아요 추가가 성공한다면..
+			// 갱신된 하트 갯수를 가져옴
+			pto = sqlSession.selectOne("lanTrip_heart_count", pto);
+		}
+		return pto;
+	}
+	
+	// 좋아요 삭제
+	public LanTripTO lantripRemoveHeart(LantripHeartTO to) {
+		// p_board 테이블에 해당 게시물의 heart수를 -1 하기위한 to세팅
+		LanTripTO pto = new LanTripTO();
+		pto.setNo(to.getBno());
+		
+		// 해당 게시물의 heart를 -1 한다.
+		sqlSession.update("lanTrip_heart_down", pto);
+		
+		// p_heart 테이블에서 삭제
+		int result = sqlSession.delete("lanTrip_heart_remove", to);
+		
+		if (result == 1) {	// p_heart 테이블에 좋아요 삭제가 성공한다면..
+			// 갱신된 하트 갯수를 가져옴
+			pto = sqlSession.selectOne("lanTrip_heart_count", pto);
+		}
+		return pto;
+	}
+	
 	
 	
 	
@@ -293,6 +335,45 @@ public class OtherProfileDAO {
 		}
 		return pto;
 	}
+	
+	// 좋아요 추가
+	public PictureTO pictureSaveHeart(PictureHeartTO to) {
+		// p_board 테이블에 해당 게시물의 heart수를 +1 하기위한 to세팅
+		PictureTO pto = new PictureTO();
+		pto.setNo(to.getBno());
+		
+		// 해당 게시물의 heart를 +1 한다.
+		sqlSession.update("picture_heart_up", pto);
+		
+		// p_heart 테이블에 추가 
+		int result = sqlSession.insert("picture_heart_save", to);
+		
+		if (result == 1) {	// p_heart 테이블에 새로운 좋아요 추가가 성공한다면..
+			// 갱신된 하트 갯수를 가져옴
+			pto = sqlSession.selectOne("picture_heart_count", pto);
+		}
+		return pto;
+	}
+
+	// 좋아요 삭제
+	public PictureTO pictureRemoveHeart(PictureHeartTO to) {
+		// p_board 테이블에 해당 게시물의 heart수를 -1 하기위한 to세팅
+		PictureTO pto = new PictureTO();
+		pto.setNo(to.getBno());
+		
+		// 해당 게시물의 heart를 -1 한다.
+		sqlSession.update("picture_heart_down", pto);
+		
+		// p_heart 테이블에서 삭제
+		int result = sqlSession.delete("picture_heart_remove", to);
+		
+		if (result == 1) {	// p_heart 테이블에 좋아요 삭제가 성공한다면..
+			// 갱신된 하트 갯수를 가져옴
+			pto = sqlSession.selectOne("picture_heart_count", pto);
+		}
+		return pto;
+	}
+	
 	
 	
 	// ================================= 쇼핑정보 ================================ 
@@ -432,6 +513,44 @@ public class OtherProfileDAO {
 			return sto;
 		}
 		
+		// 좋아요 추가
+		public ShoppingTO shoppingSaveHeart(ShopHeartTO to) {
+			// p_board 테이블에 해당 게시물의 heart수를 +1 하기위한 to세팅
+			ShoppingTO pto = new ShoppingTO();
+			pto.setNo(to.getBno());
+			
+			// 해당 게시물의 heart를 +1 한다.
+			sqlSession.update("shop_heart_up", pto);
+			
+			// p_heart 테이블에 추가 
+			int result = sqlSession.insert("shop_heart_save", to);
+			
+			if (result == 1) {	// p_heart 테이블에 새로운 좋아요 추가가 성공한다면..
+				// 갱신된 하트 갯수를 가져옴
+				pto = sqlSession.selectOne("shop_heart_count", pto);
+			}
+			return pto;
+		}
+
+		// 좋아요 삭제
+		public ShoppingTO shoppingRemoveHeart(ShopHeartTO to) {
+			// p_board 테이블에 해당 게시물의 heart수를 -1 하기위한 to세팅
+			ShoppingTO pto = new ShoppingTO();
+			pto.setNo(to.getBno());
+			
+			// 해당 게시물의 heart를 -1 한다.
+			sqlSession.update("shop_heart_down", pto);
+			
+			// p_heart 테이블에서 삭제
+			int result = sqlSession.delete("shop_heart_remove", to);
+			
+			if (result == 1) {	// p_heart 테이블에 좋아요 삭제가 성공한다면..
+				// 갱신된 하트 갯수를 가져옴
+				pto = sqlSession.selectOne("shop_heart_count", pto);
+			}
+			return pto;
+		}
+		
 		
 		
 		// ================================= 숙소정보 ================================ 
@@ -569,6 +688,45 @@ public class OtherProfileDAO {
 					sto = sqlSession.selectOne("accom_reply_count", sto);
 				}
 				return sto;
+			}
+			
+			
+			// 좋아요 추가
+			public AccomTO accomSaveHeart(AccomHeartTO to) {
+				// p_board 테이블에 해당 게시물의 heart수를 +1 하기위한 to세팅
+				AccomTO pto = new AccomTO();
+				pto.setNo(to.getBno());
+				
+				// 해당 게시물의 heart를 +1 한다.
+				sqlSession.update("accom_heart_up", pto);
+				
+				// p_heart 테이블에 추가 
+				int result = sqlSession.insert("accom_heart_save", to);
+				
+				if (result == 1) {	// p_heart 테이블에 새로운 좋아요 추가가 성공한다면..
+					// 갱신된 하트 갯수를 가져옴
+					pto = sqlSession.selectOne("accom_heart_count", pto);
+				}
+				return pto;
+			}
+
+			// 좋아요 삭제
+			public AccomTO accomRemoveHeart(AccomHeartTO to) {
+				// p_board 테이블에 해당 게시물의 heart수를 -1 하기위한 to세팅
+				AccomTO pto = new AccomTO();
+				pto.setNo(to.getBno());
+				
+				// 해당 게시물의 heart를 -1 한다.
+				sqlSession.update("accom_heart_down", pto);
+				
+				// p_heart 테이블에서 삭제
+				int result = sqlSession.delete("accom_heart_remove", to);
+				
+				if (result == 1) {	// p_heart 테이블에 좋아요 삭제가 성공한다면..
+					// 갱신된 하트 갯수를 가져옴
+					pto = sqlSession.selectOne("accom_heart_count", pto);
+				}
+				return pto;
 			}
 
 }

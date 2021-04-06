@@ -56,6 +56,8 @@ public class FavoriteController {
 		try {
 			request.setCharacterEncoding("utf-8");
 			
+			System.out.println("컨트롤러");
+			
 			// 페이지 번호가 파라미터로 전달되는지 읽어와 본다.
 			String strPageNum = request.getParameter("pageNum");
 			String nick = (String)session.getAttribute( "nick" );
@@ -94,7 +96,8 @@ public class FavoriteController {
 			totalRow = lantripDao.LanTripCount(to);
 			
 			// 전체 페이지의 갯수 구하기
-			int totalPageCount = (int) Math.ceil(totalRow / (double) PAGE_ROW_COUNT);
+			int totalPageCount = (int)Math.ceil(totalRow / (double) PAGE_ROW_COUNT);
+			
 			
 			request.setAttribute("totalPageCount", totalPageCount);
 			request.setAttribute("totalRow", totalRow);
@@ -211,8 +214,14 @@ public class FavoriteController {
 			int totalRow = 0;
 			totalRow = pictureDao.PictureCount(pto);
 			
+			
+			//System.out.println(Math.ceil(totalRow / (double) PAGE_ROW_COUNT));
+			//System.out.println((int)Math.ceil(totalRow / (double) PAGE_ROW_COUNT));
+			
 			// 전체 페이지의 갯수 구하기
-			int totalPageCount = (int) Math.ceil(totalRow / (double) PAGE_ROW_COUNT);
+			String totalPageCount = Integer.toString(( (int) Math.ceil(totalRow / (double) PAGE_ROW_COUNT) ) );
+			
+			System.out.println("totalPageCount: " + totalPageCount);
 
 			request.setAttribute("totalPageCount", totalPageCount);
 			request.setAttribute("totalRow", totalRow);

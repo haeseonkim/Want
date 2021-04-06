@@ -18,6 +18,7 @@ import com.exam.model1.message.MessageTO;
 import com.exam.model1.otherProfile.OtherProfileDAO;
 import com.exam.model1.picture.PictureDAO;
 import com.exam.model1.picture.PictureTO;
+import com.exam.model1.pictureHeart.PictureHeartTO;
 import com.exam.model1.pictureReply.ReplyTO;
 import com.exam.model1.shopping.ShoppingDAO;
 import com.exam.model1.shopping.ShoppingTO;
@@ -329,6 +330,7 @@ public class OtherProfileController {
 	}
 	
 	
+	
 	// ============================= 사진자랑 ==================================
 	// 랜선여행하기 리스트 
 		@RequestMapping(value = "/other_ajax_picture_page.do")
@@ -528,7 +530,6 @@ public class OtherProfileController {
 
 			return pto;
 		}
-		
 		
 		
 		// ================================ 쇼핑정보 ==================================

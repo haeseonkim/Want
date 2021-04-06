@@ -8,10 +8,10 @@
 
 	<div class="col-3 card-inner">
 		<div class="thumb">
-			<div class="card-img" type="button" idx="${tmp.no }"
-				data-bs-toggle="modal" data-bs-target="#viewModal${tmp.no }">
-					<img src="./upload/picture/${tmp.media }" class="card-img-top  img-wrapper"
-						alt="...">
+			<div class="card-img" type="button" idx="${tmp.no }" data-bs-toggle="modal" data-bs-target="#viewModal${tmp.no }">
+				<div class="box">
+					<img src="./upload/picture/${tmp.media }" class="card-img-top  img-wrapper"alt="...">
+				</div>
 			</div>
 			<div class="card-body">
 				<div class="row">
