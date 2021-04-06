@@ -137,32 +137,7 @@ $(document).ready(function() {
 	})
 	
 	$('#submit1').on('click',function() {
-		
-		let mail = $('#user_mail').val().trim();
-		let birth = $('#user_birth').val().trim();
-		let phone = $('#user_phone').val().trim();
-		let nick = $('#user_nick').val().trim();
-		
-		if( birth == '' ) {
-			alert( '생년월일을 입력하셔야 합니다.')
-			return false;
-		}
-		if( mail == '' ) {
-			alert( '이메일을 입력하셔야 합니다.')
-			return false;
-		}
-		if( phone == '' ) {
-			alert( '핸드폰 번호를 입력하셔야 합니다.')
-			return false;
-		}
-		if( nick == '' ) {
-			alert( '닉네임을 입력하셔야 합니다.')
-			return false;
-		}
-		
-		
-		alert("클릭");
-		//document.sfrm.submit();
+		document.sfrm.submit();
 	});
 });
 
@@ -179,7 +154,7 @@ $(document).ready(function() {
 	<br /><br /><br />
 
 <div class="signup-form">
-    <form action="./profile.do" method="post" name="sfrm" class="form-horizontal" enctype="multipart/form-data">
+    <form action="./edit_profile_ok.do" method="post" name="sfrm" class="form-horizontal">
       	<div class="row">
         	<div class="col-10 signuptitle">
 				<h2>회원정보 수정</h2>
@@ -233,12 +208,12 @@ $(document).ready(function() {
         <div class="form-group row">
 			<label class="col-form-label col-4">소개글</label>
 			<div class="col-8">
-                <textarea name="greet" class="form-control" >${uto.greet }</textarea>
+                <textarea name="greet" class="form-control" style="resize:none; height:100pt;">${uto.greet }</textarea>
             </div>
         </div>
 		<div class="form-group row">
 			<div class="col-8 offset-4">
-				<button id="submit1" class="btn btn-primary btn-lg">수정하기</button>
+				<button type="submit" id="submit1" class="btn btn-primary btn-lg">수정하기</button>
 			</div>  
 			
 		</div>		      

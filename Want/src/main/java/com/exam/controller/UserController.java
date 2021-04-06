@@ -82,9 +82,7 @@ public class UserController {
 						// 프로필 사진 (profile)을 세션에 저장
 						session.setAttribute("profile", userTo.getProfile());
 						
-						System.out.println("id : " + userTo.getId());
-						System.out.println("nick : " + userTo.getNick());
-						System.out.println("profile : " + userTo.getProfile());
+					
 					} else { // 기타오류
 						flag = 3;
 					}
@@ -278,7 +276,7 @@ public class UserController {
 		return "user/kakaoLogin_editForm_ok";
 	}
 
-	// signup에서 id중복조회
+	// 프로필수정에서 id중복조회
 	@ResponseBody
 	@RequestMapping(value = "/usingId_chk.do", produces = "text/plain")
 	public String idCheck(HttpServletRequest request, HttpServletResponse response) {
@@ -300,7 +298,7 @@ public class UserController {
 		return result;
 	}
 
-	// signup에서 닉네임중복조회
+	// 프로필수정에서 닉네임중복조회
 	@ResponseBody
 	@RequestMapping(value = "/usingNick_chk.do", produces = "text/plain")
 	public String nickCheck(HttpServletRequest request, HttpServletResponse response) {
@@ -358,7 +356,7 @@ public class UserController {
 				
 				// 비밀번호 길이를 2로 나누어서
 				int pwdSize = decryPwd.length()/2;
-				System.out.println( pwdSize );
+//				System.out.println( pwdSize );
 				
 				String resultPwd_1 = decryPwd.substring(0, pwdSize );
 				

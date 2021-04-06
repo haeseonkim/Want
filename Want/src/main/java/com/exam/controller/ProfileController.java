@@ -1,5 +1,7 @@
 package com.exam.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
@@ -8,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -27,10 +30,13 @@ import com.exam.model1.accomComment.AccomCommentDAO;
 import com.exam.model1.accomComment.AccomCommentTO;
 import com.exam.model1.lantrip.LanTripDAO;
 import com.exam.model1.lantrip.LanTripTO;
+import com.exam.model1.lantripApply.LanTripApplyTO;
 import com.exam.model1.lantripReply.LanTripReplyDAO;
 import com.exam.model1.lantripReply.LanTripReplyTO;
 import com.exam.model1.user.UserDAO;
 import com.exam.model1.user.UserTO;
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 
 @Controller
@@ -41,11 +47,12 @@ public class ProfileController {
    
    @Autowired
    private MessageDAO messageDao;
-   
+
    @Autowired
    private LanTripDAO lantripDao;
    @Autowired
    private LanTripReplyDAO l_replyDao;
+
    
    @Autowired
    private PictureDAO pictureDao;
@@ -64,12 +71,20 @@ public class ProfileController {
    
    //private String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\profile";
    private String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\profile";
+
    //private String uploadPath ="/Users/hyukjun/git/Want/Want/src/main/webapp/upload/profile";
    
    // 내 프로필
    @RequestMapping(value = "/profile.do")
    public String profile(HttpServletRequest request, HttpSession session) {
       try {
+
+    	  	
+    	  // 그냥 들어왔을때 0, 프로필 사진 수정 후 1
+    	  // profil.jsp의 jsp문 실행 조건
+    	  int result= 0;
+    	  
+
          request.setCharacterEncoding("utf-8");
          
          //======= 유저 정보가져오기 =======
@@ -119,6 +134,10 @@ public class ProfileController {
          request.setAttribute( "pageNum", pageNum );
          request.setAttribute( "list", list );   
 
+         
+         request.setAttribute("result", result);
+
+
       } catch (UnsupportedEncodingException e) {
          // TODO Auto-generated catch block
          e.printStackTrace();
@@ -127,14 +146,16 @@ public class ProfileController {
       return "profile/profile";
    }
    
-   //=====================랜선여행관련=========================
+
+
    //랜선여행리스트 불러오기
    @RequestMapping(value = "/profile_lanTrip_ajax_page.do")
    public String profile_lanTrip_ajax_page(HttpServletRequest request, HttpSession session) {
       try {
          request.setCharacterEncoding("utf-8");
+
          
-         //세션에 저장된 nick값과 페이지 가져올 글수를 정하는
+         //세션에 저장된 nick값과 페이지 가져올 글수를 정하는 
          //startRowNum과 endRowNum을 to에 저장
          LanTripTO lto = new LanTripTO();
          
@@ -218,7 +239,9 @@ public class ProfileController {
    // 모댓글 삭제
    @ResponseBody
    @RequestMapping(value = "/lantrip_delete_reply.do")
+
    public LanTripTO lantrip_delete_reply(@RequestParam String no, @RequestParam String bno, @RequestParam int grpl) {
+
 
       LanTripReplyTO to = new LanTripReplyTO();
 
@@ -231,6 +254,7 @@ public class ProfileController {
       //grpl세팅
       to.setGrpl(grpl);
 
+
       // 갱신된 댓글 갯수를 담아오기 위함
       LanTripTO lto = l_replyDao.lantripDeleteReply(to);
 
@@ -240,7 +264,9 @@ public class ProfileController {
    // 자식댓글 삭제
    @ResponseBody
    @RequestMapping(value = "/lantrip_delete_rereply.do")
+
    public LanTripTO lantrip_delete_rereply(@RequestParam String no, @RequestParam String bno, @RequestParam String grp) {
+
 
       LanTripReplyTO to = new LanTripReplyTO();
 
@@ -254,11 +280,14 @@ public class ProfileController {
       to.setGrp(grp);
 
       // 갱신된 댓글 갯수를 담아오기 위함
+
       LanTripTO lto = l_replyDao.lantripDeleteRereply(to);
+
 
       return lto;
    }
    
+
    	//답글 작성
 	@ResponseBody
 	@RequestMapping(value = "/lantrip_write_rereply.do")
@@ -807,5 +836,136 @@ public class ProfileController {
 
       return "profile/edit_profile";
    }
+
+
+   
+   // 회원정보 수정을 위해 회원정보 가져오기
+   @RequestMapping(value = "/edit_profile.do")
+   public String edit_profile(HttpServletRequest request, HttpSession session) {
+      try {
+         request.setCharacterEncoding("utf-8");
+
+         // ======= 유저 정보가져오기 =======
+         // 세션에 저장된 nick값을 to에 저장
+         UserTO uto = new UserTO();
+         String nick = (String) session.getAttribute("nick");
+         uto.setNick(nick);
+
+         // 저장된 nick값을 userDao함수 매개변수로 넘겨줌
+         // userDao에서 myProfile함수를 실행시켜서 유저 정보를 다시 uto에 저장
+         uto = userDao.myProfile(uto);
+
+         // jsp로 uto값을 넘겨줌
+         request.setAttribute("uto", uto);
+
+      } catch (UnsupportedEncodingException e) {
+         // TODO Auto-generated catch block
+         e.printStackTrace();
+      }
+
+      return "profile/edit_profile";
+   }
+	// edit_profile_ok
+	@RequestMapping(value = "/edit_profile_ok.do")
+	public String edit_profile_ok(HttpServletRequest request, HttpSession session) throws UnsupportedEncodingException {
+		
+		request.setCharacterEncoding("utf-8");
+		
+		int flag=2;
+		System.out.println("session nick 전 : "+session.getAttribute("nick"));
+		UserTO to = new UserTO();
+			
+		String name = request.getParameter("name");
+		String birth = request.getParameter("birth");
+		String mail = request.getParameter("mail");
+		String phone = request.getParameter("phone");
+		String nick = request.getParameter("nick");
+		String greet = request.getParameter("greet");
+		String id = request.getParameter("id");
+
+		to.setId(id);
+		to.setName(name);
+		to.setBirth(birth);
+		to.setMail(mail);
+		to.setPhone(phone);
+		to.setNick(nick);
+		to.setGreet(greet);
+		
+		to.setSession_nick((String)session.getAttribute("nick"));
+		
+		int edit = userDao.edit_profile_ok(to);
+		
+		if(edit==1) {	// 수정 완료
+			flag = 0;
+			
+			// 수정성공하면 session의 nick을 수정한 nick으로 변경
+			session.setAttribute("nick",to.getNick());
+			System.out.println("session nick 성공 후 : "+session.getAttribute("nick"));
+			
+		} else {		// 수정 실패
+			flag = 1;
+			System.out.println("session nick 실패 후 : "+session.getAttribute("nick"));
+		}
+
+		request.setAttribute("flag", flag);
+			
+		return "profile/edit_profile_ok";
+	}
+		
+	// 프로필 이미지 변경
+	@RequestMapping(value = "/edit_img_ok.do")
+	public String edit_img_ok(HttpServletRequest request, HttpSession session) {
+
+		int result = 1;
+		
+		int maxFileSize = 2048 * 2048 * 6;
+		String encType = "utf-8";
+
+		MultipartRequest multi = null;
+
+		try {
+			multi = new MultipartRequest(request, uploadPath, maxFileSize, encType,
+					new DefaultFileRenamePolicy());
+			
+			UserTO to = new UserTO();
+			String nick = (String)session.getAttribute("nick");
+			to.setNick(nick);
+			
+			if( multi.getFilesystemName( "img" ) == null ) {
+				to.setProfile(multi.getParameter( "ex-profile" ) );
+			} else {
+				to.setProfile(multi.getFilesystemName( "img" ) );
+			}
+
+			int flag = userDao.edit_img_ok(to);
+
+			request.setAttribute("flag", flag);
+			session.setAttribute("nick",to.getNick());
+			request.setAttribute("result", result);
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return "profile/profile";
+	}
+	// 프로필 이미지 제거
+	@RequestMapping(value = "/delete_img_ok.do")
+	public String delete_img_ok(HttpServletRequest request, HttpSession session) {
+
+		int result = 2;
+	
+		UserTO to = new UserTO();
+		String nick = (String)session.getAttribute("nick");
+		to.setNick(nick);
+				
+		int flag = userDao.delete_img_ok(to);
+
+		request.setAttribute("flag", flag);
+		request.setAttribute("result", result);
+
+			return "profile/profile";
+		}
 
 }

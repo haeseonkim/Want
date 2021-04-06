@@ -12,6 +12,9 @@ public class UserTO {
    private String profile;
    private String greet;
    
+   // 현재 사용자
+   private String session_nick; 
+   
    public String getId() {
       return id;
    }
@@ -71,6 +74,12 @@ public class UserTO {
    }
    public void setGreet(String greet) {
       this.greet = greet;
+   }
+   public String getSession_nick() {
+	      return session_nick;
+   }
+   public void setSession_nick(String session_nick) {
+	      this.session_nick = session_nick;
    }
 
 }

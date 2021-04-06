@@ -1,7 +1,37 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%
+	int result = (Integer)request.getAttribute("result");
 
+	if(result==1){
+		int flag = (Integer)request.getAttribute("flag");
+		
+		out.println("<script type='text/javascript'>");
+		if(flag == 0){
+		   out.println("alert('수정 성공!');");
+		   out.println("location.href='./profile.do';");
+		}else{
+		   out.println("alert('수정에 실패했습니다.');");
+		   out.println("history.back();");
+		}
+		out.println("</script>");
+	}
+	
+	if(result==2){
+		int flag = (Integer)request.getAttribute("flag");
+		
+		out.println("<script type='text/javascript'>");
+		if(flag == 0){
+		   out.println("alert('삭제 성공!');");
+		   out.println("location.href='./profile.do';");
+		}else{
+		   out.println("alert('삭제에 실패했습니다.');");
+		   out.println("history.back();");
+		}
+		out.println("</script>");
+	}
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +44,6 @@
 <link href="./resources/css/profile.css?dd" rel="stylesheet">
 <link href="./resources/css/navbar.css" rel="stylesheet">
 
-
 </head>
 <body>
 	<!-- 메뉴바 
@@ -26,7 +55,7 @@
 	<section id="profile" class="container">
 		<div class="row">
 			<div class="col-6">
-				<h1><b>내 프로필</b></h1>
+				<h1><b><span style="color:#5fcf80;">${uto.nick }</span>님의 프로필</b></h1>
 			</div>
 			<div class="col-6 div_modify_profile">
 				<button type="button" class="btn btn--blue-2 btn--radius-2 btn_modify_profile" onclick="location.href='./edit_profile.do'">내 프로필 수정</button>
@@ -36,10 +65,12 @@
 		<hr /><br />
 		
 		<div class="row">
-			<div id="profile-img" class="section-title col-5">
+			<div class="col-1" style="padding:0px;"></div>
+			<div id="profile-img" class="section-title col-3" style="text-align:left; padding:0px;">
 				<img src="./upload/profile/${ uto.profile }" class="img-circle">
 				<br />
 			</div> <!-- profile-img 닫음 -->
+			<div class="col-1"></div>
 			<div id="profile-info" class="col-7">
 				<table>
 					<tr>
@@ -80,10 +111,64 @@
 				</div>
 			</div>	<!-- profile info 닫음 -->
 		</div>	<!-- row 닫음 -->
+		<div class="row">
+			<div class="col-1" style="padding:0px;"></div>
+			<div class="col-3" style="text-align:center; padding:0px; width:350px;">
+				<button type="button" class="btn btn--blue-2 btn--radius-2" data-bs-toggle="modal" data-bs-target="#edit_img">수정</button>
+				<button type="button" class="btn btn--blue-2 btn--radius-2" data-bs-toggle="modal" data-bs-target="#delete_img">삭제</button>
+			</div>
+			<div class="col-1"></div>
+			<div class="col-7"></div>
+		</div>
+		
+		<form action="edit_img_ok.do" name="efrm" method="post" enctype="multipart/form-data">
+		<input type="hidden" name="ex-profile" value="${uto.profile }">
+			<div class="modal fade" id="edit_img" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<br />
+						<div class="modal-title"><b>&nbsp;프로필 사진 수정</b></div>
+						<hr />
+						<div class="modal-body row"  style="padding:0px 0px 0px 5px;">
+							<div class="col-7">&nbsp;수정할 파일을 선택하세요.</div>
+							<div class="col-5"></div>
+						</div>
+						<div class="modal-body form-row" style="padding:20px 0px 20px 0px;">
+							<div class="js-input-file input-group value" style="padding:0px 0px 0px 20px; width:100%;">
+								<input class="input-file" type="file" name="img" id="file" value="${uto.profile }">
+								<label class="label--file" for="file">파일 선택</label>
+								<span class="input-file__info" style="text-align:left; padding-top:2px; margin-top:2px;">
+									${uto.profile }
+								</span>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn--blue-2 btn--radius-2" data-bs-dismiss="modal">취소</button>
+							<button type="button" class="btn btn--blue-1 btn--radius-2" id="btn_edit_img">확인</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		</form>
+		<form action="delete_img_ok.do" name="dfrm" method="post">
+			<div class="modal fade bs-delete-modal-sm" id="delete_img" aria-hidden="true">
+			<div class="modal-dialog modal-sm">
+				<div class="modal-content">
+					<br />
+					<div style="height: 60px;">&nbsp;&nbsp;정말 삭제하시겠습니까?</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn--blue-2 btn--radius-2" data-bs-dismiss="modal">취소</button>
+						<button type="submit" class="btn btn--blue-1 btn--radius-2" id="btn_delete_img">삭제</button>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		</form>
 	</section>
 	
 	
-
 	<!-- 내 피드 섹션 -->
 	<section id="my-feed" class="container">
 		<div class="row">
@@ -137,6 +222,51 @@
 <!-- 내 피드 관련 자바스크립트 -->
 <script>
 
+	// 프로필 사진 수정
+	document.getElementById('btn_edit_img').onclick = function() {
+		
+		if(document.efrm.img.value.trim()!=""){
+			const extension = document.efrm.img.value.split('.').pop();
+			if (extension != 'png' && extension != 'jpg'  && extension != 'jpeg' && extension != 'img'
+					&& extension != 'PNG'&& extension != 'JPG' && extension != 'JPEG'  && extension != 'IMG') {
+				alert('이미지 파일(png, jpg, jpeg, img)을 입력하셔야 합니다.');
+				return false;
+			}
+		} else {
+			return false;
+		}
+		document.efrm.submit();
+	}
+	
+	var file_input_container = $('.js-input-file');
+	if (file_input_container[0]) {
+		file_input_container.each(function() {
+
+			var that = $(this);
+
+			var fileInput = that.find(".input-file");
+			var info = that.find(".input-file__info");
+
+
+			fileInput.on("change", function() {
+
+				var fileName;
+				fileName = $(this).val();
+
+				if (fileName.substring(3, 11) == 'fakepath') {
+					fileName = fileName.substring(12);
+				}
+
+				if (fileName == "") {
+					info.text("${uto.profile}");
+				} else {
+					info.text(fileName);
+				}
+
+			})
+
+		});
+	}
 	
 	
 	//============= 글리스트 가져오기 함수 =============
@@ -247,7 +377,7 @@
 								$('#m_heart'+no).text(heart);
 								$( '.span_heart'+no ).text(heart);
 								
-								console.log("하트추가 성공");
+								alert("하트추가 성공");
 							},
 							error : function() {
 								alert('서버 에러');
@@ -278,7 +408,7 @@
 								$('#m_heart'+no).text(heart);
 								$( '.span_heart'+no ).text(heart);
 								
-								console.log("하트삭제 성공");
+								alert("하트삭제 성공");
 							},
 							error : function() {
 								alert('서버 에러');
@@ -342,7 +472,7 @@
 								$('#m_reply'+no).text(reply);
 								$('span_replyy'+no).text(reply);
 								
-								console.log("댓글 작성 성공");
+								alert("댓글 작성 성공");
 								
 								// 댓글리스트를 새로 받아오기
 								ReplyList(no, divName);
@@ -446,7 +576,7 @@
 					
 					
 					
-					console.log("답글 작성 성공");
+					alert("답글 작성 성공");
 					
 					// 게시물 번호(bno)에 해당하는 댓글리스트를 새로 받아오기
 					ReplyList( bno, divName );
@@ -480,7 +610,7 @@
 				$('#m_reply'+bno).text(reply);
 				$('.span_reply'+bno).text(reply);
 				
-				console.log("모댓글 삭제 성공");
+				alert("모댓글 삭제 성공");
 				
 				// 게시물 번호(bno)에 해당하는 댓글리스트를 새로 받아오기
 				ReplyList( bno, divName );
@@ -515,7 +645,7 @@
 				$('#m_reply'+bno).text(reply);
 				$('.span_reply'+bno).text(reply);
 				
-				console.log("답글 삭제 성공");
+				alert("답글 삭제 성공");
 				
 				// 게시물 번호(bno)에 해당하는 댓글리스트를 새로 받아오기
 				ReplyList( bno, divName );
