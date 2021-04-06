@@ -122,11 +122,7 @@
 	<section id="card-list" class="card-list">
 		<div class="container">
 
-<<<<<<< HEAD
 			<div class="row card-list-container thumbnails">
-=======
-			<div class="row card-list-container thumbnails" >
->>>>>>> branch 'main' of https://github.com/haeseonkim/Want.git
 			</div>
 		</div>
 
@@ -411,7 +407,7 @@
 						listHtml += "	<div>";
 						listHtml += "		(삭제된 댓글입니다)";
 						listHtml += "	</div>";
-					}else {
+					}else{
 						if(grpl == 0){	// 모댓글일때
 							listHtml += "	<div class='col-1'>";
 							listHtml += "		<img class='reply_list_profileImage' src='./upload/profile/"+ profile +"'/>";

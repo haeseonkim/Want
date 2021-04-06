@@ -1626,6 +1626,9 @@
 	
 	
 	
+	
+	<!-- ========================== 다른 사람 프로필 ========================== -->
+		
 	<!-- 다른 사람 프로필 정보 가져오기 -->
 	<select id="otherProfile" parameterType="com.exam.model1.user.UserTO" resultType="com.exam.model1.user.UserTO">
 		select id, name, birth, mail, phone, nick, rdate, profile, greet
@@ -1633,7 +1636,393 @@
 		where nick=#{nick}
 	</select>
 	
+	<!-- ======= 랜선여행 ====== -->
+	<!-- 로그인 전 다른사람 프로필 랜선여행 리스트 -->
+	<select id="other_lanTrip_list_notlogin" parameterType="com.exam.model1.lantrip.LanTripTO"  resultType="com.exam.model1.lantrip.LanTripTO">
+		select b.no, subject, content, writer, date_format(wdate,'%Y-%m-%d') wdate, hit, location, video, reply, heart, u.profile
+		from l_board b left outer join user u
+		on b.writer = u.nick
+		where writer = #{writer}
+		order by b.no desc
+		limit #{startRowNum}, #{rowCount}
+	</select>
 
+	<!-- 로그인 후 랜선여행 리스트 -->
+	<select id="other_lanTrip_list" parameterType="com.exam.model1.lantrip.LanTripTO" resultType="com.exam.model1.lantrip.LanTripTO">
+		select b.no, subject, content, writer, date_format(wdate,'%Y-%m-%d') wdate, hit, location, video, reply, heart, h.hno, u.profile
+		from l_board b left outer join l_heart h
+		on #{nick} = h.userid and b.no = h.bno
+		left outer join user u
+		on b.writer = u.nick 
+		where writer = #{writer}
+		order by b.no desc
+		limit #{startRowNum}, #{rowCount}
+	</select>
+	
+	<!--다른사람 프로필 랜선여행 댓글 쓰기 -->
+	<insert id="other_lantrip_reply_write" parameterType="com.exam.model1.pictureReply.ReplyTO">
+		insert into l_reply
+		values(0, #{bno}, #{writer}, #{content}, now(), #{grp}, 0, 0)
+	</insert>
+	
+	<!-- 다른사람 프로필 모댓글일경우 no, grp 일치하게 함 -->
+	<update id="other_lantrip_reply_check" parameterType="com.exam.model1.pictureReply.ReplyTO">
+		update l_reply set grp=#{grp}
+		where no != grp
+	</update>
+	
+	<!-- 다른 사람 프로필에서 랜선여행 댓글 리스트 가져오기 -->
+	<select id="other_lantrip_replyList" parameterType="com.exam.model1.pictureReply.ReplyTO" resultType="com.exam.model1.pictureReply.ReplyTO">
+		select r.no, r.bno, r.grp, r.grpl, r.writer, r.content, date_format(wdate,'%Y-%m-%d') wdate, datediff(now(), wdate) wgap , u.profile
+		from l_reply r left outer join user u
+		on r.writer = u.nick
+		where r.bno = #{bno}
+		order by grp asc, grps desc
+	</select>
+	
+	<!-- 다른 사람 프로필에서 랜선여행 답글 쓰기 -->
+	<insert id="other_lantrip_rereply_write" parameterType="com.exam.model1.pictureReply.ReplyTO">
+		insert into l_reply
+		values(0, #{bno}, #{writer}, #{content}, now(), #{grp}, 0, #{grpl})
+	</insert>
+
+	<!-- 모댓글의 답글수를 카운트 -->
+	<select id="other_lantrip_count_rereply" parameterType="com.exam.model1.pictureReply.ReplyTO" resultType="int">
+		select count(no)
+		from l_reply
+		where no != #{no} and grp = #{no}
+	</select>
+	
+	<!-- 모댓글 삭제 - 답글 없음 -->
+	<delete id="other_lantrip_reply_delete" parameterType="com.exam.model1.pictureReply.ReplyTO">
+		delete from l_reply
+		where no=#{no}
+	</delete>
+	
+	<!-- 모댓글 삭제 - 답글 있음 -->
+	<update id="other_lantrip_reply_not_delete" parameterType="com.exam.model1.pictureReply.ReplyTO">
+		update l_reply set content=""
+		where no=#{no}
+	</update>
+	
+	<!-- 답글수를 카운트 -->
+	<select id="other_lantrip_count_rereply_fromrereply" parameterType="com.exam.model1.pictureReply.ReplyTO" resultType="int">
+		select count(no)
+		from l_reply
+		where no != #{grp} and grp = #{grp}
+	</select>
+	
+	<!-- 모댓글이 삭제된 댓글일때 그에 딸린 답글들이 모두삭제되면 테이블에서 완전히 삭제한다 -->
+	<delete id="other_lantrip_reply_delete_after_rereply_delete" parameterType="com.exam.model1.pictureReply.ReplyTO">
+		delete from l_reply
+		where content="" and grp=#{grp}
+	</delete>
+	
+	<!-- l_board에 댓글수 감소 -->
+	<update id="lantrip_reply_down" parameterType="com.exam.model1.lantrip.LanTripTO">
+		update l_board set reply=reply-1
+		where no=#{no}
+	</update>
+	
+	<!-- ======= 사진자랑 ====== -->
+	<!-- 로그인 전 다른사람 프로필 랜선여행 리스트 -->
+	<select id="other_picture_list_notlogin" parameterType="com.exam.model1.picture.PictureTO"  resultType="com.exam.model1.picture.PictureTO">
+		select b.no, subject, content, writer, date_format(wdate,'%Y-%m-%d') wdate, hit, location, media, reply, heart, u.profile
+		from p_board b left outer join user u
+		on b.writer = u.nick
+		where writer = #{writer}
+		order by b.no desc
+		limit #{startRowNum}, #{rowCount}
+	</select>
+
+	<!-- 로그인 후 랜선여행 리스트 -->
+	<select id="other_picture_list" parameterType="com.exam.model1.picture.PictureTO" resultType="com.exam.model1.picture.PictureTO">
+		select b.no, subject, content, writer, date_format(wdate,'%Y-%m-%d') wdate, hit, location, media, reply, heart, h.hno, u.profile
+		from p_board b left outer join p_heart h
+		on #{nick} = h.userid and b.no = h.bno
+		left outer join user u
+		on b.writer = u.nick 
+		where writer = #{writer}
+		order by b.no desc
+		limit #{startRowNum}, #{rowCount}
+	</select>
+	
+	<!--다른사람 프로필 랜선여행 댓글 쓰기 -->
+	<insert id="other_picture_reply_write" parameterType="com.exam.model1.pictureReply.ReplyTO">
+		insert into p_reply
+		values(0, #{bno}, #{grp}, 0, 0, #{writer}, #{content}, now())
+	</insert>
+	
+	<!-- 다른사람 프로필 모댓글일경우 no, grp 일치하게 함 -->
+	<update id="other_picture_reply_check" parameterType="com.exam.model1.pictureReply.ReplyTO">
+		update p_reply set grp=#{grp}
+		where no != grp
+	</update>
+	
+	<!-- 다른 사람 프로필에서 랜선여행 댓글 리스트 가져오기 -->
+	<select id="other_picture_replyList" parameterType="com.exam.model1.pictureReply.ReplyTO" resultType="com.exam.model1.pictureReply.ReplyTO">
+		select r.no, r.bno, r.grp, r.grpl, r.writer, r.content, date_format(wdate,'%Y-%m-%d') wdate, datediff(now(), wdate) wgap , u.profile
+		from p_reply r left outer join user u
+		on r.writer = u.nick
+		where r.bno = #{bno}
+		order by grp asc, grps desc
+	</select>
+	
+	<!-- 다른 사람 프로필에서 랜선여행 답글 쓰기 -->
+	<insert id="other_picture_rereply_write" parameterType="com.exam.model1.pictureReply.ReplyTO">
+		insert into p_reply
+		values(0, #{bno}, #{grp}, 0, #{grpl}, #{writer}, #{content}, now())
+	</insert>
+
+	<!-- 모댓글의 답글수를 카운트 -->
+	<select id="other_picture_count_rereply" parameterType="com.exam.model1.pictureReply.ReplyTO" resultType="int">
+		select count(no)
+		from p_reply
+		where no != #{no} and grp = #{no}
+	</select>
+	
+	<!-- 모댓글 삭제 - 답글 없음 -->
+	<delete id="other_picture_reply_delete" parameterType="com.exam.model1.pictureReply.ReplyTO">
+		delete from p_reply
+		where no=#{no}
+	</delete>
+	
+	<!-- 모댓글 삭제 - 답글 있음 -->
+	<update id="other_picture_reply_not_delete" parameterType="com.exam.model1.pictureReply.ReplyTO">
+		update p_reply set content=""
+		where no=#{no}
+	</update>
+	
+	<!-- 답글수를 카운트 -->
+	<select id="other_picture_count_rereply_fromrereply" parameterType="com.exam.model1.pictureReply.ReplyTO" resultType="int">
+		select count(no)
+		from p_reply
+		where no != #{grp} and grp = #{grp}
+	</select>
+	
+	<!-- 모댓글이 삭제된 댓글일때 그에 딸린 답글들이 모두삭제되면 테이블에서 완전히 삭제한다 -->
+	<delete id="other_picture_reply_delete_after_rereply_delete" parameterType="com.exam.model1.pictureReply.ReplyTO">
+		delete from p_reply
+		where content="" and grp=#{grp}
+	</delete>
+	
+	
+	<!-- ======= 쇼핑정보 ====== -->
+	<!-- 로그인 전 다른사람 프로필 쇼핑정보 리스트 -->
+	<select id="other_shopping_list_notlogin" parameterType="com.exam.model1.shopping.ShoppingTO"  resultType="com.exam.model1.shopping.ShoppingTO">
+		select b.no, subject, content, writer, date_format(wdate,'%Y-%m-%d') wdate, hit, location, picture, reply, heart, u.profile
+		from s_board b left outer join user u
+		on b.writer = u.nick
+		where writer = #{writer}
+		order by b.no desc
+		limit #{startRowNum}, #{rowCount}
+	</select>
+
+	<!-- 로그인 후 쇼핑정보 리스트 -->
+	<select id="other_shopping_list" parameterType="com.exam.model1.shopping.ShoppingTO" resultType="com.exam.model1.shopping.ShoppingTO">
+		select b.no, subject, content, writer, date_format(wdate,'%Y-%m-%d') wdate, hit, location, picture, reply, heart, h.hno, u.profile
+		from s_board b left outer join s_heart h
+		on #{nick} = h.userid and b.no = h.bno
+		left outer join user u
+		on b.writer = u.nick 
+		where writer = #{writer}
+		order by b.no desc
+		limit #{startRowNum}, #{rowCount}
+	</select>
+	
+	
+	<!--다른사람 프로필 쇼핑정보 댓글 쓰기 -->
+	<insert id="other_shopping_reply_write" parameterType="com.exam.model1.pictureReply.ReplyTO">
+		insert into s_reply
+		values(0, #{bno}, #{writer}, #{content}, now(), #{grp}, 0, 0)
+	</insert>
+	
+	<!-- 다른사람 프로필 모댓글일경우 no, grp 일치하게 함 -->
+	<update id="other_shopping_reply_check" parameterType="com.exam.model1.pictureReply.ReplyTO">
+		update s_reply set grp=#{grp}
+		where no != grp
+	</update>
+	
+	<!-- 다른 사람 프로필에서 쇼핑정보 댓글 리스트 가져오기 -->
+	<select id="other_shopping_replyList" parameterType="com.exam.model1.pictureReply.ReplyTO" resultType="com.exam.model1.pictureReply.ReplyTO">
+		select r.no, r.bno, r.grp, r.grpl, r.writer, r.content, date_format(wdate,'%Y-%m-%d') wdate, datediff(now(), wdate) wgap , u.profile
+		from s_reply r left outer join user u
+		on r.writer = u.nick
+		where r.bno = #{bno}
+		order by grp asc, grps desc
+	</select>
+	
+	<!-- 다른 사람 프로필에서 쇼핑정보 답글 쓰기 -->
+	<insert id="other_shopping_rereply_write" parameterType="com.exam.model1.pictureReply.ReplyTO">
+		insert into s_reply
+		values(0, #{bno}, #{writer}, #{content}, now(), #{grp}, 0, #{grpl})
+	</insert>
+
+	<!-- 모댓글의 답글수를 카운트 -->
+	<select id="other_shopping_count_rereply" parameterType="com.exam.model1.pictureReply.ReplyTO" resultType="int">
+		select count(no)
+		from s_reply
+		where no != #{no} and grp = #{no}
+	</select>
+	
+	<!-- 모댓글 삭제 - 답글 없음 -->
+	<delete id="other_shopping_reply_delete" parameterType="com.exam.model1.pictureReply.ReplyTO">
+		delete from s_reply
+		where no=#{no}
+	</delete>
+	
+	<!-- 모댓글 삭제 - 답글 있음 -->
+	<update id="other_shopping_reply_not_delete" parameterType="com.exam.model1.pictureReply.ReplyTO">
+		update s_reply set content=""
+		where no=#{no}
+	</update>
+	
+	<!-- 답글수를 카운트 -->
+	<select id="other_shopping_count_rereply_fromrereply" parameterType="com.exam.model1.pictureReply.ReplyTO" resultType="int">
+		select count(no)
+		from s_reply
+		where no != #{grp} and grp = #{grp}
+	</select>
+	
+	<!-- 모댓글이 삭제된 댓글일때 그에 딸린 답글들이 모두삭제되면 테이블에서 완전히 삭제한다 -->
+	<delete id="other_shopping_reply_delete_after_rereply_delete" parameterType="com.exam.model1.pictureReply.ReplyTO">
+		delete from s_reply
+		where content="" and grp=#{grp}
+	</delete>
+	
+	<!-- s_board에 댓글수 감소 -->
+	<update id="shopping_reply_down" parameterType="com.exam.model1.shopping.ShoppingTO">
+		update s_board set reply=reply-1
+		where no=#{no}
+	</update>
+	
+	<!-- s_board에 댓글수 감소 -->
+	<update id="shopping_reply_up" parameterType="com.exam.model1.shopping.ShoppingTO">
+		update s_board set reply=reply+1
+		where no=#{no}
+	</update>
+	
+	<!--내프로필 랜선여행 댓글 테이블의 마지막 auto_increment 값을 가져옴 -->
+	<select id="s_reply_max_no" resultType="int">
+		select ifnull(max(no),0) 
+		from s_reply
+	</select>
+	
+	<!-- 댓글 추가/삭제시 댓글 갯수 가져오기 -->
+	<select id="shopping_reply_count" parameterType="com.exam.model1.shopping.ShoppingTO" resultType="com.exam.model1.shopping.ShoppingTO">
+		select reply 
+		from s_board
+		where no=#{no}
+	</select>
+	
+	
+	<!-- ======= 숙소정보 ====== -->
+	<!-- 로그인 전 다른사람 프로필 쇼핑정보 리스트 -->
+	<select id="other_accom_list_notlogin" parameterType="com.exam.model1.accom.AccomTO"  resultType="com.exam.model1.accom.AccomTO">
+		select b.no, subject, content, writer, date_format(wdate,'%Y-%m-%d') wdate, hit, location, picture, reply, heart, u.profile
+		from a_board b left outer join user u
+		on b.writer = u.nick
+		where writer = #{writer}
+		order by b.no desc
+		limit #{startRowNum}, #{rowCount}
+	</select>
+
+	<!-- 로그인 후 쇼핑정보 리스트 -->
+	<select id="other_accom_list" parameterType="com.exam.model1.accom.AccomTO" resultType="com.exam.model1.accom.AccomTO">
+		select b.no, subject, content, writer, date_format(wdate,'%Y-%m-%d') wdate, hit, location, picture, reply, heart, h.hno, u.profile
+		from a_board b left outer join a_heart h
+		on #{nick} = h.userid and b.no = h.bno
+		left outer join user u
+		on b.writer = u.nick 
+		where writer = #{writer}
+		order by b.no desc
+		limit #{startRowNum}, #{rowCount}
+	</select>
+	
+	
+	<!--다른사람 프로필 쇼핑정보 댓글 쓰기 -->
+	<insert id="other_accom_reply_write" parameterType="com.exam.model1.pictureReply.ReplyTO">
+		insert into a_reply
+		values(0, #{bno}, #{writer}, #{content}, now(), #{grp}, 0, 0)
+	</insert>
+	
+	<!-- 다른사람 프로필 모댓글일경우 no, grp 일치하게 함 -->
+	<update id="other_accom_reply_check" parameterType="com.exam.model1.pictureReply.ReplyTO">
+		update a_reply set grp=#{grp}
+		where no != grp
+	</update>
+	
+	<!-- 다른 사람 프로필에서 쇼핑정보 댓글 리스트 가져오기 -->
+	<select id="other_accom_replyList" parameterType="com.exam.model1.pictureReply.ReplyTO" resultType="com.exam.model1.pictureReply.ReplyTO">
+		select r.no, r.bno, r.grp, r.grpl, r.writer, r.content, date_format(wdate,'%Y-%m-%d') wdate, datediff(now(), wdate) wgap , u.profile
+		from a_reply r left outer join user u
+		on r.writer = u.nick
+		where r.bno = #{bno}
+		order by grp asc, grps desc
+	</select>
+	
+	<!-- 다른 사람 프로필에서 쇼핑정보 답글 쓰기 -->
+	<insert id="other_accom_rereply_write" parameterType="com.exam.model1.pictureReply.ReplyTO">
+		insert into a_reply
+		values(0, #{bno}, #{writer}, #{content}, now(), #{grp}, 0, #{grpl})
+	</insert>
+
+	<!-- 모댓글의 답글수를 카운트 -->
+	<select id="other_accom_count_rereply" parameterType="com.exam.model1.pictureReply.ReplyTO" resultType="int">
+		select count(no)
+		from a_reply
+		where no != #{no} and grp = #{no}
+	</select>
+	
+	<!-- 모댓글 삭제 - 답글 없음 -->
+	<delete id="other_accom_reply_delete" parameterType="com.exam.model1.pictureReply.ReplyTO">
+		delete from a_reply
+		where no=#{no}
+	</delete>
+	
+	<!-- 모댓글 삭제 - 답글 있음 -->
+	<update id="other_accom_reply_not_delete" parameterType="com.exam.model1.pictureReply.ReplyTO">
+		update a_reply set content=""
+		where no=#{no}
+	</update>
+	
+	<!-- 답글수를 카운트 -->
+	<select id="other_accom_count_rereply_fromrereply" parameterType="com.exam.model1.pictureReply.ReplyTO" resultType="int">
+		select count(no)
+		from a_reply
+		where no != #{grp} and grp = #{grp}
+	</select>
+	
+	<!-- 모댓글이 삭제된 댓글일때 그에 딸린 답글들이 모두삭제되면 테이블에서 완전히 삭제한다 -->
+	<delete id="other_accom_reply_delete_after_rereply_delete" parameterType="com.exam.model1.pictureReply.ReplyTO">
+		delete from a_reply
+		where content="" and grp=#{grp}
+	</delete>
+	
+	<!-- s_board에 댓글수 감소 -->
+	<update id="accom_reply_down" parameterType="com.exam.model1.accom.AccomTO">
+		update a_board set reply=reply-1
+		where no=#{no}
+	</update>
+	
+	<!-- s_board에 댓글수 감소 -->
+	<update id="accom_reply_up" parameterType="com.exam.model1.accom.AccomTO">
+		update a_board set reply=reply+1
+		where no=#{no}
+	</update>
+	
+	<!--내프로필 랜선여행 댓글 테이블의 마지막 auto_increment 값을 가져옴 -->
+	<select id="a_reply_max_no" resultType="int">
+		select ifnull(max(no),0) 
+		from a_reply
+	</select>
+	
+	<!-- 댓글 추가/삭제시 댓글 갯수 가져오기 -->
+	<select id="accom_reply_count" parameterType="com.exam.model1.accom.AccomTO" resultType="com.exam.model1.accom.AccomTO">
+		select reply 
+		from a_board
+		where no=#{no}
+	</select>
 	
 	
 	

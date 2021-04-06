@@ -3,6 +3,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@page import="org.apache.ibatis.annotations.Param"%>
 
+
 <header id="header" class="fixed-top">
 	<div class="container d-flex align-items-center">
 

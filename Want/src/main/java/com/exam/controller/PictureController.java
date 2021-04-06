@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.exam.model1.lantrip.LanTripTO;
+import com.exam.model1.lantripReply.LanTripReplyTO;
 import com.exam.model1.picture.PictureDAO;
 import com.exam.model1.picture.PictureListTO;
 import com.exam.model1.picture.PictureTO;
@@ -442,6 +444,26 @@ public class PictureController {
 		return replyList;
 	}
 
+	
+	// 댓글 삭제
+	@ResponseBody
+	@RequestMapping(value = "/picture_delete_reply.do")
+	public PictureTO delete_reply(@RequestParam String no, @RequestParam String bno) {
+
+		ReplyTO to = new ReplyTO();
+
+		// 모댓글 번호 세팅
+		to.setNo(no);
+
+		// 게시물 번호 세팅
+		to.setBno(bno);
+
+		// 갱신된 댓글 갯수를 담아오기 위함
+		PictureTO pto = replyDao.pictureDeleteReply(to);
+
+		return pto;
+	}
+	
 	// 답글 삭제
 	@ResponseBody
 	@RequestMapping(value = "/picture_delete_rereply.do")
