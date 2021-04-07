@@ -2,7 +2,7 @@
 
 
 /* 글씨체 적용 */
-h4, p{
+h4, p, li{
 	font-family: 'Nanum Pen Script', cursive;
 }
 
@@ -14,10 +14,39 @@ p{
 	font-size: 25px;
 }
 
+li {
+	font-size: 20px;
+}
+
+strong {
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+.links {
+	font-family: 'Nanum Pen Script', cursive;
+	font-size: 20px;
+}
+
+.col-2 {
+	font-family: 'Nanum Pen Script', cursive;
+	font-size: 20px;
+}
+
 .profile-follow{
 	position:absolute; 
 }
 
+h5 {
+	font-family: 'Nanum Pen Script', cursive;
+}
+#m_writer {
+	font-family: 'Nanum Pen Script', cursive;
+	font-size: 20px;
+}
+
+#m_heart_reply_hit {
+	font-family: 'Nanum Pen Script', cursive;
+}
 
 /* 프로필 사진을 비율변화 없이 둥글게 */
 .box {
@@ -181,7 +210,7 @@ img{ max-width:100%;}
 .srch_bar {
   display: inline-block;
   text-align: right;
-  width: 60%; padding:
+  width: 60%; padding: 0px;
 }
 .headind_srch{ padding:10px 29px 10px 20px; overflow:hidden; border-bottom:1px solid #f7f7f7;}
 
@@ -247,6 +276,7 @@ img{ max-width:100%;}
   margin: 0;
   padding: 10px 10px 10px 12px;
   width: 100%;
+  font-family: 'Noto Sans KR', sans-serif;
 }
 .time_date {
   color: #747474;
@@ -268,6 +298,7 @@ img{ max-width:100%;}
   margin: 0; color:#fff;
   padding: 10px 10px 10px 12px;
   width:100%;
+  font-family: 'Noto Sans KR', sans-serif;
 }
 .outgoing_msg{ overflow:hidden; margin:26px 0 26px;}
 .sent_msg {
@@ -438,3 +469,6 @@ section {
 .section-title p {
    margin-bottom: 0;
 }
+
+
+
