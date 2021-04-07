@@ -772,6 +772,14 @@
    }
    
    
+// 창 크기가 변할 때마다 가로세로 길이를 맞춰준다.
+	$(window).resize(function(){
+		$('.box').each(function(){
+			$(this).height($(this).width());
+		});
+	}).resize();
+   
+   
    //============= 무한스크롤 함수 =============
    //웹브라우저의 창을 스크롤 할 때 마다 호출되는 함수 등록
    $(window).on("scroll",function(){
