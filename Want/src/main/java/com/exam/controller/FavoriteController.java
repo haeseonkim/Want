@@ -207,19 +207,20 @@ public class FavoriteController {
 			// ArrayList 객체의 참조값을 담을 지역변수를 미리 만든다.
 			ArrayList<PictureTO> list = null;
 			
-			//글목록 가져오기
+			//좋아요한 글목록 가져오기
 			list = pictureDao.picture_favoriteList( pto );
 			
-			//전체 글의 개수 가져오기
+			//좋아요 전체 글의 개수 가져오기
 			int totalRow = 0;
-			totalRow = pictureDao.PictureCount(pto);
+			totalRow = pictureDao.PictureFavoriteCount(pto);
 			
-			
+			System.out.println( "총 글 수" +totalRow);
 			//System.out.println(Math.ceil(totalRow / (double) PAGE_ROW_COUNT));
 			//System.out.println((int)Math.ceil(totalRow / (double) PAGE_ROW_COUNT));
 			
 			// 전체 페이지의 갯수 구하기
-			String totalPageCount = Integer.toString(( (int) Math.ceil(totalRow / (double) PAGE_ROW_COUNT) ) );
+			//int totalPageCount = (int) Math.ceil(totalRow / (double) PAGE_ROW_COUNT)  ;
+			int totalPageCount = (int) Math.ceil(totalRow / (double) PAGE_ROW_COUNT) ;
 			
 			System.out.println("totalPageCount: " + totalPageCount);
 

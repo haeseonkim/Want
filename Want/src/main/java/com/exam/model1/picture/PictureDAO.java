@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.exam.model1.lantrip.LanTripTO;
 import com.exam.model1.picture.PictureListTO;
 import com.exam.model1.picture.PictureTO;
+import com.exam.model1.pictureHeart.PictureHeartTO;
 import com.exam.model1.pictureReply.ReplyTO;
 import com.exam.model1.user.UserTO;
 
@@ -58,6 +59,19 @@ public class PictureDAO {
 		// 검색 키워드가 들어온 경우 검색결과의 게시물갯수가 된다.
 		int result = sqlSession.selectOne("picture_count", to);
 		
+		return result;
+	}
+	
+	//좋아요한 댓글 개수 가져오기
+	public int PictureFavoriteCount(PictureTO to) {
+		
+		String userid = to.getNick();
+		
+		PictureHeartTO hto = new PictureHeartTO();
+		hto.setUserid(userid);
+		
+		int result = sqlSession.selectOne("picture_favorite_count", hto);
+		System.out.println( "해당유저가 누른 좋아요 총 수 : " + result );
 		return result;
 	}
 

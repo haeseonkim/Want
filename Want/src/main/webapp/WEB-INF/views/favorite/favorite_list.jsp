@@ -4,6 +4,10 @@
 <%
    request.setCharacterEncoding("utf-8");
    String nick = (String)session.getAttribute( "nick" );
+   
+   //String totalPageCount = (String)request.getAttribute("totalPageCount");
+   
+   //System.out.println("jsp" +request.getAttribute("totalPageCount"));
 
 %>
 <!DOCTYPE html>
@@ -407,10 +411,10 @@ $(window).on("scroll",function(){
    //바닥까지 스크롤 되었는 지 여부를 알아낸다.
    let isBottom=scrollTop+windowHeight + 10 >= documentHeight;
    
-   console.log( scrollTop, windowHeight, documentHeight, isBottom );
+   //console.log( scrollTop, windowHeight, documentHeight, isBottom );
    
    
-   console.log( $( '.menu_name' ).attr( 'id' ) );
+   //console.log( $( '.menu_name' ).attr( 'id' ) );
    //무한스크롤 컨트롤러에서 매핑할 이름 설정
    let ajaxDoName = '';
    let mName = $( '.menu_name' ).attr( 'id' );
@@ -423,11 +427,16 @@ $(window).on("scroll",function(){
    } else if( mName == 'accom_' ) {
       ajaxDoName = './f_accom_list.do';
    }
-   console.log( 'ajaxDoName: ' + ajaxDoName );
+   //console.log( 'ajaxDoName: ' + ajaxDoName );
+   let totalPageCount = 99;
    
    if(isBottom){
+	   console.log("isbottom");
       //만일 현재 마지막 페이지라면
-      if( currentPage == ${ totalPageCount } || isLoading ) {
+      if( totalPageCount == 99 ) {
+    	  console.log( '처음 불러올 때' );
+      } else if( currentPage == totalPageCount || isLoading ) {
+    	  console.log("이거 보이면 스크롤 끝남" + '${ totalPageCount }' );
          return; //함수를 여기서 끝낸다.
       }
       //현재 로딩 중이라고 표시한다.
@@ -438,7 +447,7 @@ $(window).on("scroll",function(){
       currentPage++;
       //currentPage = $('.currentPage').val( currentPage++ );
       
-      
+      console.log("currentPage : " + currentPage);
       //추가로 받아올 페이지를 서버에 ajax 요청을 하고
       $.ajax({
          url: ajaxDoName,
@@ -448,13 +457,13 @@ $(window).on("scroll",function(){
          //ajax_page.jsp의 내용이 data로 들어온다.
          success:function(data){
             //console.log(data);
-
             //해당 문자열을 .menu_content div에 html로 해석하라고 추가한다.
             $(".menu_content").append(data);
             //로딩바를 숨긴다.
             $(".back-drop").hide();
             //로딩중이 아니라고 표시한다.
             isLoading=false;
+            console.log( '성공이후 : ' + ${totalPageCount});
             
             //======= 좋아요 관련 =========
             // 하트 클릭했을 때

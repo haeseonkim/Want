@@ -564,6 +564,12 @@
 		</choose>
 	</select>
 	
+	<select id="picture_favorite_count" parameterType="com.exam.model1.pictureHeart.PictureHeartTO" resultType="int">
+		select count(*) 
+		from p_heart
+		where userid like '${ userid }'
+	</select>
+	
 	<!-- 로그인 전 사진자랑 리스트 -->
 	<select id="picture_list" resultType="com.exam.model1.picture.PictureTO">
 		select b.no, subject, content, writer, date_format(wdate,'%Y-%m-%d') wdate, hit, location, media, reply, heart, u.profile
