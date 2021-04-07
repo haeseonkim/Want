@@ -2,35 +2,37 @@
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
-	int result = (Integer)request.getAttribute("result");
-
-	if(result==1){
-		int flag = (Integer)request.getAttribute("flag");
-		
-		out.println("<script type='text/javascript'>");
-		if(flag == 0){
-		   out.println("alert('수정 성공!');");
-		   out.println("location.href='./profile.do';");
-		}else{
-		   out.println("alert('수정에 실패했습니다.');");
-		   out.println("history.back();");
+	if( request.getAttribute("result") != null ) {
+		int result = (Integer)request.getAttribute("result");
+		if(result==1){
+			int flag = (Integer)request.getAttribute("flag");
+			
+			out.println("<script type='text/javascript'>");
+			if(flag == 0){
+			   out.println("alert('수정 성공!');");
+			   out.println("location.href='./profile.do';");
+			}else{
+			   out.println("alert('수정에 실패했습니다.');");
+			   out.println("history.back();");
+			}
+			out.println("</script>");
 		}
-		out.println("</script>");
+		
+		if(result==2){
+			int flag = (Integer)request.getAttribute("flag");
+			
+			out.println("<script type='text/javascript'>");
+			if(flag == 0){
+			   out.println("alert('삭제 성공!');");
+			   out.println("location.href='./profile.do';");
+			}else{
+			   out.println("alert('삭제에 실패했습니다.');");
+			   out.println("history.back();");
+			}
+			out.println("</script>");
+		}
 	}
 	
-	if(result==2){
-		int flag = (Integer)request.getAttribute("flag");
-		
-		out.println("<script type='text/javascript'>");
-		if(flag == 0){
-		   out.println("alert('삭제 성공!');");
-		   out.println("location.href='./profile.do';");
-		}else{
-		   out.println("alert('삭제에 실패했습니다.');");
-		   out.println("history.back();");
-		}
-		out.println("</script>");
-	}
 %>
 <!DOCTYPE html>
 <html>

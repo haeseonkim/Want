@@ -46,13 +46,68 @@ public class OtherProfileController {
 	
 	@Autowired
 	private LanTripReplyDAO l_replyDao;
+	
+	@Autowired
+	private LanTripDAO lantripDao;
 
 	@RequestMapping(value = "/other_profile.do")
 	public String other_profile(HttpServletRequest request, HttpSession session) {
 	   
+		if( session.getAttribute( "nick" ) == null  ) {
+			
+			return "profile/no_login_profile";
+		}
+		
 	   String nick = (String)session.getAttribute( "nick" );
+	   
+	   //게시물 프로필사진 눌렀을 때 넘어오는 nick값과 현재 로그인된 nick값을 비교한다.
 	   if( nick.equals( request.getParameter("other_nick") ) ) {
-	      return "profile/profile";
+		   
+			// ======= 유저 정보가져오기 =======
+			// 세션에 저장된 nick값을 to에 저장
+			UserTO uto = new UserTO();
+			uto.setNick(nick);
+
+			// 저장된 nick값을 userDao함수 매개변수로 넘겨줌
+			// userDao에서 myProfile함수를 실행시켜서 유저 정보를 다시 uto에 저장
+			uto = userDao.myProfile(uto);
+
+			// ======= 랜선여행 글list 가져오기 =======
+			LanTripTO lto = new LanTripTO();
+
+			String pageNum = request.getParameter("pageNum");
+
+			int recordNum = 9; // 가져올 글의 개수
+
+			int currentPage = 1; // 현재 페이지번호
+			if (pageNum != null) {
+				currentPage = Integer.parseInt(pageNum);
+			}
+			int startRowNum = 0 + (currentPage - 1) * recordNum;
+			int endRowNum = currentPage * recordNum;
+
+			lto.setWriter(nick);
+			lto.setStartRowNum(startRowNum);
+			lto.setEndRowNum(endRowNum);
+
+			// 전체 글의 개수를 이용해서 전페 페이지수 구하기
+			int totalRow = 0;
+			totalRow = lantripDao.profileLanTripCount(lto);
+
+			int totalPageCount = (int) Math.ceil(totalRow / (double) recordNum);
+
+			// 랜선여행 글리스트 결과를 리턴받는다.
+			ArrayList<LanTripTO> list = lantripDao.lantrip_MyProfileList(lto);
+
+			// jsp로 uto값을 넘겨줌
+			request.setAttribute("uto", uto);
+			request.setAttribute("totalPageCount", totalPageCount);
+			// jsp로 to가 담긴 arrayList넘겨준다.
+			request.setAttribute("pageNum", pageNum);
+			request.setAttribute("list", list);
+		   
+		   
+		   return "profile/profile";
 	   }
 
 	   UserTO to = new UserTO();
