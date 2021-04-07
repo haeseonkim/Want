@@ -463,108 +463,95 @@ $(document).ready( function() {
 			<!-- For demo purpose -->
 			<section id="banner-<%=location%>">
 				<div class="row">
-					<div class="col-lg-12">
-						<div class="text-white p-5 shadow-sm rounded">
-							<div class="row">
-								<div class="col-4 banner-container" style="height: 100px;">
-									<h1><%=location%>
-										쇼핑 정보
-									</h1>
-									<br /> <br />
-									<div>
-										<c:choose>
-											<c:when test="${empty sessionScope.nick }">
-												<button type="button" class="btn btn-write"
-													onclick="javascript:alert('로그인을 하셔야합니다.')">정보 공유하기</button>
-											</c:when>
-											<c:otherwise>
-												<button type="button" class="btn btn-write"
-													onclick="location.href='./shopping_write.do?location=<%=location%>'">정보
-													공유하기</button>
-											</c:otherwise>
-										</c:choose>
-									</div>
+					<div class="text-white p-5 shadow-sm rounded">
+						<div class="row">
+							<div class="col-4 banner-container">
+								<h1><%=location%>쇼핑 정보</h1><br />
+								<div>
+									<c:choose>
+										<c:when test="${empty sessionScope.nick }">
+											<button type="button" class="btn btn-write"
+												onclick="javascript:alert('로그인을 하셔야합니다.')">정보 공유하기</button>
+										</c:when>
+										<c:otherwise>
+											<button type="button" class="btn btn-write"
+												onclick="location.href='./shopping_write.do?location=<%=location%>'">정보
+												공유하기</button>
+										</c:otherwise>
+									</c:choose>
 								</div>
-
-								<div class="col-8"></div>
-								<div class="row">
-									<div class="col-4"></div>
-
-									<!-- 검색 버튼과 form -->
-									<div id="card-search" class="card-search">
-										<form action="./shopping_list.do" method="get">
-											<input type="hidden" name="location" value="<%=location%>" />
-											<div class="row justify-content-md-center"
-												id="info-container">
-												<div class="form-row col-1">
-													<div class="value">
-														<select id="condition" name="condition"
-															class="form-select" style="margin-top:200px; margin-left:30px;">
-															<option value="subject"
-																${condition eq 'subject' ? 'selected' : '' }>제목</option>
-															<option value="content"
-																${condition eq 'content' ? 'selected' : '' }>내용</option>
-															<option value="writer"
-																${condition eq 'writer' ? 'selected' : '' }>작성자</option>
-														</select>
-													</div>
-												</div>
-												<div class="col-md-2" style="margin-top:200px;">
-													<input value="${keyword }" type="text" name="keyword"
-														placeholder="검색어를 입력해주세요" class="form-control">
-												</div>
-												<div class="col-md-1" style="margin-top:200px;">
-													<button class="btn btn-search" type="submit">검색</button>
-												</div>
-
-												<div class="col-8 weather-container">
-													<!-- 날씨 데이터 표현하는 div -->
-													<c:forEach var="i" begin="0" end="2">
-														<div class="weather_div1">
-															<table class="weather_table">
-																<colgroup>
-																	<col width="33%" />
-																	<col width="33%" />
-																	<col width="33%" />
-																</colgroup>
-																<tr class="weather_tr1">
-																	<th class="weather_i" rowspan="3" colspan="2"
-																		align=center><i id="weather_img${i}"></i></th>
-																	<td align=center class="weather_name"><p
-																			id="weather_name${i}"></p></td>
-																</tr>
-																<tr class="weather_tr1">
-																	<td align=center><p id="weather_temp${i}"></p></td>
-																</tr>
-																<tr class="weather_tr1">
-																	<td align=center height="90px"><p
-																			id="weather_status${i}"></p></td>
-																</tr>
-																<tr class="weather_tr2">
-																	<td class="weather_bottom">
-																		<p class="weather_p">풍속</p>
-																		<p id="weather_wind${i}"></p>
-																	</td>
-																	<td class="weather_bottom">
-																		<p class="weather_p">습도</p>
-																		<p id="weather_humidity${i}"></p>
-																	</td>
-																	<td class="weather_bottom">
-																		<p class="weather_p">흐림정도</p>
-																		<p id="weather_clouds${i}"></p>
-																	</td>
-																</tr>
-															</table>
-														</div>
-													</c:forEach>
+								<div>
+									<form action="./shopping_list.do" method="get">
+										<input type="hidden" name="location" value="<%=location%>" />
+										<div class="row justify-content-md-center" id="info-container">
+											<div class="col-3">
+												<div class="value">
+													<select id="condition" name="condition" class="form-select"
+														style="margin-top: 50px; margin-left: 30px;">
+														<option value="subject"
+															${condition eq 'subject' ? 'selected' : '' }>제목</option>
+														<option value="content"
+															${condition eq 'content' ? 'selected' : '' }>내용</option>
+														<option value="writer"
+															${condition eq 'writer' ? 'selected' : '' }>작성자</option>
+													</select>
 												</div>
 											</div>
-										</form>
-									</div>
+											<div class="col-md-6" style="margin-top: 50px;">
+												<input value="${keyword }" type="text" name="keyword"
+													placeholder="검색어를 입력해주세요" class="form-control">
+											</div>
+											<div class="col-md-3" style="margin-top: 50px;">
+												<button class="btn btn-search" type="submit">검색</button>
+											</div>
+										</div>
+									</form>
 								</div>
 							</div>
 
+							<div class="col-8 weather-container" style="width: 100%;">
+								<!-- 날씨 데이터 표현하는 div -->
+								<c:forEach var="i" begin="0" end="2">
+									<div class="weather_div1">
+										<table class="weather_table">
+											<colgroup>
+												<col width="33%" />
+												<col width="33%" />
+												<col width="33%" />
+											</colgroup>
+											<tr class="weather_tr1">
+												<th class="weather_i" rowspan="3" colspan="2" align=center><i
+													id="weather_img${i}"></i></th>
+												<td align=center class="weather_name"><p
+														id="weather_name${i}"></p></td>
+											</tr>
+											<tr class="weather_tr1">
+												<td align=center><p id="weather_temp${i}"></p></td>
+											</tr>
+											<tr class="weather_tr1">
+												<td align=center height="90px"><p
+														id="weather_status${i}"></p></td>
+											</tr>
+											<tr class="weather_tr2">
+												<td class="weather_bottom">
+													<p class="weather_p">풍속</p>
+													<p id="weather_wind${i}"></p>
+												</td>
+												<td class="weather_bottom">
+													<p class="weather_p">습도</p>
+													<p id="weather_humidity${i}"></p>
+												</td>
+												<td class="weather_bottom">
+													<p class="weather_p">흐림정도</p>
+													<p id="weather_clouds${i}"></p>
+												</td>
+											</tr>
+										</table>
+									</div>
+								</c:forEach>
+							</div>
 						</div>
+
 					</div>
 				</div>
 			</section>

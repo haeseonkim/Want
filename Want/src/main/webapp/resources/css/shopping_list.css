@@ -413,9 +413,15 @@ body {
 	padding: 0 15px;
 }
 
-
+.banner-container{
+	position:relative;
+	margin-bottom:150px;
+	z-index: 5;
+}
 .weather-container{
 	position:relative;
+	margin-top:150px;
+	
 }
 button.btn-write{
 	font-family: 'Noto Sans KR', sans-serif;
@@ -451,7 +457,6 @@ a.heart-click:hover {
 
 .weather_div1 {
 	width: 270px;
-	height: 250px;
 	float: right;
 	color: white;
 	text-align: center;
@@ -516,9 +521,6 @@ a.heart-click:hover {
 }
 #card-search{
 	position:relative;
-}
-#info-container{
-	margin-top:150px;
 }
 
 .select-form {

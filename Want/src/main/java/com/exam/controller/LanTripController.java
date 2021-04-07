@@ -47,7 +47,11 @@ public class LanTripController {
 
    // 각자 맞는 upload 폴더 경로로 변경
   
-   //private String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\lanTrip";
+
+	//리눅스 경로
+//	private String uploadPath = "/home/want/apache-tomcat-9.0.44/webapps/Want/upload/lanTrip";
+
+  //private String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\lanTrip";
    private String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\lanTrip";
    //private String uploadPath ="/Users/hyukjun/git/Want/Want/src/main/webapp/upload/lanTrip";
 
