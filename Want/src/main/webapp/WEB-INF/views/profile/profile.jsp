@@ -467,8 +467,8 @@
                         let heart = to.heart;
                         
                         // 페이지, 모달창에 하트수 갱신
-                        $('#m_heart'+no).text(하트);
-                        $( '.span_heart'+no ).text(하트);
+                        $('#m_heart'+no).text(heart);
+                        $( '.span_heart'+no ).text(heart);
                         
                         alert("하트추가 성공");
                      },
@@ -498,8 +498,8 @@
                         
                         let heart = to.heart;
                         // 페이지, 모달창에 하트수 갱신
-                        $('#m_heart'+no).text(하트);
-                        $( '.span_heart'+no ).text(하트);
+                        $('#m_heart'+no).text(heart);
+                        $( '.span_heart'+no ).text(heart);
                         
                         alert("하트삭제 성공");
                      },

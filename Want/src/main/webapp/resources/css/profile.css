@@ -7,6 +7,31 @@ body {
 
 }
 
+.nav-item {
+	font-size: 20px;
+}
+
+.nick-div b {
+	font-size: 30px;
+}
+
+#m_writer {
+	font-size: 20px;
+}
+
+.list-group-item {
+	font-size: 20px;
+}
+
+strong {
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 20px;
+}
+
+.pull-left {
+	font-size: 25px;
+}
+
 btn {
 	font-size: 20px!important;
 }

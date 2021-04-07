@@ -9,7 +9,7 @@
 		out.println( " <script type='text/javascript'> " );
 		if( flag == 0 ) {	//로그인성공
 			out.println( " alert('로그인에 성공했습니다.'); " );
-			out.println( " location.href='./lanTrip_list.do'" );
+			out.println( " location.href='./home.do'" );
 		} else if( flag == 1 ) {	//비번틀림
 			out.println( " alert('비밀번호가 틀립니다.'); " );
 			out.println( " location.href='./loginForm.do' " );
