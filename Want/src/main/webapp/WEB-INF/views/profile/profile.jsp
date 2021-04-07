@@ -2,37 +2,37 @@
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
-   if( request.getAttribute("result") != null ) {
-      int result = (Integer)request.getAttribute("result");
-      if(result==1){
-         int flag = (Integer)request.getAttribute("flag");
-         
-         out.println("<script type='text/javascript'>");
-         if(flag == 0){
-            out.println("alert('수정 성공!');");
-            out.println("location.href='./profile.do';");
-         }else{
-            out.println("alert('수정에 실패했습니다.');");
-            out.println("history.back();");
-         }
-         out.println("</script>");
-      }
-      
-      if(result==2){
-         int flag = (Integer)request.getAttribute("flag");
-         
-         out.println("<script type='text/javascript'>");
-         if(flag == 0){
-            out.println("alert('삭제 성공!');");
-            out.println("location.href='./profile.do';");
-         }else{
-            out.println("alert('삭제에 실패했습니다.');");
-            out.println("history.back();");
-         }
-         out.println("</script>");
-      }
-   }
-   
+	if( request.getAttribute("result") != null ) {
+		int result = (Integer)request.getAttribute("result");
+		if(result==1){
+			int flag = (Integer)request.getAttribute("flag");
+			
+			out.println("<script type='text/javascript'>");
+			if(flag == 0){
+			   out.println("alert('수정 성공!');");
+			   out.println("location.href='./profile.do';");
+			}else{
+			   out.println("alert('수정에 실패했습니다.');");
+			   out.println("history.back();");
+			}
+			out.println("</script>");
+		}
+		
+		if(result==2){
+			int flag = (Integer)request.getAttribute("flag");
+			
+			out.println("<script type='text/javascript'>");
+			if(flag == 0){
+			   out.println("alert('삭제 성공!');");
+			   out.println("location.href='./profile.do';");
+			}else{
+			   out.println("alert('삭제에 실패했습니다.');");
+			   out.println("history.back();");
+			}
+			out.println("</script>");
+		}
+	}
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -467,8 +467,8 @@
                         let heart = to.heart;
                         
                         // 페이지, 모달창에 하트수 갱신
-                        $('#m_heart'+no).text(하트);
-                        $( '.span_heart'+no ).text(하트);
+                        $('#m_heart'+no).text(heart);
+                        $( '.span_heart'+no ).text(heart);
                         
                         alert("하트추가 성공");
                      },
@@ -498,8 +498,8 @@
                         
                         let heart = to.heart;
                         // 페이지, 모달창에 하트수 갱신
-                        $('#m_heart'+no).text(하트);
-                        $( '.span_heart'+no ).text(하트);
+                        $('#m_heart'+no).text(heart);
+                        $( '.span_heart'+no ).text(heart);
                         
                         alert("하트삭제 성공");
                      },
@@ -770,6 +770,14 @@
          }
       });
    }
+   
+   
+// 창 크기가 변할 때마다 가로세로 길이를 맞춰준다.
+	$(window).resize(function(){
+		$('.box').each(function(){
+			$(this).height($(this).width());
+		});
+	}).resize();
    
    
    //============= 무한스크롤 함수 =============

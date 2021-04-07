@@ -297,6 +297,7 @@ public class PictureController {
 
 		try {
       
+
 			multi = new MultipartRequest(request, uploadPath, maxFileSize, encType, new DefaultFileRenamePolicy());
 
 			PictureTO to = new PictureTO();
@@ -516,6 +517,7 @@ public class PictureController {
 
 		try {
       
+
 			multi = new MultipartRequest(request, uploadPath, maxFileSize, encType, new DefaultFileRenamePolicy());
 
 			PictureTO to = new PictureTO();
