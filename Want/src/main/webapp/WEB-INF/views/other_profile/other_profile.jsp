@@ -42,7 +42,9 @@
 			<div class="col-sm-3">
 			
 				<!--left col-->
-
+				<div class="nick-div">
+	               <h5><b><span style="color:#5fcf80;">${to.nick }</span>님의 프로필</b></h5>
+	            </div>
 				<div class="text-center center row">
 					<div class="col-1"></div>
 					<div class="col-10">
@@ -50,8 +52,7 @@
 							<img src="./upload/profile/${to.profile }"
 								class="avatar img-circle img-profile" alt="avatar">
 						</div>
-						<h4>${to.nick }</h4>
-						<div>
+						<div class="messagesend-btn">
 							<!-- 메세지 보내기 버튼 -->
 							<button type="button" class="msg_send_btn_profile"
 								data-bs-toggle="modal" data-bs-target="#exampleModal"

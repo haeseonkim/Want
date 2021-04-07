@@ -2,8 +2,16 @@
 
 
 /* 글씨체 적용 */
-h4, p, li{
+h4,h5, p, li, .nick-div{
 	font-family: 'Nanum Pen Script', cursive;
+}
+
+.nick-div b {
+	font-size: 30px;
+}
+
+.nick-div {
+    text-align: center;
 }
 
 h4{
@@ -54,6 +62,10 @@ h5 {
     /*height: auto;*/ 
     border-radius: 70%;
     overflow: hidden;
+}
+
+.messagesend-btn{
+	margin-top: 15px;
 }
 
 .message-box{
