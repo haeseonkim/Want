@@ -944,48 +944,48 @@ public class OtherProfileController {
 			// +1된 댓글 갯수를 담아오기 위함
 			AccomTO sto = otherProfileDao.accomWriteReReply(to);
 
-			return sto;
-		}
-				
-		// 댓글 삭제
-		@ResponseBody
-		@RequestMapping(value = "/other_accom_delete_reply.do")
-		public AccomTO accom_delete_reply(@RequestParam String no, @RequestParam String bno) {
+         return sto;
+      }
+            
+      // 댓글 삭제
+      @ResponseBody
+      @RequestMapping(value = "/other_accom_delete_reply.do")
+      public AccomTO accom_delete_reply(@RequestParam String no, @RequestParam String bno) {
 
-			ReplyTO to = new ReplyTO();
+         ReplyTO to = new ReplyTO();
 
-			// 모댓글 번호 세팅
-			to.setNo(no);
+         // 모댓글 번호 세팅
+         to.setNo(no);
 
-			// 게시물 번호 세팅
-			to.setBno(bno);
+         // 게시물 번호 세팅
+         to.setBno(bno);
 
-			// 갱신된 댓글 갯수를 담아오기 위함
-			AccomTO sto = otherProfileDao.accomDeleteReply(to);
+         // 갱신된 댓글 갯수를 담아오기 위함
+         AccomTO sto = otherProfileDao.accomDeleteReply(to);
 
-			return sto;
-		}
+         return sto;
+      }
 
-		// 답글 삭제
-		@ResponseBody
-		@RequestMapping(value = "/other_accom_delete_rereply.do")
-		public AccomTO accom_delete_rereply(@RequestParam String no, @RequestParam String bno, @RequestParam int grp) {
+      // 답글 삭제
+      @ResponseBody
+      @RequestMapping(value = "/other_accom_delete_rereply.do")
+      public AccomTO accom_delete_rereply(@RequestParam String no, @RequestParam String bno, @RequestParam int grp) {
 
-			ReplyTO to = new ReplyTO();
+         ReplyTO to = new ReplyTO();
 
-			// 답글 번호 세팅 - 답글 삭제하기 위해서 필요함
-			to.setNo(no);
+         // 답글 번호 세팅 - 답글 삭제하기 위해서 필요함
+         to.setNo(no);
 
-			// 게시물 번호 세팅 - p_board 의 reply+1하기 위해 필요함
-			to.setBno(bno);
+         // 게시물 번호 세팅 - p_board 의 reply+1하기 위해 필요함
+         to.setBno(bno);
 
-			// grp 세팅(모댓글이 뭔지) - 모댓글은 삭제를 해도 답글이 있으면 남아있게 되는데 답글이 모두 삭제되었을 때 모댓글도 삭제하기 위해
-			// 필요함
-			to.setGrp(grp);
+         // grp 세팅(모댓글이 뭔지) - 모댓글은 삭제를 해도 답글이 있으면 남아있게 되는데 답글이 모두 삭제되었을 때 모댓글도 삭제하기 위해
+         // 필요함
+         to.setGrp(grp);
 
-			// 갱신된 댓글 갯수를 담아오기 위함
-			AccomTO sto = otherProfileDao.accomDeleteReReply(to);
+         // 갱신된 댓글 갯수를 담아오기 위함
+         AccomTO sto = otherProfileDao.accomDeleteReReply(to);
 
-			return sto;
-		}
+         return sto;
+      }
 }

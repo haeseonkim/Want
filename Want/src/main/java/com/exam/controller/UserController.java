@@ -227,9 +227,9 @@ public class UserController {
 		int maxFileSize = 1024 * 1024 * 6;
 		String encType = "utf-8";
     
-	   //String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\profile";
+	   String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\profile";
 	   //String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\profile";
-	   String uploadPath ="/Users/hyukjun/git/Want/Want/src/main/webapp/upload/profile";
+//	   String uploadPath ="/Users/hyukjun/git/Want/Want/src/main/webapp/upload/profile";
 
 		MultipartRequest multi = null;
 

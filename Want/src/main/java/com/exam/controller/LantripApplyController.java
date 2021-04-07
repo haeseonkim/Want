@@ -36,6 +36,7 @@ public class LantripApplyController {
    private String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\lanTrip_apply";
    //private String uploadPath ="/Users/hyukjun/git/Want/Want/src/main/webapp/upload/lanTrip_apply";
   
+  
 	// 랜선여행 신청 목록					
 	@RequestMapping(value = "/lanTrip_apply_list.do")
 	public String list(HttpServletRequest request, Model model) {

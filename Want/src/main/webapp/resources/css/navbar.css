@@ -284,6 +284,32 @@ h1, li, span, a{
 /*--------------------------------------------------------------
 # 메시지 
 --------------------------------------------------------------*/
-.message{
-	
+
+
+.msg_icon {
+	background: #5fcf80;
+	color: #fff;
+	white-space: nowrap;
+	width:40px;
+	height:40px;
+	border-radius: 20px;
+	vertical-align: middle;
+	text-align: center;
+	border:0;
+}
+
+.msg_icon:hover {
+	background: #3ac162;
+	color: #fff;
+}
+
+.message_btn {
+	color: #fff;
+}
+
+@media (max-width: 768px) {
+  .message-btn {
+    margin: 10px 15px 0 0;
+    padding: 6px 18px;
+  }
 }

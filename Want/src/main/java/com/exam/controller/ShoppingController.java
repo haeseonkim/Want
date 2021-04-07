@@ -72,8 +72,8 @@ public class ShoppingController {
   //String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\shopping";
    String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\shopping";
    //String uploadPath ="/Users/hyukjun/git/Want/Want/src/main/webapp/upload/shopping";
-    
-		MultipartRequest multi = null;
+		
+    MultipartRequest multi = null;
 
 		try {
 			request.setCharacterEncoding("utf-8");
