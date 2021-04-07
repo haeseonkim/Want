@@ -14,8 +14,7 @@
 
 		<nav id="navbar" class="navbar order-last order-lg-0">
 			<ul>
-				<li><a
-					class="${param.thisPage eq 'home' ? 'active':''}"
+				<li><a class="${param.thisPage eq 'home' ? 'active':''}"
 					href="./home.do">Home</a></li>
 				<li class="dropdown"><a href="./lanTrip_list.do"><span>랜선여행</span>
 						<i class="bi bi-chevron-down"></i></a>
@@ -47,7 +46,8 @@
 					href="./aboutUs.do">About us</a></li>
 
 				<%-- 로그인 상태 일때만 '마이페이지'가 보인다. --%>
-				<c:if test="${!empty sessionScope.id or !empty sessionScope.kakaoid}">
+				<c:if
+					test="${!empty sessionScope.id or !empty sessionScope.kakaoid}">
 					<li class="dropdown"><a href="./profile.do"><span>마이페이지</span>
 							<i class="bi bi-chevron-down"></i></a>
 						<ul>
@@ -73,13 +73,29 @@
 			</c:when>
 			<%-- 로그인 상태일 때 --%>
 			<c:otherwise>
-				<span class="navbar-text">
-					<a href="./logout.do" class="get-started-btn">로그아웃</a>
-				</span>
-				<span class="message">
-				<a href="./message_list.do"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
-  					<path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2zm13 2.383-4.758 2.855L15 11.114v-5.73zm-.034 6.878L9.271 8.82 8 9.583 6.728 8.82l-5.694 3.44A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.739zM1 11.114l4.758-2.876L1 5.383v5.73z"/>
-					</svg></a></span>
+				<span class="navbar-text"> <a href="./logout.do"
+					class="get-started-btn">로그아웃</a>
+				</span>&nbsp;&nbsp;
+				<div class="msg_icon" type="button">
+					<!-- <a href="./message_list.do" class="message_btn">
+						<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" 
+							class="bi bi-envelope" viewBox="0 0 16 16">
+  							<path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 
+  							1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2zm13 2.383-4.758 2.855L15 11.114v-5.73zm-.034 6.878L9.271 8.82 8 
+  							9.583 6.728 8.82l-5.694 3.44A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.739zM1 11.114l4.758-2.876L1 5.383v5.73z"/>
+						</svg>
+					</a> -->
+					<button type="button" class="msg_icon" onclick="location.href='./message_list.do'">
+						<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+							fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
+  							<path
+								d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 
+  							1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2zm13 2.383-4.758 2.855L15 11.114v-5.73zm-.034 6.878L9.271 8.82 8 
+  							9.583 6.728 8.82l-5.694 3.44A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.739zM1 11.114l4.758-2.876L1 5.383v5.73z" />
+						</svg>
+					</button>
+				</div>
+
 			</c:otherwise>
 		</c:choose>
 
