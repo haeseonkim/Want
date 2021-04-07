@@ -56,7 +56,7 @@ public class FavoriteController {
 		try {
 			request.setCharacterEncoding("utf-8");
 			
-			System.out.println("컨트롤러");
+//			System.out.println("컨트롤러");
 			
 			// 페이지 번호가 파라미터로 전달되는지 읽어와 본다.
 			String strPageNum = request.getParameter("pageNum");
