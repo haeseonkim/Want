@@ -392,6 +392,7 @@ $(window).bind("pageshow", function (event) {
 
 let currentPage=1;
 let isLoading=false;
+let totalPageCount = 99;
 
 //======= 무한스크롤 관련 =======
 //웹브라우저의 창을 스크롤 할 때 마다 호출되는 함수 등록
@@ -411,10 +412,6 @@ $(window).on("scroll",function(){
    //바닥까지 스크롤 되었는 지 여부를 알아낸다.
    let isBottom=scrollTop+windowHeight + 10 >= documentHeight;
    
-   //console.log( scrollTop, windowHeight, documentHeight, isBottom );
-   
-   
-   //console.log( $( '.menu_name' ).attr( 'id' ) );
    //무한스크롤 컨트롤러에서 매핑할 이름 설정
    let ajaxDoName = '';
    let mName = $( '.menu_name' ).attr( 'id' );
@@ -428,15 +425,14 @@ $(window).on("scroll",function(){
       ajaxDoName = './f_accom_list.do';
    }
    //console.log( 'ajaxDoName: ' + ajaxDoName );
-   let totalPageCount = 99;
    
    if(isBottom){
-	   console.log("isbottom");
+      console.log("isbottom");
       //만일 현재 마지막 페이지라면
       if( totalPageCount == 99 ) {
-    	  console.log( '처음 불러올 때' );
+
       } else if( currentPage == totalPageCount || isLoading ) {
-    	  console.log("이거 보이면 스크롤 끝남" + '${ totalPageCount }' );
+
          return; //함수를 여기서 끝낸다.
       }
       //현재 로딩 중이라고 표시한다.
@@ -445,9 +441,8 @@ $(window).on("scroll",function(){
       $(".back-drop").show();
       //요청할 페이지 번호를 1 증가시킨다.
       currentPage++;
-      //currentPage = $('.currentPage').val( currentPage++ );
       
-      console.log("currentPage : " + currentPage);
+      console.log("1. ajax 들어가기 전 currentPage : " + currentPage);
       //추가로 받아올 페이지를 서버에 ajax 요청을 하고
       $.ajax({
          url: ajaxDoName,
@@ -456,14 +451,14 @@ $(window).on("scroll",function(){
          data:"pageNum="+currentPage,
          //ajax_page.jsp의 내용이 data로 들어온다.
          success:function(data){
-            //console.log(data);
             //해당 문자열을 .menu_content div에 html로 해석하라고 추가한다.
             $(".menu_content").append(data);
             //로딩바를 숨긴다.
             $(".back-drop").hide();
             //로딩중이 아니라고 표시한다.
             isLoading=false;
-            console.log( '성공이후 : ' + ${totalPageCount});
+            console.log( '3. 성공이후 : ' + ${ totalPageCount });
+            totalPageCount = ${ totalPageCount };
             
             //======= 좋아요 관련 =========
             // 하트 클릭했을 때

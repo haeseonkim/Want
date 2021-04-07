@@ -565,10 +565,10 @@
 	</select>
 	
 	<select id="picture_favorite_count" parameterType="com.exam.model1.pictureHeart.PictureHeartTO" resultType="int">
-		select count(*) 
-		from p_heart
-		where userid like '${ userid }'
-	</select>
+      select count(*) 
+      from p_heart
+      where userid like '${ userid }'
+   </select>
 	
 	<!-- 로그인 전 사진자랑 리스트 -->
 	<select id="picture_list" resultType="com.exam.model1.picture.PictureTO">
@@ -1367,7 +1367,7 @@
 		on b.writer = u.nick
 		where h.userid like #{ nick }
 		order by b.no desc
-		limit #{startRowNum}, #{endRowNum}
+		limit #{startRowNum}, 8
 	</select>
 	
 	<!-- 랜선여행신청하기 댓글 -->
@@ -1469,7 +1469,7 @@
 		on b.writer = u.nick
 		where h.userid like #{ nick }
 		order by b.no desc
-		limit #{startRowNum}, #{endRowNum}
+		limit #{startRowNum}, 8
 	</select>
 	
 	<!-- 쇼핑 글리스트 가져오는 sql -->
@@ -1481,7 +1481,7 @@
 		on b.writer = u.nick
 		where h.userid like #{ nick }
 		order by b.no desc
-		limit #{startRowNum}, #{endRowNum}
+		limit #{startRowNum}, 8
 	</select>
 	
 	<!-- 숙소 글리스트 가져오는 sql -->
@@ -1493,7 +1493,7 @@
 		on b.writer = u.nick
 		where h.userid like #{ nick }
 		order by b.no desc
-		limit #{startRowNum}, #{endRowNum}
+		limit #{startRowNum}, 8
 	</select>
 	
 	<!-- ========================= 메세지 ======================= -->
