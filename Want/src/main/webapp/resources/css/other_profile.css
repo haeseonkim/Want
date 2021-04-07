@@ -207,11 +207,12 @@ img{ max-width:100%;}
 
 
 .recent_heading {float: left; width:40%;}
-.srch_bar {
+/* .srch_bar {
   display: inline-block;
   text-align: right;
   width: 60%; padding: 0px;
 }
+
 .headind_srch{ padding:10px 29px 10px 20px; overflow:hidden; border-bottom:1px solid #f7f7f7;}
 
 .recent_heading h4 {
