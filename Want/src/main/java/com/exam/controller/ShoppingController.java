@@ -48,6 +48,9 @@ public class ShoppingController {
    //private String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\shopping";
 //   private String uploadPath ="/Users/hyukjun/git/Want/Want/src/main/webapp/upload/shopping";
 
+	//리눅스 경로
+//	private String uploadPath = "/home/want/apache-tomcat-9.0.44/webapps/Want/upload/shopping";
+   
 	// 쇼핑정보 write
 	@RequestMapping(value = "/shopping_write.do")
 	public String shopping_write(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
@@ -68,11 +71,7 @@ public class ShoppingController {
 
 		int maxFileSize = 1024 * 1024 * 6;
 		String encType = "utf-8";
-    
-   String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\shopping";
-   //String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\shopping";
-//   String uploadPath ="/Users/hyukjun/git/Want/Want/src/main/webapp/upload/shopping";
-    
+ 
 		MultipartRequest multi = null;
 
 		try {
@@ -621,11 +620,7 @@ public class ShoppingController {
 		
 		int maxFileSize = 1024 * 1024 * 6;
 		String encType = "utf-8";
-    
-   String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\shopping";
-   //String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\shopping";
-//   String uploadPath ="/Users/hyukjun/git/Want/Want/src/main/webapp/upload/shopping";
-    
+
 		MultipartRequest multi = null;
 
 		try {

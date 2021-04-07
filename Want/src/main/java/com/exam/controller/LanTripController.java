@@ -51,6 +51,8 @@ public class LanTripController {
    //private String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\lanTrip";
 //   private String uploadPath ="/Users/hyukjun/git/Want/Want/src/main/webapp/upload/lanTrip";
    
+	//리눅스 경로
+//	private String uploadPath = "/home/want/apache-tomcat-9.0.44/webapps/Want/upload/lanTrip";
 
    // 랜선여행 목록
    @RequestMapping(value = "/lanTrip_list.do")
