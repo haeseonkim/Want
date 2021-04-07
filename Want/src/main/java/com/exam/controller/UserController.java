@@ -161,7 +161,7 @@ public class UserController {
 			e.printStackTrace();
 		}
 		session.invalidate();
-		return "user/logout_ok";
+		return "home";
 
 	}
 
@@ -216,7 +216,7 @@ public class UserController {
 			e.printStackTrace();
 		}
 
-		return "user/signup_ok";
+		return "home";
 	}
 	
 	// 카카오로그인 회원정보 설정
