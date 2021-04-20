@@ -268,7 +268,7 @@ public class UserController {
 			e.printStackTrace();
 		}
 
-		return "user/kakaoLogin_editForm_ok";
+		return "home";
 	}
 
 	// 프로필수정에서 id중복조회
