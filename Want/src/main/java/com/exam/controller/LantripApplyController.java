@@ -32,13 +32,13 @@ public class LantripApplyController {
 	@Autowired
 	private LaReplyDAO laReplyDao;
 
-
+	
 	//리눅스 경로
-//	private String uploadPath = "/home/want/apache-tomcat-9.0.44/webapps/Want/upload/lanTrip_apply";
-   
-   //private String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\lanTrip_apply";
-   private String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\lanTrip_apply";
-   //private String uploadPath ="/Users/hyukjun/git/Want/Want/src/main/webapp/upload/lanTrip_apply";
+	//private String uploadPath = "/home/want/apache-tomcat-9.0.44/webapps/Want/upload/lanTrip_apply";
+	   
+	//private String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\lanTrip_apply";
+	private String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\lanTrip_apply";
+	//private String uploadPath ="/Users/hyukjun/git/Want/Want/src/main/webapp/upload/lanTrip_apply";
   
   
 	// 랜선여행 신청 목록					

@@ -24,9 +24,6 @@
 		sbHtml.append( "			<a href='other_profile.do?other_nick="+ to.getWriter() +"'> " );
 		sbHtml.append( " 				<img id='profileImage' src='./upload/profile/"+ to.getProfile() +"' />" );
 		sbHtml.append( "			</a> " );
-		sbHtml.append( "			<a href='other_profile.do?other_nick="+ to.getWriter() +"'> " );
-		sbHtml.append( " 				<img id='profileImage' src='./upload/profile/"+ to.getProfile() +"' />" );
-		sbHtml.append( "			</a> " );
 		sbHtml.append( " 				&nbsp;&nbsp;<span class='small text-muted mb-0'>"+ to.getWriter()+" | "+ to.getWdate() +"</span>" );
 		sbHtml.append( " 			<div class='d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4 boardItem'>" );
 		if( nick == null ) {

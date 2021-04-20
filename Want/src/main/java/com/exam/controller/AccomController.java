@@ -41,14 +41,18 @@ public class AccomController {
 	
 	@Autowired
 	private AccomCommentDAO accomCommentDao;
+
 	
 	//private String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\accom";
 	private String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\accom";
 //	private String uploadPath = "/Users/hyukjun/git/Want/Want/src/main/webapp/upload/accom";
 	
-	//리눅스 경로
-//	private String uploadPath = "/home/want/apache-tomcat-9.0.44/webapps/Want/upload/accom";
 
+	
+	//리눅스경로
+	//private String uploadPath = "/home/want/apache-tomcat-9.0.44/webapps/Want/upload/accom";
+	
+	
 	// 숙소정보 글쓰기
 	@RequestMapping(value = "/accom_write.do")
 	public String accom_write(HttpServletRequest request, Model model ) {
@@ -68,9 +72,7 @@ public class AccomController {
 		
 		int maxFileSize = 1024 * 1024 * 6;
 		String encType = "utf-8";
-      
-
-
+    
 		MultipartRequest multi = null;
 
 		try {
@@ -619,7 +621,7 @@ public class AccomController {
 		
 		int maxFileSize = 1024 * 1024 * 6;
 		String encType = "utf-8";
-    
+		
 		MultipartRequest multi = null;
 
 		try {
