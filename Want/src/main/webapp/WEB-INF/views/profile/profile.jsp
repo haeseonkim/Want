@@ -373,11 +373,6 @@
    //divName은 ajax로 받은 데이터를 append시킬 div명
    const GetList = function( currentPage, doName, divName ){
       
-      //console.log( 'doName : ' + doName );
-      //console.log( 'divName : ' + divName );
-      
-      
-      console.log("2. inGetList의 페이지번호 : "+currentPage + ' / divName ? : ' + divName );
       //하트 컨트롤러 이름 만들어주기
       let heartUrl = 'lanTrip_';
       if( divName == 'lantrip' ) {
@@ -398,12 +393,9 @@
          data:"pageNum="+currentPage,
          //ajax_page.jsp의 내용이 jspPage로 들어온다.
          success:function( jspPage ){
+        	 
             //응답된 문자열은 jsp 형식이다.(profile/게시판명_ajax_page.jsp에 응답내용이 있다.)
             //해당 문자열을 특정div 태그에 붙여준다.
-            
-            
-            console.log( '3. 성공안에서 현재페이지는 ? : ' + currentPage  );
-            
             if( divName == 'lantrip' ) {
                $('#Picture' ).empty();
                $('#shop' ).empty();

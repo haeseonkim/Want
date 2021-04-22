@@ -2285,9 +2285,9 @@
 	<!-- ================== 방문자수 카운트 ================== -->
 	<!-- 오늘날짜로 된 데이터가 있는지 확인 -->
 	<select id="firstCount" resultType="Int">
-		select count(*) from visit
+		select count(*) 
+		from visit
 		where date_format(date,"%Y-%m-%d") = current_date
-
 	</select>
 	
 	<!-- 첫방문자면 데이터를 넣는다. -->

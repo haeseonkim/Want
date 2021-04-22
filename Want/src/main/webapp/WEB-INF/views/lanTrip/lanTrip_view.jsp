@@ -73,7 +73,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
-<title>Insert title here</title>
+<title>WANT 랜선여행하기</title>
 	
 <jsp:include page="../include/index.jsp"></jsp:include>
 

@@ -55,7 +55,23 @@ public class HomeDAO {
 	}
 	
 	public int getVisit() {
-		int visit = sqlSession.selectOne("getVisit");
+		//오늘 날짜 로우 있는지 여부 담는 변수
+		int chkToday = 0;
+		
+		//방문자수 담는 변수, 초기값은 1
+		int visit = 1;
+		
+		//오늘 날짜 로우 존재하면 1, 아니면 0
+		chkToday = sqlSession.selectOne( "firstCount" );
+		
+		//오늘 날짜 로우 존재하지 않으면 visit 테이블에 오늘 날짜 추가하기
+		if( chkToday == 0 ) {
+			sqlSession.insert("firstVisit");
+			
+		} else {
+			visit = sqlSession.selectOne("getVisit");
+		}
+		
 		return visit;
 	}
 	
