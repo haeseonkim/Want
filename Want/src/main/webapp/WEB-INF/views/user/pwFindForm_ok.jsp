@@ -1,4 +1,4 @@
-<%@page import="com.exam.model1.user.UserTO"%>
+<%@ page import="com.exam.model1.user.UserTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
@@ -7,10 +7,6 @@
 
 	String id = (String)request.getAttribute("id");
 	String pwd = (String)request.getAttribute("pwd");
-	
-/* 	System.out.println(request.getAttribute("flag"));
-	System.out.println(id);
-	System.out.println(pwd); */
 	
 	int flag = (Integer)request.getAttribute( "flag" );
 	out.println( " <script type='text/javascript'> " );

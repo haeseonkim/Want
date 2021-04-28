@@ -46,8 +46,8 @@ public class LantripApplyController {
 			request.setCharacterEncoding("utf-8");
 			LanTripApplyListTO listTO = new LanTripApplyListTO();
 			listTO.setCpage(Integer
-					.parseInt(request.getParameter("cpage") == null || request.getParameter("cpage").equals("") ? "1"
-							: request.getParameter("cpage")));
+					.parseInt(request.getParameter("cpage") == null 
+					|| request.getParameter("cpage").equals("") ? "1" : request.getParameter("cpage")));
 			listTO = dao.boardList(listTO);
 
 			model.addAttribute("listTO", listTO);

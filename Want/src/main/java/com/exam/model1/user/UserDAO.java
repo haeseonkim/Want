@@ -168,7 +168,7 @@ public class UserDAO {
 		return result;
 	}
 	
-	//회원 비번 닉네임 가져오기
+	//회원 비번 가져오기
 	public UserTO pwFind_select( UserTO userTo ) {
 		UserTO to = sqlSession.selectOne("pwFind_select", userTo);
 		return to;
