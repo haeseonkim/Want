@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>프로필 보기</title>
+<title>WANT 다른 프로필</title>
 
 <jsp:include page="../include/index.jsp"></jsp:include>
 

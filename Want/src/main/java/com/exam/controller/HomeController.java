@@ -44,9 +44,12 @@ public class HomeController {
 		ArrayList<ShoppingTO> shopList = homeDao.s_best3();
 		// accom best 게시물3
 		ArrayList<AccomTO> accomList = homeDao.a_best3();
-
-		// 오늘 방문자수
+		
+		
+		//visit 테이블에 오늘 날짜 로우있는지 확인하고 없으면 새로insert
+		//오늘 날짜 로우 있으면 방문자수만 가져온다.
 		int visit = homeDao.getVisit();
+		
 		// 회원수
 		int member = homeDao.getMember();
 		// 게시물 수

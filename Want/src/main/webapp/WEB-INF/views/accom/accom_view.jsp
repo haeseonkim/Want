@@ -120,7 +120,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Want 숙소 정보</title>
+<title>Want 숙소정보</title>
 
 <jsp:include page="../include/index.jsp"></jsp:include>
 
