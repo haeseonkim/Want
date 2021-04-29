@@ -346,7 +346,7 @@ public class UserController {
 				
 				// 암호화 된 비밀번호 풀어주는 작업
 				String key = "secret Key";
-				String realPwd = userDao.pwFindDecry(userTo).getPwd();
+				String realPwd = userDao.pwFind_select(userTo).getPwd();
 				String decryPwd = userDao.decryptAES(realPwd, key);
 				
 				// 비밀번호 길이를 2로 나누어서

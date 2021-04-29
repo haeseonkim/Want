@@ -187,32 +187,32 @@ for (withTO to : boardLists) {
 			if (startBlock == 1) {
 			out.println("&lt;&lt;&nbsp;&nbsp;");
 		} else {
-			out.println("<a href='with_list.jsp?cpage=" + (startBlock - blockPerPage) + "'>&lt;&lt;</a>");
+			out.println("<a href='with_list.do?cpage=" + (startBlock - blockPerPage) + "'>&lt;&lt;</a>");
 		}
 
 		if (cpage == 1) {
 			out.println("&lt;&nbsp;&nbsp;");
 		} else {
-			out.println("<a href='with_list.jsp?cpage=" + (cpage - 1) + "'>&lt;</a>");
+			out.println("<a href='with_list.do?cpage=" + (cpage - 1) + "'>&lt;</a>");
 		}
 		for (int i = startBlock; i <= endBlock; i++) {
 			if (cpage == i) {
 				out.println("<a href='#' style='color: red'>[ " + i + " ]</a>");
 			} else {
-				out.println("<a href='with_list.jsp?cpage=" + i + "'>[ " + i + " ]</a>");
+				out.println("<a href='with_list.do?cpage=" + i + "'>[ " + i + " ]</a>");
 			}
 		}
 
 		if (cpage == totalPage) {
 			out.println("&nbsp;&nbsp;&gt;&nbsp;&nbsp;");
 		} else {
-			out.println("<a href='with_list.jsp?cpage=" + (cpage + 1) + "'>&gt;</a>");
+			out.println("<a href='with_list.do?cpage=" + (cpage + 1) + "'>&gt;</a>");
 		}
 
 		if (endBlock == totalPage) {
 			out.println("&gt;&gt;&nbsp;");
 		} else {
-			out.println("<a href='with_list.jsp?cpage=" + (startBlock + blockPerPage) + "'>&gt;&gt;</a>");
+			out.println("<a href='with_list.do?cpage=" + (startBlock + blockPerPage) + "'>&gt;&gt;</a>");
 		}
 		%>
 	</div>
