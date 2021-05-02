@@ -268,8 +268,8 @@ window.onload = function() {
 	};
 	
 	//개인정보방침보이는 modal창 설정
-	$( '#dialog' ).dialog({
-		width: 700,
+/* 	$( '#dialog' ).dialog({
+		width: 450,
 		height: 500,
 		autoOpen: false,
 		modal: true,
@@ -278,23 +278,15 @@ window.onload = function() {
 			'확인': function() {
 				$( this ).dialog( 'close' );
 			}
-		},
-		show: {
-			effect: 'blind',
-			duration: 1000
-		},
-		hide: {
-			effect: 'blind',
-			duration: 1000
 		}
-	})
+	}) 
 };
 
 //개인정보방침 modal창 띄우기
 function agree() {
 	$( '#dialog' ).dialog( 'open' );
 }
-
+ */
 
 </script>
 </head>
@@ -389,18 +381,74 @@ function agree() {
 		<div class="form-group row">
 			<div class="col-8 offset-4">
 				<%-- 동의 사항 내용은 modal창으로 클릭하면 뜨게 만들기 --%>
-				<p><label class="form-check-label"><input type="checkbox" name="info" required="required"><a id="agree" href="javascript:agree();">개인정보취급방침</a>에 동의하십니까?</label></p>
+				<p>
+					<label class="form-check-label">
+						<input type="checkbox" name="info" required="required">
+						<a id="agree" href="javascript:agree();" data-bs-toggle="modal" data-bs-target="#modal">개인정보취급방침</a>에 동의하십니까?
+					</label>
+				</p>
 				<button type="submit" id="submit1" class="btn btn-primary btn-lg">회원가입</button>
 			</div>  
 			
-			<!-- 개인정보방침 modal창 내용 -->  
-			<div id="dialog" title="개인정보취급방침">
-				<p>
-				1. 수집 개인정보 항목 : 회사명, 담당자명, 메일 주소, 전화번호, 홈페이지 주소, 팩스번호, 주소 <br />
-				2. 개인정보의 수집 및 이용목적 : 제휴신청에 따른 본인확인 및 원활한 의사소통 경로 확보 <br />
-				3. 개인정보의 이용기간 : 모든 검토가 완료된 후 3개월간 이용자의 조회를 위하여 보관하며, 이후 해당정보를 지체 없이 파기합니다. <br />
-				4. 그 밖의 사항은 개인정보취급방침을 준수합니다.
-				</p>
+			<!-- 개인정보방침 modal창 내용 -->
+			<div class="modal fade" id="modal" tabindex="-1">
+			<div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title"><b>&lt;WANT&gt;</b>개인정보취급방침</h5>
+					</div>
+					<div class="modal-body">
+						<div id="dialog" title="개인정보취급방침" class="modal-dialog">
+						<p><b>&lt;Want&gt;</b>은(는) ｢개인정보 보호법｣ 제30조에 따라 정보주체의 개인정보를 보호하고 이와 관련한 고충을 신속하고 원활하게 처리할 수 있도록 하기 위하여 다음과 같이 개인정보 처리방침을 수립·공개합니다.</p>
+							<ul>
+								<li><b>제1조(개인정보의 처리목적)</b> &lt;WANT&gt;은(는) 다음의 목적을 위하여 개인정보를 처리합니다. 처리하고 있는 개인정보는 다음의 목적 이외의 용도로는 이용되지 않으며, 이용 목적이 변경되는 경우에는 ｢개인정보 보호법｣ 제18조에 따라 별도의 동의를 받는 등 필요한 조치를 이행할 예정입니다.
+									<ol>
+										<li>홈페이지 회원 가입 및 관리</li>
+										회원 가입의사 확인, 회원제 서비스 제공에 따른 본인 식별․인증, 회원자격 유지․관리, 서비스 부정이용 방지, 만 14세 미만 아동의 개인정보 처리 시 법정대리인의 동의여부 확인, 각종 고지․통지, 고충처리 목적으로 개인정보를 처리합니다. 
+										<li>재화 또는 서비스 제공</li>
+										물품배송, 서비스 제공, 계약서․청구서 발송, 콘텐츠 제공, 맞춤서비스 제공, 본인인증, 연령인증, 요금결제․정산, 채권추심을 목적으로 개인정보를 처리합니다. 
+										<li>고충처리</li>
+										민원인의 신원 확인, 민원사항 확인, 사실조사를 위한 연락․통지, 처리결과 통보의 목적으로 개인정보를 처리합니다. 
+										<li>WANT의 개인정보 처리 업무</li>
+										&lt;개인정보 처리업무에 따른 처리목적&gt;으로 개인정보를 처리합니다. 
+									</ol>
+								</li> 
+								<li><b>제2조(개인정보의 처리 및 보유기간)</b> ① &lt;WANT&gt;은(는) 법령에 따른 개인정보 보유․이용기간 또는 정보주체로부터 개인정보를 수집 시에 동의받은 개인정보 보유․이용기간 내에서 개인정보를 처리․보유합니다.<br/>② 각각의 개인정보 처리 및 보유 기간은 다음과 같습니다. 
+									<ol>
+										<li>홈페이지 회원 가입 및 관리 : 사업자/단체 홈페이지 탈퇴 시까지<br />다만, 다음의 사유에 해당하는 경우에는 해당 사유 종료 시까지
+											<dl>
+												<dd>1) 관계 법령 위반에 따른 수사․조사 등이 진행 중인 경우에는 해당 수사․조사 종료 시까지</dd>
+												<dd>2) 홈페이지 이용에 따른 채권․채무관계 잔존 시에는 해당 채권․채무관계 정산 시까지</dd>
+												<dd>3) &lt;예외 사유&gt; 시에는 &lt;보유기간&gt; 까지</dd>
+											</dl>
+										</li>
+											
+										<li>재화 또는 서비스 제공 : 재화․서비스 공급완료 및 요금결제․정산 완료시까지<br />  다만, 다음의 사유에 해당하는 경우에는 해당 기간 종료 시까지 
+											<dl>
+												<dd> 1) 「전자상거래 등에서의 소비자 보호에 관한 법률」에 따른 표시․광고, 계약내용 및 이행 등 거래에 관한 기록<br />
+											        - 표시․광고에 관한 기록 : 6개월 <br />
+											        - 계약 또는 청약철회, 대금결제, 재화 등의 공급기록 : 5년  <br />
+											        - 소비자 불만 또는 분쟁처리에 관한 기록 : 3년 
+        										</dd>
+												<dd>2) 「통신비밀보호법」에 따른 통신사실확인자료 보관<br />
+											       - 가입자 전기통신일시, 개시․종료시간, 상대방 가입자번호, 사용도수, 발신기지국 위치추적자료 : 1년 <br />
+											       - 컴퓨터통신, 인터넷 로그기록자료, 접속지 추적자료 : 3개월<br />
+       											</dd>
+												<dd>3) &lt;개인정보 보유기간 근거법령 및 조문&gt; : &lt;3개월&gt;</dd>
+											</dl>
+										</li>
+										<li>&lt;개인정보 처리업무&gt; : &lt;3개월&gt;</li>
+									</ol>
+								</li>
+								<li><b>기타 모든 사항은 개인정보 처리 방침을 따릅니다.</b></li>
+							</ul>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-bs-dismiss="modal">닫기</button>
+					</div>
+				</div>
+			</div>
 			</div>
 		</div>		      
     </form>

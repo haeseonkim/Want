@@ -891,3 +891,8 @@ div.card-footer{
 .space{
 	margin-top:30px;
 }
+
+.img-circle {
+    border-radius: 70%;
+    object-fit: cover;
+}

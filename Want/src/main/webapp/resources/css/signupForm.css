@@ -87,3 +87,6 @@ body {
 .signup-form form a:hover {
 	text-decoration: underline;
 }
+#modal {
+	color:black;
+}

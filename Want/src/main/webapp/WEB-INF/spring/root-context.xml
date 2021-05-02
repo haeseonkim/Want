@@ -10,7 +10,7 @@
 		<!-- <property name="url" value="jdbc:mysql://localhost:3306/want" /> -->
 		<property name="url" value="jdbc:mysql://localhost:3306/want" />
 		<property name="username" value="root" />
-		<property name="password" value="123456" />
+		<property name="password" value="!123456" />
 	</bean>
 
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
