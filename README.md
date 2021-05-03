@@ -41,12 +41,19 @@ WANT (What A Nice Trip)
 
 
 ⚙개발환경 및 개발언어
+==================
+
+<br />
+<br />
+
+
 🤼 ♂Team Resume & Portfolio
+==================
 기획 및 개발
-김해선 | https://www.notion.so/Resume-a6a70ae584b9459f8f4e16a99cc21be1
-박혁준 | https://www.notion.so/Resume-of-Juuunew-f609af8cae8f479c9d23dc087c33f938
-이지훈 | https://www.notion.so/Ji-Hoon-s-Resume-10c2522e307141739011678922bfc89b
-정현수 | https://www.notion.so/96284bf90f2c4bd8bc8d363281e9fce2
+김해선 | https://www.notion.so/Resume-a6a70ae584b9459f8f4e16a99cc21be1  
+박혁준 | https://www.notion.so/Resume-of-Juuunew-f609af8cae8f479c9d23dc087c33f938  
+이지훈 | https://www.notion.so/Ji-Hoon-s-Resume-10c2522e307141739011678922bfc89b  
+정현수 | https://www.notion.so/96284bf90f2c4bd8bc8d363281e9fce2  
 
 
 
