@@ -209,7 +209,7 @@
 					<button type="button" class="btn btn-secondary"
 						data-bs-dismiss="modal">아니요</button>
 					<button type="button" class="btn btn-primary"
-						onclick="location.href='./lanTrip_modify.do?no=${tmp.no}'">네</button>
+						onclick="location.href='./shopping_modify.do?no=${tmp.no}'">네</button>
 				</div>
 			</div>
 		</div>
@@ -231,7 +231,7 @@
 					<button type="button" class="btn btn-secondary"
 						data-bs-dismiss="modal">아니요</button>
 					<button type="button" class="btn btn-primary"
-						onclick="location.href='javascript:BoardDelete(${tmp.no})'">네</button>
+						onclick="location.href='javascript:BoardDelete(${tmp.no}, 3)'">네</button>
 				</div>
 			</div>
 		</div>

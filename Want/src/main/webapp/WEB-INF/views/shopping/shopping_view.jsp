@@ -9,7 +9,6 @@
 	request.setCharacterEncoding("utf-8");
 	String sa = request.getParameter( "sa" );
 	String location = request.getParameter( "location" );
-	String cpage = request.getParameter( "cpage" );
 	String no = request.getParameter( "no" );
 	
 	String nick = (String)session.getAttribute( "nick" );
@@ -35,7 +34,6 @@
 		sbHtml.append( "<input type='hidden' name='no' value='"+commentTo.getNo()+"' />" );
 		sbHtml.append( "<input type='hidden' name='bno' value='"+no+"' />" );
 		sbHtml.append( "<input type='hidden' name='writer' value='"+nick+"' />" );
-		sbHtml.append( "<input type='hidden' name='cpage' value='"+cpage+"' />" );
 		sbHtml.append( "<input type='hidden' name='grp' value='"+commentTo.getGrp()+"' />" );
 		
 		sbHtml.append( "<table class='table table-bordered table_reply_view'> " );
@@ -387,7 +385,6 @@ $(document).ready( function() {
 			<div class="view4">
 				<form action="./shopping_view_comment_ok.do" method="post" name="cfrm">
 					<input type="hidden" name="no" value="<%=no %>" />
-					<input type="hidden" name="cpage" value="<%=cpage %>" />
 					<table class="table table-bordered table_reply">
 					<tr>
 						<td width="94%">
@@ -436,7 +433,7 @@ $(document).ready( function() {
 			<tr>
 				<td class="coment_re" width="20%">
 					<div class="btn_list">
-						<input type="button" id="submit_list" value="목록" class="btn btn-success btn_list" onclick="location.href='./shopping_list.do?cpage=<%=cpage %>&location=<%=location%>'" />
+						<input type="button" id="submit_list" value="목록" class="btn btn-success btn_list" onclick="location.href='./shopping_list.do?location=<%=location%>'" />
 					</div>
 					<div class="btn_dm">
 					<c:choose>		
@@ -449,7 +446,6 @@ $(document).ready( function() {
 								<input type="hidden" name="no" value="<%=no %>"/>
 								<input type="hidden" name="location" value="<%= location %>" />
 								<input type="hidden" name="subject" value="<%= subject %>" />
-								<input type="hidden" name="cpage" value="<%= cpage %>" />
 								<input type="hidden" name="writer" value="<%= writer %>" />
 								<input type="hidden" name="content" value="<%= content %>" />
 								<input type="hidden" name="picture" value="<%= picture %>" />

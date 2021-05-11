@@ -20,7 +20,7 @@
 <jsp:include page="../include/index.jsp"></jsp:include>
    
 <!-- CSS File -->
-<link href="./resources/css/favorite_list.css?daa" rel="stylesheet">
+<link href="./resources/css/favorite_list.css?da" rel="stylesheet">
 <link href="./resources/css/navbar.css" rel="stylesheet">
 
 <script type="text/javascript">

@@ -232,7 +232,7 @@
 					<button type="button" class="btn btn-secondary"
 						data-bs-dismiss="modal">아니요</button>
 					<button type="button" class="btn btn-primary"
-						onclick="location.href='javascript:BoardDelete(${tmp.no})'">네</button>
+						onclick="location.href='javascript:BoardDelete(${tmp.no}, 1)'">네</button>
 				</div>
 			</div>
 		</div>
