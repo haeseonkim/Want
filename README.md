@@ -42,6 +42,7 @@ WANT (What A Nice Trip)
 
 ⚙개발환경 및 개발언어
 ==================
+Java HTML CSS Spring MariaDB
 
 <br />
 <br />
