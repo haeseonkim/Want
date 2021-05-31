@@ -267,6 +267,8 @@ window.onload = function() {
 		document.sfrm.submit();
 	};
 	
+};
+	
 	//개인정보방침보이는 modal창 설정
 /* 	$( '#dialog' ).dialog({
 		width: 450,
@@ -280,7 +282,7 @@ window.onload = function() {
 			}
 		}
 	}) 
-};
+
 
 //개인정보방침 modal창 띄우기
 function agree() {

@@ -87,6 +87,13 @@ public class AccomDAO {
 		return flag;
 	}
 	
+	// modify
+	public AccomTO accomModify(AccomTO to) {
+		AccomTO board = sqlSession.selectOne("accom_modify", to);
+
+		return board;
+	}
+	
 	//숙소 modify_ok
 	public int accomModifyOk( AccomTO to ) {
 		

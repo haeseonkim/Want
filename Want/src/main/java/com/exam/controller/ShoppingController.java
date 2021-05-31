@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+import com.exam.model1.picture.PictureTO;
 import com.exam.model1.shopHeart.ShopHeartDAO;
 import com.exam.model1.shopHeart.ShopHeartTO;
 import com.exam.model1.shopping.ShoppingDAO;
@@ -44,12 +45,13 @@ public class ShoppingController {
 
 	// 각자 맞는 upload 폴더 경로로 변경
   
-	private String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\shopping";
-//	private String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\shopping";
+	//private String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\shopping";
+	//private String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\shopping";
 	//private String uploadPath ="/Users/hyukjun/git/Want/Want/src/main/webapp/upload/shopping";
-
+	//private String uploadPath = "C:\\KICKIC\\Want\\Want\\src\\main\\webapp\\upload\\shopping";
+	
 	//리눅스 경로
-	//private String uploadPath = "/home/want/apache-tomcat-9.0.44/webapps/Want/upload/shopping";
+	private String uploadPath = "/home/want/apache-tomcat-9.0.44/webapps/Want/upload/shopping";
    
 	// 쇼핑정보 write
 	@RequestMapping(value = "/shopping_write.do")
@@ -553,18 +555,14 @@ public class ShoppingController {
 		try {
 			request.setCharacterEncoding("utf-8");
 			
-			String cpage = request.getParameter( "cpage" );
 			String location = request.getParameter( "location" );
 			String no = request.getParameter( "no" );
-			String writer = request.getParameter( "writer" );
 			
 			ShoppingTO to = new ShoppingTO();
-			to.setWriter( writer );
 			to.setNo(no);
 			
 			int flag = shopDao.shopDeleteOk( to );
-			
-			request.setAttribute( "cpage", cpage );
+
 			request.setAttribute( "location", location );
 			request.setAttribute( "flag", flag );
 			
@@ -582,26 +580,23 @@ public class ShoppingController {
 	
 	// 쇼핑 modify
 	@RequestMapping(value = "/shopping_modify.do")
-	public String shopping_modify(HttpServletRequest request, HttpServletResponse response) {
+	public String modify(@RequestParam String no, HttpSession session, HttpServletRequest request) {
+
 		try {
 			request.setCharacterEncoding("utf-8");
 			
-			String cpage = request.getParameter( "cpage" );
-			String no = request.getParameter( "no" );
-			String writer = request.getParameter( "writer" );
-			String subject = request.getParameter( "subject" );
-			String location = request.getParameter( "location" );
-			String picture = request.getParameter( "picture" );
-			String content = request.getParameter( "content" );
-			
-			request.setAttribute( "cpage", cpage );
-			request.setAttribute( "no", no );
-			request.setAttribute( "writer", writer );
-			request.setAttribute( "subject", subject );
-			request.setAttribute( "location", location );
-			request.setAttribute( "subject", subject );
-			request.setAttribute( "picture", picture );
-			request.setAttribute( "content", content );
+			ShoppingTO to = new ShoppingTO();
+			to.setNo(no);
+
+			// 현재 사용자 nick 세팅
+			to.setNick((String) session.getAttribute("nick"));
+
+			to = shopDao.shopModify(to);
+
+			// 현재 사용자 nick 다시 세팅
+			to.setNick((String) session.getAttribute("nick"));
+
+			request.setAttribute("to", to);
 			
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block

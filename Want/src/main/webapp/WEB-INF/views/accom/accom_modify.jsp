@@ -6,13 +6,14 @@
 <%
 	request.setCharacterEncoding("utf-8");
 
-	String cpage = request.getParameter( "cpage" );
-	String no = request.getParameter( "no" );
-	String writer = request.getParameter( "writer" );
-	String subject = request.getParameter( "subject" );
-	String location = request.getParameter( "location" );
-	String picture = request.getParameter( "picture" );
-	String content = request.getParameter( "content" );
+	AccomTO to = (AccomTO)request.getAttribute( "to" );
+	
+	String no = to.getNo();
+	String writer = to.getWriter();
+	String subject = to.getSubject();
+	String location = to.getLocation();
+	String picture = to.getPicture();
+	String content = to.getContent();
 	
 %>
 
@@ -151,7 +152,6 @@
 				</div>
 				<div class="card-body">
 					<form action="./accom_modify_ok.do" method="post" name="wfrm" enctype="multipart/form-data">
-						<input type="hidden" name="cpage" value="<%=cpage %>" />
 						<input type="hidden" name="no" value="<%=no %>" />
 						
 						<div class="form-row">

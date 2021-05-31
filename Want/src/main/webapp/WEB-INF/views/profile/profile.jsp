@@ -258,60 +258,7 @@
       </div>
       </form>
       
-<%--
-   </section>
-   
-   
-   <!-- 내 피드 섹션 -->
-   <section id="my-feed" class="container">
-      <div class="row">
-         <div class="col-6">
-            <h1><b>내 피드</b></h1>
-         </div>
-         <br />
-         <div class="col-12">
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
-               <li class="nav-item" role="presentation">
-                  <button class="nav-link active" id="lan" data-bs-toggle="tab"
-                     data-bs-target="#lantrip" type="button" role="tab"
-                     aria-controls="home" aria-selected="true">랜선여행</button>
-               </li>
-               <li class="nav-item" role="presentation">
-                  <button class="nav-link" id="pic" data-bs-toggle="tab"
-                     data-bs-target="#Picture" type="button" role="tab"
-                     aria-controls="profile" aria-selected="false">사진자랑</button>
-               </li>
-               <li class="nav-item" role="presentation">
-                  <button class="nav-link" id="sho" data-bs-toggle="tab"
-                     data-bs-target="#shop" type="button" role="tab"
-                     aria-controls="contact" aria-selected="false">쇼핑정보</button>
-               </li>
-               <li class="nav-item" role="presentation">
-                  <button class="nav-link" id="acc" data-bs-toggle="tab"
-                     data-bs-target="#accom" type="button" role="tab"
-                     aria-controls="contact" aria-selected="false">숙소정보</button>
-               </li>
-            </ul>
-         </div>
-         <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade show active" id="lantrip" role="tabpanel" aria-labelledby="home-tab">
-            </div>
-            <div class="tab-pane fade" id="Picture" role="tabpanel" aria-labelledby="profile-tab">
-            </div>
-            <div class="tab-pane fade" id="shop" role="tabpanel" aria-labelledby="contact-tab">
-            </div>
-            <div class="tab-pane fade" id="accom" role="tabpanel" aria-labelledby="contact-tab">
-            </div>
-         </div>
-      </div>
 
-       
-
-         
-      
-   </section>
-   <!-- 내 피드 섹션 끝 -->   
-   --%>
 <!-- 내 피드 관련 자바스크립트 -->
 <script>
 
@@ -741,8 +688,19 @@
    };
    
    //게시글 삭제하기
-   const BoardDelete = function( no, divName ){
+   const BoardDelete = function( no, DoName ){
       //alert("함수들어왔다!");
+      let divName = '';
+      
+      if( DoName == 1 ) {
+    	  divName = 'lanTrip';
+      } else if( DoName == 2 ) {
+    	  divName = 'picture';
+      } else if( DoName == 3 ) {
+    	  divName = 'shopping';
+      } else {
+    	  divName = 'accom';
+      }
       
       $.ajax({
          url : divName+'_delete_ok.do',
@@ -791,7 +749,7 @@
       let ajaxDoName = '';
       if( divName == 'lantrip' ) {
          ajaxDoName = 'profile_lanTrip_ajax_page.do';
-      } else if( divName == 'picture' ) {
+      } else if( divName == 'Picture' ) {
          ajaxDoName = 'profile_picture_ajax_page.do';
       } else if( divName == 'shop' ) {
          ajaxDoName = 'profile_shop_ajax_page.do';

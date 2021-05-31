@@ -43,14 +43,13 @@ public class AccomController {
 	private AccomCommentDAO accomCommentDao;
 
 	
-	private String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\accom";
-//	private String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\accom";
-//	private String uploadPath = "/Users/hyukjun/git/Want/Want/src/main/webapp/upload/accom";
-	
+	//private String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\accom";
+	//private String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\accom";
+	//private String uploadPath = "/Users/hyukjun/git/Want/Want/src/main/webapp/upload/accom";
+	//private String uploadPath = "C:\\KICKIC\\Want\\Want\\src\\main\\webapp\\upload\\accom";
 
-	
 	//리눅스경로
-	//private String uploadPath = "/home/want/apache-tomcat-9.0.44/webapps/Want/upload/accom";
+	private String uploadPath = "/home/want/apache-tomcat-9.0.44/webapps/Want/upload/accom";
 	
 	
 	// 숙소정보 글쓰기
@@ -558,10 +557,8 @@ public class AccomController {
 			
 			String location = request.getParameter( "location" );
 			String no = request.getParameter( "no" );
-			String writer = request.getParameter( "writer" );
 			
 			AccomTO to = new AccomTO();
-			to.setWriter( writer );
 			to.setNo(no);
 			
 			int flag = accomDao.accomDelete( to );
@@ -583,26 +580,23 @@ public class AccomController {
 	
 	// 숙소 modify
 	@RequestMapping(value = "/accom_modify.do")
-	public String accom_modify(HttpServletRequest request, HttpServletResponse response) {
+	public String modify(@RequestParam String no, HttpSession session, HttpServletRequest request) {
+
 		try {
 			request.setCharacterEncoding("utf-8");
 			
-			String cpage = request.getParameter( "cpage" );
-			String no = request.getParameter( "no" );
-			String writer = request.getParameter( "writer" );
-			String subject = request.getParameter( "subject" );
-			String location = request.getParameter( "location" );
-			String picture = request.getParameter( "picture" );
-			String content = request.getParameter( "content" );
-			
-			request.setAttribute( "cpage", cpage );
-			request.setAttribute( "no", no );
-			request.setAttribute( "writer", writer );
-			request.setAttribute( "subject", subject );
-			request.setAttribute( "location", location );
-			request.setAttribute( "subject", subject );
-			request.setAttribute( "picture", picture );
-			request.setAttribute( "content", content );
+			AccomTO to = new AccomTO();
+			to.setNo(no);
+
+			// 현재 사용자 nick 세팅
+			to.setNick((String) session.getAttribute("nick"));
+
+			to = accomDao.accomModify(to);
+
+			// 현재 사용자 nick 다시 세팅
+			to.setNick((String) session.getAttribute("nick"));
+
+			request.setAttribute("to", to);
 			
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block

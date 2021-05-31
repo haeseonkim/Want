@@ -88,6 +88,14 @@ public class ShoppingDAO {
 		return flag;
 	}
 	
+	// modify
+	public ShoppingTO shopModify(ShoppingTO to) {
+		ShoppingTO board = sqlSession.selectOne("shop_modify", to);
+
+		return board;
+	}
+	
+	
 	//쇼핑 modify_ok
 	public int shopModifyOk( ShoppingTO to ) {
 		

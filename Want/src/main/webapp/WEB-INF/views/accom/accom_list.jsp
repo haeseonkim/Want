@@ -294,7 +294,7 @@
 				console.log("빈하트 클릭" + no);
 				
 				$.ajax({
-					url : 'shop_saveHeart.do',
+					url : 'accom_saveHeart.do',
 					type : 'get',
 					data : {
 						no : no,
@@ -322,7 +322,7 @@
 				console.log("꽉찬하트 클릭" + no);
 				
 				$.ajax({
-					url : 'shop_removeHeart.do',
+					url : 'accom_removeHeart.do',
 					type : 'get',
 					data : {
 						no : no,

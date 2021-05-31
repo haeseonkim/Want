@@ -71,12 +71,13 @@ public class ProfileController {
    @Autowired
    private AccomCommentDAO a_replyDao;
    
-	private String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\profile";
-//	private String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\profile";
+	//private String uploadPath = "C:\\Git_Local\\Want\\src\\main\\webapp\\upload\\profile";
+	//private String uploadPath = "C:\\KICKIC\\git repo\\Want\\Want\\src\\main\\webapp\\upload\\profile";
 	//private String uploadPath ="/Users/hyukjun/git/Want/Want/src/main/webapp/upload/profile";
-	
+	//private String uploadPath = "C:\\KICKIC\\Want\\Want\\src\\main\\webapp\\upload\\profile";
+   
 	//리눅스 경로
-	//private String uploadPath = "/home/want/apache-tomcat-9.0.44/webapps/Want/upload/picture";
+	private String uploadPath = "/home/want/apache-tomcat-9.0.44/webapps/Want/upload/profile";
   
    // 내 프로필
    @RequestMapping(value = "/profile.do")
